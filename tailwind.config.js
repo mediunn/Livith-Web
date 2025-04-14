@@ -6,9 +6,7 @@ export default {
       colors: {
         mainYellow30: "#FFFF97",
         mainYellow60: "#FFEB56",
-
         caution100: "#E11936",
-
         grayScaleBlack100: "#14171B",
         grayScaleBlack90: "#222831",
         grayScaleBlack80: "#2F3745",
@@ -18,9 +16,20 @@ export default {
         grayScaleWhite: "#FFFFFF",
       },
       fontFamily: {
-        productSans: ["ProductSans", "sans-serif"],
-        inter: ["Inter", "sans-serif"],
-        googleSansDisplay: ["GoogleSansDisplay", "sans-serif"],
+        NotoSansKR: ["NotoSansKR", "sans-serif"],
+      },
+      fontSize: {
+        "head-lg": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "head-sm": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "body-lg": ["18px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "body-md": ["16px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "body-sm": ["14px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "caption-lg": ["12px", { lineHeight: "1.3", letterSpacing: "-0.05em" }],
+        "caption-sm": ["12px", { lineHeight: "1.2", letterSpacing: "-0.05em" }],
+        "caption-ssm": [
+          "10px",
+          { lineHeight: "1.2", letterSpacing: "-0.05em" },
+        ],
       },
     },
   },
