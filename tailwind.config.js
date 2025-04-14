@@ -4,10 +4,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        test: "red", // border 테스트용
-        mainWhite: "#F1F3F4",
-        mainRed: "#EA4335",
-        mainBlue: "#4285F4",
+        mainYellow30: "#FFFF97",
+        mainYellow60: "#FFEB56",
+
+        caution100: "#E11936",
+
+        grayScaleBlack100: "#14171B",
+        grayScaleBlack90: "#222831",
+        grayScaleBlack80: "#2F3745",
+        grayScaleBlack50: "#808794",
+        grayScaleBlack30: "#DBDCDF",
+        grayScaleBlack5: "#F2F4F6",
+        grayScaleWhite: "#FFFFFF",
       },
       fontFamily: {
         productSans: ["ProductSans", "sans-serif"],
