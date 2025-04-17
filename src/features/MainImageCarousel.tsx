@@ -4,12 +4,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CarouselSlide from "../shared/CarouselSlide";
 import "../shared/styles/slick-theme.css";
-
-// SVG 경로
 import PrevArrow from "../shared/assets/PrevArrow.svg";
 import NextArrow from "../shared/assets/NextArrow.svg";
 
 function MainImageCarousel() {
+  // pc일 경우 마우스 hover시 캐러셀 전환 버튼 나타나도록
   const [isHovered, setIsHovered] = useState(false);
 
   const CustomPrevArrow = (props: any) => {
@@ -41,22 +40,22 @@ function MainImageCarousel() {
   };
 
   const settings = {
-    dots: true,
-    arrows: true,
+    dots: true /* 인덱스 */,
+    arrows: true /* 버튼 전환 허용 */,
     fade: true,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     waitForAnimate: false,
-    swipe: true,
-    draggable: true,
+    swipe: true /* 스와이프 전환 허용 */,
+    draggable: true /* 드래그 전환 허용 */,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
   };
 
   return (
     <div
-      className="slider-container relative w-[375px] h-[365px]"
+      className="slider-container relative w-375 h-365"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
