@@ -12,7 +12,7 @@ function CarouselSlide({ category, title, imageUrl }: CarouselSlideProps) {
           {category}
         </p>
       </div>
-      <p className="font-bold font-NotoSansKR text-grayScaleWhite absolute top-257 left-19 m-0">
+      <p className="absolute top-257 left-19 text-grayScaleWhite text-title font-bold font-NotoSansKR m-0">
         {title}
       </p>
       <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
