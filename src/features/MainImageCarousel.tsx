@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CarouselSlide from "../shared/CarouselSlide";
+import "../shared/styles/slick-theme.css";
 
 function MainImageCarousel() {
   const settings = {
