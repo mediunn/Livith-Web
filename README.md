@@ -1,4 +1,4 @@
-# Livith <img src="https://github.com/user-attachments/assets/367db8cb-b65e-4640-b6b3-6f886690f69e" width="100" align="left" />
+# Livith <img src="https://avatars.githubusercontent.com/u/202433003?s=200&v=4" width="100" align="left" />
 
 모두가 라이브를 통해 빛나는 순간
 
@@ -64,6 +64,7 @@
 - **작업 내용** : 리팩토링이 필요한 부분 설명
 - **리팩토링 이유** :
   - [ ] 가독성 향상
+  - [ ] 코드 재사용성 증대
   - [ ] 성능 최적화
 - **리팩토링 결과** : 리팩토링 후 결과 작성
 
