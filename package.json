@@ -13,11 +13,16 @@
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@types/react-slick": "^0.23.13",
     "axios": "^1.8.3",
+    "embla-carousel-react": "^8.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0",
-    "recoil": "^0.7.7"
+    "react-slick": "^0.30.3",
+    "recoil": "^0.7.7",
+    "slick-carousel": "^1.8.1",
+    "tailwindcss-preset-px-to-rem": "^1.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

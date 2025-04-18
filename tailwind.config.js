@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const pxToRem = require("tailwindcss-preset-px-to-rem");
+
+module.exports = {
+  presets: [pxToRem],
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -19,6 +22,7 @@ export default {
         NotoSansKR: ["NotoSansKR", "sans-serif"],
       },
       fontSize: {
+        title: ["26px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "head-lg": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "head-sm": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "body-lg": ["18px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
