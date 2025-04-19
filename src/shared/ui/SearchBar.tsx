@@ -1,7 +1,7 @@
 import LogoIcon from "../assets/LogoIcon.svg";
 import SearhIcon from "../assets/SearchIcon.svg";
 
-function SerchBar() {
+function SearchBar() {
   return (
     <div className="flex item-center justify-between w-375 h-60">
       <img src={LogoIcon} alt="logo" className="pl-16 pt-20 w-101 h-25" />
@@ -12,4 +12,4 @@ function SerchBar() {
   );
 }
 
-export default SerchBar;
+export default SearchBar;
