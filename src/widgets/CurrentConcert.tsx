@@ -12,7 +12,7 @@ function CurrentConcert() {
           <img src={ConcertRightArrow} className="w-full h-full" />
         </button>
       </div>
-      <ConcertSlide></ConcertSlide>
+      <ConcertSlide status="current" />
     </div>
   );
 }

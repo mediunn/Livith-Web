@@ -7,7 +7,11 @@ import "../shared/styles/concert-slide.css";
 import ConcertSlidePrevArrow from "../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../shared/assets/ConcertSlideNextArrow.svg";
 
-function ConcertSlide() {
+type ConcertSlideProps = {
+  status: "prev" | "current" | "next";
+};
+
+function ConcertSlide({ status }: ConcertSlideProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -70,7 +74,12 @@ function ConcertSlide() {
     >
       <Slider {...settings}>
         {cardData.map((slide, index) => (
-          <ConcertSlideCard key={index} title={slide.title} date={slide.date} />
+          <ConcertSlideCard
+            key={index}
+            title={slide.title}
+            date={slide.date}
+            status={status}
+          />
         ))}
       </Slider>
     </div>
