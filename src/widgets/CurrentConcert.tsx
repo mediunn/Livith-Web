@@ -1,7 +1,7 @@
 import ConcertSlide from "../features/ConcertSlide";
 import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
 
-function Concert() {
+function CurrentConcert() {
   return (
     <div>
       <div className="flex item-center justify-between w-375">
@@ -17,4 +17,4 @@ function Concert() {
   );
 }
 
-export default Concert;
+export default CurrentConcert;
