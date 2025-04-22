@@ -1,10 +1,14 @@
-type CarouselSlideProps = {
+type MainImageCarouselSlideProps = {
   category: string;
   title: string;
   imageUrl: string;
 };
 
-function CarouselSlide({ category, title, imageUrl }: CarouselSlideProps) {
+function MainImageCarouselSlide({
+  category,
+  title,
+  imageUrl,
+}: MainImageCarouselSlideProps) {
   return (
     <div className="relative w-375 h-365">
       <div className="absolute top-214 left-16 flex w-96 h-14 px-7 py-5 justify-center items-center gap-10 shrink-0 rounded-12 bg-grayScaleBlack90">
@@ -20,4 +24,4 @@ function CarouselSlide({ category, title, imageUrl }: CarouselSlideProps) {
   );
 }
 
-export default CarouselSlide;
+export default MainImageCarouselSlide;

@@ -2,12 +2,12 @@ import { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import MainImageCarouselSlide from "../shared/ui/MainImageCarouselSlide";
+import ConcertCultureCarouselSlide from "../shared/ui/ConcertCultureCarouselSlide";
 import "../shared/styles/slick-theme.css";
 import PrevArrow from "../shared/assets/PrevArrow.svg";
 import NextArrow from "../shared/assets/NextArrow.svg";
 
-function MainImageCarousel() {
+function ConcertCultureCarousel() {
   // pc일 경우 마우스 hover시 캐러셀 전환 버튼 나타나도록
   const [isHovered, setIsHovered] = useState(false);
 
@@ -17,7 +17,7 @@ function MainImageCarousel() {
       <button
         onClick={onClick}
         style={style}
-        className={`absolute left-16 top-111 w-38 h-38 z-10 bg-transparent border-none p-0
+        className={`absolute left-0 top-49 w-38 h-38 z-10 bg-transparent border-none p-0
           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
         <img src={PrevArrow} alt="prev" className="w-10 h-19" />
@@ -31,7 +31,7 @@ function MainImageCarousel() {
       <button
         onClick={onClick}
         style={style}
-        className={`absolute right-16 top-111 w-38 h-38 z-10 bg-transparent border-none p-0
+        className={`absolute right-32 top-49 w-38 h-38 z-10 bg-transparent border-none p-0
           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
         <img src={NextArrow} alt="next" className="w-10 h-19" />
@@ -61,10 +61,9 @@ function MainImageCarousel() {
     >
       <Slider {...settings}>
         {slideData.map((slide, index) => (
-          <MainImageCarouselSlide
+          <ConcertCultureCarouselSlide
             key={index}
-            category={slide.category}
-            title={slide.title}
+            text={slide.text}
             imageUrl={slide.imageUrl}
           />
         ))}
@@ -73,35 +72,22 @@ function MainImageCarousel() {
   );
 }
 
-export default MainImageCarousel;
+export default ConcertCultureCarousel;
 
 const slideData = [
   {
-    category: "추천 콘서트",
-    title: "The Mayhem Ball​",
-    imageUrl: "https://img.wkorea.com/w/2017/02/style_58981ed0b6b87.jpg",
-  },
-  {
-    category: "추천 콘서트",
-    title: "Taylor Swift",
-    imageUrl: "https://img.wkorea.com/w/2024/03/style_660630260519d.jpg",
-  },
-  {
-    category: "추천 콘서트",
-    title: "Ariana Grande",
+    text: '앵콜 무대 전에 각자 준비해온 "손수건"을 던져야 해요',
     imageUrl:
-      "https://assets.teenvogue.com/photos/599d83c493f88961615d41f6/16:9/w_2560%2Cc_limit/GettyImages-451357572.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPfm09-_Zpps0psShmq7VMODDvga6tOcEwNw&s",
   },
   {
-    category: "추천 콘서트",
-    title: "Coldplay",
+    text: '앵콜 무대 전에 "응원봉"을 들고 "파도타기"를 해요',
     imageUrl:
-      "https://dimg.donga.com/wps/NEWS/IMAGE/2024/09/27/130116409.1.jpg",
+      "https://img.seoul.co.kr/img/upload/2019/10/30/SSI_20191030200936.jpg",
   },
   {
-    category: "추천 콘서트",
-    title: "Charlie Puth",
+    text: '직접 제작한 "비즈팔찌"를 팬들과 교환해요',
     imageUrl:
-      "https://img4.yna.co.kr/etc/inner/KR/2024/10/10/AKR20241010087200005_01_i_P4.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6pUTNDB4G3kQKU5QWo7LD3nCkH1AgCoqnrg&s",
   },
 ];
