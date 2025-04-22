@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,6 +13,8 @@ type ConcertSlideProps = {
 };
 
 function ConcertSlide({ status }: ConcertSlideProps) {
+  const navigate = useNavigate();
+
   const [isHovered, setIsHovered] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -79,6 +82,7 @@ function ConcertSlide({ status }: ConcertSlideProps) {
             title={slide.title}
             date={slide.date}
             status={status}
+            onClick={() => navigate(`/concert/${index}`)}
           />
         ))}
       </Slider>
