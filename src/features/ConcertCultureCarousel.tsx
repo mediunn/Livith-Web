@@ -55,7 +55,7 @@ function ConcertCultureCarousel() {
 
   return (
     <div
-      className="slider-container relative w-375 h-135"
+      className="slider-container relative w-375 h-135 pb-5"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
