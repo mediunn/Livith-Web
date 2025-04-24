@@ -1,4 +1,5 @@
 import ConcertCultureCarousel from "../features/ConcertCultureCarousel";
+import EmptyConcertCulture from "../shared/ui/EmptyConcertCulture";
 
 function ConcertCulture() {
   return (
@@ -7,6 +8,7 @@ function ConcertCulture() {
         해당 공연 문화
       </p>
       <ConcertCultureCarousel />
+      {/* <EmptyConcertCulture /> */}
     </div>
   );
 }
