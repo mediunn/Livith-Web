@@ -1,10 +1,10 @@
 import EmptyIcon from "../assets/EmptyIcon.svg";
 
-type EmptyConcertSlideProps = {
+type EmptySetListProps = {
   status: "last" | "progress" | "expectation";
 };
 
-function EmptySetList({ status }: EmptyConcertSlideProps) {
+function EmptySetList({ status }: EmptySetListProps) {
   const statusText =
     status === "last"
       ? "지난 셋리스트가"
