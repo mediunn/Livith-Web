@@ -5,7 +5,7 @@ function SetList() {
   return (
     <div>
       <div className="flex item-center justify-between w-375">
-        <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-24 mb-19 ml-16">
+        <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-25 mb-19 ml-16">
           진행된 셋리스트
         </p>
         <button className="w-24 h-24 bg-transparent border-none p-0 mt-24 mr-16 cursor-pointer">
