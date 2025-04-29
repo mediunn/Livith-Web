@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import ConcertInsidePage from "../pages/ConcertInsidePage";
+import MyPage from "../pages/MyPage";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,11 @@ const router = createBrowserRouter([
   {
     path: "concert/:concertId",
     element: <ConcertInsidePage />,
+  },
+
+  {
+    path: "my",
+    element: <MyPage />,
   },
 ]);
 
