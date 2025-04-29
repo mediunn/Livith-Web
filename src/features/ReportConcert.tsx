@@ -2,7 +2,7 @@ function ReprotConcert() {
   return (
     <>
       <div className="flex justify-between">
-        <p className="ml-16 mt-172 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+        <p className="ml-16 mt-172 mb-30 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
           더 빛나는 콘서트를 <br />
           위한 정보를 알고 있다면
         </p>
