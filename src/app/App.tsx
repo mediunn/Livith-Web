@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import ConcertInsidePage from "../pages/ConcertInsidePage";
 import LyricPage from "../pages/LyricPage";
+import MyPage from "../pages/MyPage";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
   {
     path: "lyric",
     element: <LyricPage />,
+  },
+
+  {
+    path: "my",
+    element: <MyPage />,
   },
 ]);
 
