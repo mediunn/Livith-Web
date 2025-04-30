@@ -5,6 +5,10 @@ function Info() {
     window.location.href =
       "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc800dab7fc177f325eade?pvs=4";
   };
+  const handleClickCondition = () => {
+    window.location.href =
+      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4";
+  };
 
   return (
     <div>
@@ -36,7 +40,10 @@ function Info() {
           <p className="m-0 text-grayScaleBlack30 text-body-sm font-regular font-NotoSansKR">
             이용약관
           </p>
-          <button className="w-8 h-16 p-0 bg-transparent border-none cursor-pointer">
+          <button
+            onClick={handleClickCondition}
+            className="w-8 h-16 p-0 bg-transparent border-none cursor-pointer"
+          >
             <img
               src={MyNextArrow}
               alt="next arrow"
