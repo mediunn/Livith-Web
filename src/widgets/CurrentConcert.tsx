@@ -1,18 +1,24 @@
+import { useNavigate } from "react-router-dom";
 import ConcertSlide from "../features/ConcertSlide";
 import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
+import { ConcertStatus } from "../entities/concert/types";
 
 function CurrentConcert() {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex item-center justify-between w-375">
         <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-36 mb-19 ml-16">
           현재 진행하는 콘서트
         </p>
-        <button className="w-24 h-24 bg-transparent border-none p-0 mt-36 mr-16 cursor-pointer">
+        <button
+          className="w-24 h-24 bg-transparent border-none p-0 mt-36 mr-16 cursor-pointer"
+          onClick={() => navigate(`/concerts/current`)}
+        >
           <img src={ConcertRightArrow} className="w-full h-full" />
         </button>
       </div>
-      <ConcertSlide status="current" />
+      <ConcertSlide status={ConcertStatus.ONGOING} />
     </div>
   );
 }
