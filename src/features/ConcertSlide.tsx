@@ -7,9 +7,10 @@ import ConcertSlideCard from "../shared/ui/ConcertSlideCard";
 import "../shared/styles/concert-slide.css";
 import ConcertSlidePrevArrow from "../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../shared/assets/ConcertSlideNextArrow.svg";
+import { ConcertStatus } from "../entities/concert/types";
 
 type ConcertSlideProps = {
-  status: "prev" | "current" | "next";
+  status: ConcertStatus;
 };
 
 function ConcertSlide({ status }: ConcertSlideProps) {

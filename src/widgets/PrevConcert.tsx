@@ -1,3 +1,4 @@
+import { ConcertStatus } from "../entities/concert/types";
 import ConcertSlide from "../features/ConcertSlide";
 import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
 
@@ -12,7 +13,7 @@ function PrevConcert() {
           <img src={ConcertRightArrow} className="w-full h-full" />
         </button>
       </div>
-      <ConcertSlide status="prev" />
+      <ConcertSlide status={ConcertStatus.COMPLETED} />
     </div>
   );
 }
