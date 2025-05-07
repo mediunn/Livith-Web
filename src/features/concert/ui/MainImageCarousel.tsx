@@ -8,7 +8,7 @@ import PrevArrow from "../../../shared/assets/PrevArrow.svg";
 import NextArrow from "../../../shared/assets/NextArrow.svg";
 import { getBanner } from "../api/getBanner";
 
-type Banner = {
+type BannerProps = {
   id: number;
   title: string;
   category: string;
@@ -18,7 +18,7 @@ type Banner = {
 function MainImageCarousel() {
   // pc일 경우 마우스 hover시 캐러셀 전환 버튼 나타나도록
   const [isHovered, setIsHovered] = useState(false);
-  const [banners, setBanners] = useState<Banner[]>([]);
+  const [banners, setBanners] = useState<BannerProps[]>([]);
 
   useEffect(() => {
     const fetchBanners = async () => {
