@@ -1,15 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import MainImageCarouselSlide from "../shared/ui/MainImageCarouselSlide";
-import "../shared/styles/slick-theme.css";
-import PrevArrow from "../shared/assets/PrevArrow.svg";
-import NextArrow from "../shared/assets/NextArrow.svg";
+import MainImageCarouselSlide from "../../../shared/ui/MainImageCarouselSlide";
+import "../../../shared/styles/slick-theme.css";
+import PrevArrow from "../../../shared/assets/PrevArrow.svg";
+import NextArrow from "../../../shared/assets/NextArrow.svg";
+import { getBanner } from "../api/getBanner";
+
+type Banner = {
+  id: number;
+  title: string;
+  category: string;
+  imgUrl: string;
+};
 
 function MainImageCarousel() {
   // pc일 경우 마우스 hover시 캐러셀 전환 버튼 나타나도록
   const [isHovered, setIsHovered] = useState(false);
+  const [banners, setBanners] = useState<Banner[]>([]);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const data = await getBanner();
+        setBanners(data);
+      } catch (error) {
+        console.error("배너 조회 API 호출 실패:", error);
+      }
+    };
+
+    fetchBanners();
+  }, []);
 
   const CustomPrevArrow = (props: any) => {
     const { onClick, style } = props;
@@ -60,12 +82,12 @@ function MainImageCarousel() {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Slider {...settings}>
-        {slideData.map((slide, index) => (
+        {banners.map((slide) => (
           <MainImageCarouselSlide
-            key={index}
+            key={slide.id}
             category={slide.category}
             title={slide.title}
-            imageUrl={slide.imageUrl}
+            imageUrl={slide.imgUrl}
           />
         ))}
       </Slider>
@@ -74,34 +96,3 @@ function MainImageCarousel() {
 }
 
 export default MainImageCarousel;
-
-const slideData = [
-  {
-    category: "추천 콘서트",
-    title: "The Mayhem Ball​",
-    imageUrl: "https://img.wkorea.com/w/2017/02/style_58981ed0b6b87.jpg",
-  },
-  {
-    category: "추천 콘서트",
-    title: "Taylor Swift",
-    imageUrl: "https://img.wkorea.com/w/2024/03/style_660630260519d.jpg",
-  },
-  {
-    category: "추천 콘서트",
-    title: "Ariana Grande",
-    imageUrl:
-      "https://assets.teenvogue.com/photos/599d83c493f88961615d41f6/16:9/w_2560%2Cc_limit/GettyImages-451357572.jpg",
-  },
-  {
-    category: "추천 콘서트",
-    title: "Coldplay",
-    imageUrl:
-      "https://dimg.donga.com/wps/NEWS/IMAGE/2024/09/27/130116409.1.jpg",
-  },
-  {
-    category: "추천 콘서트",
-    title: "Charlie Puth",
-    imageUrl:
-      "https://img4.yna.co.kr/etc/inner/KR/2024/10/10/AKR20241010087200005_01_i_P4.jpg",
-  },
-];
