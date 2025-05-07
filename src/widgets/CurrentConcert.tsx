@@ -13,7 +13,7 @@ function CurrentConcert() {
         </p>
         <button
           className="w-24 h-24 bg-transparent border-none p-0 mt-36 mr-16 cursor-pointer"
-          onClick={() => navigate(`/concerts/current`)}
+          onClick={() => navigate(`/concerts/${ConcertStatus.ONGOING}`)}
         >
           <img src={ConcertRightArrow} className="w-full h-full" />
         </button>
