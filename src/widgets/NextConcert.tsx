@@ -1,3 +1,4 @@
+import { ConcertStatus } from "../entities/concert/types";
 import EmptyConcertSlide from "../shared/ui/EmptyConcertSlide";
 
 function NextConcert() {
@@ -8,7 +9,7 @@ function NextConcert() {
           곧 진행하는 콘서트
         </p>
       </div>
-      <EmptyConcertSlide status="next" />
+      <EmptyConcertSlide status={ConcertStatus.UPCOMING} />
     </div>
   );
 }

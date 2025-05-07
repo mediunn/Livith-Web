@@ -1,9 +1,10 @@
+import { ConcertStatus } from "../../entities/concert/types";
 import "../styles/concert-slide.css";
 
 type ConcertSlideCardProps = {
   title: string;
   date: string;
-  status: "prev" | "current" | "next";
+  status: ConcertStatus;
   onClick?: () => void;
 };
 
@@ -13,7 +14,7 @@ function ConcertSlideCard({
   status,
   onClick,
 }: ConcertSlideCardProps) {
-  const statusText = status === "current" ? "진행중" : "종료";
+  const statusText = status === ConcertStatus.ONGOING ? "진행중" : "종료";
 
   return (
     <div className="w-139 h-280" onClick={onClick}>

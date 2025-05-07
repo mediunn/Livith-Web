@@ -1,14 +1,15 @@
+import { ConcertStatus } from "../../entities/concert/types";
 import EmptyIcon from "../assets/EmptyIcon.svg";
 
 type EmptyConcertSlideProps = {
-  status: "prev" | "current" | "next";
+  status: ConcertStatus;
 };
 
 function EmptyConcertSlide({ status }: EmptyConcertSlideProps) {
   const statusText =
-    status === "prev"
+    status === ConcertStatus.COMPLETED
       ? "한 달 이내 진행했던"
-      : status === "current"
+      : status === ConcertStatus.ONGOING
         ? "현재 진행하는"
         : "곧 진행하는";
 
