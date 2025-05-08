@@ -1,6 +1,6 @@
 function ConcertInsideInfo() {
   return (
-    <div className="w-375 h-390">
+    <div className="w-full h-390">
       <img
         src="https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202503/30/1e59b28f-017b-40e2-b3a3-db9bb4f7bfaf.jpg"
         className="w-full h-full object-cover"
