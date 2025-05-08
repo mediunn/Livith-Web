@@ -11,7 +11,7 @@ function MainImageCarouselSlide({
 }: MainImageCarouselSlideProps) {
   return (
     <div className="relative w-375 h-365">
-      <div className="absolute top-214 left-16 flex w-96 h-14 px-7 py-5 justify-center items-center gap-10 shrink-0 rounded-12 bg-grayScaleBlack90">
+      <div className="absolute top-214 left-16 inline-flex items-center justify-center h-14 px-10 py-10 rounded-12 bg-grayScaleBlack90">
         <p className="text-grayScaleWhite text-caption-lg font-semibold font-NotoSansKR m-0">
           {category}
         </p>
