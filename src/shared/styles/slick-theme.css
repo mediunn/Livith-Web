@@ -123,8 +123,7 @@
   display: inline-block;
   width: auto;
   height: 5px;
-  margin: 0;
-  padding: 0 4.5px;
+  margin: 0 4.5px;
   cursor: pointer;
 }
 
@@ -165,8 +164,7 @@
 
 .slick-dots li.slick-active {
   width: 27px;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0 4.5px;
 }
 
 .slick-dots li.slick-active button:before {
