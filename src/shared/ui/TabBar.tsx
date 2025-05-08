@@ -9,8 +9,8 @@ function TabBar() {
   const [activeTab, setActiveTab] = useState<"home" | "my">("home");
 
   return (
-    <div className="absolute bottom-0 w-375 h-64">
-      <div className="w-375 h-1 bg-grayScaleBlack80" />
+    <div className="absolute bottom-0 w-full h-64">
+      <div className="w-full h-1 bg-grayScaleBlack80" />
       <div className="flex justify-between">
         <button
           className="w-38 h-38 mt-13 ml-92 p-0 bg-transparent border-none cursor-pointer"
