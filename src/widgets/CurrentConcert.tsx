@@ -7,7 +7,7 @@ function CurrentConcert() {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="flex item-center justify-between w-375">
+      <div className="flex item-center justify-between w-full">
         <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-36 mb-19 ml-16">
           현재 진행하는 콘서트
         </p>
