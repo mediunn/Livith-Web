@@ -7,6 +7,7 @@ import LyricPage from "../pages/LyricPage";
 import MyPage from "../pages/MyPage";
 import ConcertListPage from "../pages/ConcertListPage";
 import RootLayout from "./RootLayout";
+import SearchPage from "../pages/SearchPage";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "lyric",
         element: <LyricPage />,
+      },
+      {
+        path: "search",
+        element: <SearchPage />,
       },
     ],
   },
