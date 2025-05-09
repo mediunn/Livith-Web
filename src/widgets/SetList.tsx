@@ -4,7 +4,7 @@ import SetListCard from "../shared/ui/SetListCard";
 function SetList() {
   return (
     <div>
-      <div className="flex item-center justify-between w-375">
+      <div className="flex item-center justify-between w-full">
         <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-25 mb-19 ml-16">
           진행된 셋리스트
         </p>
@@ -13,6 +13,7 @@ function SetList() {
         </button>
       </div>
       <div className="ml-16 flex gap-9 pb-92">
+        <SetListCard />
         <SetListCard />
         <SetListCard />
         <SetListCard />
