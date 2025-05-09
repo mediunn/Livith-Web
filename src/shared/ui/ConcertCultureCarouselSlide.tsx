@@ -1,18 +1,18 @@
 import CultureTextIcon from "../assets/CultureTextIcon.svg";
 
 type ConcertCultureCarouselSlideProps = {
-  text: string;
+  content: string;
   imageUrl: string;
 };
 
 function ConcertCultureCarouselSlide({
-  text,
+  content,
   imageUrl,
 }: ConcertCultureCarouselSlideProps) {
-  const highlightText = (text: string) => {
+  const highlightText = (content: string) => {
     // 따옴표로 감싸진 부분 찾기
     const regex = /"([^"]+)"/g;
-    return text.split(regex).map((part, index) => {
+    return content.split(regex).map((part, index) => {
       if (index % 2 !== 0) {
         return (
           <span
@@ -32,7 +32,7 @@ function ConcertCultureCarouselSlide({
     <div className="relative w-343 h-135">
       <img
         src={imageUrl}
-        alt={text}
+        alt={content}
         className="w-full h-full object-cover rounded-6"
       />
       <img
@@ -40,7 +40,7 @@ function ConcertCultureCarouselSlide({
         className="absolute left-1/2 top-16 w-13 h-21"
       ></img>
       <p className="absolute inset-0 w-191 h-50 left-1/4 top-1/3 text-center text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR m-0">
-        {highlightText(text)}
+        {highlightText(content)}
       </p>
     </div>
   );
