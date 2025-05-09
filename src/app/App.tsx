@@ -6,6 +6,7 @@ import ConcertInsidePage from "../pages/ConcertInsidePage";
 import MyPage from "../pages/MyPage";
 import ConcertListPage from "../pages/ConcertListPage";
 import RootLayout from "./RootLayout";
+import SearchPage from "../pages/SearchPage";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "concerts/:status",
         element: <ConcertListPage />,
+      },
+      {
+        path: "search",
+        element: <SearchPage />,
       },
     ],
   },
