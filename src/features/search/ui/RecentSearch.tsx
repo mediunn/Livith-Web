@@ -1,6 +1,12 @@
+import { StateWithSetter } from "../../../shared/types/props";
 import RecentSearchItem from "./RecentSearchItem";
 
-function RecentSearch() {
+type RecentSearchProps = StateWithSetter<string[]>;
+
+function RecentSearch({
+  value: recent,
+  setValue: setRecent,
+}: RecentSearchProps) {
   return (
     <div className="px-16">
       <p className="text-grayScaleBlack5 text-caption-sm font-regular font-NotoSansKR mt-21 mb-13">
@@ -8,11 +14,13 @@ function RecentSearch() {
       </p>
       {/* 줄 바꿈 함 (넘치면 다음 줄로 감) */}
       <div className="flex flex-wrap gap-8">
-        <RecentSearchItem word="콜드플레이" />
-        <RecentSearchItem word="오아시스" />
-        <RecentSearchItem word="아이묭" />
-        <RecentSearchItem word="루이스 오프만" />
-        <RecentSearchItem word="라우브" />
+        {recent.map((word, index) => (
+          <RecentSearchItem
+            key={index}
+            word={word}
+            recentState={{ value: recent, setValue: setRecent }}
+          />
+        ))}
       </div>
     </div>
   );
