@@ -1,11 +1,10 @@
-import BackArrow from "../shared/assets/BackArrow.svg";
 import ConcertList from "../features/concert/ui/ConcertList";
 import { ConcertStatus } from "../entities/concert/types";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import BackArrow from "../widgets/BackArrow";
 
 function ConcertListPage() {
-  const navigate = useNavigate();
   const { status } = useParams();
 
   // 페이지 진입 시 스크롤 맨 위로 이동
@@ -24,13 +23,7 @@ function ConcertListPage() {
       {/* 헤더 */}
       <div className="flex pt-20 pl-16 pb-2 pr-16">
         <div className="flex items-center">
-          <button className="bg-transparent border-none cursor-pointer">
-            <img
-              src={BackArrow}
-              className="w-full h-full"
-              onClick={() => navigate(-1)}
-            />
-          </button>
+          <BackArrow />
           <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-6.5 mb-6.5 mr-80 ml-4">
             {concertStatus}
           </p>

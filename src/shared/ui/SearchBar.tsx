@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import LogoIcon from "../assets/LogoIcon.svg";
 import SearhIcon from "../assets/SearchIcon.svg";
 
@@ -6,6 +7,7 @@ type SearchBarProps = {
 };
 
 function SearchBar({ hideLogo = false }: SearchBarProps) {
+  const navigate = useNavigate();
   return (
     <div className="flex items-center justify-between w-full h-60">
       <img
@@ -13,7 +15,10 @@ function SearchBar({ hideLogo = false }: SearchBarProps) {
         alt="logo"
         className={`ml-16 w-101 h-25 ${hideLogo ? "opacity-0" : "opacity-100"}`}
       />
-      <button className="w-38 h-38 mt-20 mr-16 mb-2 p-0 bg-transparent border-none cursor-pointer">
+      <button
+        className="w-38 h-38 mt-20 mr-16 mb-2 p-0 bg-transparent border-none cursor-pointer"
+        onClick={() => navigate("/search")}
+      >
         <img src={SearhIcon} alt="search" className="w-full h-full" />
       </button>
     </div>
