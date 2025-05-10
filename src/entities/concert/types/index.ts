@@ -20,4 +20,5 @@ export type Concert = {
 export type ConcertListResponse = {
   data: Concert[];
   cursor: null | undefined;
+  totalCount?: number;
 };
