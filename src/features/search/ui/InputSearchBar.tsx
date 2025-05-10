@@ -40,7 +40,7 @@ function InputSearchBar({
         <input
           type="text"
           value={input}
-          onChange={(e) => setInput(e.target.value.trim())}
+          onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="찾고 있는 콘서트는 무엇인가요?"
           onCompositionStart={() => setIsComposing(true)}

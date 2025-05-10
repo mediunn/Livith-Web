@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
 import RecentSearch from "../features/search/ui/RecentSearch";
+import RecommendSearch from "../features/search/ui/RecommendSearch";
 
 function SearchPage() {
   const [input, setInput] = useState<string>("");
@@ -24,6 +25,7 @@ function SearchPage() {
       {!input && recent.length > 0 && (
         <RecentSearch value={recent} setValue={setRecent} />
       )}
+      {input.trim() && <RecommendSearch value={input} setValue={setInput} />}
     </>
   );
 }
