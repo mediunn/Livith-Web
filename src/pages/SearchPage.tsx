@@ -25,7 +25,7 @@ function SearchPage() {
       {!input && recent.length > 0 && (
         <RecentSearch value={recent} setValue={setRecent} />
       )}
-      {input.trim() && <RecommendSearch />}
+      {input.trim() && <RecommendSearch value={input} setValue={setInput} />}
     </>
   );
 }
