@@ -27,12 +27,19 @@ function SearchPage() {
         showResultsState={{ value: showResults, setValue: setShowResults }}
       />
 
-      {showResults ? (
+      {showResults && input ? (
         <SearchResults keyword={input} />
       ) : (
         <>
           {!input && recent.length > 0 && (
-            <RecentSearch value={recent} setValue={setRecent} />
+            <RecentSearch
+              inputState={{ value: input, setValue: setInput }}
+              recentState={{ value: recent, setValue: setRecent }}
+              showResultsState={{
+                value: showResults,
+                setValue: setShowResults,
+              }}
+            />
           )}
           {input.trim() && (
             <RecommendSearch value={input} setValue={setInput} />
