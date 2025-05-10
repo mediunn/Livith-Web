@@ -33,15 +33,11 @@ const router = createBrowserRouter([
         element: <ConcertListPage />,
       },
       {
-        path: "lyric",
-        element: <LyricPage />,
-      },
-      {
         path: "search",
         element: <SearchPage />,
       },
       {
-        path: "songs",
+        path: "songs/:songId",
         element: <LyricPage />,
       },
     ],
