@@ -19,7 +19,7 @@ function LyricTypeButton() {
   };
 
   return (
-    <div className="ml-16 mt-16 flex">
+    <div className="mt-16 flex justify-center">
       {lyricType.map((label, index) => {
         const isActive = activeButton[index];
         return (
