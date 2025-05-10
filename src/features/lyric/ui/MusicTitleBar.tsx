@@ -1,4 +1,4 @@
-import NavPrev from "../shared/assets/NavPrevIcon.svg";
+import NavPrev from "../../../shared/assets/NavPrevIcon.svg";
 
 function MusicTitleBar() {
   return (
