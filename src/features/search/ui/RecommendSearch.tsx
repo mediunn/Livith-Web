@@ -23,11 +23,15 @@ function RecommendSearch({
     return code >= 0xac00 && code <= 0xd7a3;
   };
 
+  //영어일때
+  const isEnglish = /^[a-zA-Z]*$/.test(debounceValue);
+
   const shouldSearch =
+    isEnglish ||
     debounceValue.length > 1 ||
     (debounceValue.length === 1 && isCompleteKorean(debounceValue));
 
-  // 검색어가 2글자 이상이거나, 1글자이고 완전한 한글일 때만 추천 검색어 요청
+  // 영어이거나, 검색어가 2글자 이상이거나, 1글자이고 완전한 한글일 때만 추천 검색어 요청
   const { data: recommendSearch, isLoading } = useRecommendSearch({
     letter: debounceValue,
     enabled: shouldSearch, // 이 조건을 만족할 때만 요청
@@ -41,7 +45,7 @@ function RecommendSearch({
   return (
     <div className="mt-24 mx-16">
       {recommendSearch?.map((word, index) => (
-        <RecommendSearchItem key={index} word={word} />
+        <RecommendSearchItem key={index} word={word} input={input} />
       ))}
     </div>
   );
