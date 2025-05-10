@@ -3,34 +3,30 @@ import BackArrow from "../../../widgets/BackArrow.tsx";
 import CloseRoundIcon from "../../../shared/assets/CloseRoundIcon.svg";
 import { useState } from "react";
 import { StateWithSetter } from "../../../shared/types/props.ts";
+import { saveRecentSearch } from "../utils/SaveRecentSearch.ts";
 
 type InputSearchBarProps = {
   inputState: StateWithSetter<string>;
   recentState: StateWithSetter<string[]>;
+  showResultsState: StateWithSetter<boolean>;
 };
-const STORAGE_KEY = "recentSearches";
-const MAX_RECENT = 5; // 최대 최근 검색어 개수
 
 function InputSearchBar({
   inputState: { value: input, setValue: setInput },
   recentState: { value: recent, setValue: setRecent },
+  showResultsState: { value: showResults, setValue: setShowResults },
 }: InputSearchBarProps) {
   // 한글 입력 시 Enter 키 이벤트가 두 번 발생하는 문제 해결
   const [isComposing, setIsComposing] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !isComposing && input.trim()) {
-      let updated = [
-        input.trim(),
-        ...recent.filter((item) => item !== input.trim()),
-      ];
-
-      if (updated.length > MAX_RECENT) {
-        updated = updated.slice(0, MAX_RECENT);
-      }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      let updated = saveRecentSearch({
+        keyword: input.trim(),
+        current: recent,
+      });
       setRecent(updated);
-      setInput("");
+      setShowResults(true);
     }
   };
   return (
@@ -40,7 +36,10 @@ function InputSearchBar({
         <input
           type="text"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            setInput(e.target.value);
+            setShowResults(false); // 입력값이 바뀌면 검색결과 숨김
+          }}
           onKeyDown={handleKeyDown}
           placeholder="찾고 있는 콘서트는 무엇인가요?"
           onCompositionStart={() => setIsComposing(true)}

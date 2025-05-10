@@ -1,11 +1,15 @@
 import { StateWithSetter } from "../../../shared/types/props";
 import RecentSearchItem from "./RecentSearchItem";
 
-type RecentSearchProps = StateWithSetter<string[]>;
-
+type RecentSearchProps = {
+  inputState: StateWithSetter<string>;
+  recentState: StateWithSetter<string[]>;
+  showResultsState: StateWithSetter<boolean>;
+};
 function RecentSearch({
-  value: recent,
-  setValue: setRecent,
+  inputState: { value: input, setValue: setInput },
+  recentState: { value: recent, setValue: setRecent },
+  showResultsState: { value: showResults, setValue: setShowResults },
 }: RecentSearchProps) {
   return (
     <div className="px-16">
@@ -19,6 +23,8 @@ function RecentSearch({
             key={index}
             word={word}
             recentState={{ value: recent, setValue: setRecent }}
+            inputState={{ value: input, setValue: setInput }}
+            showResultsState={{ value: showResults, setValue: setShowResults }}
           />
         ))}
       </div>

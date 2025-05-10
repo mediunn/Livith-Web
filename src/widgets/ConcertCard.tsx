@@ -26,7 +26,7 @@ function ConcertCard({
         ? "종료"
         : `D-${daysLeft}`;
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} className="cursor-pointer">
       <div className="w-full aspect-[108/158] relative">
         {imageUrl ? (
           <img
