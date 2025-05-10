@@ -7,7 +7,6 @@ interface saveRecentSearchProps {
 }
 
 export function saveRecentSearch({ keyword, current }: saveRecentSearchProps) {
-  console.log("saveRecentSearch", keyword, current);
   let updated = [keyword, ...current.filter((item) => item !== keyword)];
 
   if (updated.length > MAX_RECENT) {

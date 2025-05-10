@@ -4,12 +4,16 @@ import useRecommendSearch from "../model/useRecommendSearch";
 import RecommendSearchItem from "./RecommendSearchItem";
 import useDebounce from "../model/useDebounce";
 
-type RecommendSearchProps = StateWithSetter<string>;
-
+type RecentSearchProps = {
+  inputState: StateWithSetter<string>;
+  recentState: StateWithSetter<string[]>;
+  showResultsState: StateWithSetter<boolean>;
+};
 function RecommendSearch({
-  value: input,
-  setValue: setInput,
-}: RecommendSearchProps) {
+  inputState: { value: input, setValue: setInput },
+  recentState: { value: recent, setValue: setRecent },
+  showResultsState: { value: showResults, setValue: setShowResults },
+}: RecentSearchProps) {
   //debounce 적용
   const [isDebouncing, setIsDebouncing] = useState(false);
   const debounceValue = useDebounce({
@@ -45,7 +49,16 @@ function RecommendSearch({
   return (
     <div className="mt-24 mx-16">
       {recommendSearch?.map((word, index) => (
-        <RecommendSearchItem key={index} word={word} input={input} />
+        <RecommendSearchItem
+          key={index}
+          word={word}
+          inputState={{ value: input, setValue: setInput }}
+          recentState={{ value: recent, setValue: setRecent }}
+          showResultsState={{
+            value: showResults,
+            setValue: setShowResults,
+          }}
+        />
       ))}
     </div>
   );

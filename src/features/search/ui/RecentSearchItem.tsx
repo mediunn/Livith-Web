@@ -32,7 +32,6 @@ function RecentSearchItem({
       keyword: word,
       current: recent,
     });
-    console.log("updated", updated);
     setRecent(updated);
     setInput(word);
     setShowResults(true);

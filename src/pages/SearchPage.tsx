@@ -42,7 +42,14 @@ function SearchPage() {
             />
           )}
           {input.trim() && (
-            <RecommendSearch value={input} setValue={setInput} />
+            <RecommendSearch
+              inputState={{ value: input, setValue: setInput }}
+              recentState={{ value: recent, setValue: setRecent }}
+              showResultsState={{
+                value: showResults,
+                setValue: setShowResults,
+              }}
+            />
           )}
         </>
       )}
