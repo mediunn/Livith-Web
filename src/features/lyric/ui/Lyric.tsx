@@ -3,9 +3,10 @@ import { getSong, Song } from "../api/getSong";
 
 interface LyricProps {
   songId: number;
+  activeButtons: boolean[];
 }
 
-function Lyric({ songId }: LyricProps) {
+function Lyric({ songId, activeButtons }: LyricProps) {
   const [songData, setSongData] = useState<Song | null>(null);
 
   useEffect(() => {
@@ -27,17 +28,23 @@ function Lyric({ songId }: LyricProps) {
 
   return (
     <div className="ml-16 pr-16 mt-30 w-full">
-      {songData.lyrics.map((line, index) => (
+      {songData.lyrics.map((_, index) => (
         <div key={index} className="mb-44 w-full">
-          <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
-            {line}
-          </p>
-          <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
-            {songData.pronunciation[index]}
-          </p>
-          <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
-            {songData.translation[index]}
-          </p>
+          {activeButtons[0] && (
+            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+              {songData.lyrics[index]}
+            </p>
+          )}
+          {activeButtons[1] && (
+            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+              {songData.pronunciation[index]}
+            </p>
+          )}
+          {activeButtons[2] && (
+            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+              {songData.translation[index]}
+            </p>
+          )}
         </div>
       ))}
     </div>

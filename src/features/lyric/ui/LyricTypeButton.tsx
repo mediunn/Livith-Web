@@ -1,31 +1,19 @@
-import { useState } from "react";
+interface LyricTypeButtonProps {
+  activeButtons: boolean[];
+  onToggle: (index: number) => void;
+}
 
 const lyricType = ["원어", "발음", "해석", "응원법"];
 
-function LyricTypeButton() {
-  const [activeButton, setActiveButton] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-  ]);
-
-  const toggleButton = (index: number) => {
-    setActiveButton((prev) => {
-      const newState = [...prev];
-      newState[index] = !newState[index];
-      return newState;
-    });
-  };
-
+function LyricTypeButton({ activeButtons, onToggle }: LyricTypeButtonProps) {
   return (
     <div className="mt-16 flex justify-center">
       {lyricType.map((label, index) => {
-        const isActive = activeButton[index];
+        const isActive = activeButtons[index];
         return (
           <button
             key={label}
-            onClick={() => toggleButton(index)}
+            onClick={() => onToggle(index)}
             className={`
               h-30 px-17 rounded-35 text-caption-lg font-semibold font-NotoSansKR border border-solid cursor-pointer
               ${isActive ? "bg-mainYellow30 border-mainYellow60 text-grayScaleBlack100" : "bg-grayScaleBlack100 border-grayScaleBlack80 text-grayScaleWhite"}
