@@ -3,6 +3,7 @@ import { useState } from "react";
 import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../features/lyric/ui/Lyric";
+import LyricModal from "../features/lyric/ui/LyricModal";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -23,11 +24,22 @@ function LyricPage() {
     });
   };
 
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
+
   return (
     <>
       <MusicTitleBar songId={Number(songId)}></MusicTitleBar>
       <LyricTypeButton activeButtons={activeButtons} onToggle={toggleButton} />
       <Lyric songId={Number(songId)} activeButtons={activeButtons} />
+
+      {isPopupOpen && (
+        <LyricModal onClose={() => setIsPopupOpen(false)}>
+          <p className="text-center text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+            원어, 발음, 해석 중 하나는 <br />
+            켜져야 해요
+          </p>
+        </LyricModal>
+      )}
     </>
   );
 }
