@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../features/lyric/ui/Lyric";
@@ -16,34 +16,49 @@ function LyricPage() {
     false,
   ]);
 
-  const toggleButton = (index: number) => {
-    setActiveButtons((prev) => {
-      const newState = [...prev];
-      newState[index] = !newState[index];
-      return newState;
-    });
-  };
-
-  const [isPopupOpen, setIsPopupOpen] = useState(true);
+  const [popupMessage, setPopupMessage] = useState<string | null>(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
-  useEffect(() => {
-    const showDuration = 1500; // 딜레이
-    const fadeDuration = 1000; // 애니메이션
+  const showPopup = (message: string) => {
+    setPopupMessage(message);
+    setIsFadingOut(false);
 
-    const fadeTimer = setTimeout(() => {
-      setIsFadingOut(true);
-    }, showDuration);
+    const showDuration = 1500; // 딜레이 시간
+    const fadeDuration = 1000; // 애니메이션 시간
 
-    const closeTimer = setTimeout(() => {
-      setIsPopupOpen(false);
-    }, showDuration + fadeDuration);
+    setTimeout(() => setIsFadingOut(true), showDuration);
+    setTimeout(() => setPopupMessage(null), showDuration + fadeDuration);
+  };
 
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(closeTimer);
-    };
-  }, []);
+  const toggleButton = (index: number) => {
+    const newState = [...activeButtons];
+    newState[index] = !newState[index];
+
+    const [isLang, isPron, isTrans, isFanChat] = newState;
+    const langGroup = [isLang, isPron, isTrans];
+    const langGroupOnCount = langGroup.filter(Boolean).length;
+
+    // 다 끄려고 할 경우
+    if (index < 3 && !newState[index] && langGroupOnCount === 0) {
+      showPopup("원어, 발음, 해석 중 하나는 켜져야 해요");
+      return;
+    }
+
+    if (index === 3 && newState[3]) {
+      // 해석과 응원법만 동시에 킬 경우
+      if (!(isLang || isPron)) {
+        showPopup("해석에는 응원법이 표시가 되지 않아요");
+        return;
+      } else {
+        // 응원법 표시 가능한 경우
+        setActiveButtons(newState);
+        showPopup("응원법은 원어와 발음에서만 표시가 돼요");
+        return;
+      }
+    }
+
+    setActiveButtons(newState);
+  };
 
   return (
     <>
@@ -51,14 +66,13 @@ function LyricPage() {
       <LyricTypeButton activeButtons={activeButtons} onToggle={toggleButton} />
       <Lyric songId={Number(songId)} activeButtons={activeButtons} />
 
-      {isPopupOpen && (
+      {popupMessage && (
         <LyricModal
           isFadingOut={isFadingOut}
-          onClose={() => setIsPopupOpen(false)}
+          onClose={() => setPopupMessage(null)}
         >
           <p className="text-center text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
-            원어, 발음, 해석 중 하나는 <br />
-            켜져야 해요
+            {popupMessage}
           </p>
         </LyricModal>
       )}
