@@ -1,19 +1,30 @@
-import EmptyIcon from "../../../shared/assets/EmptyIcon.svg";
 import SongPlayIcon from "../../../shared/assets/SongPlayIcon.svg";
-function SetlistSongItem() {
+
+interface SetlistSongItemProps {
+  title: string;
+  artist: string;
+  orderIndex: number;
+  imageUrl: string;
+}
+function SetlistSongItem({
+  title,
+  artist,
+  imageUrl,
+  orderIndex,
+}: SetlistSongItemProps) {
   return (
     <div className="flex w-full aspect-[331/62]">
       <img
-        src={EmptyIcon}
+        src={imageUrl}
         alt="Empty Icon"
-        className="object-cover ml-5 round-6"
+        className="object-cover ml-5 rounded-6"
       />
-      <div className="my-12 ml-10 space-y-10">
+      <div className="flex flex-col justify-center my-12 ml-10 space-y-10">
         <p className="text-grayScaleWhite text-caption-lg font-semibold font-NotoSansKR">
-          01. 노래제목
+          {orderIndex}. {title}
         </p>
         <p className="text-grayScaleWhite text-caption-ssm font-regular font-NotoSansKR">
-          아티스트
+          {artist}
         </p>
       </div>
       <img

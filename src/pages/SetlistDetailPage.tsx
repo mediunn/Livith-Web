@@ -12,7 +12,7 @@ function SetlistDetailPage() {
         concertId={Number(concertId)}
         setlistId={Number(setlistId)}
       />
-      <SetlistSongList />
+      <SetlistSongList setlistId={Number(setlistId)} />
     </>
   );
 }

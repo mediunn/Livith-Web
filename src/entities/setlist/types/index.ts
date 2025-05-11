@@ -24,3 +24,17 @@ export interface SetlistDetailProps {
   setlistId: number;
   concertId: number;
 }
+
+export type SetListSong = {
+  id: number;
+  title: string;
+  artist: string;
+  setlistId: number;
+  orderIndex: number;
+  imgUrl: string;
+};
+
+export type SetlistSongListResponse = {
+  data: SetListSong[];
+  cursor?: null | undefined;
+};
