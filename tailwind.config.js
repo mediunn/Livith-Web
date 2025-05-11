@@ -35,6 +35,16 @@ module.exports = {
           { lineHeight: "1.2", letterSpacing: "-0.05em" },
         ],
       },
+      animation: {
+        fadeOut: "fadeOut 1s ease-in-out",
+      },
+
+      keyframes: {
+        fadeOut: {
+          from: { opacity: 1 },
+          to: { opacity: 0 },
+        },
+      },
     },
   },
   plugins: [],
