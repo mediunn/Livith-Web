@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../features/lyric/ui/Lyric";
@@ -25,6 +25,25 @@ function LyricPage() {
   };
 
   const [isPopupOpen, setIsPopupOpen] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  useEffect(() => {
+    const showDuration = 1500; // 딜레이
+    const fadeDuration = 1000; // 애니메이션
+
+    const fadeTimer = setTimeout(() => {
+      setIsFadingOut(true);
+    }, showDuration);
+
+    const closeTimer = setTimeout(() => {
+      setIsPopupOpen(false);
+    }, showDuration + fadeDuration);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(closeTimer);
+    };
+  }, []);
 
   return (
     <>
@@ -33,7 +52,10 @@ function LyricPage() {
       <Lyric songId={Number(songId)} activeButtons={activeButtons} />
 
       {isPopupOpen && (
-        <LyricModal onClose={() => setIsPopupOpen(false)}>
+        <LyricModal
+          isFadingOut={isFadingOut}
+          onClose={() => setIsPopupOpen(false)}
+        >
           <p className="text-center text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
             원어, 발음, 해석 중 하나는 <br />
             켜져야 해요

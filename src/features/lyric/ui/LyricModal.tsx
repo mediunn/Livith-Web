@@ -3,12 +3,15 @@ import { ReactNode } from "react";
 interface LyricModalProps {
   children: ReactNode;
   onClose: () => void;
+  isFadingOut: boolean;
 }
 
-const LyricModal = ({ children, onClose }: LyricModalProps) => {
+const LyricModal = ({ children, onClose, isFadingOut }: LyricModalProps) => {
   return (
     <div
-      className="fixed inset-0 z-0 flex items-center justify-center "
+      className={`fixed inset-0 z-0 flex items-center justify-center ${
+        isFadingOut ? "animate-fadeOut" : ""
+      }`}
       onClick={onClose}
     >
       <div
