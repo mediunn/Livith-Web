@@ -43,6 +43,8 @@ function SetlistCollection({ type, concertId }: SetlistCollectionProps) {
             date={formatDate(setlist.date)}
             status={setlist.status}
             type={setlist.type}
+            setlistId={setlist.id}
+            concertId={concertId}
           />
         </div>
       ))}

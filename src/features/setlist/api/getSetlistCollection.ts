@@ -22,7 +22,5 @@ export async function getSetlistCollection({
       cursor,
     },
   });
-  console.log(response);
-  console.log("getSetlistCollection", response.data.data.cursor);
   return response.data;
 }
