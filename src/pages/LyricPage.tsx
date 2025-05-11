@@ -4,6 +4,7 @@ import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../features/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
+import LyricFanchant from "../features/lyric/ui/LyricFanchant";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -65,7 +66,8 @@ function LyricPage() {
       <MusicTitleBar songId={Number(songId)}></MusicTitleBar>
       <LyricTypeButton activeButtons={activeButtons} onToggle={toggleButton} />
       <Lyric songId={Number(songId)} activeButtons={activeButtons} />
-
+      {/* 응원법 조회 API 호출 테스트 */}
+      <LyricFanchant setlistId={1} songId={2} />
       {popupMessage && (
         <LyricModal
           isFadingOut={isFadingOut}
