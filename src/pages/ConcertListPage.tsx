@@ -2,7 +2,7 @@ import ConcertList from "../features/concert/ui/ConcertList";
 import { ConcertStatus } from "../entities/concert/types";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import BackArrow from "../widgets/BackArrow";
+import ListHeader from "../shared/ui/ListHeader";
 
 function ConcertListPage() {
   const { status } = useParams();
@@ -20,15 +20,7 @@ function ConcertListPage() {
         : "곧 진행하는 콘서트 목록";
   return (
     <div>
-      {/* 헤더 */}
-      <div className="flex pt-20 pl-16 pb-2 pr-16">
-        <div className="flex items-center">
-          <BackArrow />
-          <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-6.5 mb-6.5 mr-80 ml-4">
-            {concertStatus}
-          </p>
-        </div>
-      </div>
+      <ListHeader title={concertStatus} />
       <ConcertList status={status as ConcertStatus} />
     </div>
   );
