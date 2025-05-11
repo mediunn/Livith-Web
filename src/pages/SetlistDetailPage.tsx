@@ -1,17 +1,19 @@
 import { useParams } from "react-router-dom";
 import SetlistDetail from "../features/setlist/ui/SetlistDetail";
+import ListHeader from "../shared/ui/ListHeader";
+import SetlistSongList from "../features/setlist/ui/SetlistSongList";
 
 function SetlistDetailPage() {
   const { setlistId, concertId } = useParams();
   return (
-    <div>
-      <h1>Setlist Detail Page</h1>
+    <>
+      <ListHeader />
       <SetlistDetail
         concertId={Number(concertId)}
         setlistId={Number(setlistId)}
       />
-      <p>Details about the setlist will be displayed here.</p>
-    </div>
+      <SetlistSongList />
+    </>
   );
 }
 export default SetlistDetailPage;

@@ -1,6 +1,6 @@
 import BackArrow from "../../widgets/BackArrow";
 
-function ListHeader({ title }: { title: string }) {
+function ListHeader({ title }: { title?: string }) {
   return (
     <div className="flex pt-20 pl-16 pb-2 pr-16">
       <div className="flex items-center">
