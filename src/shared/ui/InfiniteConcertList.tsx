@@ -60,13 +60,7 @@ export function InfiniteConcertList({
 
       {isFetchingNextPage && <div>Loading more...</div>}
 
-      {hasNextPage && (
-        <div ref={ref} className="text-center mt-4">
-          <button onClick={fetchNextPage} disabled={isFetchingNextPage}>
-            Load More
-          </button>
-        </div>
-      )}
+      {hasNextPage && <div ref={ref} className="h-10" />}
     </div>
   );
 }

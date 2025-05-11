@@ -4,7 +4,6 @@ import { InfiniteConcertList } from "../../../shared/ui/InfiniteConcertList";
 
 type ConcertListProps = {
   status: ConcertStatus;
-  size?: number;
 };
 
 export function ConcertList({ status }: ConcertListProps) {
