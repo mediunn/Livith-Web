@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getConcertInsideInfo } from "../api/getConcertInsideInfo";
 import { Concert, ConcertStatus } from "../../../entities/concert/types";
+import DetailInfo from "../../../shared/ui/DetailInfo";
 
 interface Props {
   concertId: number;
@@ -38,25 +39,13 @@ function ConcertInsideInfo({ concertId }: Props) {
   };
 
   return (
-    <div className="w-full h-390">
-      <img src={concert.poster} className="w-full h-full object-cover" />
-      <div className="absolute top-240 left-16 mr-16">
-        <div className="inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13">
-          <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR m-0">
-            {getStatusLabel(concert.status, concert.daysLeft)}
-          </p>
-        </div>
-        <p className=" my-20 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
-          {concert.title}
-        </p>
-        <p className="m-0 text-grayScaleWhite text-body-sm font-ragular font-NotoSansKR">
-          {concert.startDate}~{concert.endDate}
-        </p>
-        <p className="m-0 text-grayScaleWhite text-body-sm font-ragular font-NotoSansKR">
-          {concert.artist}
-        </p>
-      </div>
-    </div>
+    <DetailInfo
+      imageUrl={concert.poster}
+      status={getStatusLabel(concert.status, concert.daysLeft)}
+      title={concert.title}
+      date={`${concert.startDate} ~ ${concert.endDate}`}
+      artist={concert.artist}
+    />
   );
 }
 

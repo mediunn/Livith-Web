@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { SetlistType } from "../../entities/setlist/types";
 
 interface SetListCardProps {
@@ -6,6 +7,8 @@ interface SetListCardProps {
   date: string;
   status: string;
   imageUrl?: string;
+  setlistId: number;
+  concertId: number;
 }
 
 function SetListCard({
@@ -14,9 +17,17 @@ function SetListCard({
   date,
   status,
   imageUrl,
+  setlistId,
+  concertId,
 }: SetListCardProps) {
+  const navigate = useNavigate();
   return (
-    <div className="cursor-pointer">
+    <div
+      className="cursor-pointer"
+      onClick={() => {
+        navigate(`/setlist/${setlistId}/${concertId}`);
+      }}
+    >
       <div className="w-full aspect-[108/158] relative">
         {imageUrl ? (
           <img

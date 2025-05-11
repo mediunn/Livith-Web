@@ -9,6 +9,7 @@ import RootLayout from "./RootLayout";
 import SearchPage from "../pages/SearchPage";
 import LyricPage from "../pages/LyricPage";
 import SetlistCollectionPage from "../pages/SetlistCollectionPage";
+import SetlistDetailPage from "../pages/SetlistDetailPage";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "setlists/:type/:concertId",
         element: <SetlistCollectionPage />,
+      },
+      {
+        path: "setlist/:setlistId/:concertId",
+        element: <SetlistDetailPage />,
       },
     ],
   },
