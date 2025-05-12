@@ -77,7 +77,7 @@ function MainImageCarousel() {
 
   return (
     <div
-      className="slider-container relative w-full h-365"
+      className="relative w-full h-365"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

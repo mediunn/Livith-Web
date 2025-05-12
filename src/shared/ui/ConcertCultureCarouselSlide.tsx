@@ -29,7 +29,7 @@ function ConcertCultureCarouselSlide({
   };
 
   return (
-    <div className="relative w-343 h-135">
+    <div className="relative w-full h-135">
       <img
         src={imageUrl}
         alt={content}
