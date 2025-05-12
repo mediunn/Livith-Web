@@ -6,7 +6,7 @@ function ConcertCulture() {
   const { concertId } = useParams<{ concertId: string }>();
 
   return (
-    <div className="w-375 ml-16">
+    <div className="w-full ml-16 pr-32">
       <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-30 mb-14">
         해당 공연 문화
       </p>

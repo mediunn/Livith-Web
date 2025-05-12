@@ -1,4 +1,4 @@
-.slick-slide.slick-active {
+.slider-container .slick-slide.slick-active {
   width: 139px !important;
   margin-right: 10px;
 }
