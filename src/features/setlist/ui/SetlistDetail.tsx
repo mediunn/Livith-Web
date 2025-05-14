@@ -1,6 +1,7 @@
 import { SetlistDetailProps } from "../../../entities/setlist/types";
 import DetailInfo from "../../../shared/ui/DetailInfo";
 import useSetlistDetail from "../model/useSetlistDetail";
+import formatDate from "../utils/formatDate";
 
 function SetlistDetail({ concertId, setlistId }: SetlistDetailProps) {
   const {
@@ -17,7 +18,7 @@ function SetlistDetail({ concertId, setlistId }: SetlistDetailProps) {
       status={setlist?.status!}
       title={setlist?.title!}
       imageUrl={setlist?.imgUrl!}
-      date={setlist?.date!}
+      date={formatDate(setlist?.date!)}
       artist={setlist?.artist!}
     />
   );
