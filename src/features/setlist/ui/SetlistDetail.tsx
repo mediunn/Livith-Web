@@ -15,7 +15,7 @@ function SetlistDetail({ concertId, setlistId }: SetlistDetailProps) {
 
   return (
     <DetailInfo
-      status={setlist?.status!}
+      status={`${setlist?.status!} 셋리스트`}
       title={setlist?.title!}
       imageUrl={setlist?.imgUrl!}
       date={formatDate(setlist?.date!)}
