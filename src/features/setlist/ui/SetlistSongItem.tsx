@@ -16,6 +16,8 @@ function SetlistSongItem({
   songId,
 }: SetlistSongItemProps) {
   const navigate = useNavigate();
+  const paddedIndex = orderIndex.toString().padStart(2, "0");
+
   return (
     <div
       className="flex w-full aspect-[331/62] cursor-pointer"
@@ -28,7 +30,7 @@ function SetlistSongItem({
       />
       <div className="flex flex-col justify-center my-12 ml-10 space-y-10">
         <p className="text-grayScaleWhite text-caption-lg font-semibold font-NotoSansKR">
-          {orderIndex}. {title}
+          {paddedIndex}. {title}
         </p>
         <p className="text-grayScaleWhite text-caption-ssm font-regular font-NotoSansKR">
           {artist}
