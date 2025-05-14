@@ -14,11 +14,11 @@ function SetlistDetail({ concertId, setlistId }: SetlistDetailProps) {
 
   return (
     <DetailInfo
-      status={setlist?.status}
-      title={setlist?.title}
-      imageUrl={setlist?.imgUrl}
-      date={setlist?.date}
-      artist={setlist?.artist}
+      status={setlist?.status!}
+      title={setlist?.title!}
+      imageUrl={setlist?.imgUrl!}
+      date={setlist?.date!}
+      artist={setlist?.artist!}
     />
   );
 }
