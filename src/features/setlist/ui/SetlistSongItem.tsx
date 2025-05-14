@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import SongPlayIcon from "../../../shared/assets/SongPlayIcon.svg";
 
 interface SetlistSongItemProps {
@@ -5,15 +6,21 @@ interface SetlistSongItemProps {
   artist: string;
   orderIndex: number;
   imageUrl: string;
+  songId: number;
 }
 function SetlistSongItem({
   title,
   artist,
   imageUrl,
   orderIndex,
+  songId,
 }: SetlistSongItemProps) {
+  const navigate = useNavigate();
   return (
-    <div className="flex w-full aspect-[331/62]">
+    <div
+      className="flex w-full aspect-[331/62] cursor-pointer"
+      onClick={() => navigate(`/songs/${songId}`)}
+    >
       <img
         src={imageUrl}
         alt="Empty Icon"
