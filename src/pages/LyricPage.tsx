@@ -67,7 +67,7 @@ function LyricPage() {
       <LyricTypeButton activeButtons={activeButtons} onToggle={toggleButton} />
       <Lyric songId={Number(songId)} activeButtons={activeButtons} />
       {/* 응원법 조회 API 호출 테스트 */}
-      <LyricFanchant setlistId={1} songId={2} />
+      <LyricFanchant setlistId={1} songId={Number(songId)} />
       {popupMessage && (
         <LyricModal
           isFadingOut={isFadingOut}

@@ -24,6 +24,32 @@ function LyricFanchant({ setlistId, songId }: FanchantProps) {
     fetchFanchant();
   }, [setlistId, songId]);
 
+  const highlightText = (content: string) => {
+    // ##로 감싸진 부분 찾기
+    const regex = /##(.*?)##/g;
+    return content.split(regex).map((part, index) => {
+      if (index % 2 !== 0) {
+        return (
+          <span
+            key={index}
+            className="text-mainYellow60 text-body-md font-semibold font-NotoSansKR"
+          >
+            {part}
+          </span>
+        );
+      }
+      // 나머지는 그대로 출력
+      return (
+        <span
+          key={index}
+          className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR"
+        >
+          {part}
+        </span>
+      );
+    });
+  };
+
   if (!fanchantData) {
     return <div className="text-white">로딩 중...</div>;
   }
@@ -33,9 +59,9 @@ function LyricFanchant({ setlistId, songId }: FanchantProps) {
       {fanchantData.fanchant.map((line, index) => (
         <p
           key={index}
-          className="mb-24 text-mainYellow60 text-body-md font-medium font-NotoSansKR"
+          className="mb-24 text-body-md font-medium font-NotoSansKR"
         >
-          {line}
+          {highlightText(line)}
         </p>
       ))}
     </div>
