@@ -7,20 +7,26 @@ import ConcertSlideCard from "../shared/ui/ConcertSlideCard";
 import "../shared/styles/concert-slide.css";
 import ConcertSlidePrevArrow from "../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../shared/assets/ConcertSlideNextArrow.svg";
-import { ConcertStatus } from "../entities/concert/types";
+import { ConcertStatus, Concert } from "../entities/concert/types";
+import EmptyConcertSlide from "../shared/ui/EmptyConcertSlide";
 
 type ConcertSlideProps = {
   status: ConcertStatus;
+  concerts: Concert[];
 };
 
-function ConcertSlide({ status }: ConcertSlideProps) {
+function ConcertSlide({ status, concerts }: ConcertSlideProps) {
   const navigate = useNavigate();
 
   const [isHovered, setIsHovered] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slidesToShow = 2;
-  const totalSlides = cardData.length;
+
+  // 엠티뷰 렌더링 조건
+  if (concerts.length === 0) {
+    return <EmptyConcertSlide status={status} />;
+  }
 
   const CustomConcertSlidePrevArrow = (props: any) => {
     const { onClick, style } = props;
@@ -44,7 +50,7 @@ function ConcertSlide({ status }: ConcertSlideProps) {
     const { onClick, style } = props;
 
     // 마지막 슬라이드면 다음 버튼 안 보이도록
-    const maxIndex = totalSlides - slidesToShow;
+    const maxIndex = concerts.length - slidesToShow;
     if (currentSlide >= maxIndex) return null;
 
     return (
@@ -77,13 +83,17 @@ function ConcertSlide({ status }: ConcertSlideProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Slider {...settings}>
-        {cardData.map((slide, index) => (
+        {concerts.map((concert) => (
           <ConcertSlideCard
-            key={index}
-            title={slide.title}
-            date={slide.date}
+            key={concert.id}
+            imageUrl={concert.poster}
+            title={concert.title}
+            date={`${concert.startDate} ~ ${concert.endDate}`}
             status={status}
-            onClick={() => navigate(`/concert/${index}`, { state: { status } })}
+            daysLeft={concert.daysLeft}
+            onClick={() =>
+              navigate(`/concert/${concert.id}`, { state: { status } })
+            }
           />
         ))}
       </Slider>
@@ -92,46 +102,3 @@ function ConcertSlide({ status }: ConcertSlideProps) {
 }
 
 export default ConcertSlide;
-
-const cardData = [
-  {
-    title: "1 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 1",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "2 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 2",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "3 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 3",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "4 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 4",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "5 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 5",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "6 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 6",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "7 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 7",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "8 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 8",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "9 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 9",
-    date: "년도.월.일~월.일​",
-  },
-  {
-    title: "10 콘서트 명 두줄일 경우엔 이렇게 표기가 됩니다 10",
-    date: "년도.월.일~월.일​",
-  },
-];
