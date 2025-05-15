@@ -1,10 +1,36 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ConcertStatus } from "../entities/concert/types";
 import ConcertSlide from "../features/ConcertSlide";
 import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
+import { ConcertStatus, Concert } from "../entities/concert/types";
+import { getConcertList } from "../features/concert/api/getConcertList";
 
 function PrevConcert() {
+  const [concerts, setConcerts] = useState<Concert[] | null>(null);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchConcerts = async () => {
+      try {
+        const res = await getConcertList({
+          status: ConcertStatus.COMPLETED,
+          size: 10,
+        });
+        setConcerts(res.data.data);
+      } catch (error) {
+        console.error("콘서트 목록 조회 API 호출 실패:", error);
+        setConcerts([]);
+      }
+    };
+
+    fetchConcerts();
+  }, []);
+
+  if (concerts === null) {
+    return null;
+  }
+
   return (
     <div className="pb-92">
       <div className="flex item-center justify-between w-full">
@@ -19,7 +45,7 @@ function PrevConcert() {
           />
         </button>
       </div>
-      <ConcertSlide status={ConcertStatus.COMPLETED} />
+      <ConcertSlide status={ConcertStatus.COMPLETED} concerts={concerts} />
     </div>
   );
 }
