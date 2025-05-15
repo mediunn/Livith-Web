@@ -2,23 +2,41 @@ import { ConcertStatus } from "../../entities/concert/types";
 import "../styles/concert-slide.css";
 
 type ConcertSlideCardProps = {
+  imageUrl?: string;
   title: string;
   date: string;
   status: ConcertStatus;
+  daysLeft: number;
   onClick?: () => void;
 };
 
 function ConcertSlideCard({
+  imageUrl,
   title,
   date,
   status,
+  daysLeft,
   onClick,
 }: ConcertSlideCardProps) {
-  const statusText = status === ConcertStatus.ONGOING ? "진행중" : "종료";
+  const statusText =
+    status === ConcertStatus.ONGOING
+      ? "진행중"
+      : status === ConcertStatus.COMPLETED
+        ? "종료"
+        : `D-${daysLeft}`;
 
   return (
     <div className="w-139 h-280" onClick={onClick}>
-      <div className="w-139 h-196 bg-grayScaleBlack80 rounded-6 relative">
+      <div className="w-139 h-196 relative">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="콘서트 이미지"
+            className="w-full h-full rounded-6 object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-grayScaleBlack80 rounded-6" />
+        )}
         <div className="absolute top-10 left-10 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13">
           <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
             {statusText}
