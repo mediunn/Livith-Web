@@ -9,6 +9,7 @@ import ConcertSlidePrevArrow from "../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../shared/assets/ConcertSlideNextArrow.svg";
 import { ConcertStatus, Concert } from "../entities/concert/types";
 import EmptyConcertSlide from "../shared/ui/EmptyConcertSlide";
+import { formatConcertDate } from "../shared/utils/formatConcertDate";
 
 type ConcertSlideProps = {
   status: ConcertStatus;
@@ -88,7 +89,7 @@ function ConcertSlide({ status, concerts }: ConcertSlideProps) {
             key={concert.id}
             imageUrl={concert.poster}
             title={concert.title}
-            date={`${concert.startDate} ~ ${concert.endDate}`}
+            date={formatConcertDate(concert.startDate, concert.endDate)}
             status={status}
             daysLeft={concert.daysLeft}
             onClick={() =>
