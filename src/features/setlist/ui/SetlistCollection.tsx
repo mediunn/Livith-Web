@@ -2,6 +2,7 @@ import { SetlistType } from "../../../entities/setlist/types";
 import useSetlistCollection from "../model/useSetlistCollection";
 import { useInView } from "react-intersection-observer";
 import SetListCard from "../../../shared/ui/SetListCard";
+import formatDate from "../utils/formatDate";
 
 interface SetlistCollectionProps {
   type: SetlistType;
@@ -28,10 +29,6 @@ function SetlistCollection({ type, concertId }: SetlistCollectionProps) {
   });
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
-
-  const formatDate = (date: string) => {
-    return date.replace(/-/g, ".");
-  };
 
   return (
     <div className="grid grid-cols-3 gap-x-9 gap-y-24 mt-24 mx-16">

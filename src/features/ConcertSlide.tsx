@@ -83,7 +83,7 @@ function ConcertSlide({ status }: ConcertSlideProps) {
             title={slide.title}
             date={slide.date}
             status={status}
-            onClick={() => navigate(`/concert/${index}`)}
+            onClick={() => navigate(`/concert/${index}`, { state: { status } })}
           />
         ))}
       </Slider>
