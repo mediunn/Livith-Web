@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getConcertInsideInfo } from "../api/getConcertInsideInfo";
 import { Concert, ConcertStatus } from "../../../entities/concert/types";
 import DetailInfo from "../../../shared/ui/DetailInfo";
+import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 
 interface Props {
   concertId: number;
@@ -43,7 +44,7 @@ function ConcertInsideInfo({ concertId }: Props) {
       imageUrl={concert.poster}
       status={getStatusLabel(concert.status, concert.daysLeft)}
       title={concert.title}
-      date={`${concert.startDate} ~ ${concert.endDate}`}
+      date={formatConcertDate(concert.startDate, concert.endDate)}
       artist={concert.artist}
     />
   );
