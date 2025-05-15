@@ -1,15 +1,50 @@
-import { ConcertStatus } from "../entities/concert/types";
-import EmptyConcertSlide from "../shared/ui/EmptyConcertSlide";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ConcertSlide from "../features/ConcertSlide";
+import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
+import { ConcertStatus, Concert } from "../entities/concert/types";
+import { getConcertList } from "../features/concert/api/getConcertList";
 
 function NextConcert() {
+  const [concerts, setConcerts] = useState<Concert[] | null>(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchConcerts = async () => {
+      try {
+        const res = await getConcertList({
+          status: ConcertStatus.UPCOMING,
+          size: 10,
+        });
+        setConcerts(res.data.data);
+      } catch (error) {
+        console.error("콘서트 목록 조회 API 호출 실패:", error);
+        setConcerts([]);
+      }
+    };
+
+    fetchConcerts();
+  }, []);
+
+  if (concerts === null) {
+    return null;
+  }
+
   return (
     <div>
-      <div className="flex item-center justify-between w-375">
+      <div className="flex item-center justify-between w-full">
         <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-30 mb-19 ml-16">
           곧 진행하는 콘서트
         </p>
+        <button
+          className="w-24 h-24 bg-transparent border-none p-0 mt-36 mr-16 cursor-pointer"
+          onClick={() => navigate(`/concerts/${ConcertStatus.UPCOMING}`)}
+        >
+          <img src={ConcertRightArrow} className="w-full h-full" />
+        </button>
       </div>
-      <EmptyConcertSlide status={ConcertStatus.UPCOMING} />
+      <ConcertSlide status={ConcertStatus.UPCOMING} concerts={concerts} />
     </div>
   );
 }
