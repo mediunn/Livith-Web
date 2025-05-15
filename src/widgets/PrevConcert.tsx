@@ -37,13 +37,14 @@ function PrevConcert() {
         <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-30 mb-19 ml-16">
           한 달 이내 진행했던 콘서트
         </p>
-        <button className="w-24 h-24 bg-transparent border-none p-0 mt-30 mr-16 cursor-pointer">
-          <img
-            src={ConcertRightArrow}
-            className="w-full h-full"
+        {concerts.length > 0 && (
+          <button
+            className="w-24 h-24 bg-transparent border-none p-0 mt-30 mr-16 cursor-pointer"
             onClick={() => navigate(`/concerts/${ConcertStatus.COMPLETED}`)}
-          />
-        </button>
+          >
+            <img src={ConcertRightArrow} className="w-full h-full" />
+          </button>
+        )}
       </div>
       <ConcertSlide status={ConcertStatus.COMPLETED} concerts={concerts} />
     </div>
