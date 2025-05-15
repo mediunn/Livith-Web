@@ -1,5 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
-import SearchBar from "../shared/ui/SearchBar";
+import ListHeader from "../shared/ui/ListHeader";
 import ConcertInsideInfo from "../features/concert/ui/ConcertInsideInfo";
 import ConcertCulture from "../widgets/ConcertCulture";
 import PastSetList from "../shared/ui/PastSetList";
@@ -14,7 +14,7 @@ function ConcertInsidePage() {
 
   return (
     <>
-      <SearchBar hideLogo></SearchBar>
+      <ListHeader></ListHeader>
       <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>
       <ConcertCulture></ConcertCulture>
       {status === ConcertStatus.UPCOMING ? (
