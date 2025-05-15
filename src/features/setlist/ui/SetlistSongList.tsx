@@ -24,6 +24,7 @@ function SetlistSongList({ setlistId }: { setlistId: number }) {
           {songs?.data.map((song) => (
             <SetlistSongItem
               key={song.id}
+              songId={song.id}
               title={song.title}
               artist={song.artist}
               orderIndex={song.orderIndex}

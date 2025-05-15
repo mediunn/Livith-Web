@@ -50,7 +50,9 @@ export function InfiniteConcertList({
             date={formatDate(concert.startDate, concert.endDate)}
             status={concert.status}
             onClick={() => {
-              navigate(`/concert/${concert.id}`);
+              navigate(`/concert/${concert.id}`, {
+                state: { status: concert.status },
+              });
             }}
             artist={concert.artist}
             daysLeft={concert.daysLeft}

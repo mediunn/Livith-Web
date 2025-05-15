@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
-import SetListCard from "../shared/ui/SetListCard";
-import { SetlistType } from "../entities/setlist/types";
+import ConcertRightArrow from "../assets/ConcertRightArrow.svg";
+import { SetlistType } from "../../entities/setlist/types";
 
-function SetList() {
+function OngoingSetList() {
   const navigate = useNavigate();
   const concertId = 1; // 추후 API 연동 시 데이터로 대체
   return (
@@ -23,7 +22,7 @@ function SetList() {
         </button>
       </div>
       <div className="ml-16 flex gap-9 pb-92">
-        {/* 추후 API 연동 시 데이터로 대체 */}
+        {/* 추후 API 연동 시 props 추가 */}
         {/* <SetListCard />
         <SetListCard />
         <SetListCard />
@@ -33,4 +32,4 @@ function SetList() {
   );
 }
 
-export default SetList;
+export default OngoingSetList;
