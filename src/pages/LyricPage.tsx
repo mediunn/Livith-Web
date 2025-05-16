@@ -39,19 +39,29 @@ function LyricPage() {
     const langGroup = [isLang, isPron, isTrans];
     const langGroupOnCount = langGroup.filter(Boolean).length;
 
-    // 다 끄려고 할 경우
+    // 다 끄려고 할 경우 (원어 - off, 발음 - off, 해석 - off - 응원법 - off )
     if (index < 3 && !newState[index] && langGroupOnCount === 0) {
+      // 모든 버튼 off 시 팝업
       showPopup("원어, 발음, 해석 중 하나는\n켜져야 해요");
       return;
     }
 
-    if (index === 3 && newState[3]) {
-      // 해석과 응원법만 동시에 킬 경우
-      if (!(isLang || isPron)) {
-        showPopup("해석에는 응원법이\n표시가 되지 않아요");
-        return;
-      } else {
-        // 응원법 표시 가능한 경우
+    // 해석과 응원법만 동시에 킬 경우 (원어 - off, 발음 - off, 해석 - on - 응원법 - on )
+    if (!isLang && !isPron && isTrans && isFanChat) {
+      // 해석과 응원법만 동시에 킬 경우 등장하는 팝업
+      showPopup("해석에는 응원법이\n표시가 되지 않아요");
+      return;
+    }
+
+    // 응원법 표시 가능한 경우
+    if (index === 3) {
+      if (newState[3]) {
+        // 응원법 켜려는 경우 → 원어가 꺼져있으면 안 됨
+        if (!newState[0]) {
+          // 응원법 표시 팝업
+          showPopup("응원법은 원어에서만\n표시가 돼요");
+          return;
+        }
         setActiveButtons(newState);
         showPopup("응원법은 원어에서만\n표시가 돼요");
         return;
@@ -67,7 +77,10 @@ function LyricPage() {
       <LyricTypeButton activeButtons={activeButtons} onToggle={toggleButton} />
       <Lyric songId={Number(songId)} activeButtons={activeButtons} />
       {/* 응원법 조회 API 호출 테스트 */}
-      <LyricFanchant setlistId={1} songId={Number(songId)} />
+      {activeButtons[3] && (
+        <LyricFanchant setlistId={1} songId={Number(songId)} />
+      )}
+
       {popupMessage && (
         <LyricModal
           isFadingOut={isFadingOut}
