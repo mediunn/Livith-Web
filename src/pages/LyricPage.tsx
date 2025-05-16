@@ -39,17 +39,38 @@ function LyricPage() {
     const langGroup = [isLang, isPron, isTrans];
     const langGroupOnCount = langGroup.filter(Boolean).length;
 
-    // 다 끄려고 할 경우 (원어 - off, 발음 - off, 해석 - off - 응원법 - off )
-    if (index < 3 && !newState[index] && langGroupOnCount === 0) {
+    // 원어 - off, 발음 - off, 해석 - off - 응원법 - off
+    if (!isLang && !isPron && !isTrans && !isFanChat) {
       // 모든 버튼 off 시 팝업
       showPopup("원어, 발음, 해석 중 하나는\n켜져야 해요");
       return;
     }
 
-    // 해석과 응원법만 동시에 킬 경우 (원어 - off, 발음 - off, 해석 - on - 응원법 - on )
+    // 원어 - off, 발음 - off, 해석 - off - 응원법 - on
+    if (!isLang && !isPron && !isTrans && isFanChat) {
+      // 모든 버튼 off 시 팝업
+      showPopup("원어, 발음, 해석 중 하나는\n켜져야 해요");
+      return;
+    }
+
+    // 원어 - off, 발음 - off, 해석 - on - 응원법 - on
     if (!isLang && !isPron && isTrans && isFanChat) {
       // 해석과 응원법만 동시에 킬 경우 등장하는 팝업
       showPopup("해석에는 응원법이\n표시가 되지 않아요");
+      return;
+    }
+
+    // 원어 - off, 발음 - on, 해석 - off - 응원법 - on
+    if (!isLang && isPron && !isTrans && isFanChat) {
+      // 발음과 응원법만 동시에 킬 경우 등장하는 팝업
+      showPopup("발음에는 응원법이\n표시가 되지 않아요");
+      return;
+    }
+
+    // 원어 - off, 발음 - on, 해석 - on - 응원법 - on
+    if (!isLang && isPron && isTrans && isFanChat) {
+      // 발음, 해석과 응원법만 동시에 킬 경우 등장하는 팝업
+      showPopup("발음과 해석에는 응원법이\n표시가 되지 않아요");
       return;
     }
 
