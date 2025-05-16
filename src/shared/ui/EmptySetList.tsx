@@ -1,14 +1,14 @@
 import EmptyIcon from "../assets/EmptyIcon.svg";
 
 type EmptySetListProps = {
-  status: "last" | "progress" | "expectation";
+  status: "past" | "ongoing" | "expected";
 };
 
 function EmptySetList({ status }: EmptySetListProps) {
   const statusText =
-    status === "last"
+    status === "past"
       ? "지난 셋리스트가"
-      : status === "progress"
+      : status === "ongoing"
         ? "진행된 셋리스트가"
         : "예상 셋리스트가";
 
