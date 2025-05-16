@@ -19,7 +19,9 @@ function ConcertInsidePage() {
       <ConcertCulture></ConcertCulture>
       {status === ConcertStatus.UPCOMING ? (
         <>
-          <ExpectationSetList></ExpectationSetList>
+          <ExpectationSetList
+            concertId={Number(concertId)}
+          ></ExpectationSetList>
           <PastSetList></PastSetList>
         </>
       ) : (
