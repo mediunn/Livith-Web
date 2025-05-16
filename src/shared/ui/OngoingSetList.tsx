@@ -51,7 +51,7 @@ function OngoingSetList({ concertId }: OngoingSetListProps) {
           />
         </button>
       </div>
-      <div className="ml-16 flex gap-9 pb-92">
+      <div className="ml-16 mr-16 flex gap-9 pb-92">
         {setlists.map((setlist) => (
           <SetListCard
             key={setlist.id}

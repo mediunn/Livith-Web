@@ -23,12 +23,12 @@ function SetListCard({
   const navigate = useNavigate();
   return (
     <div
-      className="cursor-pointer"
+      className="basis-0 flex-grow min-w-[108px] max-w-[132px] cursor-pointer"
       onClick={() => {
         navigate(`/setlist/${setlistId}/${concertId}`);
       }}
     >
-      <div className="w-full aspect-[108/158] relative">
+      <div className="aspect-[108/158] relative">
         {imageUrl ? (
           <img
             src={imageUrl}
