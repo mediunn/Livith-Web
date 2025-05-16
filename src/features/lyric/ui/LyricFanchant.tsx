@@ -4,9 +4,10 @@ import { getFanchant, Fanchant } from "../api/getFanchant";
 interface FanchantProps {
   setlistId: number;
   songId: number;
+  lineIndex: number;
 }
 
-function LyricFanchant({ setlistId, songId }: FanchantProps) {
+function LyricFanchant({ setlistId, songId, lineIndex }: FanchantProps) {
   const [fanchantData, setFanchantData] = useState<Fanchant | null>(null);
 
   useEffect(() => {
@@ -54,17 +55,12 @@ function LyricFanchant({ setlistId, songId }: FanchantProps) {
     return <div className="text-white">로딩 중...</div>;
   }
 
+  const line = fanchantData.fanchant[lineIndex] ?? "";
+
   return (
-    <div className="ml-16 pr-16 mt-30 w-full">
-      {fanchantData.fanchant.map((line, index) => (
-        <p
-          key={index}
-          className="mb-24 text-body-md font-medium font-NotoSansKR"
-        >
-          {highlightText(line)}
-        </p>
-      ))}
-    </div>
+    <p className="mb-24 text-body-md font-medium font-NotoSansKR">
+      {highlightText(line)}
+    </p>
   );
 }
 

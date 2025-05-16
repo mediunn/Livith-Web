@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSong, Song } from "../api/getSong";
+import LyricFanchant from "../ui/LyricFanchant";
 
 interface LyricProps {
   songId: number;
@@ -30,10 +31,14 @@ function Lyric({ songId, activeButtons }: LyricProps) {
     <div className="ml-16 pr-16 mt-30 w-full">
       {songData.lyrics.map((_, index) => (
         <div key={index} className="mb-44 w-full">
-          {activeButtons[0] && (
-            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
-              {songData.lyrics[index]}
-            </p>
+          {activeButtons[3] ? (
+            <LyricFanchant setlistId={1} songId={songId} lineIndex={index} />
+          ) : (
+            activeButtons[0] && (
+              <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+                {songData.lyrics[index]}
+              </p>
+            )
           )}
           {activeButtons[1] && (
             <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
