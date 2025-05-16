@@ -41,19 +41,19 @@ function LyricPage() {
 
     // 다 끄려고 할 경우
     if (index < 3 && !newState[index] && langGroupOnCount === 0) {
-      showPopup("원어, 발음, 해석 중 하나는 켜져야 해요");
+      showPopup("원어, 발음, 해석 중 하나는\n켜져야 해요");
       return;
     }
 
     if (index === 3 && newState[3]) {
       // 해석과 응원법만 동시에 킬 경우
       if (!(isLang || isPron)) {
-        showPopup("해석에는 응원법이 표시가 되지 않아요");
+        showPopup("해석에는 응원법이\n표시가 되지 않아요");
         return;
       } else {
         // 응원법 표시 가능한 경우
         setActiveButtons(newState);
-        showPopup("응원법은 원어와 발음에서만 표시가 돼요");
+        showPopup("응원법은 원어에서만\n표시가 돼요");
         return;
       }
     }
@@ -73,7 +73,10 @@ function LyricPage() {
           isFadingOut={isFadingOut}
           onClose={() => setPopupMessage(null)}
         >
-          <p className="text-center text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+          <p
+            className="text-center text-grayScaleWhite text-body-md font-medium font-NotoSansKR"
+            style={{ whiteSpace: "pre-line" }}
+          >
             {popupMessage}
           </p>
         </LyricModal>
