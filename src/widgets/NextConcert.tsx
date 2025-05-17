@@ -37,12 +37,14 @@ function NextConcert() {
         <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-30 mb-19 ml-16">
           곧 진행하는 콘서트
         </p>
-        <button
-          className="w-24 h-24 bg-transparent border-none p-0 mt-36 mr-16 cursor-pointer"
-          onClick={() => navigate(`/concerts/${ConcertStatus.UPCOMING}`)}
-        >
-          <img src={ConcertRightArrow} className="w-full h-full" />
-        </button>
+        {concerts.length > 0 && (
+          <button
+            className="w-24 h-24 bg-transparent border-none p-0 mt-36 mr-16 cursor-pointer"
+            onClick={() => navigate(`/concerts/${ConcertStatus.UPCOMING}`)}
+          >
+            <img src={ConcertRightArrow} className="w-full h-full" />
+          </button>
+        )}
       </div>
       <ConcertSlide status={ConcertStatus.UPCOMING} concerts={concerts} />
     </div>
