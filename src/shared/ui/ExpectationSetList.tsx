@@ -41,7 +41,7 @@ function ExpectationSetList({ concertId }: ExpectationSetListProps) {
       {setlists && setlists.length > 0 ? (
         <div className="w-full h-135 bg-grayScaleBlack80 rounded-6"></div>
       ) : (
-        <EmptySetList status="expected" />
+        <EmptySetList type={SetlistType.EXPECTED} />
       )}
     </div>
   );
