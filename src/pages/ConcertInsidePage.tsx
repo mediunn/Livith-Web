@@ -1,11 +1,11 @@
 import { useLocation, useParams } from "react-router-dom";
-import SearchBar from "../shared/ui/SearchBar";
+import ListHeader from "../shared/ui/ListHeader";
 import ConcertInsideInfo from "../features/concert/ui/ConcertInsideInfo";
 import ConcertCulture from "../widgets/ConcertCulture";
 import PastSetList from "../shared/ui/PastSetList";
 import ExpectationSetList from "../shared/ui/ExpectationSetList";
 import { ConcertStatus } from "../entities/concert/types";
-import OngoingSetList from "../shared/ui/OngoingSetlist";
+import OngoingSetList from "../shared/ui/OngoingSetList";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
@@ -14,16 +14,18 @@ function ConcertInsidePage() {
 
   return (
     <>
-      <SearchBar hideLogo></SearchBar>
+      <ListHeader></ListHeader>
       <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>
       <ConcertCulture></ConcertCulture>
       {status === ConcertStatus.UPCOMING ? (
         <>
-          <ExpectationSetList></ExpectationSetList>
-          <PastSetList></PastSetList>
+          <ExpectationSetList
+            concertId={Number(concertId)}
+          ></ExpectationSetList>
+          <PastSetList concertId={Number(concertId)}></PastSetList>
         </>
       ) : (
-        <OngoingSetList></OngoingSetList>
+        <OngoingSetList concertId={Number(concertId)}></OngoingSetList>
       )}
     </>
   );

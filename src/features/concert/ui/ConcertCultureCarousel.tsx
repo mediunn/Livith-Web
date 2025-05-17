@@ -7,6 +7,7 @@ import "../../../shared/styles/slick-theme.css";
 import PrevArrow from "../../../shared/assets/PrevArrow.svg";
 import NextArrow from "../../../shared/assets/NextArrow.svg";
 import { getConcertCulture } from "../api/getConcertCulture";
+import EmptyConcertCulture from "../../../shared/ui/EmptyConcertCulture";
 
 type ConcertCultureProps = {
   id: number;
@@ -40,6 +41,14 @@ function ConcertCultureCarousel({ concertId }: ConcertCultureCarouselProps) {
     fetchConcertCulture();
   }, [concertId]);
 
+  // 엠티뷰 조건
+  if (ConcertCulture.length === 0) {
+    return <EmptyConcertCulture />;
+  }
+
+  // 캐러셀 전환 버튼 표시 조건
+  const showArrows = ConcertCulture.length >= 2;
+
   const CustomPrevArrow = (props: any) => {
     const { onClick, style } = props;
     return (
@@ -47,7 +56,7 @@ function ConcertCultureCarousel({ concertId }: ConcertCultureCarouselProps) {
         onClick={onClick}
         style={style}
         className={`absolute left-0 top-49 w-38 h-38 z-10 bg-transparent border-none p-0
-          ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+          ${isHovered && showArrows ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
         <img src={PrevArrow} alt="prev" className="w-10 h-19" />
       </button>
@@ -60,8 +69,8 @@ function ConcertCultureCarousel({ concertId }: ConcertCultureCarouselProps) {
       <button
         onClick={onClick}
         style={style}
-        className={`absolute right-32 top-49 w-38 h-38 z-10 bg-transparent border-none p-0
-          ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`absolute right-0 top-49 w-38 h-38 z-10 bg-transparent border-none p-0
+          ${isHovered && showArrows ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
         <img src={NextArrow} alt="next" className="w-10 h-19" />
       </button>
@@ -83,21 +92,24 @@ function ConcertCultureCarousel({ concertId }: ConcertCultureCarouselProps) {
   };
 
   return (
-    <div
-      className="relative w-full h-135 pb-5"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <Slider {...settings}>
-        {ConcertCulture.map((slide) => (
-          <ConcertCultureCarouselSlide
-            key={slide.id}
-            content={slide.content}
-            imageUrl={slide.imgUrl}
-          />
-        ))}
-      </Slider>
-    </div>
+    <>
+      {/* <EmptyConcertCulture /> */}
+      <div
+        className="relative w-full h-135 pb-5"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Slider {...settings}>
+          {ConcertCulture.map((slide) => (
+            <ConcertCultureCarouselSlide
+              key={slide.id}
+              content={slide.content}
+              imageUrl={slide.imgUrl}
+            />
+          ))}
+        </Slider>
+      </div>
+    </>
   );
 }
 

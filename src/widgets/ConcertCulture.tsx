@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import ConcertCultureCarousel from "../features/concert/ui/ConcertCultureCarousel";
-import EmptyConcertCulture from "../shared/ui/EmptyConcertCulture";
 
 function ConcertCulture() {
   const { concertId } = useParams<{ concertId: string }>();
@@ -11,7 +10,6 @@ function ConcertCulture() {
         해당 공연 문화
       </p>
       <ConcertCultureCarousel concertId={Number(concertId)} />
-      {/* <EmptyConcertCulture /> */}
     </div>
   );
 }
