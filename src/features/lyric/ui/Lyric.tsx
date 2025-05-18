@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getSong, Song } from "../api/getSong";
 import LyricFanchant from "../ui/LyricFanchant";
 import { useRecoilValue } from "recoil";
-import { setlistIdState } from "../../../entities/recoil/atoms/SetlistIdState";
+import { setlistIdState } from "../../../entities/recoil/atoms/setlistIdState";
 
 interface LyricProps {
   songId: number;
