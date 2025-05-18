@@ -26,7 +26,6 @@ function SetlistSongItem({
     setSetlistId(setlistId);
     navigate(`/songs/${songId}`);
   };
-
   const paddedIndex = orderIndex.toString().padStart(2, "0");
 
   return (
