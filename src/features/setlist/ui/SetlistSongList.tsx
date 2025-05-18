@@ -29,6 +29,7 @@ function SetlistSongList({ setlistId }: { setlistId: number }) {
               artist={song.artist}
               orderIndex={song.orderIndex}
               imageUrl={song.imgUrl}
+              setlistId={setlistId}
             />
           ))}
         </div>
