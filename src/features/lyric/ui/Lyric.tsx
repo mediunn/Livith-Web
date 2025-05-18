@@ -1,0 +1,54 @@
+import { useEffect, useState } from "react";
+import { getSong, Song } from "../api/getSong";
+
+interface LyricProps {
+  songId: number;
+  activeButtons: boolean[];
+}
+
+function Lyric({ songId, activeButtons }: LyricProps) {
+  const [songData, setSongData] = useState<Song | null>(null);
+
+  useEffect(() => {
+    const fetchSongData = async () => {
+      try {
+        const data = await getSong(songId);
+        setSongData(data);
+      } catch (error) {
+        console.error("가사 조회 API 호출 실패:", error);
+      }
+    };
+
+    fetchSongData();
+  }, [songId]);
+
+  if (!songData) {
+    return <div className="text-white">로딩 중...</div>;
+  }
+
+  return (
+    <div className="ml-16 pr-16 mt-30 w-full">
+      {songData.lyrics.map((_, index) => (
+        <div key={index} className="mb-44 w-full">
+          {activeButtons[0] && (
+            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+              {songData.lyrics[index]}
+            </p>
+          )}
+          {activeButtons[1] && (
+            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+              {songData.pronunciation[index]}
+            </p>
+          )}
+          {activeButtons[2] && (
+            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+              {songData.translation[index]}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default Lyric;

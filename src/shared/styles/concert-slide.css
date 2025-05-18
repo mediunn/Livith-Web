@@ -1,0 +1,8 @@
+.slider-container .slick-slide.slick-active {
+  width: 139px !important;
+  margin-right: 10px;
+}
+
+.slick-track {
+  margin: 0;
+}
