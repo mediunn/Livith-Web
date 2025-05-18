@@ -3,7 +3,7 @@ import BackArrow from "../../../widgets/BackArrow.tsx";
 import CloseRoundIcon from "../../../shared/assets/CloseRoundIcon.svg";
 import { useState } from "react";
 import { StateWithSetter } from "../../../shared/types/props.ts";
-import { saveRecentSearch } from "../utils/SaveRecentSearch.ts";
+import { saveRecentSearch } from "../utils/saveRecentSearch.ts";
 
 type InputSearchBarProps = {
   inputState: StateWithSetter<string>;
