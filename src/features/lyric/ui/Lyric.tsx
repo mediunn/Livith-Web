@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { getSong, Song } from "../api/getSong";
+import LyricFanchant from "../ui/LyricFanchant";
+import { useRecoilValue } from "recoil";
+import { setlistIdState } from "../../../entities/recoil/atoms/setlistIdState";
 
 interface LyricProps {
   songId: number;
@@ -7,6 +10,7 @@ interface LyricProps {
 }
 
 function Lyric({ songId, activeButtons }: LyricProps) {
+  const setlistId = useRecoilValue(setlistIdState);
   const [songData, setSongData] = useState<Song | null>(null);
 
   useEffect(() => {
@@ -30,10 +34,18 @@ function Lyric({ songId, activeButtons }: LyricProps) {
     <div className="ml-16 pr-16 mt-30 w-full">
       {songData.lyrics.map((_, index) => (
         <div key={index} className="mb-44 w-full">
-          {activeButtons[0] && (
-            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
-              {songData.lyrics[index]}
-            </p>
+          {activeButtons[3] && setlistId !== null ? (
+            <LyricFanchant
+              setlistId={setlistId}
+              songId={songId}
+              lineIndex={index}
+            />
+          ) : (
+            activeButtons[0] && (
+              <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+                {songData.lyrics[index]}
+              </p>
+            )
           )}
           {activeButtons[1] && (
             <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">

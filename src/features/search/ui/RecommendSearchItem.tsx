@@ -1,5 +1,5 @@
 import { StateWithSetter } from "../../../shared/types/props";
-import { saveRecentSearch } from "../utils/SaveRecentSearch";
+import { saveRecentSearch } from "../utils/saveRecentSearch";
 
 type RecommendSearchItemProps = {
   word: string;

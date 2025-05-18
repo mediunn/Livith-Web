@@ -1,6 +1,6 @@
 import CloseIcon from "../../../shared/assets/CloseIcon.svg";
 import { StateWithSetter } from "../../../shared/types/props";
-import { saveRecentSearch } from "../utils/SaveRecentSearch";
+import { saveRecentSearch } from "../utils/saveRecentSearch";
 
 interface RecentSearchItemProps {
   word: string;
