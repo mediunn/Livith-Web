@@ -14,8 +14,6 @@ function LyricFanchant({ setlistId, songId, lineIndex }: FanchantProps) {
     const fetchFanchant = async () => {
       try {
         const data = await getFanchant(setlistId, songId);
-        // API 연결 확인
-        console.log("응원법 조회 API 호출 성공:", data);
         setFanchantData(data);
       } catch (error) {
         console.error("응원법 조회 API 호출 실패:", error);
