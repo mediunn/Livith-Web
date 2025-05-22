@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { getSetlistCollection } from "../../features/setlist/api/getSetlistCollection";
 import { Setlist, SetlistType } from "../../entities/setlist/types";
 import EmptySetList from "./EmptySetList";
+import { useNavigate } from "react-router-dom";
 
 type ExpectationSetListProps = {
   concertId: number;
 };
 
 function ExpectationSetList({ concertId }: ExpectationSetListProps) {
+  const navigate = useNavigate();
+
   const [setlists, setSetlists] = useState<Setlist[] | null>(null);
 
   useEffect(() => {
@@ -43,7 +46,10 @@ function ExpectationSetList({ concertId }: ExpectationSetListProps) {
           {setlists.map((setlist) => (
             <div
               key={setlist.id}
-              className="w-full h-full relative bg-grayScaleBlack80 rounded-6"
+              className="w-full h-full relative bg-grayScaleBlack80 rounded-6 cursor-pointer"
+              onClick={() => {
+                navigate(`/setlist/${setlist.id}/${concertId}`);
+              }}
             >
               <img
                 src={setlist.imgUrl}
