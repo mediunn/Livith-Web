@@ -1,9 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../features/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
+import { getFanchant } from "../features/lyric/api/getFanchant";
+import { useRecoilValue } from "recoil";
+import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -15,6 +18,32 @@ function LyricPage() {
     true,
     false,
   ]);
+
+  // 응원법 존재 확인
+  const [hasFanchant, setHasFanchant] = useState(false);
+  const setlistId = useRecoilValue(setlistIdState);
+
+  useEffect(() => {
+    const fetchFanchantExistence = async () => {
+      try {
+        const fanchantData = await getFanchant(
+          Number(setlistId),
+          Number(songId)
+        );
+        const hasAnyFanchant = fanchantData?.fanchant?.some(
+          (line) => line.trim() !== ""
+        );
+        setHasFanchant(hasAnyFanchant);
+      } catch (error) {
+        console.error("응원법 조회 API 호출 실패:", error);
+        setHasFanchant(false);
+      }
+    };
+
+    if (setlistId !== null && songId) {
+      fetchFanchantExistence();
+    }
+  }, [setlistId, songId]);
 
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -94,7 +123,11 @@ function LyricPage() {
   return (
     <>
       <MusicTitleBar songId={Number(songId)}></MusicTitleBar>
-      <LyricTypeButton activeButtons={activeButtons} onToggle={toggleButton} />
+      <LyricTypeButton
+        activeButtons={activeButtons}
+        onToggle={toggleButton}
+        hasFanchant={hasFanchant}
+      />
       <Lyric songId={Number(songId)} activeButtons={activeButtons} />
 
       {popupMessage && (

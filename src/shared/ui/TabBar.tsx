@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import HomeIcon from "../assets/HomeIcon.svg";
 import HomeIconActive from "../assets/HomeIconActive.svg";
 import MyIcon from "../assets/MyIcon.svg";
 import MyIconActive from "../assets/MyIconActive.svg";
 
 function TabBar() {
-  // 활성화된 탭 버튼
+  const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState<"home" | "my">("home");
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setActiveTab("home");
+    } else if (location.pathname.startsWith("/my")) {
+      setActiveTab("my");
+    }
+  }, [location.pathname]);
 
   return (
     <div className="absolute bottom-0 w-full h-64">
@@ -14,7 +24,9 @@ function TabBar() {
       <div className="flex justify-between">
         <button
           className="w-38 h-38 mt-13 ml-92 p-0 bg-transparent border-none cursor-pointer"
-          onClick={() => setActiveTab("home")}
+          onClick={() => {
+            navigate("/");
+          }}
         >
           <img
             src={activeTab === "home" ? HomeIconActive : HomeIcon}
@@ -24,7 +36,9 @@ function TabBar() {
         </button>
         <button
           className="w-38 h-38 mt-13 mr-92 p-0 bg-transparent border-none cursor-pointer"
-          onClick={() => setActiveTab("my")}
+          onClick={() => {
+            navigate("/my");
+          }}
         >
           <img
             src={activeTab === "my" ? MyIconActive : MyIcon}

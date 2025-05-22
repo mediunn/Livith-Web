@@ -17,7 +17,7 @@ function ReprotConcert() {
           콘서트 제보하기
         </button>
       </div>
-      <div className="w-375 h-5 bg-[#29303C]"></div>
+      <div className="w-full h-5 bg-[#29303C]"></div>
     </>
   );
 }
