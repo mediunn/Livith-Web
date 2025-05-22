@@ -15,7 +15,7 @@ function ConcertListPage() {
   const concertStatus =
     status === ConcertStatus.COMPLETED
       ? "한 달 이내 진행했던 콘서트 목록"
-      : ConcertStatus.ONGOING
+      : status === ConcertStatus.ONGOING
         ? "현재 진행하는 콘서트 목록"
         : "곧 진행하는 콘서트 목록";
   return (
