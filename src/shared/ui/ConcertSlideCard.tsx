@@ -26,7 +26,7 @@ function ConcertSlideCard({
         : `D-${daysLeft}`;
 
   return (
-    <div className="w-139 h-280" onClick={onClick}>
+    <div className="w-139 h-280 cursor-pointer" onClick={onClick}>
       <div className="w-139 h-196 relative">
         {imageUrl ? (
           <img
