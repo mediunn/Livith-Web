@@ -39,7 +39,7 @@ function ConcertSlide({ status, concerts }: ConcertSlideProps) {
       <button
         onClick={onClick}
         style={style}
-        className={`absolute left-0 top-74 w-48 h-48 z-10 bg-transparent border-none p-0
+        className={`absolute left-0 top-74 w-48 h-48 z-10 bg-transparent border-none p-0 cursor-pointer
            ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
         <img src={ConcertSlidePrevArrow} alt="prev" className="w-full h-full" />
@@ -58,7 +58,7 @@ function ConcertSlide({ status, concerts }: ConcertSlideProps) {
       <button
         onClick={onClick}
         style={style}
-        className={`absolute right-16 top-74 w-48 h-48 z-10 bg-transparent border-none p-0
+        className={`absolute right-16 top-74 w-48 h-48 z-10 bg-transparent border-none p-0 cursor-pointer
            ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
         <img src={ConcertSlideNextArrow} alt="next" className="w-full h-full" />

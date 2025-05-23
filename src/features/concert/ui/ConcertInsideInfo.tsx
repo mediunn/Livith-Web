@@ -33,7 +33,7 @@ function ConcertInsideInfo({ concertId }: Props) {
       case ConcertStatus.COMPLETED:
         return "종료";
       case ConcertStatus.UPCOMING:
-        return `d-${daysLeft}`;
+        return `D-${daysLeft}`;
       default:
         return "";
     }

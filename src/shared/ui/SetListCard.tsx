@@ -48,7 +48,7 @@ function SetListCard({
             <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR mt-8 mb-0 line-clamp-1">
               {title}
             </p>
-            <p className="text-grayScaleBlack30 text-body-lg font-semibold font-NotoSansKR mt-8 mb-0 line-clamp-1">
+            <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR mt-8 mb-0 line-clamp-1">
               {date}
             </p>
           </>

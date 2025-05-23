@@ -1,14 +1,22 @@
 interface LyricTypeButtonProps {
   activeButtons: boolean[];
   onToggle: (index: number) => void;
+  hasFanchant: boolean;
 }
 
 const lyricType = ["원어", "발음", "해석", "응원법"];
 
-function LyricTypeButton({ activeButtons, onToggle }: LyricTypeButtonProps) {
+function LyricTypeButton({
+  activeButtons,
+  onToggle,
+  hasFanchant,
+}: LyricTypeButtonProps) {
   return (
     <div className="mt-16 flex justify-center">
       {lyricType.map((label, index) => {
+        // 응원법 버튼 비활성화 조건
+        if (label === "응원법" && !hasFanchant) return null;
+
         const isActive = activeButtons[index];
         return (
           <button
