@@ -7,14 +7,14 @@ import TabBar from "../shared/ui/TabBar";
 
 function HomePage() {
   return (
-    <>
+    <div className="pt-60 pb-64">
       <SearchBar></SearchBar>
       <MainImageCarousel></MainImageCarousel>
       <CurrentConcert></CurrentConcert>
       <NextConcert></NextConcert>
       <PrevConcert></PrevConcert>
       <TabBar></TabBar>
-    </>
+    </div>
   );
 }
 

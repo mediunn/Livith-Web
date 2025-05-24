@@ -6,14 +6,14 @@ import SetlistSongList from "../features/setlist/ui/SetlistSongList";
 function SetlistDetailPage() {
   const { setlistId, concertId } = useParams();
   return (
-    <>
+    <div className="pt-60">
       <ListHeader />
       <SetlistDetail
         concertId={Number(concertId)}
         setlistId={Number(setlistId)}
       />
       <SetlistSongList setlistId={Number(setlistId)} />
-    </>
+    </div>
   );
 }
 export default SetlistDetailPage;

@@ -13,7 +13,7 @@ function ConcertInsidePage() {
   const status = location.state?.status;
 
   return (
-    <>
+    <div className="pt-60 pb-64">
       <ListHeader></ListHeader>
       <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>
       <ConcertCulture></ConcertCulture>
@@ -27,7 +27,7 @@ function ConcertInsidePage() {
       ) : (
         <OngoingSetList concertId={Number(concertId)}></OngoingSetList>
       )}
-    </>
+    </div>
   );
 }
 
