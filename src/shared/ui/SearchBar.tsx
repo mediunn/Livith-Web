@@ -9,7 +9,7 @@ type SearchBarProps = {
 function SearchBar({ hideLogo = false }: SearchBarProps) {
   const navigate = useNavigate();
   return (
-    <div className="fixed top-0 z-50 bg-grayScaleBlack100 flex items-center justify-between w-full h-60">
+    <div className="fixed top-0 z-50 bg-grayScaleBlack100 max-w-md flex items-center justify-between w-full h-60">
       <img
         src={LogoIcon}
         alt="logo"
