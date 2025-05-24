@@ -19,7 +19,7 @@ function TabBar() {
   }, [location.pathname]);
 
   return (
-    <div className="absolute bottom-0 w-full h-64">
+    <div className="fixed max-w-md bg-grayScaleBlack100 bottom-0 w-full h-64">
       <div className="w-full h-1 bg-grayScaleBlack80" />
       <div className="flex justify-between">
         <button
