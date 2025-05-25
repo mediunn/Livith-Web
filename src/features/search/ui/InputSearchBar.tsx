@@ -51,7 +51,7 @@ function InputSearchBar({
           onCompositionEnd={() => setIsComposing(false)}
           className="w-full my-9 text-grayScaleBlack80 text-body-sm font-regular font-NotoSansKR border-none outline-none"
         />
-        {input ? (
+        {input && !showResults ? (
           <img
             src={CloseRoundIcon}
             alt="삭제 아이콘"
