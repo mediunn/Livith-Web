@@ -30,6 +30,7 @@ function ConcertCultureCarouselSlide({
 
   return (
     <div className="relative w-full h-135">
+      <div className="h-135 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-50"></div>
       <img
         src={imageUrl}
         alt={content}
