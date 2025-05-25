@@ -20,7 +20,7 @@ function SearchPage() {
   }, []);
 
   return (
-    <>
+    <div className="pt-77">
       <InputSearchBar
         inputState={{ value: input, setValue: setInput }}
         recentState={{ value: recent, setValue: setRecent }}
@@ -53,7 +53,7 @@ function SearchPage() {
           )}
         </>
       )}
-    </>
+    </div>
   );
 }
 export default SearchPage;
