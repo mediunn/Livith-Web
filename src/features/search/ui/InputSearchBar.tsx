@@ -1,7 +1,7 @@
 import SearchIcon from "../../../shared/assets/SearchIcon.tsx";
 import BackArrow from "../../../widgets/BackArrow.tsx";
 import CloseRoundIcon from "../../../shared/assets/CloseRoundIcon.svg";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { StateWithSetter } from "../../../shared/types/props.ts";
 import { saveRecentSearch } from "../utils/saveRecentSearch.ts";
 
@@ -18,6 +18,7 @@ function InputSearchBar({
 }: InputSearchBarProps) {
   // 한글 입력 시 Enter 키 이벤트가 두 번 발생하는 문제 해결
   const [isComposing, setIsComposing] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !isComposing && input.trim()) {
@@ -27,15 +28,19 @@ function InputSearchBar({
       });
       setRecent(updated);
       setShowResults(true);
+      inputRef.current?.blur(); // Enter 입력 후 포커스 해제
     }
   };
+
   return (
     <div className="flex pt-13 pb-12 pl-16 pr-16">
       <BackArrow />
       <div className="flex items-center relative w-full ml-2 py-7 pl-16 bg-grayScaleWhite rounded-10">
         <input
+          ref={inputRef}
           type="text"
           value={input}
+          onFocus={() => setShowResults(false)}
           onChange={(e) => {
             setInput(e.target.value);
             setShowResults(false); // 입력값이 바뀌면 검색결과 숨김
