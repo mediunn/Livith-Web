@@ -35,11 +35,11 @@ function RecommendSearchItem({
 
   return (
     <p
-      className="text-grayScaleBlack5 text-body-sm font-regular font-NotoSansKR mb-24 cursor-pointer"
+      className="text-grayScaleBlack30 text-body-sm font-regular font-NotoSansKR mb-24 cursor-pointer"
       onClick={handleAddRecent}
     >
       {before}
-      <strong className="font-bold">{match}</strong>
+      <strong className="text-grayScaleBlack5 font-bold">{match}</strong>
       {after}
     </p>
   );

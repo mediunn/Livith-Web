@@ -13,7 +13,7 @@ function RecentSearch({
 }: RecentSearchProps) {
   return (
     <div className="px-16">
-      <p className="text-grayScaleBlack5 text-caption-sm font-regular font-NotoSansKR mt-21 mb-13">
+      <p className="text-grayScaleBlack5 text-body-md font-medium font-NotoSansKR mt-21 mb-13">
         최근 검색 기록
       </p>
       {/* 줄 바꿈 함 (넘치면 다음 줄로 감) */}
