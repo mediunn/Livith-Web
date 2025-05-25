@@ -11,6 +11,8 @@ function MainImageCarouselSlide({
 }: MainImageCarouselSlideProps) {
   return (
     <div className="relative w-full h-365">
+      <div className="h-365 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-50"></div>
+      <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
       <div className="absolute top-214 left-16 inline-flex items-center justify-center h-14 px-10 py-10 rounded-12 bg-grayScaleBlack90">
         <p className="text-grayScaleWhite text-caption-lg font-semibold font-NotoSansKR m-0">
           {category}
@@ -19,7 +21,6 @@ function MainImageCarouselSlide({
       <p className="absolute top-257 left-19 text-grayScaleWhite text-title font-bold font-NotoSansKR m-0">
         {title}
       </p>
-      <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
     </div>
   );
 }
