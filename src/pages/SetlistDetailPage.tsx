@@ -12,14 +12,14 @@ function SetlistDetailPage() {
   }, []);
 
   return (
-    <>
+    <div className="pt-60">
       <ListHeader />
       <SetlistDetail
         concertId={Number(concertId)}
         setlistId={Number(setlistId)}
       />
       <SetlistSongList setlistId={Number(setlistId)} />
-    </>
+    </div>
   );
 }
 export default SetlistDetailPage;

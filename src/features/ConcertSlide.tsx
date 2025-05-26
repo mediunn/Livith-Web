@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
 import ConcertSlideCard from "../shared/ui/ConcertSlideCard";
-import "../shared/styles/concert-slide.css";
 import ConcertSlidePrevArrow from "../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../shared/assets/ConcertSlideNextArrow.svg";
-import { ConcertStatus, Concert } from "../entities/concert/types";
 import EmptyConcertSlide from "../shared/ui/EmptyConcertSlide";
+import { ConcertStatus, Concert } from "../entities/concert/types";
 import { formatConcertDate } from "../shared/utils/formatConcertDate";
 
 type ConcertSlideProps = {
@@ -18,86 +18,115 @@ type ConcertSlideProps = {
 
 function ConcertSlide({ status, concerts }: ConcertSlideProps) {
   const navigate = useNavigate();
-
   const [isHovered, setIsHovered] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+  const swiperRef = useRef<any>(null);
+  const slidesToScroll = 2;
 
-  const slidesToShow = 2;
-
-  // 엠티뷰 렌더링 조건
   if (concerts.length === 0) {
     return <EmptyConcertSlide status={status} />;
   }
 
-  const CustomConcertSlidePrevArrow = (props: any) => {
-    const { onClick, style } = props;
-
-    // 첫 슬라이드면 이전 버튼 안 보이도록
-    if (currentSlide === 0) return null;
-
-    return (
-      <button
-        onClick={onClick}
-        style={style}
-        className={`absolute left-0 top-74 w-48 h-48 z-10 bg-transparent border-none p-0 cursor-pointer
-           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-      >
-        <img src={ConcertSlidePrevArrow} alt="prev" className="w-full h-full" />
-      </button>
-    );
+  const goNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(swiperRef.current.activeIndex + slidesToScroll);
+    }
   };
 
-  const CustomConcertSlideNextArrow = (props: any) => {
-    const { onClick, style } = props;
-
-    // 마지막 슬라이드면 다음 버튼 안 보이도록
-    const maxIndex = concerts.length - slidesToShow;
-    if (currentSlide >= maxIndex) return null;
-
-    return (
-      <button
-        onClick={onClick}
-        style={style}
-        className={`absolute right-16 top-74 w-48 h-48 z-10 bg-transparent border-none p-0 cursor-pointer
-           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-      >
-        <img src={ConcertSlideNextArrow} alt="next" className="w-full h-full" />
-      </button>
-    );
+  const goPrev = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(swiperRef.current.activeIndex - slidesToScroll);
+    }
   };
 
-  const settings = {
-    className: "center",
-    infinite: false,
-    slidesToShow,
-    slidesToScroll: 2 /* 카드 두 개씩 넘어가도록 */,
-    swipeToSlide: true,
-    prevArrow: <CustomConcertSlidePrevArrow />,
-    nextArrow: <CustomConcertSlideNextArrow />,
-    beforeChange: (current: number, next: number) => setCurrentSlide(next),
-  };
+  useEffect(() => {
+    if (!swiperRef.current) return;
+
+    const swiper = swiperRef.current;
+
+    const updateState = () => {
+      setIsBeginning(swiper.isBeginning);
+      setIsEnd(swiper.isEnd);
+    };
+
+    swiper.on("slideChangeTransitionEnd", updateState);
+    swiper.on("touchEnd", updateState);
+    swiper.on("transitionEnd", updateState);
+    swiper.on("resize", updateState);
+
+    updateState();
+
+    return () => {
+      swiper.off("slideChangeTransitionEnd", updateState);
+      swiper.off("touchEnd", updateState);
+      swiper.off("transitionEnd", updateState);
+      swiper.off("resize", updateState);
+    };
+  }, []);
 
   return (
     <div
-      className="slider-container ml-16"
+      className="relative ml-16"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Slider {...settings}>
-        {concerts.map((concert) => (
-          <ConcertSlideCard
-            key={concert.id}
-            imageUrl={concert.poster}
-            title={concert.title}
-            date={formatConcertDate(concert.startDate, concert.endDate)}
-            status={status}
-            daysLeft={concert.daysLeft}
-            onClick={() =>
-              navigate(`/concert/${concert.id}`, { state: { status } })
-            }
+      {/* Prev Button */}
+      {!isBeginning && (
+        <button
+          className={`absolute z-10 top-74 left-0 w-48 h-48 bg-transparent p-0 border-none
+          ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+          onClick={goPrev}
+        >
+          <img
+            src={ConcertSlidePrevArrow}
+            alt="prev"
+            className="w-full h-full"
           />
+        </button>
+      )}
+
+      {/* Next Button */}
+      {!isEnd && (
+        <button
+          className={`absolute z-10 top-74 right-16 w-48 h-48 bg-transparent p-0 border-none
+          ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+          onClick={goNext}
+        >
+          <img
+            src={ConcertSlideNextArrow}
+            alt="next"
+            className="w-full h-full"
+          />
+        </button>
+      )}
+
+      <Swiper
+        modules={[FreeMode]}
+        freeMode={true}
+        slidesPerView="auto"
+        spaceBetween={10}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
+        }}
+      >
+        {concerts.map((concert) => (
+          <SwiperSlide key={concert.id} style={{ width: 139 }}>
+            <ConcertSlideCard
+              imageUrl={concert.poster}
+              title={concert.title}
+              date={formatConcertDate(concert.startDate, concert.endDate)}
+              status={status}
+              daysLeft={concert.daysLeft}
+              onClick={() =>
+                navigate(`/concert/${concert.id}`, { state: { status } })
+              }
+            />
+          </SwiperSlide>
         ))}
-      </Slider>
+      </Swiper>
     </div>
   );
 }

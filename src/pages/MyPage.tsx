@@ -4,11 +4,11 @@ import Info from "../features/Info";
 
 function MyPage() {
   return (
-    <>
+    <div className="pb-64">
       <ReportConcert></ReportConcert>
       <Info></Info>
       <TabBar></TabBar>
-    </>
+    </div>
   );
 }
 

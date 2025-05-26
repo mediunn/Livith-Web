@@ -21,14 +21,14 @@ function Info() {
             1.0.0
           </p>
         </div>
-        <div className="mt-30 flex justify-between">
+        <div
+          onClick={handleClickUpdate}
+          className="mt-30 flex justify-between cursor-pointer"
+        >
           <p className="m-0 text-grayScaleBlack30 text-body-sm font-regular font-NotoSansKR">
             업데이트 노트
           </p>
-          <button
-            onClick={handleClickUpdate}
-            className="w-8 h-16 p-0 bg-transparent border-none cursor-pointer"
-          >
+          <button className="w-8 h-16 p-0 bg-transparent border-none">
             <img
               src={MyNextArrow}
               alt="next arrow"
@@ -36,14 +36,14 @@ function Info() {
             />
           </button>
         </div>
-        <div className="mt-30 flex justify-between">
+        <div
+          onClick={handleClickCondition}
+          className="mt-30 flex justify-between cursor-pointer"
+        >
           <p className="m-0 text-grayScaleBlack30 text-body-sm font-regular font-NotoSansKR">
             이용약관
           </p>
-          <button
-            onClick={handleClickCondition}
-            className="w-8 h-16 p-0 bg-transparent border-none cursor-pointer"
-          >
+          <button className="w-8 h-16 p-0 bg-transparent border-none ">
             <img
               src={MyNextArrow}
               alt="next arrow"

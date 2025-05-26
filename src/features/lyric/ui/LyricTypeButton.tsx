@@ -12,24 +12,26 @@ function LyricTypeButton({
   hasFanchant,
 }: LyricTypeButtonProps) {
   return (
-    <div className="mt-16 flex justify-center">
+    <div className="fixed top-45 z-50 h-62 bg-grayScaleBlack100 w-full  max-w-md mt-15 flex justify-center">
       {lyricType.map((label, index) => {
         // 응원법 버튼 비활성화 조건
         if (label === "응원법" && !hasFanchant) return null;
 
         const isActive = activeButtons[index];
         return (
-          <button
-            key={label}
-            onClick={() => onToggle(index)}
-            className={`
+          <div className="mt-16">
+            <button
+              key={label}
+              onClick={() => onToggle(index)}
+              className={`
               h-30 px-17 rounded-35 text-caption-lg font-semibold font-NotoSansKR border border-solid cursor-pointer
               ${isActive ? "bg-mainYellow30 border-mainYellow60 text-grayScaleBlack100" : "bg-grayScaleBlack100 border-grayScaleBlack80 text-grayScaleWhite"}
               ${index !== 0 ? "ml-10" : ""}
             `}
-          >
-            {label} {isActive ? "on" : "off"}
-          </button>
+            >
+              {label} {isActive ? "on" : "off"}
+            </button>
+          </div>
         );
       })}
     </div>

@@ -1,5 +1,4 @@
 import { ConcertStatus } from "../../entities/concert/types";
-import "../styles/concert-slide.css";
 
 type ConcertSlideCardProps = {
   imageUrl?: string;

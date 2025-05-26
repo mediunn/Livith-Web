@@ -26,7 +26,7 @@ function MusicTitleBar({ songId }: MusicTitleBarProps) {
   }, [songId]);
 
   return (
-    <div className="relative flex items-center w-full h-60">
+    <div className="fixed top-0 z-50 bg-grayScaleBlack100 max-w-md flex items-center w-full h-60">
       <button
         className="absolute left-0 ml-16 mt-20 w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
         onClick={() => navigate(-1)}

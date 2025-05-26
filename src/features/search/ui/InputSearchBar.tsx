@@ -33,7 +33,7 @@ function InputSearchBar({
   };
 
   return (
-    <div className="flex pt-13 pb-12 pl-16 pr-16">
+    <div className="fixed top-0 z-50 bg-grayScaleBlack100 max-w-md w-full flex pt-13 pb-12 pl-16 pr-16">
       <BackArrow />
       <div className="flex items-center relative w-full ml-2 py-7 pl-16 bg-grayScaleWhite rounded-10">
         <input

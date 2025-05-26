@@ -121,7 +121,7 @@ function LyricPage() {
   };
 
   return (
-    <>
+    <div className="pt-60">
       <MusicTitleBar songId={Number(songId)}></MusicTitleBar>
       <LyricTypeButton
         activeButtons={activeButtons}
@@ -143,7 +143,7 @@ function LyricPage() {
           </p>
         </LyricModal>
       )}
-    </>
+    </div>
   );
 }
 
