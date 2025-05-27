@@ -29,7 +29,7 @@ function LyricTypeButton({
               ${index !== 0 ? "ml-10" : ""}
             `}
             >
-              {label} {isActive ? "on" : "off"}
+              {label} {isActive ? "ON" : "OFF"}
             </button>
           </div>
         );
