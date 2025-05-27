@@ -4,6 +4,7 @@ import LyricFanchant from "../ui/LyricFanchant";
 import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../../../entities/recoil/atoms/setlistIdState";
 import { Fanchant } from "../api/getFanchant";
+import { BeatLoader } from "react-spinners";
 
 interface LyricProps {
   songId: number;
@@ -15,21 +16,38 @@ function Lyric({ songId, activeButtons, fanchantData }: LyricProps) {
   const setlistId = useRecoilValue(setlistIdState);
   const [songData, setSongData] = useState<Song | null>(null);
 
+  const [isLyricLoading, setIsLyricLoading] = useState(true);
+
   useEffect(() => {
     const fetchSongData = async () => {
+      setIsLyricLoading(true);
       try {
         const data = await getSong(songId);
         setSongData(data);
       } catch (error) {
         console.error("가사 조회 API 호출 실패:", error);
+      } finally {
+        setIsLyricLoading(false);
       }
     };
 
     fetchSongData();
   }, [songId]);
 
-  if (!songData) {
-    return <div className="text-white">로딩 중...</div>;
+  if (isLyricLoading || !songData) {
+    return (
+      <div className="flex justify-center items-center h-60">
+        <BeatLoader
+          color="#FFFF97"
+          cssOverride={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </div>
+    );
   }
 
   return (

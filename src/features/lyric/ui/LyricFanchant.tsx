@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { getFanchant, Fanchant } from "../api/getFanchant";
-
 interface FanchantProps {
   line: string;
 }

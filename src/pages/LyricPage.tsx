@@ -7,6 +7,7 @@ import LyricModal from "../features/lyric/ui/LyricModal";
 import { Fanchant, getFanchant } from "../features/lyric/api/getFanchant";
 import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
+import { BeatLoader } from "react-spinners";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -29,9 +30,11 @@ function LyricPage() {
   const setlistId = useRecoilValue(setlistIdState);
 
   const [fanchantData, setFanchantData] = useState<Fanchant | null>(null);
+  const [isFanchantLoading, setIsFanchantLoading] = useState(true);
 
   useEffect(() => {
     const fetchFanchantExistence = async () => {
+      setIsFanchantLoading(true);
       try {
         const fanchantData = await getFanchant(
           Number(setlistId),
@@ -40,6 +43,7 @@ function LyricPage() {
         const hasAnyFanchant = fanchantData?.fanchant?.some(
           (line) => line.trim() !== ""
         );
+
         setHasFanchant(hasAnyFanchant);
 
         setFanchantData(fanchantData);
@@ -55,6 +59,8 @@ function LyricPage() {
       } catch (error) {
         console.error("응원법 조회 API 호출 실패:", error);
         setHasFanchant(false);
+      } finally {
+        setIsFanchantLoading(false);
       }
     };
 
@@ -140,17 +146,33 @@ function LyricPage() {
 
   return (
     <div className="pt-60">
-      <MusicTitleBar songId={Number(songId)}></MusicTitleBar>
-      <LyricTypeButton
-        activeButtons={activeButtons}
-        onToggle={toggleButton}
-        hasFanchant={hasFanchant}
-      />
-      <Lyric
-        songId={Number(songId)}
-        activeButtons={activeButtons}
-        fanchantData={fanchantData}
-      />
+      {isFanchantLoading ? (
+        <div className="flex justify-center items-center h-60">
+          <BeatLoader
+            color="#FFFF97"
+            cssOverride={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+        </div>
+      ) : (
+        <>
+          <MusicTitleBar songId={Number(songId)} />
+          <LyricTypeButton
+            activeButtons={activeButtons}
+            onToggle={toggleButton}
+            hasFanchant={hasFanchant}
+          />
+          <Lyric
+            songId={Number(songId)}
+            activeButtons={activeButtons}
+            fanchantData={fanchantData}
+          />
+        </>
+      )}
 
       {popupMessage && (
         <LyricModal
