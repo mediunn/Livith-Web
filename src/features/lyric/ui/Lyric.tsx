@@ -3,13 +3,15 @@ import { getSong, Song } from "../api/getSong";
 import LyricFanchant from "../ui/LyricFanchant";
 import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../../../entities/recoil/atoms/setlistIdState";
+import { Fanchant } from "../api/getFanchant";
 
 interface LyricProps {
   songId: number;
   activeButtons: boolean[];
+  fanchantData: Fanchant | null;
 }
 
-function Lyric({ songId, activeButtons }: LyricProps) {
+function Lyric({ songId, activeButtons, fanchantData }: LyricProps) {
   const setlistId = useRecoilValue(setlistIdState);
   const [songData, setSongData] = useState<Song | null>(null);
 
@@ -34,12 +36,8 @@ function Lyric({ songId, activeButtons }: LyricProps) {
     <div className="ml-16 pr-16 mt-76 w-full">
       {songData.lyrics.map((_, index) => (
         <div key={index} className="mb-44 w-full">
-          {activeButtons[3] && setlistId !== null ? (
-            <LyricFanchant
-              setlistId={setlistId}
-              songId={songId}
-              lineIndex={index}
-            />
+          {activeButtons[3] && setlistId !== null && fanchantData ? (
+            <LyricFanchant line={fanchantData.fanchant[index] ?? ""} />
           ) : (
             activeButtons[0] && (
               <p className="mb-24 text-lyricsOriginal text-body-md font-medium font-NotoSansKR">

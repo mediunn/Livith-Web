@@ -4,7 +4,7 @@ import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../features/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
-import { getFanchant } from "../features/lyric/api/getFanchant";
+import { Fanchant, getFanchant } from "../features/lyric/api/getFanchant";
 import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 
@@ -28,6 +28,8 @@ function LyricPage() {
   const [hasFanchant, setHasFanchant] = useState(false);
   const setlistId = useRecoilValue(setlistIdState);
 
+  const [fanchantData, setFanchantData] = useState<Fanchant | null>(null);
+
   useEffect(() => {
     const fetchFanchantExistence = async () => {
       try {
@@ -39,6 +41,8 @@ function LyricPage() {
           (line) => line.trim() !== ""
         );
         setHasFanchant(hasAnyFanchant);
+
+        setFanchantData(fanchantData);
       } catch (error) {
         console.error("응원법 조회 API 호출 실패:", error);
         setHasFanchant(false);
@@ -133,7 +137,11 @@ function LyricPage() {
         onToggle={toggleButton}
         hasFanchant={hasFanchant}
       />
-      <Lyric songId={Number(songId)} activeButtons={activeButtons} />
+      <Lyric
+        songId={Number(songId)}
+        activeButtons={activeButtons}
+        fanchantData={fanchantData}
+      />
 
       {popupMessage && (
         <LyricModal
