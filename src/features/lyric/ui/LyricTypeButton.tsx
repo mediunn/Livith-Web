@@ -12,7 +12,7 @@ function LyricTypeButton({
   hasFanchant,
 }: LyricTypeButtonProps) {
   return (
-    <div className="fixed top-45 z-50 h-62 bg-grayScaleBlack100 w-full  max-w-md mt-15 flex justify-center">
+    <div className="fixed top-45 z-50 h-62 bg-grayScaleBlack100 w-full  max-w-md mt-15 flex pl-16">
       {lyricType.map((label, index) => {
         // 응원법 버튼 비활성화 조건
         if (label === "응원법" && !hasFanchant) return null;
