@@ -11,12 +11,12 @@ import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
 
-  // 초기값: 원어, 발음, 해석 true
+  // 초기값: 원어, 발음, 해석, 응원법 true
   const [activeButtons, setActiveButtons] = useState<boolean[]>([
     true,
     true,
     true,
-    false,
+    true,
   ]);
 
   // 응원법 존재 확인
