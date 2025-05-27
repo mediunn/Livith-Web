@@ -56,9 +56,9 @@ function ConcertCultureCarousel({ concertId }: ConcertCultureCarouselProps) {
         onClick={onClick}
         style={style}
         className={`absolute left-0 top-49 w-38 h-38 z-10 bg-transparent border-none p-0 cursor-pointer
-          ${isHovered && showArrows ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+    ${isHovered && showArrows ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <img src={PrevArrow} alt="prev" className="w-10 h-19" />
+        <img src={PrevArrow} alt="prev" className="w-10 h-19 ml-14" />
       </button>
     );
   };
@@ -72,7 +72,7 @@ function ConcertCultureCarousel({ concertId }: ConcertCultureCarouselProps) {
         className={`absolute right-0 top-49 w-38 h-38 z-10 bg-transparent border-none p-0 cursor-pointer
           ${isHovered && showArrows ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <img src={NextArrow} alt="next" className="w-10 h-19" />
+        <img src={NextArrow} alt="next" className="w-10 h-19 ml-14" />
       </button>
     );
   };
