@@ -38,9 +38,9 @@ function ConcertCultureCarouselSlide({
       />
       <img
         src={CultureTextIcon}
-        className="absolute left-1/2 top-16 w-13 h-21"
+        className="absolute left-1/2 -translate-x-1/2 top-16 w-13 h-21"
       ></img>
-      <p className="absolute inset-0 w-191 h-50 left-1/4 top-1/3 text-center text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR m-0">
+      <p className="absolute inset-0 w-191 h-50 left-1/2 -translate-x-1/2 top-1/3 text-center text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR m-0">
         {highlightText(content)}
       </p>
     </div>
