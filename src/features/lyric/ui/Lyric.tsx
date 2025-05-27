@@ -42,13 +42,13 @@ function Lyric({ songId, activeButtons }: LyricProps) {
             />
           ) : (
             activeButtons[0] && (
-              <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+              <p className="mb-24 text-lyricsOriginal text-body-md font-medium font-NotoSansKR">
                 {songData.lyrics[index]}
               </p>
             )
           )}
           {activeButtons[1] && (
-            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+            <p className="mb-24 text-lyricsTranslation text-body-md font-medium font-NotoSansKR">
               {songData.pronunciation[index]}
             </p>
           )}

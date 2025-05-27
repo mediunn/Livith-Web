@@ -41,7 +41,7 @@ function LyricFanchant({ setlistId, songId, lineIndex }: FanchantProps) {
       return (
         <span
           key={index}
-          className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR"
+          className="text-lyricsOriginal text-body-md font-medium font-NotoSansKR"
         >
           {part}
         </span>

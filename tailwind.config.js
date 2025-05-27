@@ -17,6 +17,8 @@ module.exports = {
         grayScaleBlack30: "#DBDCDF",
         grayScaleBlack5: "#F2F4F6",
         grayScaleWhite: "#FFFFFF",
+        lyricsTranslation: "#FFBAB4",
+        lyricsOriginal: "#CAD0FF",
       },
       fontFamily: {
         NotoSansKR: ["NotoSansKR", "sans-serif"],
