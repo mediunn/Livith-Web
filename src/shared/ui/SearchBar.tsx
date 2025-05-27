@@ -16,7 +16,7 @@ function SearchBar({ hideLogo = false }: SearchBarProps) {
         className={`ml-16 w-101 h-25 ${hideLogo ? "opacity-0" : "opacity-100"}`}
       />
       <button
-        className="w-38 h-38 mt-20 mr-16 mb-2 p-0 bg-transparent border-none cursor-pointer"
+        className="w-38 h-38 mr-16 bg-transparent border-none cursor-pointer "
         onClick={() => navigate("/search")}
       >
         <img src={SearhIcon} alt="search" className="w-full h-full" />

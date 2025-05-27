@@ -59,7 +59,9 @@ function InputSearchBar({
             onClick={() => setInput("")}
           />
         ) : (
-          <SearchIcon color="black" />
+          <div className="mr-11">
+            <SearchIcon color="black" />
+          </div>
         )}
       </div>
     </div>
