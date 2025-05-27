@@ -11,6 +11,11 @@ import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
 
+  // 페이지 진입 시 스크롤 맨 위로 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // 초기값: 원어, 발음, 해석, 응원법 true
   const [activeButtons, setActiveButtons] = useState<boolean[]>([
     true,
