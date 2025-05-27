@@ -43,6 +43,15 @@ function LyricPage() {
         setHasFanchant(hasAnyFanchant);
 
         setFanchantData(fanchantData);
+
+        // 응원법이 없을 시 응원법 버튼 값 false로 변경
+        if (!hasAnyFanchant) {
+          setActiveButtons((prev) => {
+            const newButtons = [...prev];
+            newButtons[3] = false;
+            return newButtons;
+          });
+        }
       } catch (error) {
         console.error("응원법 조회 API 호출 실패:", error);
         setHasFanchant(false);
@@ -90,36 +99,36 @@ function LyricPage() {
       return;
     }
 
-    // 원어 - off, 발음 - off, 해석 - on - 응원법 - on
-    if (!isLang && !isPron && isTrans && isFanChat) {
-      // 해석과 응원법만 동시에 킬 경우 등장하는 팝업
-      showPopup("해석에는 응원법이\n표시가 되지 않아요");
-      return;
-    }
+    //  응원법이 존재할 경우에만 다음의 조건 적용
+    if (hasFanchant) {
+      // 원어 - off, 발음 - off, 해석 - on - 응원법 - on
+      if (!isLang && !isPron && isTrans && isFanChat) {
+        // 해석과 응원법만 동시에 킬 경우 등장하는 팝업
+        showPopup("해석에는 응원법이\n표시가 되지 않아요");
+        return;
+      }
 
-    // 원어 - off, 발음 - on, 해석 - off - 응원법 - on
-    if (!isLang && isPron && !isTrans && isFanChat) {
-      // 발음과 응원법만 동시에 킬 경우 등장하는 팝업
-      showPopup("발음에는 응원법이\n표시가 되지 않아요");
-      return;
-    }
+      // 원어 - off, 발음 - on, 해석 - off - 응원법 - on
+      if (!isLang && isPron && !isTrans && isFanChat) {
+        // 발음과 응원법만 동시에 킬 경우 등장하는 팝업
+        showPopup("발음에는 응원법이\n표시가 되지 않아요");
+        return;
+      }
 
-    // 원어 - off, 발음 - on, 해석 - on - 응원법 - on
-    if (!isLang && isPron && isTrans && isFanChat) {
-      // 발음, 해석과 응원법만 동시에 킬 경우 등장하는 팝업
-      showPopup("발음과 해석에는 응원법이\n표시가 되지 않아요");
-      return;
-    }
+      // 원어 - off, 발음 - on, 해석 - on - 응원법 - on
+      if (!isLang && isPron && isTrans && isFanChat) {
+        // 발음, 해석과 응원법만 동시에 킬 경우 등장하는 팝업
+        showPopup("발음과 해석에는 응원법이\n표시가 되지 않아요");
+        return;
+      }
 
-    // 응원법 표시 가능한 경우
-    if (index === 3) {
-      if (newState[3]) {
-        // 응원법 켜려는 경우 → 원어가 꺼져있으면 안 됨
+      if (index === 3 && newState[3]) {
         if (!newState[0]) {
-          // 응원법 표시 팝업
           showPopup("응원법은 원어에서만\n표시가 돼요");
           return;
         }
+
+        // 응원법 버튼을 켜려는 경우이고, 원어도 켜져 있음
         setActiveButtons(newState);
         showPopup("응원법은 원어에서만\n표시가 돼요");
         return;
