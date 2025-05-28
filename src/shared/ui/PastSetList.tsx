@@ -36,7 +36,7 @@ function PastSetList({ concertId }: PastSetListProps) {
   }, [concertId]);
 
   return (
-    <div className="pb-25">
+    <div>
       <div className="flex item-center justify-between w-full">
         <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-25 mb-19 ml-16">
           지난 셋리스트

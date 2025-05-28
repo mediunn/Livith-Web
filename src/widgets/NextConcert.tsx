@@ -39,7 +39,7 @@ function NextConcert() {
         </p>
         {concerts.length > 0 && (
           <button
-            className="w-24 h-24 bg-transparent border-none p-0 mt-36 mr-16 cursor-pointer"
+            className="w-24 h-24 bg-transparent border-none p-0 mt-30 mr-16 cursor-pointer"
             onClick={() => navigate(`/concerts/${ConcertStatus.UPCOMING}`)}
           >
             <img src={ConcertRightArrow} className="w-full h-full" />

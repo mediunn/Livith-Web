@@ -10,8 +10,8 @@ export const formatConcertDate = (
 
   // 시작 연도와 끝 연도 같을 경우
   if (startY === endY) {
-    return `${startDate} ~ ${endM}.${endD}`;
+    return `${startDate}~${endM}.${endD}`;
   }
 
-  return `${startDate} ~ ${endDate}`;
+  return `${startDate}~${endDate}`;
 };

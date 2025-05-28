@@ -4,27 +4,37 @@ import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../features/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
-import { getFanchant } from "../features/lyric/api/getFanchant";
+import { Fanchant, getFanchant } from "../features/lyric/api/getFanchant";
 import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
+import { BeatLoader } from "react-spinners";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
 
-  // 초기값: 원어, 발음, 해석 true
+  // 페이지 진입 시 스크롤 맨 위로 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // 초기값: 원어, 발음, 해석, 응원법 true
   const [activeButtons, setActiveButtons] = useState<boolean[]>([
     true,
     true,
     true,
-    false,
+    true,
   ]);
 
   // 응원법 존재 확인
   const [hasFanchant, setHasFanchant] = useState(false);
   const setlistId = useRecoilValue(setlistIdState);
 
+  const [fanchantData, setFanchantData] = useState<Fanchant | null>(null);
+  const [isFanchantLoading, setIsFanchantLoading] = useState(true);
+
   useEffect(() => {
     const fetchFanchantExistence = async () => {
+      setIsFanchantLoading(true);
       try {
         const fanchantData = await getFanchant(
           Number(setlistId),
@@ -33,10 +43,24 @@ function LyricPage() {
         const hasAnyFanchant = fanchantData?.fanchant?.some(
           (line) => line.trim() !== ""
         );
+
         setHasFanchant(hasAnyFanchant);
+
+        setFanchantData(fanchantData);
+
+        // 응원법이 없을 시 응원법 버튼 값 false로 변경
+        if (!hasAnyFanchant) {
+          setActiveButtons((prev) => {
+            const newButtons = [...prev];
+            newButtons[3] = false;
+            return newButtons;
+          });
+        }
       } catch (error) {
         console.error("응원법 조회 API 호출 실패:", error);
         setHasFanchant(false);
+      } finally {
+        setIsFanchantLoading(false);
       }
     };
 
@@ -81,36 +105,36 @@ function LyricPage() {
       return;
     }
 
-    // 원어 - off, 발음 - off, 해석 - on - 응원법 - on
-    if (!isLang && !isPron && isTrans && isFanChat) {
-      // 해석과 응원법만 동시에 킬 경우 등장하는 팝업
-      showPopup("해석에는 응원법이\n표시가 되지 않아요");
-      return;
-    }
+    //  응원법이 존재할 경우에만 다음의 조건 적용
+    if (hasFanchant) {
+      // 원어 - off, 발음 - off, 해석 - on - 응원법 - on
+      if (!isLang && !isPron && isTrans && isFanChat) {
+        // 해석과 응원법만 동시에 킬 경우 등장하는 팝업
+        showPopup("해석에는 응원법이\n표시가 되지 않아요");
+        return;
+      }
 
-    // 원어 - off, 발음 - on, 해석 - off - 응원법 - on
-    if (!isLang && isPron && !isTrans && isFanChat) {
-      // 발음과 응원법만 동시에 킬 경우 등장하는 팝업
-      showPopup("발음에는 응원법이\n표시가 되지 않아요");
-      return;
-    }
+      // 원어 - off, 발음 - on, 해석 - off - 응원법 - on
+      if (!isLang && isPron && !isTrans && isFanChat) {
+        // 발음과 응원법만 동시에 킬 경우 등장하는 팝업
+        showPopup("발음에는 응원법이\n표시가 되지 않아요");
+        return;
+      }
 
-    // 원어 - off, 발음 - on, 해석 - on - 응원법 - on
-    if (!isLang && isPron && isTrans && isFanChat) {
-      // 발음, 해석과 응원법만 동시에 킬 경우 등장하는 팝업
-      showPopup("발음과 해석에는 응원법이\n표시가 되지 않아요");
-      return;
-    }
+      // 원어 - off, 발음 - on, 해석 - on - 응원법 - on
+      if (!isLang && isPron && isTrans && isFanChat) {
+        // 발음, 해석과 응원법만 동시에 킬 경우 등장하는 팝업
+        showPopup("발음과 해석에는 응원법이\n표시가 되지 않아요");
+        return;
+      }
 
-    // 응원법 표시 가능한 경우
-    if (index === 3) {
-      if (newState[3]) {
-        // 응원법 켜려는 경우 → 원어가 꺼져있으면 안 됨
+      if (index === 3 && newState[3]) {
         if (!newState[0]) {
-          // 응원법 표시 팝업
           showPopup("응원법은 원어에서만\n표시가 돼요");
           return;
         }
+
+        // 응원법 버튼을 켜려는 경우이고, 원어도 켜져 있음
         setActiveButtons(newState);
         showPopup("응원법은 원어에서만\n표시가 돼요");
         return;
@@ -122,13 +146,33 @@ function LyricPage() {
 
   return (
     <div className="pt-60">
-      <MusicTitleBar songId={Number(songId)}></MusicTitleBar>
-      <LyricTypeButton
-        activeButtons={activeButtons}
-        onToggle={toggleButton}
-        hasFanchant={hasFanchant}
-      />
-      <Lyric songId={Number(songId)} activeButtons={activeButtons} />
+      {isFanchantLoading ? (
+        <div className="flex justify-center items-center h-60">
+          <BeatLoader
+            color="#FFFF97"
+            cssOverride={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+        </div>
+      ) : (
+        <>
+          <MusicTitleBar songId={Number(songId)} />
+          <LyricTypeButton
+            activeButtons={activeButtons}
+            onToggle={toggleButton}
+            hasFanchant={hasFanchant}
+          />
+          <Lyric
+            songId={Number(songId)}
+            activeButtons={activeButtons}
+            fanchantData={fanchantData}
+          />
+        </>
+      )}
 
       {popupMessage && (
         <LyricModal

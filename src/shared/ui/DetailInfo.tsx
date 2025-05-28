@@ -25,10 +25,10 @@ function DetailInfo({
             {status}
           </p>
         </div>
-        <p className=" my-20 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+        <p className=" my-6 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
           {title}
         </p>
-        <p className="m-0 text-grayScaleWhite text-body-sm font-ragular font-NotoSansKR">
+        <p className="mb-2 text-grayScaleWhite text-body-sm font-ragular font-NotoSansKR">
           {date}
         </p>
         <p className="m-0 text-grayScaleWhite text-body-sm font-ragular font-NotoSansKR">
