@@ -51,7 +51,7 @@ function ExpectationSetList({ concertId }: ExpectationSetListProps) {
                 navigate(`/setlist/${setlist.id}/${concertId}`);
               }}
             >
-              <div className="h-135 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-50"></div>
+              <div className="h-135 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-70"></div>
 
               <img
                 src={setlist.imgUrl}
