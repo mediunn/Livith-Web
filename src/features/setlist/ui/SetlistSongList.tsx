@@ -13,7 +13,7 @@ function SetlistSongList({ setlistId }: { setlistId: number }) {
   }
 
   return (
-    <div className="mx-16 my-30 ">
+    <div className="mx-16 mt-30 pb-30">
       <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mb-18">
         셋리스트 목록
       </p>

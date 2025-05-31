@@ -53,7 +53,7 @@ function Lyric({ songId, activeButtons, fanchantData }: LyricProps) {
   return (
     <div className="ml-16 pr-32 mt-76 w-full">
       {songData.lyrics.map((_, index) => (
-        <div key={index} className="mb-44 w-full">
+        <div key={index} className="pb-20 w-full">
           {activeButtons[3] && setlistId !== null && fanchantData ? (
             <LyricFanchant line={fanchantData.fanchant[index] ?? ""} />
           ) : (
