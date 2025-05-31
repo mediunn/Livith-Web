@@ -5,6 +5,7 @@ import SetListCard from "./SetListCard";
 import { Setlist, SetlistType } from "../../entities/setlist/types";
 import { getSetlistCollection } from "../../features/setlist/api/getSetlistCollection";
 import EmptySetList from "./EmptySetList";
+import formatConcertDate from "../../features/setlist/utils/formatDate";
 
 type OngoingSetListProps = {
   concertId: number;
@@ -61,7 +62,7 @@ function OngoingSetList({ concertId }: OngoingSetListProps) {
               key={setlist.id}
               type={SetlistType.ONGOING}
               title={setlist.title}
-              date={setlist.date}
+              date={formatConcertDate(setlist.date)}
               status={setlist.status}
               imageUrl={setlist.imgUrl}
               setlistId={setlist.id}
