@@ -38,11 +38,11 @@ function SetlistSongItem({
         alt="Empty Icon"
         className=" w-[62px] h-[62px] object-cover ml-5 rounded-6"
       />
-      <div className="flex flex-col justify-center my-12 ml-10 space-y-10">
-        <p className="text-grayScaleWhite text-caption-lg font-semibold font-NotoSansKR ">
+      <div className="flex flex-col justify-center my-12 ml-10 space-y-4">
+        <p className="text-grayScaleWhite text-body-sm font-semibold font-NotoSansKR ">
           {paddedIndex}. {title}
         </p>
-        <p className="text-grayScaleWhite text-caption-ssm font-regular font-NotoSansKR">
+        <p className="text-grayScaleWhite text-caption-sm font-regular font-NotoSansKR">
           {artist}
         </p>
       </div>
