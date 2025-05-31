@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ListHeader from "../shared/ui/ListHeader";
 import ConcertInsideInfo from "../features/concert/ui/ConcertInsideInfo";
@@ -12,8 +13,13 @@ function ConcertInsidePage() {
   const location = useLocation();
   const status = location.state?.status;
 
+  // 페이지 진입 시 스크롤 맨 위로 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="pt-60 pb-64">
+    <div className="pb-64">
       <ListHeader></ListHeader>
       <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>
       <ConcertCulture></ConcertCulture>

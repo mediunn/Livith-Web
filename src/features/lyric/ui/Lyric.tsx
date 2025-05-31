@@ -51,9 +51,9 @@ function Lyric({ songId, activeButtons, fanchantData }: LyricProps) {
   }
 
   return (
-    <div className="ml-16 pr-16 mt-76 w-full">
+    <div className="ml-16 pr-32 mt-76 w-full">
       {songData.lyrics.map((_, index) => (
-        <div key={index} className="mb-44 w-full">
+        <div key={index} className="pb-20 w-full">
           {activeButtons[3] && setlistId !== null && fanchantData ? (
             <LyricFanchant line={fanchantData.fanchant[index] ?? ""} />
           ) : (
@@ -64,12 +64,12 @@ function Lyric({ songId, activeButtons, fanchantData }: LyricProps) {
             )
           )}
           {activeButtons[1] && (
-            <p className="mb-24 text-lyricsTranslation text-body-md font-medium font-NotoSansKR">
+            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
               {songData.pronunciation[index]}
             </p>
           )}
           {activeButtons[2] && (
-            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+            <p className="mb-24 text-lyricsTranslation text-body-md font-medium font-NotoSansKR">
               {songData.translation[index]}
             </p>
           )}

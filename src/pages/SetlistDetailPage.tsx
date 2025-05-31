@@ -12,7 +12,7 @@ function SetlistDetailPage() {
   }, []);
 
   return (
-    <div className="pt-60">
+    <div>
       <ListHeader />
       <SetlistDetail
         concertId={Number(concertId)}
