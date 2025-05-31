@@ -145,7 +145,7 @@ function LyricPage() {
   };
 
   return (
-    <div className="pt-60">
+    <div>
       {isFanchantLoading ? (
         <div className="flex justify-center items-center h-60">
           <BeatLoader
