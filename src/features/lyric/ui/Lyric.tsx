@@ -64,12 +64,12 @@ function Lyric({ songId, activeButtons, fanchantData }: LyricProps) {
             )
           )}
           {activeButtons[1] && (
-            <p className="mb-24 text-lyricsTranslation text-body-md font-medium font-NotoSansKR">
+            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
               {songData.pronunciation[index]}
             </p>
           )}
           {activeButtons[2] && (
-            <p className="mb-24 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+            <p className="mb-24 text-lyricsTranslation text-body-md font-medium font-NotoSansKR">
               {songData.translation[index]}
             </p>
           )}
