@@ -19,7 +19,7 @@ function ConcertListPage() {
         ? "현재 진행하는 콘서트 목록"
         : "곧 진행하는 콘서트 목록";
   return (
-    <div className="pt-60 pb-100">
+    <div>
       <ListHeader title={concertStatus} />
       <ConcertList status={status as ConcertStatus} />
     </div>

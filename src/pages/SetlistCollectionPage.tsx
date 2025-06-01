@@ -16,7 +16,7 @@ function SetlistCollectionPage() {
     type === SetlistType.PAST ? "지난 셋리스트 목록" : "진행된 셋리스트 목록";
 
   return (
-    <div className="pt-60">
+    <div>
       <ListHeader title={setlistType} />
       <SetlistCollection
         type={type as SetlistType}
