@@ -52,7 +52,7 @@ function Info() {
           </button>
         </div>
       </div>
-      <p className="mt-118 text-grayScaleBlack50 text-body-md font-medium font-NotoSansKR text-center">
+      <p className="mt-118 mb-140 text-grayScaleBlack50 text-body-md font-medium font-NotoSansKR text-center">
         라이빗은 더 도움이 될 기능을
         <br />
         가지고 돌아올게요:)

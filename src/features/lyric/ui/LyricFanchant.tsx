@@ -11,7 +11,7 @@ function LyricFanchant({ line }: FanchantProps) {
         return (
           <span
             key={index}
-            className="text-mainYellow60 text-body-md font-semibold font-NotoSansKR"
+            className="text-mainYellow60 text-body-md font-medium font-NotoSansKR"
           >
             {part}
           </span>
