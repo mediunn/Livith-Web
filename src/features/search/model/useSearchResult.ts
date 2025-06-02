@@ -3,7 +3,7 @@ import { getSearchResult } from "../api/getSearchResult";
 
 type UseSearchResultParams = {
   keyword: string;
-  size: number;
+  size?: number;
 };
 
 export const useSearchResult = ({ keyword, size }: UseSearchResultParams) => {
