@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ConcertSlide from "../features/ConcertSlide";
+import ConcertSlide from "../features/concert/ui/ConcertSlide";
 import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
 import { ConcertStatus, Concert } from "../entities/concert/types";
 import { getConcertList } from "../features/concert/api/getConcertList";
