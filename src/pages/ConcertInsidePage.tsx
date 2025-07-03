@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ListHeader from "../shared/ui/ListHeader";
-import ConcertInsideInfo from "../features/concert/ui/ConcertInsideInfo";
+import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertCulture from "../widgets/ConcertCulture";
 import PastSetList from "../shared/ui/PastSetList";
 import ExpectationSetList from "../shared/ui/ExpectationSetList";

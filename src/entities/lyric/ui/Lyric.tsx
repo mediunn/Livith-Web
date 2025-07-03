@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getSong, Song } from "../api/getSong";
+import { getSong, Song } from "../../../features/lyric/api/getSong";
 import LyricFanchant from "../ui/LyricFanchant";
 import { useRecoilValue } from "recoil";
-import { setlistIdState } from "../../../entities/recoil/atoms/setlistIdState";
-import { Fanchant } from "../api/getFanchant";
+import { setlistIdState } from "../../recoil/atoms/setlistIdState";
+import { Fanchant } from "../../../features/lyric/api/getFanchant";
 import { BeatLoader } from "react-spinners";
 
 interface LyricProps {

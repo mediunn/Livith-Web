@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
-import Lyric from "../features/lyric/ui/Lyric";
+import Lyric from "../entities/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
 import { Fanchant, getFanchant } from "../features/lyric/api/getFanchant";
 import { useRecoilValue } from "recoil";

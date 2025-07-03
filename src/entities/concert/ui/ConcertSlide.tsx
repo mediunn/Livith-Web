@@ -8,7 +8,7 @@ import ConcertSlideCard from "../../../shared/ui/ConcertSlideCard";
 import ConcertSlidePrevArrow from "../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../shared/assets/ConcertSlideNextArrow.svg";
 import EmptyConcertSlide from "../../../shared/ui/EmptyConcertSlide";
-import { ConcertStatus, Concert } from "../../../entities/concert/types";
+import { ConcertStatus, Concert } from "../types";
 import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 
 type ConcertSlideProps = {

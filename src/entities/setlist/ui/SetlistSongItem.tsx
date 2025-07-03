@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import SongPlayIcon from "../../../shared/assets/SongPlayIcon.svg";
 import { useSetRecoilState } from "recoil";
-import { setlistIdState } from "../../../entities/recoil/atoms/setlistIdState";
+import { setlistIdState } from "../../recoil/atoms/setlistIdState";
 
 interface SetlistSongItemProps {
   title: string;

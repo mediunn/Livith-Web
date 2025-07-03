@@ -6,7 +6,7 @@ import ConcertCultureCarouselSlide from "../../../shared/ui/ConcertCultureCarous
 import "../../../shared/styles/slick-theme.css";
 import PrevArrow from "../../../shared/assets/PrevArrow.svg";
 import NextArrow from "../../../shared/assets/NextArrow.svg";
-import { getConcertCulture } from "../api/getConcertCulture";
+import { getConcertCulture } from "../../../features/concert/api/getConcertCulture";
 import EmptyConcertCulture from "../../../shared/ui/EmptyConcertCulture";
 
 type ConcertCultureProps = {

@@ -1,6 +1,6 @@
-import ReportConcert from "../features/ReportConcert";
+import ReportConcert from "../features/my/ui/ReportConcert";
 import TabBar from "../shared/ui/TabBar";
-import Info from "../features/Info";
+import Info from "../features/my/ui/Info";
 
 function MyPage() {
   return (
