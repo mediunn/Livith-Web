@@ -1,6 +1,6 @@
 import { useInView } from "react-intersection-observer";
-import ConcertCard from "../../entities/concert/ui/ConcertCard";
-import { Concert } from "../../entities/concert/types";
+import ConcertCard from "../entities/concert/ui/ConcertCard";
+import { Concert } from "../entities/concert/types";
 import { useNavigate } from "react-router-dom";
 
 type InfiniteConcertListProps = {

@@ -1,6 +1,6 @@
 import { ConcertStatus } from "../entities/concert/types";
 import { useConcertList } from "../features/concert/model/useConcertList";
-import { InfiniteConcertList } from "../shared/ui/InfiniteConcertList";
+import { InfiniteConcertList } from "./InfiniteConcertList";
 
 type ConcertListProps = {
   status: ConcertStatus;

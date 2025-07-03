@@ -1,5 +1,5 @@
 import { useSearchResult } from "../model/useSearchResult";
-import { InfiniteConcertList } from "../../../shared/ui/InfiniteConcertList";
+import { InfiniteConcertList } from "../../../widgets/InfiniteConcertList";
 import EmptySearchResult from "./EmptySearchResult";
 
 function SearchResult({ keyword }: { keyword: string }) {

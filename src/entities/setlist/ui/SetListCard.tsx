@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { SetlistType } from "../../entities/setlist/types";
+import { SetlistType } from "../types";
 
 interface SetListCardProps {
   type: SetlistType;

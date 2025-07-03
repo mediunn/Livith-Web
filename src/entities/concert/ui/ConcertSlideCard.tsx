@@ -1,4 +1,4 @@
-import { ConcertStatus } from "../../entities/concert/types";
+import { ConcertStatus } from "../types";
 
 type ConcertSlideCardProps = {
   imageUrl?: string;

@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ConcertCultureCarouselSlide from "../../../shared/ui/ConcertCultureCarouselSlide";
+import ConcertCultureCarouselSlide from "./ConcertCultureCarouselSlide";
 import "../../../shared/styles/slick-theme.css";
 import PrevArrow from "../../../shared/assets/PrevArrow.svg";
 import NextArrow from "../../../shared/assets/NextArrow.svg";
 import { getConcertCulture } from "../../../features/concert/api/getConcertCulture";
-import EmptyConcertCulture from "../../../shared/ui/EmptyConcertCulture";
+import EmptyConcertCulture from "../../../features/concert/ui/EmptyConcertCulture";
 
 type ConcertCultureProps = {
   id: number;

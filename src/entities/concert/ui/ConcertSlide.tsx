@@ -4,10 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
-import ConcertSlideCard from "../../../shared/ui/ConcertSlideCard";
+import ConcertSlideCard from "./ConcertSlideCard";
 import ConcertSlidePrevArrow from "../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../shared/assets/ConcertSlideNextArrow.svg";
-import EmptyConcertSlide from "../../../shared/ui/EmptyConcertSlide";
+import EmptyConcertSlide from "../../../features/concert/ui/EmptyConcertSlide";
 import { ConcertStatus, Concert } from "../types";
 import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 
