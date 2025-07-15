@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getConcertInsideInfo } from "../../../features/concert/api/getConcertInsideInfo";
+import { getConcertInsideInfo } from "../api/getConcertInsideInfo";
 import { Concert, ConcertStatus } from "../types";
 import DetailInfo from "../../../shared/ui/DetailInfo";
 import { formatConcertDate } from "../../../shared/utils/formatConcertDate";

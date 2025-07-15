@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSong, Song } from "../../../features/lyric/api/getSong";
+import { getSong, Song } from "../api/getSong";
 import LyricFanchant from "../ui/LyricFanchant";
 import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../../recoil/atoms/setlistIdState";
