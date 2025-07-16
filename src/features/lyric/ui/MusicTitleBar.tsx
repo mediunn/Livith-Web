@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSong } from "../api/getSong";
+import { getSong } from "../../../entities/lyric/api/getSong";
 import NavPrev from "../../../shared/assets/NavPrevIcon.svg";
 
 interface MusicTitleBarProps {

@@ -1,4 +1,4 @@
-import { ConcertStatus } from "../../entities/concert/types";
+import { ConcertStatus } from "../../../entities/concert/types";
 import EmptyIcon from "../assets/EmptyIcon.svg";
 
 type EmptyConcertSlideProps = {

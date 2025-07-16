@@ -1,5 +1,5 @@
-import useSetlistSongList from "../model/useSetlistSongList";
-import EmptySongList from "./EmptySongList";
+import useSetlistSongList from "../../../features/setlist/model/useSetlistSongList";
+import EmptySongList from "../../../features/setlist/ui/EmptySongList";
 import SetlistSongItem from "./SetlistSongItem";
 
 function SetlistSongList({ setlistId }: { setlistId: number }) {

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ConcertRightArrow from "../assets/ConcertRightArrow.svg";
-import SetListCard from "./SetListCard";
-import { Setlist, SetlistType } from "../../entities/setlist/types";
-import { getSetlistCollection } from "../../features/setlist/api/getSetlistCollection";
-import EmptySetList from "./EmptySetList";
-import formatConcertDate from "../../features/setlist/utils/formatDate";
+import SetListCard from "../entities/setlist/ui/SetListCard";
+import { Setlist, SetlistType } from "../entities/setlist/types";
+import { getSetlistCollection } from "../features/setlist/api/getSetlistCollection";
+import EmptySetList from "../features/setlist/ui/EmptySetList";
+import formatConcertDate from "../features/setlist/utils/formatDate";
 
 type OngoingSetListProps = {
   concertId: number;

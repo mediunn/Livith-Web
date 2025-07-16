@@ -1,7 +1,7 @@
-import { SetlistDetailProps } from "../../../entities/setlist/types";
+import { SetlistDetailProps } from "../types";
 import DetailInfo from "../../../shared/ui/DetailInfo";
-import useSetlistDetail from "../model/useSetlistDetail";
-import formatDate from "../utils/formatDate";
+import useSetlistDetail from "../../../features/setlist/model/useSetlistDetail";
+import formatDate from "../../../features/setlist/utils/formatDate";
 
 function SetlistDetail({ concertId, setlistId }: SetlistDetailProps) {
   const {

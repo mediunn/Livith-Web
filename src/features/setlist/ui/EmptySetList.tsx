@@ -1,5 +1,5 @@
 import EmptyIcon from "../assets/EmptyIcon.svg";
-import { SetlistType } from "../../entities/setlist/types";
+import { SetlistType } from "../../../entities/setlist/types";
 
 type EmptySetListProps = {
   type: SetlistType;

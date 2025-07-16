@@ -1,8 +1,8 @@
-import { SetlistType } from "../../../entities/setlist/types";
-import useSetlistCollection from "../model/useSetlistCollection";
+import { SetlistType } from "../types";
+import useSetlistCollection from "../../../features/setlist/model/useSetlistCollection";
 import { useInView } from "react-intersection-observer";
-import SetListCard from "../../../shared/ui/SetListCard";
-import formatDate from "../utils/formatDate";
+import SetListCard from "./SetListCard";
+import formatDate from "../../../features/setlist/utils/formatDate";
 
 interface SetlistCollectionProps {
   type: SetlistType;

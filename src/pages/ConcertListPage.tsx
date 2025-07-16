@@ -1,4 +1,4 @@
-import ConcertList from "../features/concert/ui/ConcertList";
+import ConcertList from "../widgets/ConcertList";
 import { ConcertStatus } from "../entities/concert/types";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";

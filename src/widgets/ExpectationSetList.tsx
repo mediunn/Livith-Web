@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getSetlistCollection } from "../../features/setlist/api/getSetlistCollection";
-import { Setlist, SetlistType } from "../../entities/setlist/types";
-import EmptySetList from "./EmptySetList";
+import { getSetlistCollection } from "../features/setlist/api/getSetlistCollection";
+import { Setlist, SetlistType } from "../entities/setlist/types";
+import EmptySetList from "../features/setlist/ui/EmptySetList";
 import { useNavigate } from "react-router-dom";
 
 type ExpectationSetListProps = {

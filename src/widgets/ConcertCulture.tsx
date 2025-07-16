@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import ConcertCultureCarousel from "../features/concert/ui/ConcertCultureCarousel";
+import ConcertCultureCarousel from "../entities/concert/ui/ConcertCultureCarousel";
 
 function ConcertCulture() {
   const { concertId } = useParams<{ concertId: string }>();
