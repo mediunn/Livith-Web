@@ -1,6 +1,7 @@
 import { useState } from "react";
 import HelpIcon from "../../../shared/assets/HelpIcon.svg";
 import HelpModal from "../../../shared/ui/HelpModal";
+import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
 
 function ConcertSetting() {
   const [isHelpPopupOpen, setIsHelpPopupOpen] = useState(false);
@@ -24,6 +25,9 @@ function ConcertSetting() {
           <img src={HelpIcon} alt="help" className="w-full h-full" />
         </button>
       </div>
+      <button className="w-full aspect-[343/167] mt-24 pl-16 pr-16 p-0 bg-transparent border-none cursor-pointer">
+        <img src={ConcertAddIcon} alt="concert add" className="w-full h-full" />
+      </button>
 
       {isHelpPopupOpen && (
         <HelpModal onClose={() => setIsHelpPopupOpen(false)}>
