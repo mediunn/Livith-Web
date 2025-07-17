@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ConcertRightArrow from "../assets/ConcertRightArrow.svg";
+import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
 import SetListCard from "../entities/setlist/ui/SetListCard";
 import { Setlist, SetlistType } from "../entities/setlist/types";
 import { getSetlistCollection } from "../features/setlist/api/getSetlistCollection";

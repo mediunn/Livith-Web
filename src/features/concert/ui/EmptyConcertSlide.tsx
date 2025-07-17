@@ -1,5 +1,5 @@
 import { ConcertStatus } from "../../../entities/concert/types";
-import EmptyIcon from "../assets/EmptyIcon.svg";
+import EmptyIcon from "../../../shared/assets/EmptyIcon.svg";
 
 type EmptyConcertSlideProps = {
   status: ConcertStatus;
