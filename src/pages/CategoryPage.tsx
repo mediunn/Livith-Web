@@ -1,16 +1,18 @@
 import SearchBar from "../shared/ui/SearchBar";
+import MainImageCarousel from "../widgets/MainImageCarousel";
+import CurrentConcert from "../widgets/CurrentConcert";
+import NextConcert from "../widgets/NextConcert";
+import PrevConcert from "../widgets/PrevConcert";
 import TabBar from "../shared/ui/TabBar";
 
 function CategoryPage() {
   return (
     <div className="pb-64">
       <SearchBar></SearchBar>
-
-      <p
-        className={`text-grayScaleWhite text-caption-smd font-semibold font-NotoSansKR`}
-      >
-        카테고리^^
-      </p>
+      <MainImageCarousel></MainImageCarousel>
+      <CurrentConcert></CurrentConcert>
+      <NextConcert></NextConcert>
+      <PrevConcert></PrevConcert>
       <TabBar></TabBar>
     </div>
   );
