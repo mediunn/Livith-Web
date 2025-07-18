@@ -1,8 +1,21 @@
+import { useState } from "react";
 import ConcertTicketArrowIcon from "../../../shared/assets/ConcertTicketArrowIcon.svg";
 import WebSiteEarthIcon from "../../../shared/assets/WebSiteEarthIcon.svg";
 import WebSiteArrowIcon from "../../../shared/assets/WebSiteArrowIcon.svg";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import ConcertSchedulePanel from "./ConcertSchedulePanel";
 
 function ConcertSetting() {
+  const [tabValue, setTabValue] = useState("1");
+
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+    setTabValue(newValue);
+  };
+
   return (
     <div>
       <div className="pt-24 pb-18 flex justify-between">
@@ -89,6 +102,53 @@ function ConcertSetting() {
           </button>
         </div>
       </div>
+
+      <Box sx={{ width: "100%" }}>
+        <TabContext value={tabValue}>
+          <Box sx={{ borderBottom: 2, borderColor: "#222831" }}>
+            <TabList
+              onChange={handleChange}
+              aria-label="tab"
+              sx={{
+                "& .MuiTab-root": {
+                  width: "50%",
+                  height: "64px",
+                  fontSize: "16px",
+                  fontWeight: 500,
+                  fontFamily: "NotoSansKR",
+                  letterSpacing: "-0.05em",
+                  lineHeight: "1.4",
+                  textTransform: "none",
+                  color: "#808794",
+                },
+                "& .Mui-selected": {
+                  color: "#FFFFFF",
+                },
+                "& .MuiTabs-indicator": {
+                  backgroundColor: "#FFFFFF",
+                },
+              }}
+            >
+              <Tab label="콘서트 일정정보" value="1" />
+              <Tab label="관련 셋리스트" value="2" />
+            </TabList>
+          </Box>
+          <TabPanel
+            value="1"
+            sx={{
+              padding: "0",
+            }}
+          >
+            <ConcertSchedulePanel />
+          </TabPanel>
+          <TabPanel
+            value="2"
+            sx={{
+              padding: "0",
+            }}
+          ></TabPanel>
+        </TabContext>
+      </Box>
     </div>
   );
 }
