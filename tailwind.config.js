@@ -30,8 +30,13 @@ module.exports = {
         "body-lg": ["18px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "body-md": ["16px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "body-sm": ["14px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "body-lgs": ["14px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "caption-lg": ["12px", { lineHeight: "1.3", letterSpacing: "-0.05em" }],
         "caption-sm": ["12px", { lineHeight: "1.2", letterSpacing: "-0.05em" }],
+        "caption-smd": [
+          "10px",
+          { lineHeight: "1.2", letterSpacing: "-0.05em" },
+        ],
         "caption-ssm": [
           "10px",
           { lineHeight: "1.2", letterSpacing: "-0.05em" },

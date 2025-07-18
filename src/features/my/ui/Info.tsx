@@ -1,4 +1,4 @@
-import MyNextArrow from "../shared/assets/MyNextArrow.svg";
+import MyNextArrow from "../../../shared/assets/MyNextArrow.svg";
 
 function Info() {
   const handleClickUpdate = () => {

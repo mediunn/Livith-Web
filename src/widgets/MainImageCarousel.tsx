@@ -3,9 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MainImageCarouselSlide from "./MainImageCarouselSlide";
-import "../../../shared/styles/slick-theme.css";
-import PrevArrow from "../../../shared/assets/PrevArrow.svg";
-import NextArrow from "../../../shared/assets/NextArrow.svg";
+import "../shared/styles/slick-theme.css";
+import PrevArrow from "../shared/assets/PrevArrow.svg";
+import NextArrow from "../shared/assets/NextArrow.svg";
 import { getBanner } from "../features/concert/api/getBanner";
 
 type BannerProps = {

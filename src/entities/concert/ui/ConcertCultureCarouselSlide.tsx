@@ -1,4 +1,4 @@
-import CultureTextIcon from "../assets/CultureTextIcon.svg";
+import CultureTextIcon from "../../../shared/assets/CultureTextIcon.svg";
 
 type ConcertCultureCarouselSlideProps = {
   content: string;

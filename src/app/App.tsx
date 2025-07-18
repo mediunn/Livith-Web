@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import HomePage from "../pages/HomePage";
 import ConcertInsidePage from "../pages/ConcertInsidePage";
+import CategoryPage from "../pages/CategoryPage";
 import MyPage from "../pages/MyPage";
 import ConcertListPage from "../pages/ConcertListPage";
 import RootLayout from "./RootLayout";
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "concert/:concertId",
         element: <ConcertInsidePage />,
+      },
+      {
+        path: "category",
+        element: <CategoryPage />,
       },
       {
         path: "my",
