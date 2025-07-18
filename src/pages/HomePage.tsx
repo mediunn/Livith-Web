@@ -5,7 +5,7 @@ import TabBar from "../shared/ui/TabBar";
 
 function HomePage() {
   return (
-    <div className="pb-64">
+    <div className="pb-90">
       <SearchBar></SearchBar>
       {/* <ConcertSettingEmpty></ConcertSettingEmpty> */}
       <ConcertSetting></ConcertSetting>
