@@ -8,6 +8,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import ConcertSchedulePanel from "./ConcertSchedulePanel";
+import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
 
 function ConcertSetting() {
   const [tabValue, setTabValue] = useState("1");
@@ -121,7 +122,7 @@ function ConcertSetting() {
                   textTransform: "none",
                   color: "#808794",
                 },
-                "& .Mui-selected": {
+                "& .MuiTab-root.Mui-selected": {
                   color: "#FFFFFF",
                 },
                 "& .MuiTabs-indicator": {
@@ -139,7 +140,13 @@ function ConcertSetting() {
               padding: "0",
             }}
           >
-            <ConcertSchedulePanel />
+            <div className="pt-24 pl-16 pr-16 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+              다가온 콘서트 일정을
+              <br />
+              확인해 보세요!
+            </div>
+            {/* <ConcertSchedulePanel /> */}
+            <EmptyConcertSchedulePanel />
           </TabPanel>
           <TabPanel
             value="2"

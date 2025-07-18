@@ -1,11 +1,6 @@
 function ConcertSchedulePanel() {
   return (
-    <div className="pt-24 pl-16 pr-16">
-      <div className="pb-20 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
-        다가온 콘서트 일정을
-        <br />
-        확인해 보세요!
-      </div>
+    <div className="pt-20 pl-16 pr-16">
       <div className="pb-190 flex flex-col gap-12">
         <div className="flex items-center justify-between pl-15 pr-16 w-full h-64 bg-grayScaleBlack90 rounded-8 border border-solid border-grayScaleBlack80">
           <div className="flex items-center">
