@@ -21,7 +21,7 @@ function SearchPage() {
   }, []);
 
   return (
-    <div className="pb-100 ">
+    <div className="pb-90 ">
       <div className="sticky top-0 z-50 bg-grayScaleBlack100">
         <InputSearchBar
           inputState={{ value: input, setValue: setInput }}

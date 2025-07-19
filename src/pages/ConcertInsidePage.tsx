@@ -19,7 +19,7 @@ function ConcertInsidePage() {
   }, []);
 
   return (
-    <div className="pb-64">
+    <div className="pb-90">
       <ListHeader></ListHeader>
       <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>
       <ConcertCulture></ConcertCulture>
