@@ -7,6 +7,7 @@ import PastSetList from "../widgets/PastSetList";
 import ExpectationSetList from "../widgets/ExpectationSetList";
 import { ConcertStatus } from "../entities/concert/types";
 import OngoingSetList from "../widgets/OngoingSetList";
+import ArtistTabPanel from "../entities/concert/ui/ArtistTabPanel";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
@@ -22,6 +23,7 @@ function ConcertInsidePage() {
     <div className="pb-90">
       <ListHeader title={"공연 상세정보"} />
       <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>
+      <ArtistTabPanel></ArtistTabPanel>
     </div>
   );
 }
