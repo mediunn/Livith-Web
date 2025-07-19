@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+const withMT = require("@material-tailwind/react/utils/withMT");
 const pxToRem = require("tailwindcss-preset-px-to-rem");
 
-module.exports = {
+module.exports = withMT({
   presets: [pxToRem],
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -55,4 +56,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+});

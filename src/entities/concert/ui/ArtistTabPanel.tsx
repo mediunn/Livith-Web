@@ -4,7 +4,7 @@ import FanCultureSwiper from "./FanCultureSwiper";
 function ArtistTabPanel() {
   return (
     <>
-      <div className="px-16">
+      <div className="mx-16">
         <div className="pt-24 pb-17">
           <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
             가수에 대한
