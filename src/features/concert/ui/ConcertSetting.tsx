@@ -1,54 +1,161 @@
 import { useState } from "react";
-import HelpIcon from "../../../shared/assets/HelpIcon.svg";
-import HelpModal from "../../../shared/ui/HelpModal";
-import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
+import ConcertTicketArrowIcon from "../../../shared/assets/ConcertTicketArrowIcon.svg";
+import WebSiteEarthIcon from "../../../shared/assets/WebSiteEarthIcon.svg";
+import WebSiteArrowIcon from "../../../shared/assets/WebSiteArrowIcon.svg";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import ConcertSchedulePanel from "./ConcertSchedulePanel";
+import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
 
 function ConcertSetting() {
-  const [isHelpPopupOpen, setIsHelpPopupOpen] = useState(false);
+  const [tabValue, setTabValue] = useState("1");
 
-  const toggleHelpPopup = () => {
-    setIsHelpPopupOpen((prev) => !prev);
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+    setTabValue(newValue);
   };
 
   return (
-    <div className="pt-24">
-      <div className="flex justify-between">
-        <p className="text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR ml-16">
-          관심있는 콘서트를
-          <br />
-          설정해 주세요
+    <div>
+      <div className="pt-24 pb-18 flex justify-between">
+        <p className="ml-27 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+          내가 관심있는 콘서트👀
         </p>
-        <button
-          className="w-24 h-24 mt-7 mr-16 p-0 bg-transparent border-none cursor-pointer"
-          onClick={toggleHelpPopup}
-        >
-          <img src={HelpIcon} alt="help" className="w-full h-full" />
+        <button className="mr-16 text-grayScaleBlack50 text-body-lgs font-regular font-NotoSansKR bg-transparent border-none cursor-pointer">
+          수정하기
         </button>
       </div>
-      <button className="w-full aspect-[343/167] mt-24 pl-16 pr-16 p-0 bg-transparent border-none cursor-pointer">
-        <img src={ConcertAddIcon} alt="concert add" className="w-full h-full" />
-      </button>
 
-      {isHelpPopupOpen && (
-        <HelpModal onClose={() => setIsHelpPopupOpen(false)}>
-          <div className="pt-19 pl-24">
-            <p className="pb-16 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
-              설정 시 콘서트 정보를 홈에서
-              <br />한 눈에 제공해줘요.
-            </p>
-            <p className="pb-16 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
-              현재는 메인 콘서트
-              <br />
-              하나만 설정 가능해요.
-            </p>
-            <p className="text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
-              콘서트 당일 이후에는
-              <br />
-              다시 초기화 돼요!
-            </p>
+      <div className="w-full h-539 flex justify-center bg-grayScaleBlack90">
+        <div>
+          <div className="relative w-327 h-438 mt-24">
+            {/* 배경 이미지 + 마스크 */}
+            <div
+              className="w-full h-full"
+              style={{
+                WebkitMaskImage: "url('/ConcertTicketMask.svg')",
+                WebkitMaskRepeat: "no-repeat",
+                WebkitMaskSize: "cover",
+                maskImage: "url('/ConcertTicketMask.svg')",
+                maskRepeat: "no-repeat",
+                maskSize: "cover",
+                backgroundImage:
+                  "url('https://cdn.imweb.me/thumbnail/20250530/bafd11a557308.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
+            {/* 그라데이션 + 마스크 */}
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pointer-events-none"
+              style={{
+                WebkitMaskImage: "url('/ConcertTicketMask.svg')",
+                WebkitMaskRepeat: "no-repeat",
+                WebkitMaskSize: "cover",
+                maskImage: "url('/ConcertTicketMask.svg')",
+                maskRepeat: "no-repeat",
+                maskSize: "cover",
+              }}
+            />
+
+            <div className="absolute bottom-26 left-19">
+              <p className="text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+                호시노 겐 콘서트
+              </p>
+              <p className="pt-2 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+                <span className="text-mainYellow30">두 달</span> 앞으로
+                다가왔어요!
+              </p>
+
+              <div className="pt-18 w-270 border-b border-dashed border-grayScaleBlack50 opacity-50" />
+
+              <p className="pt-18 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
+                2025.09.13 ~ 2025.09.14
+              </p>
+              <p className="pt-4 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
+                올림픽공원 올림픽홀
+              </p>
+            </div>
+
+            <button className="absolute bottom-26 right-16 w-46 h-46 bg-transparent border-none cursor-pointer">
+              <img
+                src={ConcertTicketArrowIcon}
+                alt="concert ticket arrow"
+                className="w-full h-full"
+              />
+            </button>
           </div>
-        </HelpModal>
-      )}
+
+          <button className="w-327 h-37 mt-16 flex items-center justify-center gap-4 text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR bg-mainYellow30 rounded-6 border-none cursor-pointer">
+            <img
+              src={WebSiteEarthIcon}
+              alt="web site earth"
+              className="w-18 h-18"
+            />
+            Gen Hoshino presents MAD HOPE Asia Tour ...
+            <img
+              src={WebSiteArrowIcon}
+              alt="web site arrow"
+              className="w-8 h-8"
+            />
+          </button>
+        </div>
+      </div>
+
+      <Box sx={{ width: "100%" }}>
+        <TabContext value={tabValue}>
+          <Box sx={{ borderBottom: 2, borderColor: "#222831" }}>
+            <TabList
+              onChange={handleChange}
+              aria-label="tab"
+              sx={{
+                "& .MuiTab-root": {
+                  width: "50%",
+                  height: "64px",
+                  fontSize: "16px",
+                  fontWeight: 500,
+                  fontFamily: "NotoSansKR",
+                  letterSpacing: "-0.05em",
+                  lineHeight: "1.4",
+                  textTransform: "none",
+                  color: "#808794",
+                },
+                "& .MuiTab-root.Mui-selected": {
+                  color: "#FFFFFF",
+                },
+                "& .MuiTabs-indicator": {
+                  backgroundColor: "#FFFFFF",
+                },
+              }}
+            >
+              <Tab label="콘서트 일정정보" value="1" />
+              <Tab label="관련 셋리스트" value="2" />
+            </TabList>
+          </Box>
+          <TabPanel
+            value="1"
+            sx={{
+              padding: "0",
+            }}
+          >
+            <div className="pt-24 pl-16 pr-16 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+              다가온 콘서트 일정을
+              <br />
+              확인해 보세요!
+            </div>
+            {/* <ConcertSchedulePanel /> */}
+            <EmptyConcertSchedulePanel />
+          </TabPanel>
+          <TabPanel
+            value="2"
+            sx={{
+              padding: "0",
+            }}
+          ></TabPanel>
+        </TabContext>
+      </Box>
     </div>
   );
 }
