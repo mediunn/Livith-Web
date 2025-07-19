@@ -15,12 +15,14 @@ function ConcertInfoTab() {
   return (
     <Tabs value={selectedTab} className="pt-16">
       <TabsHeader
+        {...({} as any)}
         className="h-57 mx-16 px-7 py-6 items-center bg-grayScaleBlack90 border-b border-grayScaleBlack80"
         indicatorProps={{
           className: "bg-mainYellow30 shadow-none",
         }}
       >
         <Tab
+          {...({} as any)}
           value="artist"
           className="h-41"
           onClick={() => setSelectedTab("artist")}
@@ -37,6 +39,7 @@ function ConcertInfoTab() {
         </Tab>
 
         <Tab
+          {...({} as any)}
           value="concert"
           className="h-41"
           onClick={() => setSelectedTab("concert")}
@@ -53,6 +56,7 @@ function ConcertInfoTab() {
         </Tab>
 
         <Tab
+          {...({} as any)}
           value="setlist"
           className="h-41"
           onClick={() => setSelectedTab("setlist")}
@@ -69,7 +73,7 @@ function ConcertInfoTab() {
         </Tab>
       </TabsHeader>
 
-      <TabsBody>
+      <TabsBody {...({} as any)}>
         <TabPanel value="artist" className="p-0">
           <ArtistTabPanel />
           {/* <EmptyArtistTabPanel /> */}
