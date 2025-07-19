@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ArtistTabPanel from "./ArtistTabPanel";
+import EmptyArtistTabPanel from "./EmptyArtistTabPanel";
 import {
   Tabs,
   TabsHeader,
@@ -71,6 +72,7 @@ function ConcertInfoTab() {
       <TabsBody>
         <TabPanel value="artist" className="p-0">
           <ArtistTabPanel />
+          {/* <EmptyArtistTabPanel /> */}
         </TabPanel>
         <TabPanel value="concert">콘서트 정보 내용</TabPanel>
         <TabPanel value="setlist">셋리스트 내용</TabPanel>
