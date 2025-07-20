@@ -7,7 +7,7 @@ import TabBar from "../shared/ui/TabBar";
 
 function CategoryPage() {
   return (
-    <div className="pb-64">
+    <div className="pb-90">
       <SearchBar></SearchBar>
       <MainImageCarousel></MainImageCarousel>
       <CurrentConcert></CurrentConcert>
