@@ -27,7 +27,7 @@ function MdSlideCard({
         : `D-${daysLeft}`;
 
   return (
-    <div className="w-108 h-158 cursor-pointer" onClick={onClick}>
+    <div className="w-108 h-214 cursor-pointer" onClick={onClick}>
       <div className="w-108 h-158 relative">
         {imageUrl ? (
           <img

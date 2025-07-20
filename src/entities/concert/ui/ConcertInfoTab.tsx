@@ -79,7 +79,7 @@ function ConcertInfoTab() {
           <ArtistTabPanel />
           {/* <EmptyArtistTabPanel /> */}
         </TabPanel>
-        <TabPanel value="concert">
+        <TabPanel value="concert" className="p-0">
           <ConcertTabPanel />
         </TabPanel>
         <TabPanel value="setlist">셋리스트 내용</TabPanel>

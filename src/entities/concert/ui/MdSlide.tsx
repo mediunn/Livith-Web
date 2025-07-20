@@ -69,7 +69,7 @@ function MdSlide({ status, concerts }: ConcertSlideProps) {
 
   return (
     <div
-      className="relative ml-16"
+      className="relative ml-16 mb-40"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
