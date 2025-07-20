@@ -116,7 +116,7 @@ function FanCultureSwiper() {
               ref={(el) => {
                 if (el) cardRefs.current[i] = el;
               }}
-              className="w-228 bg-grayScaleBlack90 rounded-8 border border-grayScaleBlack80"
+              className="w-228 mb-37 bg-grayScaleBlack90 rounded-8 border border-grayScaleBlack80"
             >
               <div className="px-9 py-21">
                 <div className="relative">
