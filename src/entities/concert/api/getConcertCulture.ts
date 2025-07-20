@@ -10,7 +10,7 @@ type ConcertCulture = {
 
 export async function getConcertCulture(id: number): Promise<ConcertCulture[]> {
   const response = await axiosInstance.get<ApiResponse<ConcertCulture[]>>(
-    `/concerts/${id}/cultures`
+    `/api/v1/concerts/${id}/cultures`
   );
   return response.data.data;
 }

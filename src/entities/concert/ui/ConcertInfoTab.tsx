@@ -1,6 +1,8 @@
 import { useState } from "react";
 import ArtistTabPanel from "./ArtistTabPanel";
-import EmptyArtistTabPanel from "./EmptyArtistTabPanel";
+import ConcertTabPanel from "./ConcertTabPanel";
+import EmptyConcertInfoTabPanel from "./EmptyConcertInfoTabPanel";
+
 import {
   Tabs,
   TabsHeader,
@@ -76,9 +78,12 @@ function ConcertInfoTab() {
       <TabsBody {...({} as any)}>
         <TabPanel value="artist" className="p-0">
           <ArtistTabPanel />
-          {/* <EmptyArtistTabPanel /> */}
+          {/* <EmptyConcertInfoTabPanel text={"가수 정보"} /> */}
         </TabPanel>
-        <TabPanel value="concert">콘서트 정보 내용</TabPanel>
+        <TabPanel value="concert" className="p-0">
+          <ConcertTabPanel />
+          {/* <EmptyConcertInfoTabPanel text={"콘서트 정보"} /> */}
+        </TabPanel>
         <TabPanel value="setlist">셋리스트 내용</TabPanel>
       </TabsBody>
     </Tabs>
