@@ -11,6 +11,8 @@ export type Song = {
 };
 
 export async function getSong(id: number): Promise<Song> {
-  const response = await axiosInstance.get<ApiResponse<Song>>(`/songs/${id}`);
+  const response = await axiosInstance.get<ApiResponse<Song>>(
+    `/api/v1/songs/${id}`
+  );
   return response.data.data;
 }

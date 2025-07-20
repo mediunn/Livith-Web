@@ -15,12 +15,15 @@ export async function getSetlistCollection({
   cursor,
   concertId,
 }: GetSetlistCollectionProps): Promise<ApiResponse<SetlistResponse>> {
-  const response = await axiosInstance.get(`/concerts/${concertId}/setlists`, {
-    params: {
-      type,
-      size,
-      cursor,
-    },
-  });
+  const response = await axiosInstance.get(
+    `/api/v1/concerts/${concertId}/setlists`,
+    {
+      params: {
+        type,
+        size,
+        cursor,
+      },
+    }
+  );
   return response.data;
 }
