@@ -26,16 +26,18 @@ function MusicTitleBar({ songId }: MusicTitleBarProps) {
   }, [songId]);
 
   return (
-    <div className="sticky top-0 z-50 bg-grayScaleBlack100 max-w-md flex items-center w-full h-60">
-      <button
-        className="absolute left-0 ml-16 mt-20 w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
-        onClick={() => navigate(-1)}
-      >
-        <img src={NavPrev} alt="prev" className="w-full h-full" />
-      </button>
-      <p className="mx-auto pt-20 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
-        {title}
-      </p>
+    <div className="sticky top-0 z-50 bg-grayScaleBlack100 max-w-md w-full h-66">
+      <div className="flex items-center pl-15 pt-20 pr-17">
+        <button
+          className="w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
+          onClick={() => navigate(-1)}
+        >
+          <img src={NavPrev} alt="prev" className="w-full h-full" />
+        </button>
+        <p className="pl-4 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+          {title}
+        </p>
+      </div>
     </div>
   );
 }
