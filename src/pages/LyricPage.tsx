@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 import { BeatLoader } from "react-spinners";
 import YouTubePlayer from "../entities/lyric/ui/YouTubePlayer";
+import EmptyYouTubePlayer from "../entities/lyric/ui/EmptyYouTubePlayer";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -163,6 +164,7 @@ function LyricPage() {
         <>
           <MusicTitleBar songId={Number(songId)} />
           <YouTubePlayer />
+          {/* <EmptyYouTubePlayer /> */}
           <LyricTypeButton
             activeButtons={activeButtons}
             onToggle={toggleButton}
