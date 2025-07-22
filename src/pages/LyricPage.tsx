@@ -10,6 +10,7 @@ import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 import { BeatLoader } from "react-spinners";
 import YouTubePlayer from "../entities/lyric/ui/YouTubePlayer";
 import EmptyYouTubePlayer from "../entities/lyric/ui/EmptyYouTubePlayer";
+import EmptyConcertInfoTabPanel from "../entities/concert/ui/EmptyConcertInfoTabPanel";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -163,8 +164,10 @@ function LyricPage() {
       ) : (
         <>
           <MusicTitleBar songId={Number(songId)} />
+
           <YouTubePlayer />
           {/* <EmptyYouTubePlayer /> */}
+
           <LyricTypeButton
             activeButtons={activeButtons}
             onToggle={toggleButton}
@@ -175,6 +178,9 @@ function LyricPage() {
             activeButtons={activeButtons}
             fanchantData={fanchantData}
           />
+          {/* <div className="pt-51">
+            <EmptyConcertInfoTabPanel text={"가사 정보"} />
+          </div> */}
         </>
       )}
 
