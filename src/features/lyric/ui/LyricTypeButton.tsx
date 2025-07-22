@@ -18,14 +18,25 @@ function LyricTypeButton({
         if (label === "응원법" && !hasFanchant) return null;
 
         const isActive = activeButtons[index];
+
+        // 활성화 시 버튼 색
+        const activeBgColor =
+          label === "원어"
+            ? "bg-lyricsOriginal"
+            : label === "발음"
+              ? "bg-grayScaleWhite"
+              : label === "해석"
+                ? "bg-lyricsTranslation"
+                : "bg-mainYellow30";
+
         return (
-          <div className="">
+          <div key={label}>
             <button
               key={label}
               onClick={() => onToggle(index)}
               className={`
-              h-30 px-17 rounded-35 text-caption-lg font-semibold font-NotoSansKR border border-solid cursor-pointer
-              ${isActive ? "bg-mainYellow30 border-mainYellow60 text-grayScaleBlack100" : "bg-grayScaleBlack100 border-grayScaleBlack80 text-grayScaleWhite"}
+              h-30 px-17 rounded-35 text-caption-lg font-semibold font-NotoSansKR cursor-pointer
+              ${isActive ? `${activeBgColor} text-grayScaleBlack100` : "bg-grayScaleBlack100 border border-solid border-grayScaleBlack80 text-grayScaleWhite"}
               ${index !== 0 ? "ml-10" : ""}
             `}
             >
