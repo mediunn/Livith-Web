@@ -145,8 +145,8 @@ function ConcertSetting() {
               <br />
               확인해 보세요!
             </div>
-            {/* <ConcertSchedulePanel /> */}
-            <EmptyConcertSchedulePanel />
+            <ConcertSchedulePanel />
+            {/* <EmptyConcertSchedulePanel /> */}
           </TabPanel>
           <TabPanel
             value="2"

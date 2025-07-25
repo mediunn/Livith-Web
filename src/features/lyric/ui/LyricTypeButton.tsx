@@ -12,20 +12,31 @@ function LyricTypeButton({
   hasFanchant,
 }: LyricTypeButtonProps) {
   return (
-    <div className="fixed top-45 z-50 h-62 bg-grayScaleBlack100 w-full  max-w-md mt-15 flex pl-16">
+    <div className="mt-25 px-16 flex bg-grayScaleBlack100 w-full max-w-md">
       {lyricType.map((label, index) => {
         // 응원법 버튼 비활성화 조건
         if (label === "응원법" && !hasFanchant) return null;
 
         const isActive = activeButtons[index];
+
+        // 활성화 시 버튼 색
+        const activeBgColor =
+          label === "원어"
+            ? "bg-lyricsOriginal"
+            : label === "발음"
+              ? "bg-grayScaleWhite"
+              : label === "해석"
+                ? "bg-lyricsTranslation"
+                : "bg-mainYellow30";
+
         return (
-          <div className="mt-16">
+          <div key={label}>
             <button
               key={label}
               onClick={() => onToggle(index)}
               className={`
-              h-30 px-17 rounded-35 text-caption-lg font-semibold font-NotoSansKR border border-solid cursor-pointer
-              ${isActive ? "bg-mainYellow30 border-mainYellow60 text-grayScaleBlack100" : "bg-grayScaleBlack100 border-grayScaleBlack80 text-grayScaleWhite"}
+              h-30 px-17 rounded-35 text-caption-lg font-semibold font-NotoSansKR cursor-pointer
+              ${isActive ? `${activeBgColor} text-grayScaleBlack100` : "bg-grayScaleBlack100 border border-solid border-grayScaleBlack80 text-grayScaleWhite"}
               ${index !== 0 ? "ml-10" : ""}
             `}
             >
