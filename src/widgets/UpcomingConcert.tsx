@@ -5,7 +5,7 @@ import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
 import { ConcertStatus, Concert } from "../entities/concert/types";
 import { getConcertList } from "../features/concert/api/getConcertList";
 
-function CurrentConcert() {
+function UpcomingConcert() {
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
 
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function CurrentConcert() {
     const fetchConcerts = async () => {
       try {
         const res = await getConcertList({
-          status: ConcertStatus.ONGOING,
+          status: ConcertStatus.UPCOMING,
           size: 10,
         });
         setConcerts(res.data.data);
@@ -34,21 +34,21 @@ function CurrentConcert() {
   return (
     <div>
       <div className="flex item-center justify-between w-full">
-        <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-36 mb-19 ml-16">
-          현재 진행하는 콘서트
+        <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-30 mb-19 ml-16">
+          곧 진행하는 콘서트
         </p>
         {concerts.length > 0 && (
           <button
-            className="w-24 h-24 bg-transparent border-none p-0 mt-36 mr-16 cursor-pointer"
-            onClick={() => navigate(`/concerts/${ConcertStatus.ONGOING}`)}
+            className="w-24 h-24 bg-transparent border-none p-0 mt-30 mr-16 cursor-pointer"
+            onClick={() => navigate(`/concerts/${ConcertStatus.UPCOMING}`)}
           >
             <img src={ConcertRightArrow} className="w-full h-full" />
           </button>
         )}
       </div>
-      <ConcertSlide status={ConcertStatus.ONGOING} concerts={concerts} />
+      <ConcertSlide status={ConcertStatus.UPCOMING} concerts={concerts} />
     </div>
   );
 }
 
-export default CurrentConcert;
+export default UpcomingConcert;
