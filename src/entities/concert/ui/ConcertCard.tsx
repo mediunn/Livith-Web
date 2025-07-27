@@ -1,9 +1,9 @@
-import { ConcertStatus } from "../types";
+import { ConcertFilter } from "../types";
 
 type ConcertCardProps = {
   title: string;
   date: string;
-  status: ConcertStatus;
+  filter: ConcertFilter;
   onClick?: () => void;
   artist?: string;
   imageUrl?: string;
@@ -13,16 +13,16 @@ type ConcertCardProps = {
 function ConcertCard({
   title,
   date,
-  status,
+  filter,
   onClick,
   artist,
   imageUrl,
   daysLeft,
 }: ConcertCardProps) {
-  const statusText =
-    status === ConcertStatus.ONGOING
+  const filterText =
+    filter === ConcertFilter.NEW
       ? "진행중"
-      : status === ConcertStatus.COMPLETED
+      : filter === ConcertFilter.ALL
         ? "종료"
         : `D-${daysLeft}`;
   return (
@@ -39,7 +39,7 @@ function ConcertCard({
         )}
         <div className="absolute top-10 left-10 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13">
           <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
-            {statusText}
+            {filterText}
           </p>
         </div>
       </div>

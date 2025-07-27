@@ -1,10 +1,10 @@
-import { ConcertStatus } from "../types";
+import { ConcertFilter } from "../types";
 
 type ConcertSlideCardProps = {
   imageUrl?: string;
   title: string;
   date: string;
-  status: ConcertStatus;
+  filter: ConcertFilter;
   daysLeft: number;
   onClick?: () => void;
 };
@@ -13,16 +13,23 @@ function ConcertSlideCard({
   imageUrl,
   title,
   date,
-  status,
+  filter,
   daysLeft,
   onClick,
 }: ConcertSlideCardProps) {
-  const statusText =
-    status === ConcertStatus.ONGOING
-      ? "진행중"
-      : status === ConcertStatus.COMPLETED
-        ? "종료"
-        : `D-${daysLeft}`;
+  let filterText = "";
+
+  if (filter === ConcertFilter.UPCOMING) {
+    filterText = `D-${daysLeft}`;
+  } else {
+    if (daysLeft > 0) {
+      filterText = `D-${daysLeft}`;
+    } else if (daysLeft === 0) {
+      filterText = "진행중";
+    } else {
+      filterText = "종료";
+    }
+  }
 
   return (
     <div className="w-139 h-280 cursor-pointer" onClick={onClick}>
@@ -38,7 +45,7 @@ function ConcertSlideCard({
         )}
         <div className="absolute top-10 left-10 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13">
           <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
-            {statusText}
+            {filterText}
           </p>
         </div>
       </div>

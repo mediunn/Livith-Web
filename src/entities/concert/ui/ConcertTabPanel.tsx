@@ -4,7 +4,7 @@ import ConcertInfoCarousel from "../../../widgets/ConcertInfoCarousel";
 import ConcertRightArrow from "../../../shared/assets/ConcertRightArrow.svg";
 import MdSlide from "../../../entities/concert/ui/MdSlide";
 
-import { ConcertStatus, Concert } from "../../../entities/concert/types";
+import { ConcertFilter, Concert } from "../../../entities/concert/types";
 import { getConcertList } from "../../../features/concert/api/getConcertList";
 
 function ConcertTabPanel() {
@@ -14,7 +14,7 @@ function ConcertTabPanel() {
     const fetchConcerts = async () => {
       try {
         const res = await getConcertList({
-          status: ConcertStatus.UPCOMING,
+          filter: ConcertFilter.UPCOMING,
           size: 10,
         });
         setConcerts(res.data.data);
@@ -65,7 +65,7 @@ function ConcertTabPanel() {
           </button>
         </div>
 
-        <MdSlide status={ConcertStatus.UPCOMING} concerts={concerts} />
+        <MdSlide filter={ConcertFilter.UPCOMING} concerts={concerts} />
       </div>
     </>
   );

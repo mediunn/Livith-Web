@@ -1,27 +1,33 @@
 import {
   ConcertListResponse,
-  ConcertStatus,
+  ConcertFilter,
 } from "../../../entities/concert/types";
 import { ApiResponse } from "../../../shared/types/response";
 import axiosInstance from "../../../shared/api/axiosInstance";
 
 type GetConcertListParams = {
-  status: ConcertStatus;
+  filter: ConcertFilter;
   cursor?: number | null;
   size?: number | null;
 };
 
 export async function getConcertList({
-  status,
+  filter,
   cursor,
   size,
 }: GetConcertListParams): Promise<ApiResponse<ConcertListResponse>> {
-  const response = await axiosInstance.get("/api/v1/concerts", {
-    params: {
-      status,
-      cursor,
-      size,
-    },
+  const params: Record<string, any> = {
+    filter,
+    size,
+  };
+
+  if (cursor !== null && cursor !== undefined) {
+    params[filter === ConcertFilter.NEW ? "id" : "sortedIndex"] = cursor;
+  }
+
+  const response = await axiosInstance.get("/api/v2/concerts", {
+    params,
   });
+
   return response.data;
 }

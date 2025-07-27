@@ -48,7 +48,7 @@ export function InfiniteConcertList({
             imageUrl={concert.poster}
             title={concert.title}
             date={formatDate(concert.startDate, concert.endDate)}
-            status={concert.status}
+            filter={concert.status}
             onClick={() => {
               navigate(`/concert/${concert.id}`, {
                 state: { status: concert.status },

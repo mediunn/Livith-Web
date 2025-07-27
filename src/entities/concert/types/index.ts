@@ -1,7 +1,7 @@
-export enum ConcertStatus {
-  ONGOING = "ONGOING",
+export enum ConcertFilter {
+  NEW = "NEW",
   UPCOMING = "UPCOMING",
-  COMPLETED = "COMPLETED",
+  ALL = "ALL",
 }
 
 export type Concert = {
@@ -10,11 +10,14 @@ export type Concert = {
   title: string;
   startDate: string;
   endDate: string;
+  status: ConcertFilter;
   poster: string;
-  daysLeft: number;
-  sortedIndex: number;
   artist: string;
-  status: ConcertStatus;
+  sortedIndex: number;
+  daysLeft: number;
+  ticketSite: string;
+  ticketUrl: string;
+  venue: string;
 };
 
 export type ConcertListResponse = {

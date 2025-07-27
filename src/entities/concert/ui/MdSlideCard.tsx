@@ -1,4 +1,4 @@
-import { ConcertStatus } from "../types";
+import { ConcertFilter } from "../types";
 
 // 추후 콘서트 api 대신 MD api 연결
 
@@ -6,7 +6,7 @@ type ConcertSlideCardProps = {
   imageUrl?: string;
   title: string;
   date: string;
-  status: ConcertStatus;
+  filter: ConcertFilter;
   daysLeft: number;
   onClick?: () => void;
 };
@@ -15,14 +15,14 @@ function MdSlideCard({
   imageUrl,
   title,
   date,
-  status,
+  filter,
   daysLeft,
   onClick,
 }: ConcertSlideCardProps) {
-  const statusText =
-    status === ConcertStatus.ONGOING
+  const filterText =
+    filter === ConcertFilter.NEW
       ? "진행중"
-      : status === ConcertStatus.COMPLETED
+      : filter === ConcertFilter.ALL
         ? "종료"
         : `D-${daysLeft}`;
 

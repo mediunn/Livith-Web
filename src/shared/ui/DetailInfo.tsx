@@ -1,10 +1,10 @@
-import { ConcertStatus } from "../../entities/concert/types";
+import { ConcertFilter } from "../../entities/concert/types";
 import WebSiteEarthIcon from "../../shared/assets/WebSiteEarthIcon.svg";
 import WebSiteArrowIcon from "../../shared/assets/WebSiteArrowIcon.svg";
 
 interface DetailInfoProps {
   imageUrl: string;
-  status: ConcertStatus | string;
+  status: ConcertFilter | string;
   title: string;
   date: string;
   artist: string;

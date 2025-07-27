@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ConcertSlide from "../entities/concert/ui/ConcertSlide";
 import ConcertRightArrow from "../shared/assets/ConcertRightArrow.svg";
-import { ConcertStatus, Concert } from "../entities/concert/types";
+import { ConcertFilter, Concert } from "../entities/concert/types";
 import { getConcertList } from "../features/concert/api/getConcertList";
 
 function AllConcert() {
@@ -14,7 +14,7 @@ function AllConcert() {
     const fetchConcerts = async () => {
       try {
         const res = await getConcertList({
-          status: ConcertStatus.COMPLETED,
+          filter: ConcertFilter.ALL,
           size: 10,
         });
         setConcerts(res.data.data);
@@ -40,13 +40,13 @@ function AllConcert() {
         {concerts.length > 0 && (
           <button
             className="w-24 h-24 bg-transparent border-none p-0 mt-30 mr-16 cursor-pointer"
-            onClick={() => navigate(`/concerts/${ConcertStatus.COMPLETED}`)}
+            onClick={() => navigate(`/concerts/${ConcertFilter.ALL}`)}
           >
             <img src={ConcertRightArrow} className="w-full h-full" />
           </button>
         )}
       </div>
-      <ConcertSlide status={ConcertStatus.COMPLETED} concerts={concerts} />
+      <ConcertSlide filter={ConcertFilter.ALL} concerts={concerts} />
     </div>
   );
 }
