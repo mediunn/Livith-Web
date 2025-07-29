@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getArtistInfo, Artist } from "../api/getArtistInfo";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import EmptyConcertInfoTabPanel from "./EmptyConcertInfoTabPanel";
-
 import {
   Tabs,
   TabsHeader,
@@ -11,8 +11,29 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 
-function ConcertInfoTab() {
+interface Props {
+  concertId: number;
+}
+
+function ConcertInfoTab({ concertId }: Props) {
   const [selectedTab, setSelectedTab] = useState("artist");
+  const [artist, setArtist] = useState<Artist | null>(null);
+
+  useEffect(() => {
+    if (!concertId || isNaN(concertId)) {
+      // 유효하지 않은 concertId면 API 호출 안 함
+      return;
+    }
+    async function fetchConcert() {
+      try {
+        const data = await getArtistInfo(concertId);
+        setArtist(data);
+      } catch (error) {
+        console.error("특정 콘서트의 가수 정보 조회 API 호출 실패", error);
+      }
+    }
+    fetchConcert();
+  }, [concertId]);
 
   return (
     <Tabs value={selectedTab} className="pt-16">
@@ -77,8 +98,20 @@ function ConcertInfoTab() {
 
       <TabsBody {...({} as any)}>
         <TabPanel value="artist" className="p-0">
-          <ArtistTabPanel />
-          {/* <EmptyConcertInfoTabPanel text={"가수 정보"} /> */}
+          {artist ? (
+            <ArtistTabPanel
+              artist={artist.artist}
+              birthDate={artist.birthDate}
+              birthPlace={artist.birthPlace}
+              category={artist.category}
+              detail={artist.detail}
+              instagramUrl={artist.instagramUrl}
+              keywords={artist.keywords}
+              imgUrl={artist.imgUrl}
+            />
+          ) : (
+            <EmptyConcertInfoTabPanel text={"가수 정보"} />
+          )}
         </TabPanel>
         <TabPanel value="concert" className="p-0">
           <ConcertTabPanel />
