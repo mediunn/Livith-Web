@@ -1,5 +1,6 @@
 import WebSiteEarthIcon from "../../shared/assets/WebSiteEarthIcon.svg";
 import WebSiteArrowIcon from "../../shared/assets/WebSiteArrowIcon.svg";
+import EmptyConcertImageIcon from "../../shared/assets/EmptyConcertImageIcon.svg";
 
 interface DetailInfoProps {
   imageUrl: string;
@@ -23,7 +24,19 @@ function DetailInfo({
   return (
     <div className="w-full h-337 relative ">
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
-      <img src={imageUrl} className="w-full h-full object-cover" />
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt="concert image"
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <img
+          src={EmptyConcertImageIcon}
+          alt="empty concert image"
+          className="w-full h-full object-cover"
+        />
+      )}
       <div className="absolute bottom-24 left-19 pr-19">
         <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
           {artist}
