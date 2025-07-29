@@ -54,21 +54,27 @@ function DetailInfo({
           {venue}
         </p>
         <a
-          href={ticketUrl}
+          href={ticketSite ? ticketUrl : "#"}
           target="_blank"
-          className="w-327 h-37 mt-16 flex items-center justify-center gap-4 text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR bg-mainYellow30 rounded-6 border-none cursor-pointer"
+          className={`w-327 h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
+            ticketSite ? "bg-mainYellow30" : "bg-grayScaleBlack50"
+          }`}
         >
-          <img
-            src={WebSiteEarthIcon}
-            alt="web site earth"
-            className="w-18 h-18"
-          />
-          {ticketSite}
-          <img
-            src={WebSiteArrowIcon}
-            alt="web site arrow"
-            className="w-8 h-8"
-          />
+          <div className="flex items-center">
+            <img
+              src={WebSiteEarthIcon}
+              alt="web site earth"
+              className="w-18 h-18 mr-4"
+            />
+            <p>{ticketSite || "콘서트 관련 웹사이트가 없어요"}</p>
+          </div>
+          {ticketSite && (
+            <img
+              src={WebSiteArrowIcon}
+              alt="web site arrow"
+              className="w-8 h-8 ml-4"
+            />
+          )}
         </a>
       </div>
     </div>
