@@ -8,15 +8,15 @@ import ConcertSlideCard from "./ConcertSlideCard";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
 import EmptyConcertSlide from "../../../features/concert/ui/EmptyConcertSlide";
-import { ConcertStatus, Concert } from "../types";
+import { ConcertFilter, Concert } from "../types";
 import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 
 type ConcertSlideProps = {
-  status: ConcertStatus;
+  filter: ConcertFilter;
   concerts: Concert[];
 };
 
-function ConcertSlide({ status, concerts }: ConcertSlideProps) {
+function ConcertSlide({ filter, concerts }: ConcertSlideProps) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -25,7 +25,7 @@ function ConcertSlide({ status, concerts }: ConcertSlideProps) {
   const slidesToScroll = 2;
 
   if (concerts.length === 0) {
-    return <EmptyConcertSlide status={status} />;
+    return <EmptyConcertSlide filter={filter} />;
   }
 
   const goNext = () => {
@@ -118,7 +118,7 @@ function ConcertSlide({ status, concerts }: ConcertSlideProps) {
               imageUrl={concert.poster}
               title={concert.title}
               date={formatConcertDate(concert.startDate, concert.endDate)}
-              status={status}
+              filter={filter}
               daysLeft={concert.daysLeft}
               onClick={() =>
                 navigate(`/concert/${concert.id}`, { state: { status } })

@@ -1,8 +1,8 @@
 import SearchBar from "../shared/ui/SearchBar";
 import MainImageCarousel from "../widgets/MainImageCarousel";
-import CurrentConcert from "../widgets/CurrentConcert";
-import NextConcert from "../widgets/NextConcert";
-import PrevConcert from "../widgets/PrevConcert";
+import NewConcert from "../widgets/NewConcert";
+import UpcomingConcert from "../widgets/UpcomingConcert";
+import AllConcert from "../widgets/AllConcert";
 import TabBar from "../shared/ui/TabBar";
 
 function CategoryPage() {
@@ -10,9 +10,9 @@ function CategoryPage() {
     <div className="pb-90">
       <SearchBar></SearchBar>
       <MainImageCarousel></MainImageCarousel>
-      <CurrentConcert></CurrentConcert>
-      <NextConcert></NextConcert>
-      <PrevConcert></PrevConcert>
+      <NewConcert></NewConcert>
+      <UpcomingConcert></UpcomingConcert>
+      <AllConcert></AllConcert>
       <TabBar></TabBar>
     </div>
   );

@@ -5,7 +5,7 @@ import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertCulture from "../widgets/ConcertCulture";
 import PastSetList from "../widgets/PastSetList";
 import ExpectationSetList from "../widgets/ExpectationSetList";
-import { ConcertStatus } from "../entities/concert/types";
+import { ConcertFilter } from "../entities/concert/types";
 import OngoingSetList from "../widgets/OngoingSetList";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
 
@@ -20,7 +20,6 @@ function ConcertInsidePage() {
   }, []);
 
   return (
-
     <div>
       <ListHeader title={"공연 상세정보"} />
       <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>

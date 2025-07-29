@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getConcertInsideInfo } from "../api/getConcertInsideInfo";
-import { Concert, ConcertStatus } from "../types";
+import { Concert, ConcertFilter } from "../types";
 import DetailInfo from "../../../shared/ui/DetailInfo";
 import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 
@@ -26,13 +26,13 @@ function ConcertInsideInfo({ concertId }: Props) {
 
   if (!concert) return null;
 
-  const getStatusLabel = (status: ConcertStatus, daysLeft: number) => {
+  const getStatusLabel = (status: ConcertFilter, daysLeft: number) => {
     switch (status) {
-      case ConcertStatus.ONGOING:
+      case ConcertFilter.NEW:
         return "진행중";
-      case ConcertStatus.COMPLETED:
+      case ConcertFilter.ALL:
         return "종료";
-      case ConcertStatus.UPCOMING:
+      case ConcertFilter.UPCOMING:
         return `D-${daysLeft}`;
       default:
         return "";
