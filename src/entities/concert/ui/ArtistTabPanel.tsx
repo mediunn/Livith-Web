@@ -53,17 +53,19 @@ function ArtistTabPanel({
                 <p className="pt-8 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
                   {artist}
                 </p>
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  className="absolute right-0 bottom-0 border-none cursor-pointer"
-                >
-                  <img
-                    src={InstagramIcon}
-                    alt="instagram"
-                    className="w-30 h-30"
-                  />
-                </a>
+                {instagramUrl && (
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    className="absolute right-0 bottom-0 border-none cursor-pointer"
+                  >
+                    <img
+                      src={InstagramIcon}
+                      alt="instagram"
+                      className="w-30 h-30"
+                    />
+                  </a>
+                )}
               </div>
 
               <div className="pt-12 w-full border-b border-dashed border-grayScaleBlack50" />
