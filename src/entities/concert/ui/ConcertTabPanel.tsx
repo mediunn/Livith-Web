@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import ConcertSchedulePanel from "../../../features/concert/ui/ConcertSchedulePanel";
 import ConcertInfoCarousel from "../../../widgets/ConcertInfoCarousel";
 import ConcertRightArrow from "../../../shared/assets/ConcertRightArrow.svg";
@@ -12,6 +13,7 @@ interface MdProps {
 function ConcertTabPanel({ concertId }: MdProps) {
   const [mds, setMd] = useState<Md[] | null>(null);
   const [mdCount, setMdCount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMds = async () => {
@@ -62,7 +64,10 @@ function ConcertTabPanel({ concertId }: MdProps) {
           <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
             한 눈에 확인하세요
           </p>
-          <button className="absolute bottom-20 right-16 w-24 h-24 bg-transparent border-none p-0 cursor-pointer">
+          <button
+            className="absolute bottom-20 right-16 w-24 h-24 bg-transparent border-none p-0 cursor-pointer"
+            onClick={() => navigate("/md", { state: { concertId } })}
+          >
             <img src={ConcertRightArrow} className="w-full h-full" />
           </button>
         </div>
