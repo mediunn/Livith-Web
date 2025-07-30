@@ -1,3 +1,4 @@
+import { useState } from "react";
 import InstagramIcon from "../../../shared/assets/InstagramIcon.svg";
 import FanCultureSwiper from "./FanCultureSwiper";
 import { formatBirthDate } from "../utils/formatBirthDate";
@@ -25,6 +26,8 @@ function ArtistTabPanel({
   keywords,
   imgUrl,
 }: ArtistInfoProps) {
+  const [cultureCount, setCultureCount] = useState(0);
+
   return (
     <>
       <div className="mx-16">
@@ -106,7 +109,7 @@ function ArtistTabPanel({
           <div className="flex">
             <div className="inline-flex items-center justify-center bg-mainYellow30 rounded-4">
               <p className="px-7 text-grayScaleBlack100 text-body-lg font-semibold font-NotoSansKR">
-                5개
+                {cultureCount}개
               </p>
             </div>
             <p className="ml-4 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
@@ -118,7 +121,10 @@ function ArtistTabPanel({
           </p>
         </div>
       </div>
-      <FanCultureSwiper concertId={concertId} />
+      <FanCultureSwiper
+        concertId={concertId}
+        onCultureCountChange={setCultureCount}
+      />
     </>
   );
 }

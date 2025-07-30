@@ -10,9 +10,10 @@ import { getConcertCulture, ConcertCulture } from "../api/getConcertCulture";
 
 interface Props {
   concertId: number;
+  onCultureCountChange?: (count: number) => void;
 }
 
-function FanCultureSwiper({ concertId }: Props) {
+function FanCultureSwiper({ concertId, onCultureCountChange }: Props) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -39,6 +40,9 @@ function FanCultureSwiper({ concertId }: Props) {
       try {
         const data = await getConcertCulture(concertId);
         setConcertCulture(data);
+        if (onCultureCountChange) {
+          onCultureCountChange(data.length);
+        }
       } catch (error) {
         console.error("특정 콘서트 공연 문화 목록 조회 API 호출 실패:", error);
       }
