@@ -11,11 +11,12 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 
-interface Props {
+interface ConcertInfoTabProps {
   concertId: number;
+  ticketUrl: string;
 }
 
-function ConcertInfoTab({ concertId }: Props) {
+function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
   const [selectedTab, setSelectedTab] = useState("artist");
   const [artist, setArtist] = useState<Artist | null>(null);
 
@@ -115,7 +116,7 @@ function ConcertInfoTab({ concertId }: Props) {
           )}
         </TabPanel>
         <TabPanel value="concert" className="p-0">
-          <ConcertTabPanel concertId={concertId} />
+          <ConcertTabPanel concertId={concertId} ticketUrl={ticketUrl} />
           {/* <EmptyConcertInfoTabPanel text={"콘서트 정보"} /> */}
         </TabPanel>
         <TabPanel value="setlist">셋리스트 내용</TabPanel>

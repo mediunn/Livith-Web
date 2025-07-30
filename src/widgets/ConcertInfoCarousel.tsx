@@ -6,19 +6,19 @@ import ConcertInfoCarouselSlide from "./ConcertInfoCarouselSlide";
 import "../shared/styles/slick-theme.css";
 import PrevArrow from "../shared/assets/PrevArrow.svg";
 import NextArrow from "../shared/assets/NextArrow.svg";
-import { getBanner } from "../features/concert/api/getBanner";
 import { ConcertRequired } from "../entities/concert/api/getConcertRequiredInfo";
 
 type ConcertInfoCarouselProps = {
   concertRequiredInfo: ConcertRequired[];
+  ticketUrl: string;
 };
 
 function ConcertInfoCarousel({
   concertRequiredInfo,
+  ticketUrl,
 }: ConcertInfoCarouselProps) {
   // pc일 경우 마우스 hover시 캐러셀 전환 버튼 나타나도록
   const [isHovered, setIsHovered] = useState(false);
-  const [banners, setBanners] = useState<ConcertInfoCarouselProps[]>([]);
 
   const CustomPrevArrow = (props: any) => {
     const { onClick, style } = props;
@@ -75,6 +75,7 @@ function ConcertInfoCarousel({
             category={slide.category}
             content={slide.content}
             imageUrl={slide.imgUrl}
+            ticketUrl={ticketUrl}
           />
         ))}
       </Slider>

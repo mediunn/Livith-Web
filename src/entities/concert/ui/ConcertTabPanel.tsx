@@ -12,9 +12,10 @@ import {
 
 interface ConcertTabPanelProps {
   concertId: number;
+  ticketUrl: string;
 }
 
-function ConcertTabPanel({ concertId }: ConcertTabPanelProps) {
+function ConcertTabPanel({ concertId, ticketUrl }: ConcertTabPanelProps) {
   const [mds, setMd] = useState<Md[] | null>(null);
   const [mdCount, setMdCount] = useState(0);
   const [concertRequiredInfo, setConcertRequiredInfo] = useState<
@@ -68,7 +69,10 @@ function ConcertTabPanel({ concertId }: ConcertTabPanelProps) {
           </p>
         </div>
         {concertRequiredInfo && (
-          <ConcertInfoCarousel concertRequiredInfo={concertRequiredInfo} />
+          <ConcertInfoCarousel
+            concertRequiredInfo={concertRequiredInfo}
+            ticketUrl={ticketUrl}
+          />
         )}
       </div>
 

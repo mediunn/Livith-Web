@@ -4,15 +4,23 @@ type MainImageCarouselSlideProps = {
   category: string;
   content: string;
   imageUrl: string;
+  ticketUrl: string;
 };
 
 function ConcertInfoCarouselSlide({
   category,
   content,
   imageUrl,
+  ticketUrl,
 }: MainImageCarouselSlideProps) {
+  const handleClick = () => {
+    if (ticketUrl) {
+      window.open(ticketUrl, "_blank");
+    }
+  };
+
   return (
-    <div className="relative w-full h-274">
+    <div className="relative w-full h-274" onClick={handleClick}>
       <div className="h-365 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-50"></div>
       <img
         src={imageUrl}
