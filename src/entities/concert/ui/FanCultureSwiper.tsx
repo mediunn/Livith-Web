@@ -79,13 +79,18 @@ function FanCultureSwiper({ concertId, onCultureCountChange }: Props) {
   const cardRefs = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    const heights = cardRefs.current.map((el) => el?.offsetHeight || 0);
-    const maxHeight = Math.max(...heights);
+    // 데이터 받아오고 카드 높이 맞추기
+    if (ConcertCulture.length === 0) return;
 
-    cardRefs.current.forEach((el) => {
-      if (el) el.style.height = `${maxHeight}px`;
+    requestAnimationFrame(() => {
+      const heights = cardRefs.current.map((el) => el?.offsetHeight || 0);
+      const maxHeight = Math.max(...heights);
+
+      cardRefs.current.forEach((el) => {
+        if (el) el.style.height = `${maxHeight}px`;
+      });
     });
-  }, []);
+  }, [ConcertCulture]);
 
   return (
     <div
