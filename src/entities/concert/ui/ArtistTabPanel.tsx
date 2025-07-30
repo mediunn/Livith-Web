@@ -1,3 +1,4 @@
+import { ConcertCulture } from "../api/getConcertCulture";
 import ArtistInfo from "./ArtistInfo";
 import FanCultureInfo from "./FanCultureInfo";
 
@@ -11,6 +12,7 @@ interface ArtistTabPanelProps {
   instagramUrl: string;
   keywords: string[];
   imgUrl: string;
+  concertCulture: ConcertCulture[];
 }
 
 function ArtistTabPanel({
@@ -23,21 +25,29 @@ function ArtistTabPanel({
   instagramUrl,
   keywords,
   imgUrl,
+  concertCulture,
 }: ArtistTabPanelProps) {
   return (
     <>
-      <ArtistInfo
-        concertId={concertId}
-        artist={artist}
-        birthDate={birthDate}
-        birthPlace={birthPlace}
-        category={category}
-        detail={detail}
-        instagramUrl={instagramUrl}
-        keywords={keywords}
-        imgUrl={imgUrl}
-      />
-      <FanCultureInfo concertId={concertId} />
+      {artist && (
+        <ArtistInfo
+          concertId={concertId}
+          artist={artist}
+          birthDate={birthDate}
+          birthPlace={birthPlace}
+          category={category}
+          detail={detail}
+          instagramUrl={instagramUrl}
+          keywords={keywords}
+          imgUrl={imgUrl}
+        />
+      )}
+      {concertCulture.length > 0 && (
+        <FanCultureInfo
+          concertCulture={concertCulture}
+          cultureCount={concertCulture.length}
+        />
+      )}
     </>
   );
 }

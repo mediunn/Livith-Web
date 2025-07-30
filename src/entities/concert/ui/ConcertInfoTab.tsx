@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getArtistInfo, Artist } from "../api/getArtistInfo";
+import { getConcertCulture, ConcertCulture } from "../api/getConcertCulture";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import EmptyConcertInfoTabPanel from "./EmptyConcertInfoTabPanel";
@@ -19,6 +20,7 @@ interface ConcertInfoTabProps {
 function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
   const [selectedTab, setSelectedTab] = useState("artist");
   const [artist, setArtist] = useState<Artist | null>(null);
+  const [ConcertCulture, setConcertCulture] = useState<ConcertCulture[]>([]);
 
   useEffect(() => {
     if (!concertId || isNaN(concertId)) {
@@ -34,6 +36,19 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
       }
     }
     fetchConcert();
+  }, [concertId]);
+
+  useEffect(() => {
+    const fetchConcertCulture = async () => {
+      try {
+        const data = await getConcertCulture(concertId);
+        setConcertCulture(data);
+      } catch (error) {
+        console.error("특정 콘서트 공연 문화 목록 조회 API 호출 실패:", error);
+      }
+    };
+
+    fetchConcertCulture();
   }, [concertId]);
 
   return (
@@ -99,20 +114,21 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
 
       <TabsBody {...({} as any)}>
         <TabPanel value="artist" className="p-0">
-          {artist ? (
+          {!artist && ConcertCulture.length === 0 ? (
+            <EmptyConcertInfoTabPanel text={"가수 정보"} />
+          ) : (
             <ArtistTabPanel
               concertId={concertId}
-              artist={artist.artist}
-              birthDate={artist.birthDate}
-              birthPlace={artist.birthPlace}
-              category={artist.category}
-              detail={artist.detail}
-              instagramUrl={artist.instagramUrl}
-              keywords={artist.keywords}
-              imgUrl={artist.imgUrl}
+              artist={artist?.artist || ""}
+              birthDate={artist?.birthDate || ""}
+              birthPlace={artist?.birthPlace || ""}
+              category={artist?.category || ""}
+              detail={artist?.detail || ""}
+              instagramUrl={artist?.instagramUrl || ""}
+              keywords={artist?.keywords || []}
+              imgUrl={artist?.imgUrl || ""}
+              concertCulture={ConcertCulture}
             />
-          ) : (
-            <EmptyConcertInfoTabPanel text={"가수 정보"} />
           )}
         </TabPanel>
         <TabPanel value="concert" className="p-0">

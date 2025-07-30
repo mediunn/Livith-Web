@@ -1,13 +1,12 @@
-import { useState } from "react";
 import FanCultureSwiper from "./FanCultureSwiper";
+import { ConcertCulture } from "../api/getConcertCulture";
 
 interface FanCultureInfoProps {
-  concertId: number;
+  concertCulture: ConcertCulture[];
+  cultureCount: number;
 }
 
-function FanCultureInfo({ concertId }: FanCultureInfoProps) {
-  const [cultureCount, setCultureCount] = useState(0);
-
+function FanCultureInfo({ concertCulture, cultureCount }: FanCultureInfoProps) {
   return (
     <>
       <div className="mx-16">
@@ -27,10 +26,7 @@ function FanCultureInfo({ concertId }: FanCultureInfoProps) {
           </p>
         </div>
       </div>
-      <FanCultureSwiper
-        concertId={concertId}
-        onCultureCountChange={setCultureCount}
-      />
+      <FanCultureSwiper concertCulture={concertCulture} />
     </>
   );
 }
