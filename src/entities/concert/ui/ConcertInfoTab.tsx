@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import { getArtistInfo, Artist } from "../api/getArtistInfo";
+import { getConcertCulture, ConcertCulture } from "../api/getConcertCulture";
+import { getSchedule, Schedule } from "../api/getSchedule";
+import {
+  getConcertRequiredInfo,
+  ConcertRequired,
+} from "../api/getConcertRequiredInfo";
+import { getMd, Md } from "../api/getMd";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import EmptyConcertInfoTabPanel from "./EmptyConcertInfoTabPanel";
@@ -11,13 +18,21 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 
-interface Props {
+interface ConcertInfoTabProps {
   concertId: number;
+  ticketUrl: string;
 }
 
-function ConcertInfoTab({ concertId }: Props) {
+function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
   const [selectedTab, setSelectedTab] = useState("artist");
+
   const [artist, setArtist] = useState<Artist | null>(null);
+  const [ConcertCulture, setConcertCulture] = useState<ConcertCulture[]>([]);
+  const [schedules, setSchedule] = useState<Schedule[] | null>(null);
+  const [concertRequiredInfo, setConcertRequiredInfo] = useState<
+    ConcertRequired[] | null
+  >(null);
+  const [mds, setMd] = useState<Md[] | null>(null);
 
   useEffect(() => {
     if (!concertId || isNaN(concertId)) {
@@ -33,6 +48,61 @@ function ConcertInfoTab({ concertId }: Props) {
       }
     }
     fetchConcert();
+  }, [concertId]);
+
+  useEffect(() => {
+    const fetchConcertCulture = async () => {
+      try {
+        const data = await getConcertCulture(concertId);
+        setConcertCulture(data);
+      } catch (error) {
+        console.error("특정 콘서트 공연 문화 목록 조회 API 호출 실패:", error);
+      }
+    };
+
+    fetchConcertCulture();
+  }, [concertId]);
+
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        const data = await getSchedule(concertId);
+        setSchedule(data);
+      } catch (error) {
+        console.error("특정 콘서트 일정 목록 조회 API 호출 실패:", error);
+        setSchedule([]);
+      }
+    };
+
+    fetchSchedule();
+  }, [concertId]);
+
+  useEffect(() => {
+    const fetchConcertRequiredInfo = async () => {
+      try {
+        const data = await getConcertRequiredInfo(concertId);
+        setConcertRequiredInfo(data);
+      } catch (error) {
+        console.error("특정 콘서트 필수 정보 목록 조회 API 호출 실패:", error);
+        setConcertRequiredInfo([]);
+      }
+    };
+
+    fetchConcertRequiredInfo();
+  }, [concertId]);
+
+  useEffect(() => {
+    const fetchMds = async () => {
+      try {
+        const data = await getMd(concertId);
+        setMd(data);
+      } catch (error) {
+        console.error("특정 콘서트의 MD 목록 조회 API 호출 실패:", error);
+        setMd([]);
+      }
+    };
+
+    fetchMds();
   }, [concertId]);
 
   return (
@@ -98,25 +168,37 @@ function ConcertInfoTab({ concertId }: Props) {
 
       <TabsBody {...({} as any)}>
         <TabPanel value="artist" className="p-0">
-          {artist ? (
+          {!artist && ConcertCulture.length === 0 ? (
+            <EmptyConcertInfoTabPanel text={"가수 정보"} />
+          ) : (
             <ArtistTabPanel
               concertId={concertId}
-              artist={artist.artist}
-              birthDate={artist.birthDate}
-              birthPlace={artist.birthPlace}
-              category={artist.category}
-              detail={artist.detail}
-              instagramUrl={artist.instagramUrl}
-              keywords={artist.keywords}
-              imgUrl={artist.imgUrl}
+              artist={artist?.artist || ""}
+              birthDate={artist?.birthDate || ""}
+              birthPlace={artist?.birthPlace || ""}
+              category={artist?.category || ""}
+              detail={artist?.detail || ""}
+              instagramUrl={artist?.instagramUrl || ""}
+              keywords={artist?.keywords || []}
+              imgUrl={artist?.imgUrl || ""}
+              concertCulture={ConcertCulture}
             />
-          ) : (
-            <EmptyConcertInfoTabPanel text={"가수 정보"} />
           )}
         </TabPanel>
         <TabPanel value="concert" className="p-0">
-          <ConcertTabPanel />
-          {/* <EmptyConcertInfoTabPanel text={"콘서트 정보"} /> */}
+          {(!schedules || schedules.length === 0) &&
+          (!concertRequiredInfo || concertRequiredInfo.length === 0) &&
+          (!mds || mds.length === 0) ? (
+            <EmptyConcertInfoTabPanel text={"콘서트 정보"} />
+          ) : (
+            <ConcertTabPanel
+              concertId={concertId}
+              ticketUrl={ticketUrl}
+              schedules={schedules}
+              concertRequiredInfo={concertRequiredInfo}
+              mds={mds}
+            />
+          )}
         </TabPanel>
         <TabPanel value="setlist">셋리스트 내용</TabPanel>
       </TabsBody>

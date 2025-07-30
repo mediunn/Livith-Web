@@ -6,14 +6,13 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
-import { getConcertCulture, ConcertCulture } from "../api/getConcertCulture";
+import { ConcertCulture } from "../api/getConcertCulture";
 
-interface Props {
-  concertId: number;
-  onCultureCountChange?: (count: number) => void;
+interface FanCultureSwiperProps {
+  concertCulture: ConcertCulture[];
 }
 
-function FanCultureSwiper({ concertId, onCultureCountChange }: Props) {
+function FanCultureSwiper({ concertCulture }: FanCultureSwiperProps) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -32,24 +31,6 @@ function FanCultureSwiper({ concertId, onCultureCountChange }: Props) {
       swiperRef.current.slideTo(swiperRef.current.activeIndex - slidesToScroll);
     }
   };
-
-  const [ConcertCulture, setConcertCulture] = useState<ConcertCulture[]>([]);
-
-  useEffect(() => {
-    const fetchConcertCulture = async () => {
-      try {
-        const data = await getConcertCulture(concertId);
-        setConcertCulture(data);
-        if (onCultureCountChange) {
-          onCultureCountChange(data.length);
-        }
-      } catch (error) {
-        console.error("특정 콘서트 공연 문화 목록 조회 API 호출 실패:", error);
-      }
-    };
-
-    fetchConcertCulture();
-  }, [concertId]);
 
   useEffect(() => {
     if (!swiperRef.current) return;
@@ -80,7 +61,7 @@ function FanCultureSwiper({ concertId, onCultureCountChange }: Props) {
 
   useEffect(() => {
     // 데이터 받아오고 카드 높이 맞추기
-    if (ConcertCulture.length === 0) return;
+    if (concertCulture.length === 0) return;
 
     requestAnimationFrame(() => {
       const heights = cardRefs.current.map((el) => el?.offsetHeight || 0);
@@ -90,7 +71,7 @@ function FanCultureSwiper({ concertId, onCultureCountChange }: Props) {
         if (el) el.style.height = `${maxHeight}px`;
       });
     });
-  }, [ConcertCulture]);
+  }, [concertCulture]);
 
   return (
     <div
@@ -139,7 +120,7 @@ function FanCultureSwiper({ concertId, onCultureCountChange }: Props) {
           setIsEnd(swiper.isEnd);
         }}
       >
-        {ConcertCulture.map((culture, i) => (
+        {concertCulture.map((culture, i) => (
           <SwiperSlide key={i} style={{ width: 228 }}>
             <div
               ref={(el) => {
