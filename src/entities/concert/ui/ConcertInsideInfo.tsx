@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getConcertInsideInfo } from "../api/getConcertInsideInfo";
-import { Concert, ConcertFilter } from "../types";
+import { Concert } from "../types";
 import DetailInfo from "../../../shared/ui/DetailInfo";
 import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 
@@ -17,7 +17,7 @@ function ConcertInsideInfo({ concertId }: Props) {
         const data = await getConcertInsideInfo(concertId);
         setConcert(data);
       } catch (error) {
-        console.error("특정 콘서트 상세 조회 API 호출 실패", error);
+        console.error("특정 콘서트 상세 정보 조회 API 호출 실패", error);
       }
     }
 
@@ -26,26 +26,15 @@ function ConcertInsideInfo({ concertId }: Props) {
 
   if (!concert) return null;
 
-  const getStatusLabel = (status: ConcertFilter, daysLeft: number) => {
-    switch (status) {
-      case ConcertFilter.NEW:
-        return "진행중";
-      case ConcertFilter.ALL:
-        return "종료";
-      case ConcertFilter.UPCOMING:
-        return `D-${daysLeft}`;
-      default:
-        return "";
-    }
-  };
-
   return (
     <DetailInfo
       imageUrl={concert.poster}
-      status={getStatusLabel(concert.status, concert.daysLeft)}
+      artist={concert.artist}
       title={concert.title}
       date={formatConcertDate(concert.startDate, concert.endDate)}
-      artist={concert.artist}
+      venue={concert.venue}
+      ticketSite={concert.ticketSite}
+      ticketUrl={concert.ticketUrl}
     />
   );
 }

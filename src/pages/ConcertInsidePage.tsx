@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ListHeader from "../shared/ui/ListHeader";
 import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
-import ConcertCulture from "../widgets/ConcertCulture";
 import PastSetList from "../widgets/PastSetList";
 import ExpectationSetList from "../widgets/ExpectationSetList";
 import { ConcertFilter } from "../entities/concert/types";
@@ -23,7 +22,7 @@ function ConcertInsidePage() {
     <div>
       <ListHeader title={"공연 상세정보"} />
       <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>
-      <ConcertInfoTab></ConcertInfoTab>
+      <ConcertInfoTab concertId={Number(concertId)}></ConcertInfoTab>
     </div>
   );
 }
