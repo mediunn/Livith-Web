@@ -7,31 +7,18 @@ import "../shared/styles/slick-theme.css";
 import PrevArrow from "../shared/assets/PrevArrow.svg";
 import NextArrow from "../shared/assets/NextArrow.svg";
 import { getBanner } from "../features/concert/api/getBanner";
+import { ConcertRequired } from "../entities/concert/api/getConcertRequiredInfo";
 
-type BannerProps = {
-  id: number;
-  title: string;
-  category: string;
-  imgUrl: string;
+type ConcertInfoCarouselProps = {
+  concertRequiredInfo: ConcertRequired[];
 };
 
-function ConcertInfoCarousel() {
+function ConcertInfoCarousel({
+  concertRequiredInfo,
+}: ConcertInfoCarouselProps) {
   // pc일 경우 마우스 hover시 캐러셀 전환 버튼 나타나도록
   const [isHovered, setIsHovered] = useState(false);
-  const [banners, setBanners] = useState<BannerProps[]>([]);
-
-  useEffect(() => {
-    const fetchBanners = async () => {
-      try {
-        const data = await getBanner();
-        setBanners(data);
-      } catch (error) {
-        console.error("배너 조회 API 호출 실패:", error);
-      }
-    };
-
-    fetchBanners();
-  }, []);
+  const [banners, setBanners] = useState<ConcertInfoCarouselProps[]>([]);
 
   const CustomPrevArrow = (props: any) => {
     const { onClick, style } = props;
@@ -82,11 +69,11 @@ function ConcertInfoCarousel() {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Slider {...settings}>
-        {banners.map((slide) => (
+        {concertRequiredInfo.map((slide) => (
           <ConcertInfoCarouselSlide
             key={slide.id}
             category={slide.category}
-            title={slide.title}
+            content={slide.content}
             imageUrl={slide.imgUrl}
           />
         ))}

@@ -5,14 +5,21 @@ import ConcertInfoCarousel from "../../../widgets/ConcertInfoCarousel";
 import ConcertRightArrow from "../../../shared/assets/ConcertRightArrow.svg";
 import MdSlide from "../../../entities/concert/ui/MdSlide";
 import { getMd, Md } from "../api/getMd";
+import {
+  getConcertRequiredInfo,
+  ConcertRequired,
+} from "../api/getConcertRequiredInfo";
 
-interface MdProps {
+interface ConcertTabPanelProps {
   concertId: number;
 }
 
-function ConcertTabPanel({ concertId }: MdProps) {
+function ConcertTabPanel({ concertId }: ConcertTabPanelProps) {
   const [mds, setMd] = useState<Md[] | null>(null);
   const [mdCount, setMdCount] = useState(0);
+  const [concertRequiredInfo, setConcertRequiredInfo] = useState<
+    ConcertRequired[] | null
+  >(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +35,20 @@ function ConcertTabPanel({ concertId }: MdProps) {
     };
 
     fetchMds();
+  }, [concertId]);
+
+  useEffect(() => {
+    const fetchConcertRequiredInfo = async () => {
+      try {
+        const data = await getConcertRequiredInfo(concertId);
+        setConcertRequiredInfo(data);
+      } catch (error) {
+        console.error("특정 콘서트 필수 정보 목록 조회 API 호출 실패:", error);
+        setConcertRequiredInfo([]);
+      }
+    };
+
+    fetchConcertRequiredInfo();
   }, [concertId]);
 
   if (mds === null) {
@@ -46,7 +67,9 @@ function ConcertTabPanel({ concertId }: MdProps) {
             확인해 보세요
           </p>
         </div>
-        <ConcertInfoCarousel />
+        {concertRequiredInfo && (
+          <ConcertInfoCarousel concertRequiredInfo={concertRequiredInfo} />
+        )}
       </div>
 
       <div>
