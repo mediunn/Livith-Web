@@ -151,7 +151,7 @@ function FanCultureSwiper({ concertId, onCultureCountChange }: Props) {
                 <div className="relative">
                   <div className="inline-flex items-center justify-center bg-mainYellow30 rounded-24">
                     <p className="px-13 py-4 text-grayScaleBlack100 text-caption-ssm font-regular font-NotoSansKR">
-                      팬문화 {culture.id}
+                      팬문화 {i + 1}
                     </p>
                   </div>
                   <p className="pt-10 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
