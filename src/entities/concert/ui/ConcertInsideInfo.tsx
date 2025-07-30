@@ -1,31 +1,12 @@
-import { useEffect, useState } from "react";
-import { getConcertInsideInfo } from "../api/getConcertInsideInfo";
 import { Concert } from "../types";
 import DetailInfo from "../../../shared/ui/DetailInfo";
 import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 
-interface Props {
-  concertId: number;
+interface ConcertInsideInfoProps {
+  concert: Concert;
 }
 
-function ConcertInsideInfo({ concertId }: Props) {
-  const [concert, setConcert] = useState<Concert | null>(null);
-
-  useEffect(() => {
-    async function fetchConcert() {
-      try {
-        const data = await getConcertInsideInfo(concertId);
-        setConcert(data);
-      } catch (error) {
-        console.error("특정 콘서트 상세 정보 조회 API 호출 실패", error);
-      }
-    }
-
-    fetchConcert();
-  }, [concertId]);
-
-  if (!concert) return null;
-
+function ConcertInsideInfo({ concert }: ConcertInsideInfoProps) {
   return (
     <DetailInfo
       imageUrl={concert.poster}
