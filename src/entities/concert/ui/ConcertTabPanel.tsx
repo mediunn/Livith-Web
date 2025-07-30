@@ -3,30 +3,32 @@ import { useEffect, useState } from "react";
 import ConcertInfoCarousel from "../../../widgets/ConcertInfoCarousel";
 import ConcertRightArrow from "../../../shared/assets/ConcertRightArrow.svg";
 import MdSlide from "../../../entities/concert/ui/MdSlide";
+import { getMd, Md } from "../api/getMd";
 
-import { ConcertFilter, Concert } from "../../../entities/concert/types";
-import { getConcertList } from "../../../features/concert/api/getConcertList";
+interface MdProps {
+  concertId: number;
+}
 
-function ConcertTabPanel() {
-  // 추후 콘서트 api 대신 MD api 연결
-  const [concerts, setConcerts] = useState<Concert[] | null>(null);
+function ConcertTabPanel({ concertId }: MdProps) {
+  const [mds, setMd] = useState<Md[] | null>(null);
+  const [mdCount, setMdCount] = useState(0);
+
   useEffect(() => {
-    const fetchConcerts = async () => {
+    const fetchMds = async () => {
       try {
-        const res = await getConcertList({
-          filter: ConcertFilter.UPCOMING,
-          size: 10,
-        });
-        setConcerts(res.data.data);
+        const data = await getMd(concertId);
+        setMd(data);
+        setMdCount(data.length);
       } catch (error) {
-        console.error("콘서트 목록 조회 API 호출 실패:", error);
-        setConcerts([]);
+        console.error("특정 콘서트의 MD 목록 조회 API 호출 실패:", error);
+        setMd([]);
       }
     };
 
-    fetchConcerts();
-  }, []);
-  if (concerts === null) {
+    fetchMds();
+  }, [concertId]);
+
+  if (mds === null) {
     return null;
   }
 
@@ -50,7 +52,7 @@ function ConcertTabPanel() {
           <div className="flex">
             <div className="inline-flex items-center justify-center bg-mainYellow30 rounded-4">
               <p className="px-7 text-grayScaleBlack100 text-body-lg font-semibold font-NotoSansKR">
-                8건
+                {mdCount}건
               </p>
             </div>
             <p className="ml-4 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
@@ -65,7 +67,7 @@ function ConcertTabPanel() {
           </button>
         </div>
 
-        <MdSlide filter={ConcertFilter.UPCOMING} concerts={concerts} />
+        {mds.length > 0 && <MdSlide mds={mds} />}
       </div>
     </>
   );

@@ -1,38 +1,17 @@
-import { ConcertFilter } from "../types";
-
-// 추후 콘서트 api 대신 MD api 연결
-
-type ConcertSlideCardProps = {
+type MdSlideCardProps = {
+  name: string;
+  price: string;
   imageUrl?: string;
-  title: string;
-  date: string;
-  filter: ConcertFilter;
-  daysLeft: number;
-  onClick?: () => void;
 };
 
-function MdSlideCard({
-  imageUrl,
-  title,
-  date,
-  filter,
-  daysLeft,
-  onClick,
-}: ConcertSlideCardProps) {
-  const filterText =
-    filter === ConcertFilter.NEW
-      ? "진행중"
-      : filter === ConcertFilter.ALL
-        ? "종료"
-        : `D-${daysLeft}`;
-
+function MdSlideCard({ name, price, imageUrl }: MdSlideCardProps) {
   return (
-    <div className="w-108 h-214 cursor-pointer" onClick={onClick}>
+    <div className="w-108 h-214 cursor-pointer">
       <div className="w-108 h-158 relative">
         {imageUrl ? (
           <img
             src={imageUrl}
-            alt="콘서트 이미지"
+            alt="MD 이미지"
             className="w-full h-full rounded-6 object-cover"
           />
         ) : (
@@ -40,10 +19,10 @@ function MdSlideCard({
         )}
       </div>
       <p className="mt-8 mb-0 text-grayScaleWhite text-body-md font-medium font-NotoSansKR line-clamp-1">
-        {title}
+        {name}
       </p>
       <p className="mt-10 mb-0 text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR line-clamp-1">
-        {date}
+        {price}
       </p>
     </div>
   );

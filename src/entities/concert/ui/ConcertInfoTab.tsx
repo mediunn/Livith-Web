@@ -115,7 +115,7 @@ function ConcertInfoTab({ concertId }: Props) {
           )}
         </TabPanel>
         <TabPanel value="concert" className="p-0">
-          <ConcertTabPanel />
+          <ConcertTabPanel concertId={concertId} />
           {/* <EmptyConcertInfoTabPanel text={"콘서트 정보"} /> */}
         </TabPanel>
         <TabPanel value="setlist">셋리스트 내용</TabPanel>

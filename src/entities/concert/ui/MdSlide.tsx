@@ -7,28 +7,19 @@ import "swiper/css/free-mode";
 import MdSlideCard from "./MdSlideCard";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
-import EmptyConcertSlide from "../../../features/concert/ui/EmptyConcertSlide";
-import { ConcertFilter, Concert } from "../types";
-import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
+import { Md } from "../api/getMd";
 
-// 추후 콘서트 api 대신 MD api 연결
-
-type ConcertSlideProps = {
-  filter: ConcertFilter;
-  concerts: Concert[];
+type MdSlideProps = {
+  mds: Md[];
 };
 
-function MdSlide({ filter, concerts }: ConcertSlideProps) {
+function MdSlide({ mds }: MdSlideProps) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef<any>(null);
   const slidesToScroll = 2;
-
-  if (concerts.length === 0) {
-    return <EmptyConcertSlide filter={filter} />;
-  }
 
   const goNext = () => {
     if (swiperRef.current) {
@@ -114,18 +105,9 @@ function MdSlide({ filter, concerts }: ConcertSlideProps) {
           setIsEnd(swiper.isEnd);
         }}
       >
-        {concerts.map((concert) => (
-          <SwiperSlide key={concert.id} style={{ width: 108 }}>
-            <MdSlideCard
-              imageUrl={concert.poster}
-              title={concert.title}
-              date={formatConcertDate(concert.startDate, concert.endDate)}
-              filter={filter}
-              daysLeft={concert.daysLeft}
-              onClick={() =>
-                navigate(`/concert/${concert.id}`, { state: { filter } })
-              }
-            />
+        {mds.map((md) => (
+          <SwiperSlide key={md.id} style={{ width: 108 }}>
+            <MdSlideCard name={md.name} price={md.price} imageUrl={md.imgUrl} />
           </SwiperSlide>
         ))}
       </Swiper>
