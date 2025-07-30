@@ -1,12 +1,15 @@
-import { Schedule } from "../../../entities/concert/api/getSchedule";
+import { Schedule } from "../api/getSchedule";
 import dayjs from "../../../shared/lib/dayjs";
-import { getFormatDday, getFormatDateTime } from "../utils/formatScheduleDate";
+import {
+  getFormatDday,
+  getFormatDateTime,
+} from "../../../features/concert/utils/formatScheduleDate";
 
-type ConcertSchedulePanelProps = {
+type ScheduleInfoProps = {
   schedules: Schedule[];
 };
 
-function ConcertSchedulePanel({ schedules }: ConcertSchedulePanelProps) {
+function ScheduleInfo({ schedules }: ScheduleInfoProps) {
   const concertSchedules = schedules.filter((s) => s.category === "공연");
 
   const upcomingSchedules = schedules
@@ -21,7 +24,7 @@ function ConcertSchedulePanel({ schedules }: ConcertSchedulePanelProps) {
 
   return (
     <div className="pt-20 pl-16 pr-16">
-      <div className="pb-190 flex flex-col gap-12">
+      <div className="flex flex-col gap-12">
         {sortedSchedules.map((schedule) => {
           const isPast = dayjs(schedule.scheduledAt).isBefore(dayjs(), "day");
           const dday = getFormatDday(schedule.scheduledAt);
@@ -68,4 +71,4 @@ function ConcertSchedulePanel({ schedules }: ConcertSchedulePanelProps) {
   );
 }
 
-export default ConcertSchedulePanel;
+export default ScheduleInfo;
