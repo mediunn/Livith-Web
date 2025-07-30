@@ -3,6 +3,7 @@ import FanCultureSwiper from "./FanCultureSwiper";
 import { formatBirthDate } from "../utils/formatBirthDate";
 
 interface ArtistInfoProps {
+  concertId: number;
   artist: string;
   birthDate: string;
   birthPlace: string;
@@ -14,6 +15,7 @@ interface ArtistInfoProps {
 }
 
 function ArtistTabPanel({
+  concertId,
   artist,
   birthDate,
   birthPlace,
@@ -116,7 +118,7 @@ function ArtistTabPanel({
           </p>
         </div>
       </div>
-      <FanCultureSwiper />
+      <FanCultureSwiper concertId={concertId} />
     </>
   );
 }

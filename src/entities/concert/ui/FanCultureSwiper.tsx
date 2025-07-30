@@ -6,8 +6,13 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
+import { getConcertCulture, ConcertCulture } from "../api/getConcertCulture";
 
-function FanCultureSwiper() {
+interface Props {
+  concertId: number;
+}
+
+function FanCultureSwiper({ concertId }: Props) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -26,6 +31,21 @@ function FanCultureSwiper() {
       swiperRef.current.slideTo(swiperRef.current.activeIndex - slidesToScroll);
     }
   };
+
+  const [ConcertCulture, setConcertCulture] = useState<ConcertCulture[]>([]);
+
+  useEffect(() => {
+    const fetchConcertCulture = async () => {
+      try {
+        const data = await getConcertCulture(concertId);
+        setConcertCulture(data);
+      } catch (error) {
+        console.error("특정 콘서트 공연 문화 목록 조회 API 호출 실패:", error);
+      }
+    };
+
+    fetchConcertCulture();
+  }, [concertId]);
 
   useEffect(() => {
     if (!swiperRef.current) return;
@@ -110,7 +130,7 @@ function FanCultureSwiper() {
           setIsEnd(swiper.isEnd);
         }}
       >
-        {fanCultures.map((culture, i) => (
+        {ConcertCulture.map((culture, i) => (
           <SwiperSlide key={i} style={{ width: 228 }}>
             <div
               ref={(el) => {
@@ -122,7 +142,7 @@ function FanCultureSwiper() {
                 <div className="relative">
                   <div className="inline-flex items-center justify-center bg-mainYellow30 rounded-24">
                     <p className="px-13 py-4 text-grayScaleBlack100 text-caption-ssm font-regular font-NotoSansKR">
-                      {culture.chip}
+                      팬문화 {culture.id}
                     </p>
                   </div>
                   <p className="pt-10 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
@@ -145,35 +165,5 @@ function FanCultureSwiper() {
     </div>
   );
 }
-
-const fanCultures = [
-  {
-    chip: "팬문화1",
-    title: "겐짱 문화",
-    content:
-      "근데 두줄만 이렇고 얘네가 이거면 최대치글에 맞춰서 디자인 될 수 있도록 하여요",
-  },
-  {
-    chip: "팬문화2",
-    title: "Koi 단체 댄스",
-    content:
-      "대표곡 Koi가 나오면 팬들이 전석에서 함께댄스! 겐이 무대에서 춤추지 않아도 팬들이 자발적으로 따라하고, 춤을 강요하지 않지만, 하고 싶은 사람은 자유롭게 즐기는 분위기!",
-  },
-  {
-    chip: "팬문화3",
-    title: "어쩌구저쩌구",
-    content: "어쩌구저쩌구",
-  },
-  {
-    chip: "팬문화4",
-    title: "어쩌구저쩌구",
-    content: "어쩌구저쩌구",
-  },
-  {
-    chip: "팬문화5",
-    title: "어쩌구저쩌구",
-    content: "어쩌구저쩌구",
-  },
-];
 
 export default FanCultureSwiper;

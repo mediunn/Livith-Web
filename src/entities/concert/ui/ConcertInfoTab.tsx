@@ -100,6 +100,7 @@ function ConcertInfoTab({ concertId }: Props) {
         <TabPanel value="artist" className="p-0">
           {artist ? (
             <ArtistTabPanel
+              concertId={concertId}
               artist={artist.artist}
               birthDate={artist.birthDate}
               birthPlace={artist.birthPlace}
