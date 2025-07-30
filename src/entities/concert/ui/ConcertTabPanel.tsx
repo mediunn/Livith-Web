@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import ConcertSchedulePanel from "../../../features/concert/ui/ConcertSchedulePanel";
+import ConcertSchedulePanel from "../../../features/concert/ui/ConcertSchedulePanel";
 import ConcertInfoCarousel from "../../../widgets/ConcertInfoCarousel";
-import ConcertRightArrow from "../../../shared/assets/ConcertRightArrow.svg";
 import MdSlide from "../../../entities/concert/ui/MdSlide";
-import { getMd, Md } from "../api/getMd";
+import ConcertRightArrow from "../../../shared/assets/ConcertRightArrow.svg";
+import { getSchedule, Schedule } from "../api/getSchedule";
 import {
   getConcertRequiredInfo,
   ConcertRequired,
 } from "../api/getConcertRequiredInfo";
+import { getMd, Md } from "../api/getMd";
 
 interface ConcertTabPanelProps {
   concertId: number;
@@ -16,26 +17,28 @@ interface ConcertTabPanelProps {
 }
 
 function ConcertTabPanel({ concertId, ticketUrl }: ConcertTabPanelProps) {
-  const [mds, setMd] = useState<Md[] | null>(null);
-  const [mdCount, setMdCount] = useState(0);
+  const [schedules, setSchedule] = useState<Schedule[] | null>(null);
+
   const [concertRequiredInfo, setConcertRequiredInfo] = useState<
     ConcertRequired[] | null
   >(null);
+
+  const [mds, setMd] = useState<Md[] | null>(null);
+  const [mdCount, setMdCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMds = async () => {
+    const fetchSchedule = async () => {
       try {
-        const data = await getMd(concertId);
-        setMd(data);
-        setMdCount(data.length);
+        const data = await getSchedule(concertId);
+        setSchedule(data);
       } catch (error) {
-        console.error("특정 콘서트의 MD 목록 조회 API 호출 실패:", error);
-        setMd([]);
+        console.error("특정 콘서트 일정 목록 조회 API 호출 실패:", error);
+        setSchedule([]);
       }
     };
 
-    fetchMds();
+    fetchSchedule();
   }, [concertId]);
 
   useEffect(() => {
@@ -52,13 +55,28 @@ function ConcertTabPanel({ concertId, ticketUrl }: ConcertTabPanelProps) {
     fetchConcertRequiredInfo();
   }, [concertId]);
 
+  useEffect(() => {
+    const fetchMds = async () => {
+      try {
+        const data = await getMd(concertId);
+        setMd(data);
+        setMdCount(data.length);
+      } catch (error) {
+        console.error("특정 콘서트의 MD 목록 조회 API 호출 실패:", error);
+        setMd([]);
+      }
+    };
+
+    fetchMds();
+  }, [concertId]);
+
   if (mds === null) {
     return null;
   }
 
   return (
     <>
-      {/* <ConcertSchedulePanel /> */}
+      {schedules && <ConcertSchedulePanel schedules={schedules} />}
 
       <div className="mx-16">
         <div className="pt-30 pb-20">
