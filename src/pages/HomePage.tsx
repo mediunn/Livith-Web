@@ -21,6 +21,7 @@ function HomePage() {
 
   useEffect(() => {
     async function fetchConcert() {
+      if (!interestConcertId) return;
       try {
         const data = await getConcertInsideInfo(Number(interestConcertId));
         setConcert(data);
@@ -47,12 +48,10 @@ function HomePage() {
     fetchSchedule();
   }, [interestConcertId]);
 
-  if (!concert) return null;
-
   return (
     <div className="pb-90">
       <SearchBar />
-      {interestConcertId ? (
+      {interestConcertId && concert ? (
         <ConcertSetting concert={concert} schedules={schedules} />
       ) : (
         <ConcertSettingEmpty />
