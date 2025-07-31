@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
 import RecentSearch from "../features/search/ui/RecentSearch";
 import RecommendSearch from "../features/search/ui/RecommendSearch";
-import SearchResults from "../features/search/ui/SearchResult";
+import SearchResult from "../features/search/ui/SearchResult";
 import SearchResultCount from "../features/search/ui/SearchResultCount";
 
 function SearchPage() {
@@ -38,7 +38,7 @@ function SearchPage() {
         )}
       </div>
       {showResults && input ? (
-        <SearchResults keyword={input} />
+        <SearchResult keyword={input} />
       ) : (
         <>
           {!input && recent.length > 0 && (

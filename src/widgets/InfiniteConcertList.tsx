@@ -41,14 +41,14 @@ export function InfiniteConcertList({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-x-10 gap-y-24 mx-16">
+    <div className="grid grid-cols-3 gap-x-10 gap-y-24 mx-16 min-h-[calc(100vh-72px)]">
       {concerts?.map((concert) => (
         <div key={concert.id}>
           <ConcertCard
             imageUrl={concert.poster}
             title={concert.title}
             date={formatDate(concert.startDate, concert.endDate)}
-            filter={concert.status}
+            status={concert.status}
             onClick={() => {
               navigate(`/concert/${concert.id}`, {
                 state: { status: concert.status },

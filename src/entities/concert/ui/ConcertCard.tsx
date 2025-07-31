@@ -1,9 +1,10 @@
-import { ConcertFilter } from "../types";
+import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
+import { ConcertStatus } from "../types";
 
 type ConcertCardProps = {
   title: string;
   date: string;
-  filter: ConcertFilter;
+  status: ConcertStatus;
   onClick?: () => void;
   artist?: string;
   imageUrl?: string;
@@ -13,18 +14,12 @@ type ConcertCardProps = {
 function ConcertCard({
   title,
   date,
-  filter,
+  status,
   onClick,
   artist,
   imageUrl,
   daysLeft,
 }: ConcertCardProps) {
-  const filterText =
-    filter === ConcertFilter.NEW
-      ? "진행중"
-      : filter === ConcertFilter.ALL
-        ? "종료"
-        : `D-${daysLeft}`;
   return (
     <div onClick={onClick} className="cursor-pointer">
       <div className="w-full aspect-[108/158] relative">
@@ -39,7 +34,7 @@ function ConcertCard({
         )}
         <div className="absolute top-10 left-10 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13">
           <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
-            {filterText}
+            {setConcertStatus({ status, daysLeft })}
           </p>
         </div>
       </div>

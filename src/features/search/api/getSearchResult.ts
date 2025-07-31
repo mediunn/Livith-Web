@@ -12,7 +12,7 @@ export async function getSearchResult({
   cursor,
   size,
 }: GetSearchResultProps): Promise<ApiResponse<ConcertListResponse>> {
-  const response = await axiosInstance.get("/api/v1/search", {
+  const response = await axiosInstance.get("/api/v2/search", {
     params: {
       keyword,
       cursor,

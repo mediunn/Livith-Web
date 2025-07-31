@@ -4,18 +4,17 @@ import { saveRecentSearch } from "../utils/saveRecentSearch";
 type RecommendSearchItemProps = {
   word: string;
   inputState: StateWithSetter<string>;
-  recentState: StateWithSetter<string[]>;
+  recentState?: StateWithSetter<string[]>;
   showResultsState: StateWithSetter<boolean>;
 };
 function RecommendSearchItem({
   word,
-
   inputState,
   recentState,
   showResultsState,
 }: RecommendSearchItemProps) {
   const { value: input, setValue: setInput } = inputState;
-  const { value: recent, setValue: setRecent } = recentState;
+  const { value: recent, setValue: setRecent } = recentState || {};
   const { value: showResults, setValue: setShowResults } = showResultsState;
   const index = word.toLowerCase().indexOf(input.toLowerCase());
 
@@ -24,11 +23,13 @@ function RecommendSearchItem({
   const after = word.slice(index + input.length);
 
   const handleAddRecent = () => {
-    let updated = saveRecentSearch({
-      keyword: word,
-      current: recent,
-    });
-    setRecent(updated);
+    if (recent && setRecent) {
+      let updated = saveRecentSearch({
+        keyword: word,
+        current: recent,
+      });
+      setRecent(updated);
+    }
     setInput(word);
     setShowResults(true);
   };

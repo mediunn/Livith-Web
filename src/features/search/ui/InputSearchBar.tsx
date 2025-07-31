@@ -7,40 +7,56 @@ import { saveRecentSearch } from "../utils/saveRecentSearch.ts";
 
 type InputSearchBarProps = {
   inputState: StateWithSetter<string>;
-  recentState: StateWithSetter<string[]>;
+  recentState?: StateWithSetter<string[]>;
+  showAllState?: StateWithSetter<boolean>;
   showResultsState: StateWithSetter<boolean>;
 };
 
 function InputSearchBar({
   inputState: { value: input, setValue: setInput },
-  recentState: { value: recent, setValue: setRecent },
+  recentState,
+  showAllState,
   showResultsState: { value: showResults, setValue: setShowResults },
 }: InputSearchBarProps) {
+  const recent = recentState?.value;
+  const setRecent = recentState?.setValue;
+  const showAll = showAllState?.value;
+  const setShowAll = showAllState?.setValue;
+
   // 한글 입력 시 Enter 키 이벤트가 두 번 발생하는 문제 해결
   const [isComposing, setIsComposing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !isComposing && input.trim()) {
-      let updated = saveRecentSearch({
-        keyword: input.trim(),
-        current: recent,
-      });
-      setRecent(updated);
+      //최근 검색어 있을 때만 저장
+      if (recentState && recent && setRecent) {
+        let updated = saveRecentSearch({
+          keyword: input.trim(),
+          current: recent,
+        });
+        setRecent(updated);
+      }
       setShowResults(true);
       inputRef.current?.blur(); // Enter 입력 후 포커스 해제
     }
   };
 
   return (
-    <div className="bg-grayScaleBlack100 max-w-md w-full flex pt-13 pb-12 pl-16 pr-16">
-      <BackArrow />
+    <div className="bg-grayScaleBlack100 max-w-md w-full flex pt-13 pb-12 pl-16 pr-16 ">
+      {recent && setRecent && <BackArrow />}
       <div className="flex items-center relative w-full ml-2 py-7 pl-16 bg-grayScaleWhite rounded-10">
         <input
           ref={inputRef}
           type="text"
           value={input}
-          onFocus={() => setShowResults(false)}
+          onFocus={() => {
+            setShowResults(false);
+            setShowAll?.(false);
+          }} // 포커스 시 검색 결과 숨김
+          onBlur={() => {
+            setShowAll?.(true);
+          }} // 포커스 해제 시 전체 검색어 표시
           onChange={(e) => {
             setInput(e.target.value);
             setShowResults(false); // 입력값이 바뀌면 검색결과 숨김
