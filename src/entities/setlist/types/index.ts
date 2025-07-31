@@ -24,6 +24,7 @@ export type SetlistResponse = {
 export interface SetlistDetailProps {
   setlistId: number;
   concertId: number;
+  setSetlistType?: (type: string | null) => void;
 }
 
 export type SetListSong = {

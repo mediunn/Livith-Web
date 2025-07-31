@@ -43,7 +43,10 @@ function InterestConcertSetlist() {
           {song.type !== SetlistType.EXPECTED ? (
             <InterestConcertSetlistDetail song={song} />
           ) : null}
-          <BriefSetlistSongList setlistId={song.id} />
+          <BriefSetlistSongList
+            setlistId={song.id}
+            concertId={Number(concertId)}
+          />
         </>
       )}
     </div>

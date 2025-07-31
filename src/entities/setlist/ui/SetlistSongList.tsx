@@ -1,8 +1,17 @@
+import { useSetRecoilState } from "recoil";
 import useSetlistSongList from "../../../features/setlist/model/useSetlistSongList";
 import EmptySongList from "../../../features/setlist/ui/EmptySongList";
 import SetlistSongItem from "./SetlistSongItem";
+import { setlistIdState } from "../../../entities/recoil/atoms/setlistIdState";
+import { useNavigate } from "react-router-dom";
+import { SetlistType } from "../types";
 
-function SetlistSongList({ setlistId }: { setlistId: number }) {
+type SetlistSongListProps = {
+  setlistId: number;
+  setlistType: string | null;
+};
+
+function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
 
   if (isLoading) {
@@ -12,15 +21,17 @@ function SetlistSongList({ setlistId }: { setlistId: number }) {
     return <div>Error...</div>;
   }
 
+  const setSetlistId = useSetRecoilState(setlistIdState);
+  const navigate = useNavigate();
   return (
     <div className="mx-16 mt-30 pb-30">
-      <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mb-18">
-        셋리스트 목록
+      <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+        {setlistType === SetlistType.EXPECTED ? "예상" : "대표"} 셋리스트 목록
       </p>
       {songs?.length === 0 ? (
         <EmptySongList />
       ) : (
-        <div className="space-y-10 px-6 py-10 bg-grayScaleBlack90 rounded-10">
+        <div className="mt-24 space-y-10 px-21 py-11 bg-grayScaleBlack90 rounded-10">
           {songs?.map((song) => (
             <SetlistSongItem
               key={song.id}
@@ -29,6 +40,12 @@ function SetlistSongList({ setlistId }: { setlistId: number }) {
               artist={song.artist}
               orderIndex={song.orderIndex}
               setlistId={setlistId}
+              onClick={() => {
+                {
+                  setSetlistId(setlistId);
+                  navigate(`/songs/${song.id}`);
+                }
+              }}
             />
           ))}
         </div>

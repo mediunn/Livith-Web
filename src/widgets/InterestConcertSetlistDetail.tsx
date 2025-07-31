@@ -1,4 +1,4 @@
-import { formatKoreanDate } from "../features/setlist/utils/formatKoreanDate";
+import { formatKoreanDate } from "../shared/utils/formatKoreanDate";
 import { Setlist } from "../entities/setlist/types";
 
 function InterestConcertSetlistDetail({ song }: { song: Setlist }) {

@@ -1,7 +1,4 @@
-import { useNavigate } from "react-router-dom";
 import SongPlayIcon from "../../../shared/assets/SongPlayIcon.svg";
-import { useSetRecoilState } from "recoil";
-import { setlistIdState } from "../../recoil/atoms/setlistIdState";
 
 interface SetlistSongItemProps {
   title: string;
@@ -17,22 +14,13 @@ function SetlistSongItem({
   artist,
   // imageUrl,
   orderIndex,
-  songId,
-  setlistId,
   onClick,
 }: SetlistSongItemProps) {
-  const navigate = useNavigate();
-  const setSetlistId = useSetRecoilState(setlistIdState);
-
-  const handleClick = () => {
-    setSetlistId(setlistId);
-    navigate(`/songs/${songId}`);
-  };
   const paddedIndex = orderIndex.toString().padStart(2, "0");
 
   return (
     <div
-      className=" flex items-center w-full aspect-[331/62] cursor-pointer"
+      className={`flex items-center w-full aspect-[331/62] ${onClick !== null ? "cursor-pointer" : "cursor-default"}`}
       onClick={onClick}
     >
       {/* <img
