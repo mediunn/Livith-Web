@@ -4,13 +4,19 @@ export enum ConcertFilter {
   ALL = "ALL",
 }
 
+export enum ConcertStatus {
+  ONGOING = "ONGOING",
+  UPCOMING = "UPCOMING",
+  PAST = "PAST",
+}
+
 export type Concert = {
   id: string;
   code: string;
   title: string;
   startDate: string;
   endDate: string;
-  status: ConcertFilter;
+  status: ConcertStatus;
   poster: string;
   artist: string;
   sortedIndex: number;

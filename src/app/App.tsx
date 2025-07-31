@@ -11,6 +11,7 @@ import SearchPage from "../pages/SearchPage";
 import LyricPage from "../pages/LyricPage";
 import SetlistCollectionPage from "../pages/SetlistCollectionPage";
 import SetlistDetailPage from "../pages/SetlistDetailPage";
+import SetInterestConcertPage from "../pages/SetInterestConcertPage";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "setlist/:setlistId/:concertId",
         element: <SetlistDetailPage />,
+      },
+      {
+        path: "setConcert",
+        element: <SetInterestConcertPage />,
       },
     ],
   },
