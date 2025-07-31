@@ -127,8 +127,6 @@ function LyricPage() {
     newState[index] = !newState[index];
 
     const [isLang, isPron, isTrans, isFanChat] = newState;
-    const langGroup = [isLang, isPron, isTrans];
-    const langGroupOnCount = langGroup.filter(Boolean).length;
 
     // 원어 - off, 발음 - off, 해석 - off - 응원법 - off
     if (!isLang && !isPron && !isTrans && !isFanChat) {
@@ -215,7 +213,6 @@ function LyricPage() {
 
           {songData ? (
             <Lyric
-              songId={Number(songId)}
               songData={songData}
               activeButtons={activeButtons}
               fanchantData={fanchantData}

@@ -5,13 +5,12 @@ import { setlistIdState } from "../../recoil/atoms/setlistIdState";
 import { Fanchant } from "../../../features/lyric/api/getFanchant";
 
 interface LyricProps {
-  songId: number;
   songData: Song;
   activeButtons: boolean[];
   fanchantData: Fanchant | null;
 }
 
-function Lyric({ songId, songData, activeButtons, fanchantData }: LyricProps) {
+function Lyric({ songData, activeButtons, fanchantData }: LyricProps) {
   const setlistId = useRecoilValue(setlistIdState);
 
   return (
