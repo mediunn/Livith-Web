@@ -144,6 +144,7 @@ function ConcertSetting({ schedules }: ConcertSettingProps) {
             value="1"
             sx={{
               padding: "0",
+              paddingBottom: 19,
             }}
           >
             {schedules && schedules.length > 0 ? (
