@@ -10,6 +10,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
 import ScheduleInfo from "../../../entities/concert/ui/ScheduleInfo";
 import { Schedule } from "../../../entities/concert/api/getSchedule";
+import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
 
 interface ConcertSettingProps {
   schedules: Schedule[];
@@ -158,7 +159,9 @@ function ConcertSetting({ schedules }: ConcertSettingProps) {
             sx={{
               padding: "0",
             }}
-          ></TabPanel>
+          >
+            <InterestConcertSetlist />
+          </TabPanel>
         </TabContext>
       </Box>
     </div>

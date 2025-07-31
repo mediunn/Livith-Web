@@ -6,11 +6,12 @@ export enum SetlistType {
 
 export type Setlist = {
   id: number;
-  concertId: number;
   title: string;
   type: SetlistType;
   status: string;
-  date: string;
+  startDate: string;
+  endDate: string;
+  venue: string;
   imgUrl: string;
   artist: string;
 };
@@ -23,18 +24,16 @@ export type SetlistResponse = {
 export interface SetlistDetailProps {
   setlistId: number;
   concertId: number;
+  setSetlistType?: (type: string | null) => void;
 }
 
 export type SetListSong = {
   id: number;
   title: string;
   artist: string;
-  setlistId: number;
   orderIndex: number;
-  imgUrl: string;
 };
 
 export type SetlistSongListResponse = {
   data: SetListSong[];
-  cursor?: null | undefined;
 };
