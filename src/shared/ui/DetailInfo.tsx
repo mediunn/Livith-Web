@@ -37,7 +37,7 @@ function DetailInfo({
           className="w-full h-full object-cover"
         />
       )}
-      <div className="absolute bottom-24 left-19 pr-19">
+      <div className="absolute bottom-24 left-18 w-full pr-36">
         <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
           {artist}
         </p>
@@ -45,7 +45,7 @@ function DetailInfo({
           {title}
         </p>
 
-        <div className="pt-18 w-324 border-b border-dashed border-grayScaleBlack50" />
+        <div className="pt-18 w-full border-b border-dashed border-grayScaleBlack50" />
 
         <p className="pt-18 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
           {date}
@@ -56,7 +56,7 @@ function DetailInfo({
         <a
           href={ticketSite ? ticketUrl : "#"}
           target="_blank"
-          className={`w-327 h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
+          className={`w-full h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
             ticketSite ? "bg-mainYellow30" : "bg-grayScaleBlack50"
           }`}
         >
