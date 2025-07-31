@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ConcertTicketArrowIcon from "../../../shared/assets/ConcertTicketArrowIcon.svg";
 import WebSiteEarthIcon from "../../../shared/assets/WebSiteEarthIcon.svg";
 import WebSiteArrowIcon from "../../../shared/assets/WebSiteArrowIcon.svg";
@@ -25,6 +26,8 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
   };
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -88,7 +91,10 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
               </p>
             </div>
 
-            <button className="absolute bottom-26 right-16 w-46 h-46 bg-transparent border-none cursor-pointer">
+            <button
+              className="absolute bottom-26 right-16 w-46 h-46 bg-transparent border-none cursor-pointer"
+              onClick={() => navigate(`/concert/${concert.id}`)}
+            >
               <img
                 src={ConcertTicketArrowIcon}
                 alt="concert ticket arrow"
