@@ -11,6 +11,7 @@ import { BeatLoader } from "react-spinners";
 import YouTubePlayer from "../entities/lyric/ui/YouTubePlayer";
 import EmptyYouTubePlayer from "../entities/lyric/ui/EmptyYouTubePlayer";
 import EmptyConcertInfoTabPanel from "../entities/concert/ui/EmptyConcertInfoTabPanel";
+import { getSong, Song } from "../entities/lyric/api/getSong";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -19,6 +20,9 @@ function LyricPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const [songData, setSongData] = useState<Song | null>(null);
+  const [isLyricLoading, setIsLyricLoading] = useState(true);
 
   // 초기값: 원어, 발음, 해석, 응원법 true
   const [activeButtons, setActiveButtons] = useState<boolean[]>([
@@ -34,6 +38,38 @@ function LyricPage() {
 
   const [fanchantData, setFanchantData] = useState<Fanchant | null>(null);
   const [isFanchantLoading, setIsFanchantLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSongData = async () => {
+      setIsLyricLoading(true);
+      try {
+        const data = await getSong(Number(songId));
+        setSongData(data);
+      } catch (error) {
+        console.error("특정 노래의 가사 정보 조회 API 호출 실패:", error);
+      } finally {
+        setIsLyricLoading(false);
+      }
+    };
+
+    fetchSongData();
+  }, [songId]);
+
+  if (isLyricLoading || !songData) {
+    return (
+      <div className="flex justify-center items-center h-60">
+        <BeatLoader
+          color="#FFFF97"
+          cssOverride={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </div>
+    );
+  }
 
   useEffect(() => {
     const fetchFanchantExistence = async () => {
@@ -165,22 +201,30 @@ function LyricPage() {
         <>
           <MusicTitleBar songId={Number(songId)} />
 
-          <YouTubePlayer />
-          {/* <EmptyYouTubePlayer /> */}
+          {songData?.youtubeId ? (
+            <YouTubePlayer youtubeId={songData.youtubeId} />
+          ) : (
+            <EmptyYouTubePlayer />
+          )}
 
           <LyricTypeButton
             activeButtons={activeButtons}
             onToggle={toggleButton}
             hasFanchant={hasFanchant}
           />
-          <Lyric
-            songId={Number(songId)}
-            activeButtons={activeButtons}
-            fanchantData={fanchantData}
-          />
-          {/* <div className="pt-51">
-            <EmptyConcertInfoTabPanel text={"가사 정보"} />
-          </div> */}
+
+          {songData ? (
+            <Lyric
+              songId={Number(songId)}
+              songData={songData}
+              activeButtons={activeButtons}
+              fanchantData={fanchantData}
+            />
+          ) : (
+            <div className="pt-51">
+              <EmptyConcertInfoTabPanel text="가사 정보" />
+            </div>
+          )}
         </>
       )}
 

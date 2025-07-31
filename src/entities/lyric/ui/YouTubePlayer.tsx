@@ -1,6 +1,10 @@
 import YouTube, { YouTubeProps } from "react-youtube";
 
-function YouTubePlayer() {
+interface YouTubePlayerProps {
+  youtubeId: string;
+}
+
+function YouTubePlayer({ youtubeId }: YouTubePlayerProps) {
   const opts: YouTubeProps["opts"] = {
     height: "215",
     width: "100%",
@@ -13,7 +17,7 @@ function YouTubePlayer() {
 
   return (
     <div className="h-215 w-full">
-      <YouTube videoId="fuwYoQTJo0Y" opts={opts} />
+      <YouTube videoId={youtubeId} opts={opts} />
     </div>
   );
 }

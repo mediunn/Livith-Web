@@ -1,54 +1,18 @@
-import { useEffect, useState } from "react";
-import { getSong, Song } from "../api/getSong";
+import { Song } from "../api/getSong";
 import LyricFanchant from "../ui/LyricFanchant";
 import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../../recoil/atoms/setlistIdState";
 import { Fanchant } from "../../../features/lyric/api/getFanchant";
-import { BeatLoader } from "react-spinners";
 
 interface LyricProps {
   songId: number;
+  songData: Song;
   activeButtons: boolean[];
   fanchantData: Fanchant | null;
 }
 
-function Lyric({ songId, activeButtons, fanchantData }: LyricProps) {
+function Lyric({ songId, songData, activeButtons, fanchantData }: LyricProps) {
   const setlistId = useRecoilValue(setlistIdState);
-  const [songData, setSongData] = useState<Song | null>(null);
-
-  const [isLyricLoading, setIsLyricLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchSongData = async () => {
-      setIsLyricLoading(true);
-      try {
-        const data = await getSong(songId);
-        setSongData(data);
-      } catch (error) {
-        console.error("가사 조회 API 호출 실패:", error);
-      } finally {
-        setIsLyricLoading(false);
-      }
-    };
-
-    fetchSongData();
-  }, [songId]);
-
-  if (isLyricLoading || !songData) {
-    return (
-      <div className="flex justify-center items-center h-60">
-        <BeatLoader
-          color="#FFFF97"
-          cssOverride={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-      </div>
-    );
-  }
 
   return (
     <div className="px-16 mt-49 w-full">
