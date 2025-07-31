@@ -53,8 +53,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                 maskImage: "url('/ConcertTicketMask.svg')",
                 maskRepeat: "no-repeat",
                 maskSize: "cover",
-                backgroundImage:
-                  "url('https://cdn.imweb.me/thumbnail/20250530/bafd11a557308.jpg')",
+                backgroundImage: `url(${concert.poster})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
