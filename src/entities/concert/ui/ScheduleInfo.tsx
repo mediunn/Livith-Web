@@ -23,7 +23,14 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
   const sortedSchedules = [...upcomingSchedules, ...pastSchedules];
 
   return (
-    <div className="pt-20 pl-16 pr-16">
+    <div className="pl-16 pr-16">
+      <div className="pt-24 pb-20">
+        <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+          다가온 콘서트 일정을
+          <br />
+          확인해 보세요
+        </p>
+      </div>
       <div className="flex flex-col gap-12">
         {sortedSchedules.map((schedule) => {
           const isPast = dayjs(schedule.scheduledAt).isBefore(dayjs(), "day");

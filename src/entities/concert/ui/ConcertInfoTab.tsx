@@ -9,6 +9,7 @@ import {
 import { getMd, Md } from "../api/getMd";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
+import SetlistTabPanel from "./SetlistTabPanel";
 import EmptyConcertInfoTabPanel from "./EmptyConcertInfoTabPanel";
 import {
   Tabs,
@@ -17,6 +18,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
+import { getSetlistInfo, Setlist } from "../api/getSetlistInfo";
 
 interface ConcertInfoTabProps {
   concertId: number;
@@ -33,6 +35,7 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
     ConcertRequired[] | null
   >(null);
   const [mds, setMd] = useState<Md[] | null>(null);
+  const [setlist, setSetlist] = useState<Setlist[] | null>(null);
 
   useEffect(() => {
     if (!concertId || isNaN(concertId)) {
@@ -103,6 +106,20 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
     };
 
     fetchMds();
+  }, [concertId]);
+
+  useEffect(() => {
+    const fetchSetlist = async () => {
+      try {
+        const data = await getSetlistInfo(concertId);
+        setSetlist(data);
+      } catch (error) {
+        console.error("특정 콘서트의 셋리스트 목록 조회 API 호출 실패:", error);
+        setSetlist([]);
+      }
+    };
+
+    fetchSetlist();
   }, [concertId]);
 
   return (
@@ -200,7 +217,13 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
             />
           )}
         </TabPanel>
-        <TabPanel value="setlist">셋리스트 내용</TabPanel>
+        <TabPanel value="setlist" className="p-0">
+          {setlist && setlist.length > 0 ? (
+            <SetlistTabPanel setlist={setlist} />
+          ) : (
+            <EmptyConcertInfoTabPanel text={"셋리스트"} />
+          )}
+        </TabPanel>
       </TabsBody>
     </Tabs>
   );
