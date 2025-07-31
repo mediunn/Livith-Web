@@ -7,10 +7,15 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import ConcertSchedulePanel from "./ConcertSchedulePanel";
 import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
+import ScheduleInfo from "../../../entities/concert/ui/ScheduleInfo";
+import { Schedule } from "../../../entities/concert/api/getSchedule";
 
-function ConcertSetting() {
+interface ConcertSettingProps {
+  schedules: Schedule[];
+}
+
+function ConcertSetting({ schedules }: ConcertSettingProps) {
   const [tabValue, setTabValue] = useState("1");
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
@@ -145,7 +150,7 @@ function ConcertSetting() {
               <br />
               확인해 보세요!
             </div>
-            <ConcertSchedulePanel />
+            <ScheduleInfo schedules={schedules} />
             {/* <EmptyConcertSchedulePanel /> */}
           </TabPanel>
           <TabPanel

@@ -8,11 +8,12 @@ export type Song = {
   lyrics: string[];
   pronunciation: string[];
   translation: string[];
+  youtubeId: string;
 };
 
 export async function getSong(id: number): Promise<Song> {
   const response = await axiosInstance.get<ApiResponse<Song>>(
-    `/api/v1/songs/${id}`
+    `/api/v2/songs/${id}`
   );
   return response.data.data;
 }
