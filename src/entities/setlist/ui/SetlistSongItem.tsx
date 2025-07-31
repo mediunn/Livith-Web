@@ -7,17 +7,19 @@ interface SetlistSongItemProps {
   title: string;
   artist: string;
   orderIndex: number;
-  imageUrl: string;
+  // imageUrl: string;
   songId: number;
   setlistId: number;
+  onClick?: () => void;
 }
 function SetlistSongItem({
   title,
   artist,
-  imageUrl,
+  // imageUrl,
   orderIndex,
   songId,
   setlistId,
+  onClick,
 }: SetlistSongItemProps) {
   const navigate = useNavigate();
   const setSetlistId = useSetRecoilState(setlistIdState);
@@ -31,15 +33,15 @@ function SetlistSongItem({
   return (
     <div
       className=" flex items-center w-full aspect-[331/62] cursor-pointer"
-      onClick={handleClick}
+      onClick={onClick}
     >
-      <img
+      {/* <img
         src={imageUrl}
         alt="Empty Icon"
         className=" w-[62px] h-[62px] object-cover ml-5 rounded-6"
-      />
-      <div className="flex flex-col justify-center my-12 ml-10 space-y-4">
-        <p className="text-grayScaleWhite text-body-sm font-semibold font-NotoSansKR ">
+      /> */}
+      <div className="flex flex-col justify-center space-y-4">
+        <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR ">
           {paddedIndex}. {title}
         </p>
         <p className="text-grayScaleWhite text-caption-sm font-regular font-NotoSansKR">
@@ -49,7 +51,7 @@ function SetlistSongItem({
       <img
         src={SongPlayIcon}
         alt="Play Icon"
-        className="w-[32px] h-[32px] my-15 object-cover ml-auto mr-5"
+        className="w-[32px] h-[32px] my-15 object-cover ml-auto mr-3"
       />
     </div>
   );

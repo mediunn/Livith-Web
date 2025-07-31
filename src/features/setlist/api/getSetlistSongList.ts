@@ -1,25 +1,18 @@
-import { SetlistSongListResponse } from "../../../entities/setlist/types";
+import {
+  SetListSong,
+  SetlistSongListResponse,
+} from "../../../entities/setlist/types";
 import axiosInstance from "../../../shared/api/axiosInstance";
 import { ApiResponse } from "../../../shared/types/response";
 
 interface GetSetlistSongListParams {
-  cursor?: number | null;
-  size?: number | null;
   setlistId: number;
 }
 export async function getSetlistSongList({
-  cursor,
-  size,
   setlistId,
-}: GetSetlistSongListParams): Promise<ApiResponse<SetlistSongListResponse>> {
+}: GetSetlistSongListParams): Promise<ApiResponse<SetListSong[]>> {
   const response = await axiosInstance.get(
-    `/api/v1/setlists/${setlistId}/songs`,
-    {
-      params: {
-        size,
-        cursor,
-      },
-    }
+    `/api/v2/setlists/${setlistId}/songs`
   );
   return response.data;
 }

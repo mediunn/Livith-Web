@@ -17,18 +17,17 @@ function SetlistSongList({ setlistId }: { setlistId: number }) {
       <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mb-18">
         셋리스트 목록
       </p>
-      {songs?.data.length === 0 ? (
+      {songs?.length === 0 ? (
         <EmptySongList />
       ) : (
         <div className="space-y-10 px-6 py-10 bg-grayScaleBlack90 rounded-10">
-          {songs?.data.map((song) => (
+          {songs?.map((song) => (
             <SetlistSongItem
               key={song.id}
               songId={song.id}
               title={song.title}
               artist={song.artist}
               orderIndex={song.orderIndex}
-              imageUrl={song.imgUrl}
               setlistId={setlistId}
             />
           ))}
