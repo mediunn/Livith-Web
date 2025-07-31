@@ -9,14 +9,17 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
 import ScheduleInfo from "../../../entities/concert/ui/ScheduleInfo";
+import { Concert } from "../../../entities/concert/types";
+import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 import { Schedule } from "../../../entities/concert/api/getSchedule";
 import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
 
 interface ConcertSettingProps {
+  concert: Concert;
   schedules: Schedule[];
 }
 
-function ConcertSetting({ schedules }: ConcertSettingProps) {
+function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
   const [tabValue, setTabValue] = useState("1");
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
@@ -78,10 +81,10 @@ function ConcertSetting({ schedules }: ConcertSettingProps) {
               <div className="pt-18 w-270 border-b border-dashed border-grayScaleBlack50 opacity-50" />
 
               <p className="pt-18 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
-                2025.09.13 ~ 2025.09.14
+                {formatConcertDate(concert.startDate, concert.endDate)}
               </p>
               <p className="pt-4 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
-                올림픽공원 올림픽홀
+                {concert.venue}
               </p>
             </div>
 
@@ -94,19 +97,29 @@ function ConcertSetting({ schedules }: ConcertSettingProps) {
             </button>
           </div>
 
-          <button className="w-327 h-37 mt-16 flex items-center justify-center gap-4 text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR bg-mainYellow30 rounded-6 border-none cursor-pointer">
-            <img
-              src={WebSiteEarthIcon}
-              alt="web site earth"
-              className="w-18 h-18"
-            />
-            Gen Hoshino presents MAD HOPE Asia Tour ...
-            <img
-              src={WebSiteArrowIcon}
-              alt="web site arrow"
-              className="w-8 h-8"
-            />
-          </button>
+          <a
+            href={concert.ticketSite ? concert.ticketUrl : "#"}
+            target="_blank"
+            className={`w-full h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
+              concert.ticketSite ? "bg-mainYellow30" : "bg-grayScaleBlack50"
+            }`}
+          >
+            <div className="flex items-center">
+              <img
+                src={WebSiteEarthIcon}
+                alt="web site earth"
+                className="w-18 h-18 mr-4"
+              />
+              <p>{concert.ticketSite || "콘서트 관련 웹사이트가 없어요"}</p>
+            </div>
+            {concert.ticketSite && (
+              <img
+                src={WebSiteArrowIcon}
+                alt="web site arrow"
+                className="w-8 h-8 ml-4"
+              />
+            )}
+          </a>
         </div>
       </div>
 
