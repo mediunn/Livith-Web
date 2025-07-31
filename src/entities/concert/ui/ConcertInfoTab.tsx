@@ -218,7 +218,11 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           )}
         </TabPanel>
         <TabPanel value="setlist" className="p-0">
-          <SetlistTabPanel setlist={setlist} />
+          {setlist && setlist.length > 0 ? (
+            <SetlistTabPanel setlist={setlist} />
+          ) : (
+            <EmptyConcertInfoTabPanel text={"셋리스트"} />
+          )}
         </TabPanel>
       </TabsBody>
     </Tabs>
