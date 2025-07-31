@@ -146,8 +146,11 @@ function ConcertSetting({ schedules }: ConcertSettingProps) {
               padding: "0",
             }}
           >
-            <ScheduleInfo schedules={schedules} />
-            {/* <EmptyConcertSchedulePanel /> */}
+            {schedules && schedules.length > 0 ? (
+              <ScheduleInfo schedules={schedules} />
+            ) : (
+              <EmptyConcertSchedulePanel />
+            )}
           </TabPanel>
           <TabPanel
             value="2"
