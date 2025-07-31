@@ -14,6 +14,8 @@ import { Concert } from "../../../entities/concert/types";
 import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 import { Schedule } from "../../../entities/concert/api/getSchedule";
 import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
+import dayjs from "../../../shared/lib/dayjs";
+import { getRemainingDaysText } from "../utils/formatScheduleDate";
 
 interface ConcertSettingProps {
   concert: Concert;
@@ -28,6 +30,12 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
   };
 
   const navigate = useNavigate();
+
+  const upcomingSchedules = schedules
+    .filter((s) => dayjs(s.scheduledAt).isSameOrAfter(dayjs(), "day"))
+    .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix());
+
+  const nearestSchedule = upcomingSchedules[0];
 
   return (
     <div>
@@ -72,13 +80,19 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
             />
 
             <div className="absolute bottom-26 left-19">
-              <p className="text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
-                호시노 겐 콘서트
-              </p>
-              <p className="pt-2 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
-                <span className="text-mainYellow30">두 달</span> 앞으로
-                다가왔어요!
-              </p>
+              {nearestSchedule && (
+                <>
+                  <p className="text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+                    {nearestSchedule.category}
+                  </p>
+                  <p className="pt-2 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+                    <span className="text-mainYellow30">
+                      {getRemainingDaysText(nearestSchedule.scheduledAt)}
+                    </span>{" "}
+                    앞으로 다가왔어요!
+                  </p>
+                </>
+              )}
 
               <div className="pt-18 w-270 border-b border-dashed border-grayScaleBlack50 opacity-50" />
 
