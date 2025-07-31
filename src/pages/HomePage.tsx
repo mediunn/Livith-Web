@@ -27,8 +27,8 @@ function HomePage() {
   return (
     <div className="pb-90">
       <SearchBar></SearchBar>
-      {/* <ConcertSettingEmpty></ConcertSettingEmpty> */}
-      <ConcertSetting schedules={schedules}></ConcertSetting>
+      <ConcertSettingEmpty></ConcertSettingEmpty>
+      {/* <ConcertSetting schedules={schedules}></ConcertSetting> */}
       <TabBar></TabBar>
     </div>
   );

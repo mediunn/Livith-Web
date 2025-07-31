@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import HelpIcon from "../../../shared/assets/HelpIcon.svg";
 import HelpModal from "../../../shared/ui/HelpModal";
 import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
@@ -6,8 +7,14 @@ import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
 function ConcertSettingEmpty() {
   const [isHelpPopupOpen, setIsHelpPopupOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const toggleHelpPopup = () => {
     setIsHelpPopupOpen((prev) => !prev);
+  };
+
+  const goToSetInterestConcertPage = () => {
+    navigate("/setConcert");
   };
 
   return (
@@ -25,7 +32,10 @@ function ConcertSettingEmpty() {
           <img src={HelpIcon} alt="help" className="w-full h-full" />
         </button>
       </div>
-      <button className="w-full aspect-[343/167] mt-24 pl-16 pr-16 p-0 bg-transparent border-none cursor-pointer">
+      <button
+        className="w-full aspect-[343/167] mt-24 pl-16 pr-16 p-0 bg-transparent border-none cursor-pointer"
+        onClick={goToSetInterestConcertPage}
+      >
         <img src={ConcertAddIcon} alt="concert add" className="w-full h-full" />
       </button>
 
