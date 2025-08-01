@@ -16,15 +16,6 @@ export async function getConcertList({
   cursor,
   size,
 }: GetConcertListParams): Promise<ApiResponse<ConcertListResponse>> {
-  // const params: Record<string, any> = {
-  //   filter,
-  //   size,
-  // };
-
-  // if (cursor !== null && cursor !== undefined) {
-  //   params[filter === ConcertFilter.NEW ? "id" : "sortedIndex"] = cursor;
-  // }
-
   const response = await axiosInstance.get("/api/v2/concerts", {
     params: {
       filter,

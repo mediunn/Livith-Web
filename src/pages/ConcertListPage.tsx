@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import ListHeader from "../shared/ui/ListHeader";
 
 function ConcertListPage() {
-  const { filter } = useParams();
+  const { status } = useParams();
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -13,15 +13,15 @@ function ConcertListPage() {
   }, []);
 
   const concertFilter =
-    filter === ConcertFilter.ALL
+    status === ConcertFilter.ALL
       ? "전체 콘서트 목록"
-      : filter === ConcertFilter.NEW
+      : status === ConcertFilter.NEW
         ? "최근 추가된 콘서트 목록"
         : "곧 진행하는 콘서트 목록";
   return (
     <div>
       <ListHeader title={concertFilter} />
-      <ConcertList filter={filter as ConcertFilter} />
+      <ConcertList filter={status as ConcertFilter} />
     </div>
   );
 }
