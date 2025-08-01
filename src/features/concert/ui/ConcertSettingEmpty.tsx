@@ -14,7 +14,7 @@ function ConcertSettingEmpty() {
   };
 
   const goToSetInterestConcertPage = () => {
-    navigate("/setConcert");
+    navigate("/set-concert");
   };
 
   return (

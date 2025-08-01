@@ -13,6 +13,7 @@ import SetlistCollectionPage from "../pages/SetlistCollectionPage";
 import SetlistDetailPage from "../pages/SetlistDetailPage";
 import SetInterestConcertPage from "../pages/SetInterestConcertPage";
 import MdPage from "../pages/MdPage";
+import CompleteSetConcert from "../widgets/CompleteSetConcert";
 
 const queryClient = new QueryClient();
 
@@ -58,12 +59,16 @@ const router = createBrowserRouter([
         element: <SetlistDetailPage />,
       },
       {
-        path: "setConcert",
+        path: "set-concert",
         element: <SetInterestConcertPage />,
       },
       {
         path: "md",
         element: <MdPage />,
+      },
+      {
+        path: "complete-set",
+        element: <CompleteSetConcert />,
       },
     ],
   },
