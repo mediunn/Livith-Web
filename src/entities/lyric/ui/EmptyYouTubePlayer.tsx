@@ -3,7 +3,10 @@ import EmptyYouTubePlayerIcon from "../../../shared/assets/EmptyYouTubePlayerIco
 function EmptyYouTubePlayer() {
   return (
     <div className="h-215 w-full">
-      <img src={EmptyYouTubePlayerIcon} />
+      <img
+        className="w-full h-full object-cover"
+        src={EmptyYouTubePlayerIcon}
+      />
     </div>
   );
 }
