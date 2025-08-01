@@ -5,9 +5,6 @@ import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
 import { getConcertInsideInfo } from "../entities/concert/api/getConcertInsideInfo";
 import { Concert } from "../entities/concert/types";
-// import PastSetList from "../widgets/PastSetList";
-// import ExpectationSetList from "../widgets/ExpectationSetList";
-// import OngoingSetList from "../widgets/OngoingSetList";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
