@@ -31,7 +31,7 @@ function EditInterestConcertBottomSheet({
           <Sheet.Header className="cursor-pointer" />
           <Sheet.Content className="!px-12 space-y-11 py-17">
             <div
-              onClick={() => navigate("/setConcert")}
+              onClick={() => navigate("/set-concert")}
               className="flex flex-row py-15 space-x-16 px-17 cursor-pointer"
             >
               <img src={EditInterestConcertIcon} alt="Edit Icon" className="" />
