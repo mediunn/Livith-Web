@@ -12,6 +12,8 @@ type SetlistSongListProps = {
 };
 
 function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
+  const setSetlistId = useSetRecoilState(setlistIdState);
+  const navigate = useNavigate();
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
 
   if (isLoading) {
@@ -21,8 +23,6 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
     return <div>Error...</div>;
   }
 
-  const setSetlistId = useSetRecoilState(setlistIdState);
-  const navigate = useNavigate();
   return (
     <div className="mx-16 mt-30 pb-30">
       <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
