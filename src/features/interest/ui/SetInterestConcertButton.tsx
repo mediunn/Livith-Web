@@ -17,7 +17,7 @@ export const SetInterestConcertButton = ({
   const handleSetInterestConcert = () => {
     if (selectedConcert) {
       localStorage.setItem(STORAGE_KEY, selectedConcert);
-      navigate("/", { replace: true });
+      navigate("/complete-set", { replace: true });
     }
   };
 

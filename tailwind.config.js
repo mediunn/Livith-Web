@@ -20,6 +20,7 @@ module.exports = withMT({
         grayScaleWhite: "#FFFFFF",
         lyricsTranslation: "#FFBAB4",
         lyricsOriginal: "#CAD0FF",
+        labelSociable100: "#FF7373",
       },
       fontFamily: {
         NotoSansKR: ["NotoSansKR", "sans-serif"],
@@ -45,12 +46,17 @@ module.exports = withMT({
       },
       animation: {
         fadeOut: "fadeOut 1s ease-in-out",
+        "scale-in-out": "scaleInOut 2s ease-in-out infinite",
       },
 
       keyframes: {
         fadeOut: {
           from: { opacity: 1 },
           to: { opacity: 0 },
+        },
+        scaleInOut: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.3)" },
         },
       },
     },
