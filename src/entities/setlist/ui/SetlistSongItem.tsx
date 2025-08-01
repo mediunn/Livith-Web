@@ -20,7 +20,7 @@ function SetlistSongItem({
 
   return (
     <div
-      className={`flex items-center w-full aspect-[331/62] ${onClick !== null ? "cursor-pointer" : "cursor-default"}`}
+      className={`flex items-center w-full aspect-[331/62] ${onClick ? "cursor-pointer" : "cursor-default"}`}
       onClick={onClick}
     >
       {/* <img

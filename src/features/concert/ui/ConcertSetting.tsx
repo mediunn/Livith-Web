@@ -16,6 +16,7 @@ import { Schedule } from "../../../entities/concert/api/getSchedule";
 import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
 import dayjs from "../../../shared/lib/dayjs";
 import { getRemainingDaysText } from "../utils/formatScheduleDate";
+import EditInterestConcertBottomSheet from "../../../features/interest/ui/EditInterestConcertBottomSheet";
 
 interface ConcertSettingProps {
   concert: Concert;
@@ -24,6 +25,12 @@ interface ConcertSettingProps {
 
 function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
   const [tabValue, setTabValue] = useState("1");
+  // isOpen 상태 관리
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+  // 바텀시트 열기
+  const openSheet = () => setIsSheetOpen(true);
+  // 바텀시트 닫기
+  const closeSheet = () => setIsSheetOpen(false);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
@@ -43,9 +50,18 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
         <p className="ml-27 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
           내가 관심있는 콘서트👀
         </p>
-        <button className="mr-16 text-grayScaleBlack50 text-body-lgs font-regular font-NotoSansKR bg-transparent border-none cursor-pointer">
-          수정하기
-        </button>
+        <div>
+          <button
+            onClick={openSheet}
+            className="mr-16 text-grayScaleBlack50 text-body-lgs font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
+          >
+            수정하기
+          </button>
+          <EditInterestConcertBottomSheet
+            isSheetOpen={isSheetOpen}
+            onSheetClose={closeSheet}
+          />
+        </div>
       </div>
 
       <div className="w-full h-539 flex justify-center bg-grayScaleBlack90">
