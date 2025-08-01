@@ -20,6 +20,7 @@ module.exports = withMT({
         grayScaleWhite: "#FFFFFF",
         lyricsTranslation: "#FFBAB4",
         lyricsOriginal: "#CAD0FF",
+        labelSociable100: "#FF7373",
       },
       fontFamily: {
         NotoSansKR: ["NotoSansKR", "sans-serif"],

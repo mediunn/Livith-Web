@@ -2,6 +2,7 @@ import { SetlistDetailProps } from "../types";
 import useSetlistDetail from "../../../features/setlist/model/useSetlistDetail";
 import EmptySetlistImageIcon from "../../../shared/assets/EmptyConcertImageIcon.svg";
 import { formatSetlistDate } from "../../../shared/utils/formatSetlistDate";
+import { useEffect } from "react";
 function SetlistDetail({
   concertId,
   setlistId,
@@ -13,10 +14,15 @@ function SetlistDetail({
     isLoading,
   } = useSetlistDetail({ concertId, setlistId });
 
+  // 렌더 후 setSetlistType 호출
+  useEffect(() => {
+    if (setlist?.type) {
+      setSetlistType?.(setlist.type);
+    }
+  }, [setlist?.type, setSetlistType]);
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-
-  setSetlistType?.(setlist?.type || null);
 
   return (
     <div className="w-full h-337 relative ">
