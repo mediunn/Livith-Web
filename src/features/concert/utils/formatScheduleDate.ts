@@ -20,3 +20,14 @@ export function getFormatDateTime(scheduledAt: string): string {
     ? `${date.format("M/D")}(${day}) ${date.format("h:mmA")}`
     : `${date.format("M/D")}(${day})`;
 }
+
+export function getRemainingDaysText(scheduledAt: string): string {
+  const today = dayjs().startOf("day");
+  const target = dayjs(scheduledAt).startOf("day");
+  const diff = target.diff(today, "day");
+
+  if (diff === 1) return "하루";
+  if (diff === 2) return "이틀";
+  if (diff >= 3) return `${diff}일`;
+  return ""; // 이미 지난 일정은 제외
+}
