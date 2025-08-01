@@ -105,7 +105,10 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                     <span className="text-mainYellow30">
                       {getRemainingDaysText(nearestSchedule.scheduledAt)}
                     </span>{" "}
-                    앞으로 다가왔어요!
+                    {getRemainingDaysText(nearestSchedule.scheduledAt) ===
+                    "바로 오늘"
+                      ? "이에요!"
+                      : "앞으로 다가왔어요!"}
                   </p>
                 </>
               )}
