@@ -55,22 +55,6 @@ function LyricPage() {
     fetchSongData();
   }, [songId]);
 
-  if (isLyricLoading || !songData) {
-    return (
-      <div className="flex justify-center items-center h-60">
-        <BeatLoader
-          color="#FFFF97"
-          cssOverride={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-      </div>
-    );
-  }
-
   useEffect(() => {
     const fetchFanchantExistence = async () => {
       setIsFanchantLoading(true);
@@ -180,6 +164,22 @@ function LyricPage() {
 
     setActiveButtons(newState);
   };
+
+  if (isLyricLoading || !songData) {
+    return (
+      <div className="flex justify-center items-center h-60">
+        <BeatLoader
+          color="#FFFF97"
+          cssOverride={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div>
