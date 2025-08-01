@@ -35,8 +35,9 @@ function LyricTypeButton({
               key={label}
               onClick={() => onToggle(index)}
               className={`
-              h-30 px-17 rounded-35 text-caption-lg font-semibold font-NotoSansKR cursor-pointer
+              h-30 px-17 rounded-35 cursor-pointer
               ${isActive ? `${activeBgColor} text-grayScaleBlack100` : "bg-grayScaleBlack100 border border-solid border-grayScaleBlack80 text-grayScaleWhite"}
+              ${isActive ? "text-caption-lg font-semibold font-NotoSansKR" : "text-caption-sm font-regular font-NotoSansKR"}
               ${index !== 0 ? "ml-10" : ""}
             `}
             >

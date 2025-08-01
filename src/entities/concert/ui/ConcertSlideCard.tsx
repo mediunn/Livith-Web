@@ -1,4 +1,5 @@
 import { ConcertFilter } from "../types";
+import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
 
 type ConcertSlideCardProps = {
   imageUrl?: string;
@@ -41,8 +42,13 @@ function ConcertSlideCard({
             className="w-full h-full rounded-6 object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-grayScaleBlack80 rounded-6" />
+          <img
+            src={EmptyConcertCardIcon}
+            alt="콘서트 이미지 없음"
+            className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+          />
         )}
+
         <div className="absolute top-10 left-10 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13">
           <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
             {filterText}
