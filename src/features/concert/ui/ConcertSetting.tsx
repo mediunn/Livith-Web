@@ -64,12 +64,12 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
         </div>
       </div>
 
-      <div className="w-full flex justify-center bg-grayScaleBlack90">
+      <div className="w-full flex justify-center bg-grayScaleBlack90 ">
         <div className=" w-full mx-24 mb-24">
           <div className="relative w-full aspect-[3/4] mt-24">
             {/* 배경 이미지 + 마스크 */}
             <div
-              className="w-full h-full"
+              className="w-full h-full "
               style={{
                 WebkitMaskImage: "url('/ConcertTicketMask.svg')",
                 WebkitMaskRepeat: "no-repeat",
@@ -84,7 +84,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
             ></div>
             {/* 그라데이션 + 마스크 */}
             <div
-              className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pointer-events-none"
+              className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pointer-events-none border border-solid border-grayScaleBlack80"
               style={{
                 WebkitMaskImage: "url('/ConcertTicketMask.svg')",
                 WebkitMaskRepeat: "no-repeat",
