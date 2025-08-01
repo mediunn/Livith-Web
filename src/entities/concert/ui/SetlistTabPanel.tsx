@@ -5,9 +5,10 @@ import formatDate from "../../../features/setlist/utils/formatDate";
 
 interface SetlistTabPanelProps {
   setlist: Setlist[] | null;
+  concertId: number;
 }
 
-function SetlistTabPanel({ setlist }: SetlistTabPanelProps) {
+function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
   const navigate = useNavigate();
 
   return (
@@ -23,7 +24,12 @@ function SetlistTabPanel({ setlist }: SetlistTabPanelProps) {
       <div className="grid grid-cols-3 gap-x-10 gap-y-24">
         {setlist &&
           setlist.map((setlistItem) => (
-            <div className="cursor-pointer">
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                navigate(`/setlist/${setlistItem.id}/${concertId}`);
+              }}
+            >
               <div className="w-full aspect-[108/158] relative">
                 {setlistItem.imgUrl ? (
                   <img

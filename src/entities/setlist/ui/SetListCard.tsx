@@ -4,7 +4,7 @@ import { SetlistType } from "../types";
 interface SetListCardProps {
   type: SetlistType;
   title: string;
-  date: string;
+
   status: string;
   imageUrl?: string;
   setlistId: number;
@@ -14,7 +14,7 @@ interface SetListCardProps {
 function SetListCard({
   type,
   title,
-  date,
+
   status,
   imageUrl,
   setlistId,
@@ -43,20 +43,6 @@ function SetListCard({
             {status}
           </p>
         </div>
-        {type === SetlistType.PAST ? (
-          <>
-            <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR mt-8 mb-0 line-clamp-1">
-              {title}
-            </p>
-            <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR mt-8 mb-0 line-clamp-1">
-              {date}
-            </p>
-          </>
-        ) : (
-          <p className="text-grayScaleBlack30 text-body-md font-medium font-NotoSansKR mt-8 mb-0 line-clamp-1">
-            {date}
-          </p>
-        )}
       </div>
     </div>
   );

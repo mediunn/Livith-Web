@@ -37,7 +37,6 @@ function SetlistCollection({ type, concertId }: SetlistCollectionProps) {
           <SetListCard
             imageUrl={setlist.imgUrl}
             title={setlist.title}
-            date={formatDate(setlist.date)}
             status={setlist.status}
             type={setlist.type}
             setlistId={setlist.id}
