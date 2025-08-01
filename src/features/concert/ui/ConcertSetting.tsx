@@ -48,9 +48,9 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
         </button>
       </div>
 
-      <div className="w-full h-539 flex justify-center bg-grayScaleBlack90">
-        <div>
-          <div className="relative w-327 h-438 mt-24">
+      <div className="w-full flex justify-center bg-grayScaleBlack90">
+        <div className=" w-full mx-24 mb-24">
+          <div className="relative w-full aspect-[3/4] mt-24">
             {/* 배경 이미지 + 마스크 */}
             <div
               className="w-full h-full"
