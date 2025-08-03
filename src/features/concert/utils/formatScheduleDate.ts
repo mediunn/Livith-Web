@@ -26,6 +26,7 @@ export function getRemainingDaysText(scheduledAt: string): string {
   const target = dayjs(scheduledAt).startOf("day");
   const diff = target.diff(today, "day");
 
+  if (diff === 0) return "바로 오늘";
   if (diff === 1) return "하루";
   if (diff === 2) return "이틀";
   if (diff >= 3) return `${diff}일`;

@@ -64,12 +64,12 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
         </div>
       </div>
 
-      <div className="w-full h-539 flex justify-center bg-grayScaleBlack90">
-        <div>
-          <div className="relative w-327 h-438 mt-24">
+      <div className="w-full flex justify-center bg-grayScaleBlack90 ">
+        <div className=" w-full mx-24 mb-24">
+          <div className="relative w-full aspect-[3/4] mt-24">
             {/* 배경 이미지 + 마스크 */}
             <div
-              className="w-full h-full"
+              className="w-full h-full "
               style={{
                 WebkitMaskImage: "url('/ConcertTicketMask.svg')",
                 WebkitMaskRepeat: "no-repeat",
@@ -84,7 +84,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
             ></div>
             {/* 그라데이션 + 마스크 */}
             <div
-              className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pointer-events-none"
+              className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pointer-events-none border border-solid border-grayScaleBlack80"
               style={{
                 WebkitMaskImage: "url('/ConcertTicketMask.svg')",
                 WebkitMaskRepeat: "no-repeat",
@@ -105,7 +105,10 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                     <span className="text-mainYellow30">
                       {getRemainingDaysText(nearestSchedule.scheduledAt)}
                     </span>{" "}
-                    앞으로 다가왔어요!
+                    {getRemainingDaysText(nearestSchedule.scheduledAt) ===
+                    "바로 오늘"
+                      ? "이에요!"
+                      : "앞으로 다가왔어요!"}
                   </p>
                 </>
               )}

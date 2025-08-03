@@ -29,12 +29,14 @@ function MdInfo({ mds, concertId, mdCount }: MdInfoProps) {
           <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
             한 눈에 확인하세요
           </p>
-          <button
-            className="absolute bottom-20 right-16 w-24 h-24 bg-transparent border-none p-0 cursor-pointer"
-            onClick={() => navigate("/md", { state: { concertId } })}
-          >
-            <img src={ConcertRightArrow} className="w-full h-full" />
-          </button>
+          {mds.length > 3 && (
+            <button
+              className="absolute bottom-20 right-16 w-24 h-24 bg-transparent border-none p-0 cursor-pointer"
+              onClick={() => navigate("/md", { state: { concertId } })}
+            >
+              <img src={ConcertRightArrow} className="w-full h-full" />
+            </button>
+          )}
         </div>
 
         {mds.length > 0 && <MdSlide mds={mds} />}

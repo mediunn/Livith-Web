@@ -32,12 +32,14 @@ function InterestConcertSetlist() {
 
   return (
     <div className="mx-16 pb-38">
-      <div className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-24">
-        <p>{status} 콘서트 셋리스트를</p>
-        <p>확인해 보세요!</p>
-      </div>
       {!song ? (
-        <EmptySetList />
+        <>
+          <div className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-24">
+            <p>{status} 콘서트 셋리스트를</p>
+            <p>확인해 보세요</p>
+          </div>
+          <EmptySetList />
+        </>
       ) : (
         <>
           {song.type !== SetlistType.EXPECTED ? (
