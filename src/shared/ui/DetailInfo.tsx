@@ -25,15 +25,11 @@ function DetailInfo({
     <div className="w-full h-337 relative ">
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {imageUrl ? (
-        <img
-          src={imageUrl}
-          alt="concert image"
-          className="w-full h-full object-cover"
-        />
+        <img src={imageUrl} alt=" " className="w-full h-full object-cover" />
       ) : (
         <img
           src={EmptyConcertImageIcon}
-          alt="empty concert image"
+          alt="empty"
           className="w-full h-full object-cover"
         />
       )}
@@ -47,10 +43,10 @@ function DetailInfo({
 
         <div className="pt-18 w-full border-b border-dashed border-grayScaleBlack50" />
 
-        <p className="pt-18 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+        <p className="pt-18 text-grayScaleBlack30 text-Body1-sms font-regular font-NotoSansKR">
           {date}
         </p>
-        <p className="pt-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+        <p className="pt-4 text-grayScaleBlack30 text-Body1-sms font-regular font-NotoSansKR">
           {venue}
         </p>
         <a
