@@ -173,7 +173,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                   height: "64px",
                   fontSize: "16px",
                   fontWeight: 600,
-                  fontFamily: "NotoSansKR",
+                  fontFamily: '"NotoSansKR", sans-serif',
                   letterSpacing: "-0.05em",
                   lineHeight: "1.4",
                   textTransform: "none",
