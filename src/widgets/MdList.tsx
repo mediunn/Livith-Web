@@ -4,9 +4,10 @@ import { getMd, Md } from "../entities/concert/api/getMd";
 
 interface MdListProps {
   concertId?: number;
+  ticketUrl: string;
 }
 
-export function MdList({ concertId }: MdListProps) {
+export function MdList({ concertId, ticketUrl }: MdListProps) {
   const [mds, setMd] = useState<Md[] | null>(null);
 
   useEffect(() => {
@@ -28,7 +29,12 @@ export function MdList({ concertId }: MdListProps) {
     <div className="mt-18 grid grid-cols-3 gap-x-10 gap-y-24 mx-16">
       {mds?.map((md) => (
         <div key={md.id}>
-          <MdCard imgUrl={md.imgUrl} name={md.name} price={md.price} />
+          <MdCard
+            imgUrl={md.imgUrl}
+            name={md.name}
+            price={md.price}
+            ticketUrl={ticketUrl}
+          />
         </div>
       ))}
     </div>

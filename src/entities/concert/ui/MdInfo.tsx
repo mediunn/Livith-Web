@@ -7,9 +7,10 @@ type MdInfoProps = {
   concertId: number;
   mds: Md[];
   mdCount: number;
+  ticketUrl: string;
 };
 
-function MdInfo({ mds, concertId, mdCount }: MdInfoProps) {
+function MdInfo({ mds, concertId, mdCount, ticketUrl }: MdInfoProps) {
   const navigate = useNavigate();
 
   return (
@@ -29,7 +30,7 @@ function MdInfo({ mds, concertId, mdCount }: MdInfoProps) {
           <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
             한 눈에 확인하세요
           </p>
-          {mds.length > 3 && (
+          {mds.length > 1 && (
             <button
               className="absolute bottom-20 right-16 w-24 h-24 bg-transparent border-none p-0 cursor-pointer"
               onClick={() => navigate("/md", { state: { concertId } })}
@@ -39,7 +40,7 @@ function MdInfo({ mds, concertId, mdCount }: MdInfoProps) {
           )}
         </div>
 
-        {mds.length > 0 && <MdSlide mds={mds} />}
+        {mds.length > 0 && <MdSlide mds={mds} ticketUrl={ticketUrl} />}
       </div>
     </>
   );

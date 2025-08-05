@@ -2,12 +2,18 @@ type MdCardProps = {
   name: string;
   price: string;
   imgUrl: string;
-  onClick?: () => void;
+  ticketUrl: string;
 };
 
-function MdCard({ name, price, imgUrl, onClick }: MdCardProps) {
+function MdCard({ name, price, imgUrl, ticketUrl }: MdCardProps) {
+  const handleClick = () => {
+    if (ticketUrl) {
+      window.open(ticketUrl, "_blank");
+    }
+  };
+
   return (
-    <div onClick={onClick} className="cursor-pointer">
+    <div onClick={handleClick} className="cursor-pointer">
       <div className="w-full aspect-[108/158] relative">
         {imgUrl ? (
           <img
