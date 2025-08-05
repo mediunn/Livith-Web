@@ -76,7 +76,7 @@ function ArtistInfo({
                 </p>
                 <div className="flex pt-20">
                   <p className="w-37 text-grayScaleBlack30 text-Body4-md font-medium font-NotoSansKR">
-                    출생
+                    데뷔
                   </p>
                   <p className="text-grayScaleBlack50 text-Body4-md font-medium font-NotoSansKR">
                     {formatBirthDate(birthDate)}, {birthPlace}
