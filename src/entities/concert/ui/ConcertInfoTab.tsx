@@ -151,9 +151,9 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
     <Tabs value={selectedTab} className="pt-16">
       <TabsHeader
         {...({} as any)}
-        className="h-57 mx-16 px-7 py-6 items-center bg-grayScaleBlack90 border border-grayScaleBlack80"
+        className="h-57 mx-16 px-7 py-6 items-center bg-grayScaleBlack90 border-b border-grayScaleBlack80 rounded-12"
         indicatorProps={{
-          className: "bg-mainYellow30 shadow-none",
+          className: "bg-mainYellow30 shadow-none rounded-12",
         }}
       >
         <Tab
@@ -165,8 +165,8 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           <p
             className={`${
               selectedTab === "artist"
-                ? "text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-Body4-re font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
             }`}
           >
             가수 정보
@@ -182,8 +182,8 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           <p
             className={`${
               selectedTab === "concert"
-                ? "text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-Body4-re font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
             }`}
           >
             콘서트 정보
@@ -199,8 +199,8 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           <p
             className={`${
               selectedTab === "setlist"
-                ? "text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-Body4-re font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
             }`}
           >
             셋리스트
