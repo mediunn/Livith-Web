@@ -25,8 +25,22 @@ interface ConcertInfoTabProps {
   ticketUrl: string;
 }
 
+const TAB_KEY = `selectedTab`;
+
 function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
-  const [selectedTab, setSelectedTab] = useState("artist");
+  const getInitialTab = () => {
+    const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
+    return storedTab === "artist" ||
+      storedTab === "concert" ||
+      storedTab === "setlist"
+      ? storedTab
+      : "artist";
+  };
+  const [selectedTab, setSelectedTab] = useState(getInitialTab);
+  const handleTabChange = (tab: string) => {
+    setSelectedTab(tab);
+    localStorage.setItem(`${TAB_KEY}-${concertId}`, tab);
+  };
 
   const [artist, setArtist] = useState<Artist | null>(null);
   const [ConcertCulture, setConcertCulture] = useState<ConcertCulture[]>([]);
@@ -36,6 +50,17 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
   >(null);
   const [mds, setMd] = useState<Md[] | null>(null);
   const [setlist, setSetlist] = useState<Setlist[] | null>(null);
+
+  useEffect(() => {
+    const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
+    if (
+      storedTab === "artist" ||
+      storedTab === "concert" ||
+      storedTab === "setlist"
+    ) {
+      setSelectedTab(storedTab);
+    }
+  }, [concertId]);
 
   useEffect(() => {
     if (!concertId || isNaN(concertId)) {
@@ -135,7 +160,7 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           {...({} as any)}
           value="artist"
           className="h-41"
-          onClick={() => setSelectedTab("artist")}
+          onClick={() => handleTabChange("artist")}
         >
           <p
             className={`${
@@ -152,7 +177,7 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           {...({} as any)}
           value="concert"
           className="h-41"
-          onClick={() => setSelectedTab("concert")}
+          onClick={() => handleTabChange("concert")}
         >
           <p
             className={`${
@@ -169,7 +194,7 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           {...({} as any)}
           value="setlist"
           className="h-41"
-          onClick={() => setSelectedTab("setlist")}
+          onClick={() => handleTabChange("setlist")}
         >
           <p
             className={`${
