@@ -46,9 +46,9 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
 
   return (
     <div>
-      <div className="pt-24 pb-18 flex justify-between">
+      <div className="pt-24 pb-18 flex justify-between items-center">
         <p className="ml-27 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
-          내가 관심있는 콘서트👀
+          내가 관심있는 콘서트 👀
         </p>
         <div>
           <button
