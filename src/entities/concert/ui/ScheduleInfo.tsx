@@ -37,21 +37,6 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
           const dday = getFormatDday(schedule.scheduledAt);
           const date = getFormatDateTime(schedule.scheduledAt);
 
-          // 콘서트 일차 표기
-          let content = schedule.category;
-          if (schedule.category === "공연") {
-            const index = concertSchedules.findIndex(
-              (c) => c.id === schedule.id
-            );
-            if (concertSchedules.length > 1 && index !== -1) {
-              // 공연 일정이 2개 이상일 경우 n일차 콘서트 표기
-              content = `${index + 1}일차 콘서트`;
-            } else {
-              // 공연이 단 하나일 경우 표기
-              content = "콘서트";
-            }
-          }
-
           return (
             <div
               key={schedule.id}
@@ -64,7 +49,7 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
                   {dday}
                 </div>
                 <p className="pl-8 text-grayScaleBlack30 text-Body3-md font-medium font-NotoSansKR">
-                  {content}
+                  {schedule.category}
                 </p>
               </div>
               <p className="text-grayScaleBlack30 text-Body3-md font-medium font-NotoSansKR">
