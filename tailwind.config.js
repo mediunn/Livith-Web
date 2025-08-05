@@ -26,20 +26,36 @@ module.exports = withMT({
         NotoSansKR: ["NotoSansKR", "sans-serif"],
       },
       fontSize: {
-        title: ["26px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
-        "head-lg": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
-        "head-sm": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
-        "body-lg": ["18px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
-        "body-md": ["16px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
-        "body-sm": ["14px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
-        "body-lgs": ["14px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
-        "caption-lg": ["12px", { lineHeight: "1.3", letterSpacing: "-0.05em" }],
-        "caption-sm": ["12px", { lineHeight: "1.2", letterSpacing: "-0.05em" }],
-        "caption-smd": [
+        Title: ["26px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Head1-sm": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Head1-re": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body1-sm": ["18px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body2-sm": ["16px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body2-md": ["16px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body2-re": ["16px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body3-sm": ["15px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body3-md": ["15px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body3-re": ["15px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body4-sm": ["14px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body4-md": ["14px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Body4-re": ["14px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Caption1-Bold": [
+          "12px",
+          { lineHeight: "1.3", letterSpacing: "-0.05em" },
+        ],
+        "Caption1-sm": [
+          "12px",
+          { lineHeight: "1.3", letterSpacing: "-0.05em" },
+        ],
+        "Caption1-re": [
+          "12px",
+          { lineHeight: "1.2", letterSpacing: "-0.05em" },
+        ],
+        "Caption2-sm": [
           "10px",
           { lineHeight: "1.2", letterSpacing: "-0.05em" },
         ],
-        "caption-ssm": [
+        " Caption2-re": [
           "10px",
           { lineHeight: "1.2", letterSpacing: "-0.05em" },
         ],

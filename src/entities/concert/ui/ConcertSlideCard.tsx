@@ -38,27 +38,27 @@ function ConcertSlideCard({
         {imageUrl ? (
           <img
             src={imageUrl}
-            alt="콘서트 이미지"
+            alt=" "
             className="w-full h-full rounded-6 object-cover"
           />
         ) : (
           <img
             src={EmptyConcertCardIcon}
-            alt="콘서트 이미지 없음"
+            alt="empty"
             className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
           />
         )}
 
-        <div className="absolute top-10 left-10 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13">
-          <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
+        <div className="absolute top-10 left-10 px-13 py-8 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24">
+          <p className="text-grayScaleBlack30 text-Caption1-Bold font-bold font-NotoSansKR">
             {filterText}
           </p>
         </div>
       </div>
-      <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR mt-8 mb-0 line-clamp-2">
+      <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 mb-0 line-clamp-2">
         {title}
       </p>
-      <p className="text-grayScaleBlack30 text-body-sm font-regular font-NotoSansKR mt-6 mb-0 line-clamp-1">
+      <p className="text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR mt-6 mb-0 line-clamp-1">
         {date}
       </p>
     </div>

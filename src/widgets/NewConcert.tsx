@@ -33,7 +33,7 @@ function NewConcert() {
   return (
     <div>
       <div className="flex item-center justify-between w-full">
-        <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-36 mb-19 ml-16">
+        <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR mt-36 mb-19 ml-16">
           최근 추가된 콘서트
         </p>
       </div>

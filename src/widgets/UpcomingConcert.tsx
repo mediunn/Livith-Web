@@ -34,7 +34,7 @@ function UpcomingConcert() {
   return (
     <div>
       <div className="flex item-center justify-between w-full">
-        <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR mt-30 mb-19 ml-16">
+        <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR mt-30 mb-19 ml-16">
           곧 진행하는 콘서트
         </p>
         {concerts.length > 0 && (

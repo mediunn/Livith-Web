@@ -25,8 +25,22 @@ interface ConcertInfoTabProps {
   ticketUrl: string;
 }
 
+const TAB_KEY = `selectedTab`;
+
 function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
-  const [selectedTab, setSelectedTab] = useState("artist");
+  const getInitialTab = () => {
+    const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
+    return storedTab === "artist" ||
+      storedTab === "concert" ||
+      storedTab === "setlist"
+      ? storedTab
+      : "artist";
+  };
+  const [selectedTab, setSelectedTab] = useState(getInitialTab);
+  const handleTabChange = (tab: string) => {
+    setSelectedTab(tab);
+    localStorage.setItem(`${TAB_KEY}-${concertId}`, tab);
+  };
 
   const [artist, setArtist] = useState<Artist | null>(null);
   const [ConcertCulture, setConcertCulture] = useState<ConcertCulture[]>([]);
@@ -36,6 +50,17 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
   >(null);
   const [mds, setMd] = useState<Md[] | null>(null);
   const [setlist, setSetlist] = useState<Setlist[] | null>(null);
+
+  useEffect(() => {
+    const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
+    if (
+      storedTab === "artist" ||
+      storedTab === "concert" ||
+      storedTab === "setlist"
+    ) {
+      setSelectedTab(storedTab);
+    }
+  }, [concertId]);
 
   useEffect(() => {
     if (!concertId || isNaN(concertId)) {
@@ -126,22 +151,22 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
     <Tabs value={selectedTab} className="pt-16">
       <TabsHeader
         {...({} as any)}
-        className="h-57 mx-16 px-7 py-6 items-center bg-grayScaleBlack90 border-b border-grayScaleBlack80"
+        className="h-57 mx-16 px-7 py-6 items-center bg-grayScaleBlack90 rounded-12"
         indicatorProps={{
-          className: "bg-mainYellow30 shadow-none",
+          className: "bg-mainYellow30 shadow-none rounded-12",
         }}
       >
         <Tab
           {...({} as any)}
           value="artist"
           className="h-41"
-          onClick={() => setSelectedTab("artist")}
+          onClick={() => handleTabChange("artist")}
         >
           <p
             className={`${
               selectedTab === "artist"
-                ? "text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-body-lgs font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
             }`}
           >
             가수 정보
@@ -152,13 +177,13 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           {...({} as any)}
           value="concert"
           className="h-41"
-          onClick={() => setSelectedTab("concert")}
+          onClick={() => handleTabChange("concert")}
         >
           <p
             className={`${
               selectedTab === "concert"
-                ? "text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-body-lgs font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
             }`}
           >
             콘서트 정보
@@ -169,13 +194,13 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           {...({} as any)}
           value="setlist"
           className="h-41"
-          onClick={() => setSelectedTab("setlist")}
+          onClick={() => handleTabChange("setlist")}
         >
           <p
             className={`${
               selectedTab === "setlist"
-                ? "text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-body-lgs font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
             }`}
           >
             셋리스트

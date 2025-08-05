@@ -25,7 +25,7 @@ export const SetInterestConcertButton = ({
     <button
       onClick={handleSetInterestConcert}
       disabled={!selectedConcert}
-      className={`w-full py-15 rounded-6 text-body-md font-medium font-NotoSansKR 
+      className={`w-full py-15 rounded-6 text-Body2-md font-medium font-NotoSansKR 
  ${selectedConcert ? "cursor-pointer text-grayScaleBlack100 bg-mainYellow30 " : "text-grayScaleBlack30 bg-grayScaleBlack50"}`}
     >
       설정하기

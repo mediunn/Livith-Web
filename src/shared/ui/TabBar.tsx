@@ -45,7 +45,7 @@ function TabBar() {
             />
           </button>
           <p
-            className={`${getTextColor("home")} text-caption-smd font-semibold font-NotoSansKR`}
+            className={`${getTextColor("home")} text-Caption2-sm font-semibold font-NotoSansKR`}
           >
             홈
           </p>
@@ -64,7 +64,7 @@ function TabBar() {
             />
           </button>
           <p
-            className={`${getTextColor("category")} text-caption-smd font-semibold font-NotoSansKR`}
+            className={`${getTextColor("category")} text-Caption2-sm font-semibold font-NotoSansKR`}
           >
             카테고리
           </p>
@@ -83,7 +83,7 @@ function TabBar() {
             />
           </button>
           <p
-            className={`${getTextColor("my")} text-caption-smd font-semibold font-NotoSansKR`}
+            className={`${getTextColor("my")} text-Caption2-sm font-semibold font-NotoSansKR`}
           >
             마이
           </p>

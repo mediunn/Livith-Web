@@ -25,38 +25,34 @@ function DetailInfo({
     <div className="w-full h-337 relative ">
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {imageUrl ? (
-        <img
-          src={imageUrl}
-          alt="concert image"
-          className="w-full h-full object-cover"
-        />
+        <img src={imageUrl} alt=" " className="w-full h-full object-cover" />
       ) : (
         <img
           src={EmptyConcertImageIcon}
-          alt="empty concert image"
+          alt="empty"
           className="w-full h-full object-cover"
         />
       )}
       <div className="absolute bottom-24 left-18 w-full pr-36">
-        <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+        <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR">
           {artist}
         </p>
-        <p className="pt-8 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+        <p className="pt-8 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
           {title}
         </p>
 
         <div className="pt-18 w-full border-b border-dashed border-grayScaleBlack50" />
 
-        <p className="pt-18 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
+        <p className="pt-18 text-grayScaleBlack30 text-Body1-sms font-regular font-NotoSansKR">
           {date}
         </p>
-        <p className="pt-4 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
+        <p className="pt-4 text-grayScaleBlack30 text-Body1-sms font-regular font-NotoSansKR">
           {venue}
         </p>
         <a
           href={ticketSite ? ticketUrl : "#"}
           target="_blank"
-          className={`w-full h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
+          className={`w-full h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
             ticketSite ? "bg-mainYellow30" : "bg-grayScaleBlack50"
           }`}
         >
