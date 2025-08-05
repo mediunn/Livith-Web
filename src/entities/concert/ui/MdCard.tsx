@@ -25,10 +25,10 @@ function MdCard({ name, price, imgUrl, ticketUrl }: MdCardProps) {
           <div className="w-full bg-grayScaleBlack80 rounded-6" />
         )}
       </div>
-      <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR mt-8 line-clamp-2">
+      <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2">
         {name}
       </p>
-      <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR mt-10 line-clamp-1">
+      <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR mt-10 line-clamp-1">
         {price}
       </p>
     </div>

@@ -47,13 +47,13 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
   return (
     <div>
       <div className="pt-24 pb-18 flex justify-between">
-        <p className="ml-27 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+        <p className="ml-27 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
           내가 관심있는 콘서트👀
         </p>
         <div>
           <button
             onClick={openSheet}
-            className="mr-16 text-grayScaleBlack50 text-body-lgs font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
+            className="mr-16 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
           >
             수정하기
           </button>
@@ -98,10 +98,10 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
             <div className="absolute bottom-26 left-19">
               {nearestSchedule && (
                 <>
-                  <p className="text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+                  <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
                     {nearestSchedule.category}
                   </p>
-                  <p className="pt-2 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR">
+                  <p className="pt-2 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
                     <span className="text-mainYellow30">
                       {getRemainingDaysText(nearestSchedule.scheduledAt)}
                     </span>{" "}
@@ -115,10 +115,10 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
 
               <div className="pt-18 w-270 border-b border-dashed border-grayScaleBlack50 opacity-50" />
 
-              <p className="pt-18 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
+              <p className="pt-18 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
                 {formatConcertDate(concert.startDate, concert.endDate)}
               </p>
-              <p className="pt-4 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
+              <p className="pt-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
                 {concert.venue}
               </p>
             </div>
@@ -138,7 +138,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
           <a
             href={concert.ticketSite ? concert.ticketUrl : "#"}
             target="_blank"
-            className={`w-full h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
+            className={`w-full h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
               concert.ticketSite ? "bg-mainYellow30" : "bg-grayScaleBlack50"
             }`}
           >

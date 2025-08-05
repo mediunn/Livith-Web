@@ -42,7 +42,7 @@ function RecentSearchItem({
       className="w-fit border border-grayScaleBlack30 rounded-26 flex items-center px-10 py-3 cursor-pointer"
       onClick={() => handleAddRecent()}
     >
-      <p className="text-grayScaleBlack30 text-body-sm font-regular font-NotoSansKR mr-4 ">
+      <p className="text-grayScaleBlack30 text-Body4-sm font-regular font-NotoSansKR mr-4 ">
         {word}
       </p>
       <img

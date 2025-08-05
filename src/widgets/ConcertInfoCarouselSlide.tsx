@@ -36,11 +36,11 @@ function ConcertInfoCarouselSlide({
       </button>
       <div className="absolute bottom-53 px-26">
         <div className="px-13 py-4 inline-flex items-center justify-cente bg-grayScaleBlack90 rounded-24">
-          <p className="text-grayScaleBlack30 text-caption-ssm font-regular font-NotoSansKR">
+          <p className="text-grayScaleBlack30 text- Caption2-re font-regular font-NotoSansKR">
             {category}
           </p>
         </div>
-        <p className="pt-10 text-grayScaleWhite text-body-sm font-semibold font-NotoSansKR">
+        <p className="pt-10 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
           {content}
         </p>
       </div>

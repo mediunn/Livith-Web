@@ -19,15 +19,15 @@ function MdInfo({ mds, concertId, mdCount, ticketUrl }: MdInfoProps) {
         <div className="pt-30 pb-20 px-16 relative">
           <div className="flex">
             <div className="inline-flex items-center justify-center bg-mainYellow30 rounded-4">
-              <p className="px-7 text-grayScaleBlack100 text-body-lg font-semibold font-NotoSansKR">
+              <p className="px-7 text-grayScaleBlack100 text-Body1-sm font-semibold font-NotoSansKR">
                 {mdCount}건
               </p>
             </div>
-            <p className="ml-4 text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+            <p className="ml-4 text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
               의 MD 정보를
             </p>
           </div>
-          <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+          <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
             한 눈에 확인하세요
           </p>
           {mds.length > 1 && (

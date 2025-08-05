@@ -39,7 +39,7 @@ function SetListCard({
           <div className="w-full bg-grayScaleBlack80 rounded-6" />
         )}
         <div className="absolute top-10 left-10 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13 ">
-          <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
+          <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR">
             {status}
           </p>
         </div>

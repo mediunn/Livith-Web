@@ -231,7 +231,7 @@ function LyricPage() {
           onClose={() => setPopupMessage(null)}
         >
           <p
-            className="text-center text-grayScaleWhite text-body-md font-medium font-NotoSansKR"
+            className="text-center text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR"
             style={{ whiteSpace: "pre-line" }}
           >
             {popupMessage}

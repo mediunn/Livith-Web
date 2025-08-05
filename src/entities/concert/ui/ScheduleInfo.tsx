@@ -25,7 +25,7 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
   return (
     <div className="pl-16 pr-16">
       <div className="pt-24 pb-20">
-        <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+        <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
           다가온 콘서트 일정을
           <br />
           확인해 보세요
@@ -60,14 +60,14 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
               }`}
             >
               <div className="flex items-center">
-                <div className="h-30 px-13 py-8 bg-mainYellow30 rounded-24 text-grayScaleBlack100 text-caption-lg font-semibold font-NotoSansKR">
+                <div className="h-30 px-13 py-8 bg-mainYellow30 rounded-24 text-grayScaleBlack100 text-Caption1-sm font-semibold font-NotoSansKR">
                   {dday}
                 </div>
-                <p className="pl-8 text-grayScaleWhite text-body-sm font-semibold font-NotoSansKR">
+                <p className="pl-8 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
                   {content}
                 </p>
               </div>
-              <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+              <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR">
                 {date}
               </p>
             </div>

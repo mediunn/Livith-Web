@@ -165,8 +165,8 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           <p
             className={`${
               selectedTab === "artist"
-                ? "text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-body-lgs font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body4-re font-regular font-NotoSansKR"
             }`}
           >
             가수 정보
@@ -182,8 +182,8 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           <p
             className={`${
               selectedTab === "concert"
-                ? "text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-body-lgs font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body4-re font-regular font-NotoSansKR"
             }`}
           >
             콘서트 정보
@@ -199,8 +199,8 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
           <p
             className={`${
               selectedTab === "setlist"
-                ? "text-grayScaleBlack100 text-body-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-body-lgs font-regular font-NotoSansKR"
+                ? "text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR"
+                : "text-grayScaleBlack5 text-Body4-re font-regular font-NotoSansKR"
             }`}
           >
             셋리스트

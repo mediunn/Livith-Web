@@ -29,10 +29,10 @@ function SetlistSongItem({
         className=" w-[62px] h-[62px] object-cover ml-5 rounded-6"
       /> */}
       <div className="flex flex-col justify-center space-y-4">
-        <p className="text-grayScaleWhite text-body-md font-medium font-NotoSansKR ">
+        <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR ">
           {paddedIndex}. {title}
         </p>
-        <p className="text-grayScaleWhite text-caption-sm font-regular font-NotoSansKR">
+        <p className="text-grayScaleWhite text-Caption1-re font-regular font-NotoSansKR">
           {artist}
         </p>
       </div>

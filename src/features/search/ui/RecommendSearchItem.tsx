@@ -36,7 +36,7 @@ function RecommendSearchItem({
 
   return (
     <p
-      className="text-grayScaleBlack30 text-body-sm font-regular font-NotoSansKR mb-24 cursor-pointer"
+      className="text-grayScaleBlack30 text-Body4-sm font-regular font-NotoSansKR mb-24 cursor-pointer"
       onClick={handleAddRecent}
     >
       {before}

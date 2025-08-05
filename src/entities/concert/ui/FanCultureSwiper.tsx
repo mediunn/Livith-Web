@@ -131,11 +131,11 @@ function FanCultureSwiper({ concertCulture }: FanCultureSwiperProps) {
               <div className="px-9 py-21">
                 <div className="relative">
                   <div className="inline-flex items-center justify-center bg-mainYellow30 rounded-24">
-                    <p className="px-13 py-4 text-grayScaleBlack100 text-caption-ssm font-regular font-NotoSansKR">
+                    <p className="px-13 py-4 text-grayScaleBlack100 text- Caption2-re font-regular font-NotoSansKR">
                       팬문화 {i + 1}
                     </p>
                   </div>
-                  <p className="pt-10 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+                  <p className="pt-10 text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR">
                     {culture.title}
                   </p>
                 </div>
@@ -143,7 +143,7 @@ function FanCultureSwiper({ concertCulture }: FanCultureSwiperProps) {
                 <div className="pt-13 w-full border-b border-dashed border-grayScaleBlack50" />
 
                 <div className="flex pt-13">
-                  <p className="text-grayScaleWhite text-caption-lg font-semibold font-NotoSansKR">
+                  <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
                     {culture.content}
                   </p>
                 </div>

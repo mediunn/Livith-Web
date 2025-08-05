@@ -27,7 +27,7 @@ function ArtistInfo({
     <>
       <div className="mx-16">
         <div className="pt-24 pb-17">
-          <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+          <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
             가수에 대한
             <br />
             정보를 필독해요
@@ -46,11 +46,11 @@ function ArtistInfo({
             <div className="pt-16 pr-16 pl-16 pb-24 ">
               <div className="relative">
                 <div className="inline-flex items-center justify-center bg-mainYellow30 rounded-24">
-                  <p className="px-13 py-4 text-grayScaleBlack100 text-caption-smd font-semibold font-NotoSansKR">
+                  <p className="px-13 py-4 text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
                     {category}
                   </p>
                 </div>
-                <p className="pt-8 text-grayScaleWhite text-body-md font-medium font-NotoSansKR">
+                <p className="pt-8 text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR">
                   {artist}
                 </p>
                 {instagramUrl && (
@@ -71,14 +71,14 @@ function ArtistInfo({
               <div className="pt-12 w-full border-b border-dashed border-grayScaleBlack50" />
 
               <div>
-                <p className="pt-12 text-grayScaleWhite text-caption-lg font-semibold font-NotoSansKR">
+                <p className="pt-12 text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
                   {detail}
                 </p>
                 <div className="flex pt-20">
-                  <p className="text-grayScaleWhite text-caption-lg font-semibold font-NotoSansKR">
+                  <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
                     출생
                   </p>
-                  <p className="pl-16 text-grayScaleBlack30 text-caption-sm font-regular font-NotoSansKR">
+                  <p className="pl-16 text-grayScaleBlack30 text-Caption1-re font-regular font-NotoSansKR">
                     {formatBirthDate(birthDate)}, {birthPlace}
                   </p>
                 </div>
@@ -93,7 +93,7 @@ function ArtistInfo({
               key={index}
               className="mr-4 mb-6 inline-flex items-center justify-center bg-grayScaleBlack80 rounded-24"
             >
-              <p className="px-13 py-4 text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
+              <p className="px-13 py-4 text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR">
                 {keyword}
               </p>
             </div>

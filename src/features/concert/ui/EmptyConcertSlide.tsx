@@ -16,7 +16,7 @@ function EmptyConcertSlide({ filter }: EmptyConcertSlideProps) {
   return (
     <div className="flex flex-col items-center justify-center mt-90 mb-90">
       <img src={EmptyIcon} className="w-50 h-40" />
-      <p className="text-grayScaleBlack80 text-body-md font-medium font-NotoSansKR text-center mt-16 mb-0">
+      <p className="text-grayScaleBlack80 text-Body2-md font-medium font-NotoSansKR text-center mt-16 mb-0">
         {filterText}
         <br />
         없어요

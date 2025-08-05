@@ -25,7 +25,7 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
 
   return (
     <div className="mx-16 mt-30 pb-30">
-      <p className="text-grayScaleWhite text-body-lg font-semibold font-NotoSansKR">
+      <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
         {setlistType === SetlistType.EXPECTED ? "예상" : "대표"} 셋리스트 목록
       </p>
       {songs?.length === 0 ? (

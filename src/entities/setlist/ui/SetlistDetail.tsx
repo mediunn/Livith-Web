@@ -43,19 +43,19 @@ function SetlistDetail({
       <div className="absolute bottom-36 left-18 w-full pr-36">
         {setlist?.status && (
           <div className="bg-grayScaleBlack90 rounded-24 px-13 py-7 w-fit">
-            <p className="text-grayScaleBlack30 text-caption-lg font-semibold font-NotoSansKR">
+            <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR">
               {setlist?.status}
             </p>
           </div>
         )}
-        <p className="pt-6 text-grayScaleWhite text-head-lg font-semibold font-NotoSansKR break-words whitespace-normal max-w-[57%]">
+        <p className="pt-6 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR break-words whitespace-normal max-w-[57%]">
           {setlist?.title}
         </p>
 
-        <p className="pt-6 text-grayScaleBlack30 text-body-lgs font-regular font-NotoSansKR">
+        <p className="pt-6 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
           {formatSetlistDate(setlist?.startDate!, setlist?.endDate!)}
         </p>
-        <p className="mt-2 text-grayScaleWhite text-caption-sm font-regular font-NotoSansKR break-words whitespace-normal max-w-[57%]">
+        <p className="mt-2 text-grayScaleWhite text-Caption1-re font-regular font-NotoSansKR break-words whitespace-normal max-w-[57%]">
           {setlist?.artist}
         </p>
       </div>
