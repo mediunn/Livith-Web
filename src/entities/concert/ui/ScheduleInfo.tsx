@@ -55,7 +55,7 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
           return (
             <div
               key={schedule.id}
-              className={`flex items-center justify-between pl-15 pr-16 w-full h-64 bg-grayScaleBlack90 rounded-8 border border-solid border-grayScaleBlack80 ${
+              className={`flex items-center justify-between pl-15 pr-16 w-full h-64 bg-grayScaleBlack90 rounded-8 ${
                 isPast ? "opacity-30" : ""
               }`}
             >

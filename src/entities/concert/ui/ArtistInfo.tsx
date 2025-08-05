@@ -35,7 +35,7 @@ function ArtistInfo({
         </div>
 
         <div>
-          <div className="bg-grayScaleBlack90 rounded-8 border border-grayScaleBlack80">
+          <div className="bg-grayScaleBlack90 rounded-8">
             <div className="relative w-full h-141">
               <img
                 src={imgUrl}
