@@ -151,7 +151,7 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
     <Tabs value={selectedTab} className="pt-16">
       <TabsHeader
         {...({} as any)}
-        className="h-57 mx-16 px-7 py-6 items-center bg-grayScaleBlack90 border-b border-grayScaleBlack80 rounded-12"
+        className="h-57 mx-16 px-7 py-6 items-center bg-grayScaleBlack90 border border-grayScaleBlack80 rounded-12"
         indicatorProps={{
           className: "bg-mainYellow30 shadow-none rounded-12",
         }}
