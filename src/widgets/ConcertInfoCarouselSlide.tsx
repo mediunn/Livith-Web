@@ -24,7 +24,7 @@ function ConcertInfoCarouselSlide({
       <div className="h-365 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-50"></div>
       <img
         src={imageUrl}
-        alt={content}
+        alt=" "
         className="w-full h-full object-cover rounded-8"
       />
       <button className="absolute top-26 left-26 w-30 h-30 w-30 bg-transparent border-none cursor-pointer">
