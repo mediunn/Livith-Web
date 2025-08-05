@@ -41,7 +41,7 @@ export function InfiniteConcertList({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-x-10 gap-y-24 mx-16 pb-24">
+    <div className="py-18 mx-16 grid grid-cols-3 gap-x-10 gap-y-24">
       {concerts?.map((concert) => (
         <div key={concert.id}>
           <ConcertCard
