@@ -49,8 +49,8 @@ function ConcertSlideCard({
           />
         )}
 
-        <div className="absolute top-10 left-10 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24 px-13">
-          <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR">
+        <div className="absolute top-10 left-10 px-13 py-8 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24">
+          <p className="text-grayScaleBlack30 text-Caption1-Bold font-bold font-NotoSansKR">
             {filterText}
           </p>
         </div>

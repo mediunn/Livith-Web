@@ -77,10 +77,10 @@ export function SelectableInfiniteConcertList({
                   />
                 )}
                 <div
-                  className={`absolute top-10 left-10 inline-flex items-center justify-center h-32 rounded-24 px-13 ${isSelected ? "bg-mainYellow30" : "bg-grayScaleBlack90 "}`}
+                  className={`absolute top-10 left-10 px-13 py-8 inline-flex items-center justify-center h-32 rounded-24 ${isSelected ? "bg-mainYellow30" : "bg-grayScaleBlack90 "}`}
                 >
                   <p
-                    className={`text-Caption1-sm font-semibold font-NotoSansKR ${
+                    className={`text-Caption1-Bold font-bold font-NotoSansKR ${
                       isSelected
                         ? "text-grayScaleBlack100"
                         : "text-grayScaleBlack30"
