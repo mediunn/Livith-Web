@@ -41,11 +41,11 @@ function ConcertCard({
       <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2">
         {title}
       </p>
-      <p className="text-grayScaleBlack30 text-Body4-sm font-regular font-NotoSansKR mt-10 line-clamp-1">
+      <p className="text-grayScaleBlack50 text-Caption1-sm font-semibold font-NotoSansKR mt-10 line-clamp-1">
         {date}
       </p>
       {artist && (
-        <p className="text-grayScaleBlack30 text-Body4-sm font-regular font-NotoSansKR mt-4 mb-2 line-clamp-1">
+        <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR mt-4 mb-2 line-clamp-1">
           {artist}
         </p>
       )}

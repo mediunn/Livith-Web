@@ -58,7 +58,7 @@ function ConcertSlideCard({
       <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 mb-0 line-clamp-2">
         {title}
       </p>
-      <p className="text-grayScaleBlack30 text-Body4-sm font-regular font-NotoSansKR mt-6 mb-0 line-clamp-1">
+      <p className="text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR mt-6 mb-0 line-clamp-1">
         {date}
       </p>
     </div>
