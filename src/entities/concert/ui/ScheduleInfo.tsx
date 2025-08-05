@@ -60,14 +60,14 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
               }`}
             >
               <div className="flex items-center">
-                <div className="h-30 px-13 py-8 bg-mainYellow30 rounded-24 text-grayScaleBlack100 text-Caption1-sm font-semibold font-NotoSansKR">
+                <div className="h-30 px-13 py-8 bg-mainYellow30 rounded-24 text-grayScaleBlack100 text-Caption1-Bold font-bold font-NotoSansKR">
                   {dday}
                 </div>
-                <p className="pl-8 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
+                <p className="pl-8 text-grayScaleBlack30 text-Body3-md font-medium font-NotoSansKR">
                   {content}
                 </p>
               </div>
-              <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR">
+              <p className="text-grayScaleBlack30 text-Body3-md font-medium font-NotoSansKR">
                 {date}
               </p>
             </div>
