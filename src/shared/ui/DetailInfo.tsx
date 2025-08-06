@@ -25,7 +25,14 @@ function DetailInfo({
     <div className="w-full h-337 relative ">
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {imageUrl ? (
-        <img src={imageUrl} alt=" " className="w-full h-full object-cover" />
+        <img
+          src={imageUrl}
+          alt=" "
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            e.currentTarget.src = EmptyConcertImageIcon;
+          }}
+        />
       ) : (
         <img
           src={EmptyConcertImageIcon}
