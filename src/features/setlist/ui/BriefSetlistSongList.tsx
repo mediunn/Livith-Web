@@ -15,6 +15,7 @@ function BriefSetlistSongList({
   concertId,
 }: BriefSetlistSongListProps) {
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
+
   const navigate = useNavigate();
   if (isLoading) {
     return <div>Loading...</div>;
