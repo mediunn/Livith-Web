@@ -55,7 +55,7 @@ module.exports = withMT({
           "10px",
           { lineHeight: "1.2", letterSpacing: "-0.05em" },
         ],
-        " Caption2-re": [
+        "Caption2-re": [
           "10px",
           { lineHeight: "1.2", letterSpacing: "-0.05em" },
         ],
