@@ -2,25 +2,42 @@ type MainImageCarouselSlideProps = {
   category: string;
   title: string;
   imageUrl: string;
+  content: string;
 };
 
 function MainImageCarouselSlide({
   category,
   title,
   imageUrl,
+  content,
 }: MainImageCarouselSlideProps) {
   return (
     <div className="relative w-full h-365">
-      <div className="h-365 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-50"></div>
+      {/* 배경 */}
       <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
-      <div className="absolute top-214 left-16 inline-flex items-center justify-cente px-13 py-8 rounded-24 bg-grayScaleBlack90">
-        <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR mz-0">
-          {category}
-        </p>
+      <div className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-100"></div>
+
+      <div className="absolute bottom-30 left-0 p-16 w-full flex flex-col gap-8">
+        <div className="inline-flex items-center justify-center px-13 py-4 rounded-24 bg-grayScaleBlack90 w-fit">
+          <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR m-0">
+            {category}
+          </p>
+        </div>
+
+        <p
+          className="text-grayScaleWhite text-Title font-bold font-NotoSansKR m-0"
+          dangerouslySetInnerHTML={{
+            __html: title.replace(/\n/g, "<br />"),
+          }}
+        />
+
+        <p
+          className="text-grayScaleBlack50 text-Body3-md font-medium font-NotoSansKR m-0"
+          dangerouslySetInnerHTML={{
+            __html: content.replace(/\n/g, "<br />"),
+          }}
+        />
       </div>
-      <p className="absolute top-257 left-19 text-grayScaleWhite text-Title font-bold font-NotoSansKR m-0">
-        {title}
-      </p>
     </div>
   );
 }

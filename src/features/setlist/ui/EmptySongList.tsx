@@ -9,7 +9,7 @@ function EmptySongList() {
         className="object-cover ml-5 rounded-6"
       />
       <p className="text-center text-grayScaleBlack80 text-Body2-md font-medium font-NotoSansKR">
-        셋리스트가 곧 <br /> 채워질 예정이에요
+        노래가 곧 <br /> 채워질 예정이에요
       </p>
     </div>
   );

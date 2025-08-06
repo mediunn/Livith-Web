@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Setlist } from "../api/getSetlistInfo";
 import SetListCard from "../../../entities/setlist/ui/SetListCard";
 import formatDate from "../../../features/setlist/utils/formatDate";
-
+import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
 interface SetlistTabPanelProps {
   setlist: Setlist[] | null;
   concertId: number;
@@ -35,10 +35,17 @@ function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
                   <img
                     src={setlistItem.imgUrl}
                     alt="이미지"
-                    className="w-full h-full rounded-6 object-cover"
+                    className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+                    onError={(e) => {
+                      e.currentTarget.src = EmptyConcertCardIcon;
+                    }}
                   />
                 ) : (
-                  <div className="w-full bg-grayScaleBlack80 rounded-6" />
+                  <img
+                    src={EmptyConcertCardIcon}
+                    alt="empty"
+                    className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+                  />
                 )}
                 {setlistItem.status && (
                   <div className="absolute top-10 left-10 inline-flex items-center justify-center h-30 bg-grayScaleBlack90 rounded-24 px-13 ">

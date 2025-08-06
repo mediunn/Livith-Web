@@ -1,5 +1,6 @@
 import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
 import { ConcertStatus } from "../types";
+import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
 
 type ConcertCardProps = {
   title: string;
@@ -27,10 +28,17 @@ function ConcertCard({
           <img
             src={imageUrl}
             alt="콘서트 이미지"
-            className="w-full h-full rounded-6 object-cover"
+            className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+            onError={(e) => {
+              e.currentTarget.src = EmptyConcertCardIcon;
+            }}
           />
         ) : (
-          <div className="w-full bg-grayScaleBlack80 rounded-6" />
+          <img
+            src={EmptyConcertCardIcon}
+            alt="empty"
+            className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+          />
         )}
         <div className="absolute top-10 left-10 px-13 py-8 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24">
           <p className="text-grayScaleBlack30 text-Caption1-Bold font-bold font-NotoSansKR">

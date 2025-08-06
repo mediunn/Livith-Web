@@ -15,6 +15,7 @@ function BriefSetlistSongList({
   concertId,
 }: BriefSetlistSongListProps) {
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
+
   const navigate = useNavigate();
   if (isLoading) {
     return <div>Loading...</div>;
@@ -26,7 +27,7 @@ function BriefSetlistSongList({
   return songs?.length === 0 ? (
     <EmptySongList />
   ) : (
-    <div className="mt-20 pt-20 space-y-10 bg-grayScaleBlack90 rounded-10 border border-grayScaleBlack80 flex flex-col items-center">
+    <div className="mt-20 pt-20 space-y-10 bg-grayScaleBlack90 rounded-10 flex flex-col items-center">
       <div className="px-20 w-full">
         {songs?.slice(0, 3)?.map((song) => (
           <SetlistSongItem
@@ -36,10 +37,11 @@ function BriefSetlistSongList({
             artist={song.artist}
             orderIndex={song.orderIndex}
             setlistId={setlistId}
+            breif={true}
           />
         ))}
       </div>
-      <img src={MoreIcon} alt="More Icon" />
+      {/* <img src={MoreIcon} alt="More Icon" /> */}
       <div
         onClick={() => {
           navigate(`/setlist/${setlistId}/${concertId}`);

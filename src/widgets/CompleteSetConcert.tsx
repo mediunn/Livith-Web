@@ -56,7 +56,7 @@ function CompleteSetConcert() {
               maskSize: "cover",
             }}
           />
-          <div className="absolute top-[70%] w-full left-1/2 -translate-x-1/2 text-center text-white z-30 text-Head1-sm text-white font-semiBold font-NotoSansKR">
+          <div className="absolute top-[70%] w-full left-1/2 -translate-x-1/2 text-center text-white z-30 text-Head1-sm text-white font-semibold font-NotoSansKR">
             <span className="text-mainYellow30">[{concert!.artist}]</span>{" "}
             콘서트가
             <br />
@@ -69,7 +69,7 @@ function CompleteSetConcert() {
         {/* 버튼 */}
         <button
           onClick={() => navigate("/")}
-          className="w-full py-15 rounded-6 text-Body2-md text-grayScaleBlack font-medium bg-mainYellow30 font-NotoSansKR"
+          className="w-full py-15 rounded-6 text-Body2-sm text-grayScaleBlack font-semibold bg-mainYellow30 font-NotoSansKR"
         >
           확인
         </button>
