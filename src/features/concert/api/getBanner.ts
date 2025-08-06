@@ -6,6 +6,7 @@ type Banner = {
   title: string;
   category: string;
   imgUrl: string;
+  content: string;
 };
 
 export async function getBanner(): Promise<Banner[]> {

@@ -13,6 +13,7 @@ type BannerProps = {
   title: string;
   category: string;
   imgUrl: string;
+  content: string;
 };
 
 function MainImageCarousel() {
@@ -88,6 +89,7 @@ function MainImageCarousel() {
             category={slide.category}
             title={slide.title}
             imageUrl={slide.imgUrl}
+            content={slide.content}
           />
         ))}
       </Slider>
