@@ -7,7 +7,7 @@ export enum ConcertFilter {
 export enum ConcertStatus {
   ONGOING = "ONGOING",
   UPCOMING = "UPCOMING",
-  PAST = "PAST",
+  COMPLETED = "COMPLETED",
 }
 
 export type Concert = {
