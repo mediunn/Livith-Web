@@ -9,7 +9,7 @@ export const setConcertStatus = ({
 }) => {
   if (status === ConcertStatus.ONGOING) {
     return "진행중";
-  } else if (status === ConcertStatus.PAST) {
+  } else if (status === ConcertStatus.COMPLETED) {
     return "종료";
   } else if (daysLeft === 0) {
     return "D-Day";
