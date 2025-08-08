@@ -118,7 +118,7 @@ function ConcertSlide({ filter, concerts }: ConcertSlideProps) {
               imageUrl={concert.poster}
               title={concert.title}
               date={formatConcertDate(concert.startDate, concert.endDate)}
-              filter={filter}
+              status={concert.status}
               daysLeft={concert.daysLeft}
               onClick={() =>
                 navigate(`/concert/${concert.id}`, { state: { status } })
