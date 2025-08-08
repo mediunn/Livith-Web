@@ -1,4 +1,5 @@
 import ConcertInfoCarouselArrow from "../shared/assets/ConcertInfoCarouselArrow.svg";
+import EmptyConcertInfoIcon from "../shared/assets/EmptyConcertInfoIcon.svg";
 
 type MainImageCarouselSlideProps = {
   category: string;
@@ -22,11 +23,23 @@ function ConcertInfoCarouselSlide({
   return (
     <div className="relative w-full h-274 rounded-8" onClick={handleClick}>
       <div className="h-365 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-50"></div>
-      <img
-        src={imageUrl}
-        alt=" "
-        className="w-full h-full object-cover rounded-8"
-      />
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt=" "
+          className="w-full h-full object-cover rounded-8"
+          onError={(e) => {
+            e.currentTarget.src = EmptyConcertInfoIcon;
+          }}
+        />
+      ) : (
+        <img
+          src={EmptyConcertInfoIcon}
+          alt="empty"
+          className="w-full h-full object-cover rounded-8"
+        />
+      )}
+
       <button className="absolute top-26 left-26 w-30 h-30 w-30 bg-transparent border-none cursor-pointer">
         <img
           src={ConcertInfoCarouselArrow}
