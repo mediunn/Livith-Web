@@ -1,5 +1,6 @@
 import InstagramIcon from "../../../shared/assets/InstagramIcon.svg";
 import { formatBirthDate } from "../utils/formatBirthDate";
+import EmptyArtistImageIcon from "../../../shared/assets/EmptyArtistImageIcon.svg";
 
 interface ArtistInfoProps {
   concertId: number;
@@ -36,12 +37,17 @@ function ArtistInfo({
 
         <div>
           <div className="bg-grayScaleBlack90 rounded-8">
-            <div className="relative w-full h-141">
-              <img
-                src={imgUrl}
-                className="w-full h-full object-cover rounded-t-8"
-              ></img>
-            </div>
+            {imgUrl && (
+              <div className="relative w-full h-141">
+                <img
+                  src={imgUrl}
+                  className="w-full h-full object-cover rounded-t-8"
+                  onError={(e) => {
+                    e.currentTarget.src = EmptyArtistImageIcon;
+                  }}
+                ></img>
+              </div>
+            )}
 
             <div className="px-16 py-16 ">
               <div className="relative">
