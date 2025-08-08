@@ -34,7 +34,7 @@ function ConcertInsidePage() {
   if (!concert) return null;
 
   return (
-    <div>
+    <div className="pb-90">
       <ListHeader title={"공연 상세정보"} />
       <ConcertInsideInfo concert={concert}></ConcertInsideInfo>
       <ConcertInfoTab
