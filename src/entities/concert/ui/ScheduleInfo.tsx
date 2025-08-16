@@ -45,14 +45,14 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
               }`}
             >
               <div className="flex items-center">
-                <div className="h-30 px-13 py-8 bg-mainYellow30 rounded-24 text-grayScaleBlack100 text-Caption1-Bold font-bold font-NotoSansKR">
+                <div className="h-30 px-13 py-8 bg-mainYellow30 rounded-24 text-grayScaleBlack100 text-Caption1-Bold font-bold font-NotoSansKR shrink-0">
                   {dday}
                 </div>
                 <p className="pl-8 text-grayScaleBlack30 text-Body3-md font-medium font-NotoSansKR">
                   {schedule.category}
                 </p>
               </div>
-              <p className="text-grayScaleBlack30 text-Body3-md font-medium font-NotoSansKR">
+              <p className="text-grayScaleBlack30 text-Body3-md font-medium font-NotoSansKR shrink-0">
                 {date}
               </p>
             </div>
