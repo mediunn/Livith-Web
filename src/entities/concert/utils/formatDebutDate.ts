@@ -1,7 +1,7 @@
-export const formatDebutDate = (DebutDate: string): string => {
-  if (!DebutDate) return "";
+export const formatDebutDate = (debutDate: string): string => {
+  if (!debutDate) return "";
 
-  const parts = DebutDate.split("-").map((p) => {
+  const parts = debutDate.split("-").map((p) => {
     if (!p) return "";
     // 소수점이 있으면 제거하고 정수로 변환
     return String(Math.floor(Number(p)));

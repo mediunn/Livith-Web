@@ -4,8 +4,8 @@ import axiosInstance from "../../../shared/api/axiosInstance";
 export type Artist = {
   id: number;
   artist: string;
-  DebutDate: string;
-  DebutPlace: string;
+  debutDate: string;
+  debutPlace: string;
   category: string;
   detail: string;
   instagramUrl: string;

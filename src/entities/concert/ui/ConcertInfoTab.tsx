@@ -216,8 +216,8 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
             <ArtistTabPanel
               concertId={concertId}
               artist={artist?.artist || ""}
-              DebutDate={artist?.DebutDate || ""}
-              DebutPlace={artist?.DebutPlace || ""}
+              debutDate={artist?.debutDate || ""}
+              debutPlace={artist?.debutPlace || ""}
               category={artist?.category || ""}
               detail={artist?.detail || ""}
               instagramUrl={artist?.instagramUrl || ""}

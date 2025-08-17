@@ -5,8 +5,8 @@ import EmptyArtistImageIcon from "../../../shared/assets/EmptyArtistImageIcon.sv
 interface ArtistInfoProps {
   concertId: number;
   artist: string;
-  DebutDate: string;
-  DebutPlace: string;
+  debutDate: string;
+  debutPlace: string;
   category: string;
   detail: string;
   instagramUrl: string;
@@ -16,8 +16,8 @@ interface ArtistInfoProps {
 
 function ArtistInfo({
   artist,
-  DebutDate,
-  DebutPlace,
+  debutDate,
+  debutPlace,
   category,
   detail,
   instagramUrl,
@@ -82,14 +82,14 @@ function ArtistInfo({
                 <p className="pt-12 text-grayScaleBlack30 text-Body4-md font-medium font-NotoSansKR">
                   {detail}
                 </p>
-                {(DebutDate || DebutPlace) && (
+                {(debutDate || debutPlace) && (
                   <div className="flex pt-20">
                     <p className="w-37 text-grayScaleBlack30 text-Body4-md font-medium font-NotoSansKR">
                       데뷔
                     </p>
                     <p className="text-grayScaleBlack50 text-Body4-md font-medium font-NotoSansKR">
-                      {DebutDate ? formatDebutDate(DebutDate) : ""}
-                      {DebutDate && DebutPlace ? ", " : ""} {DebutPlace}
+                      {debutDate ? formatDebutDate(debutDate) : ""}
+                      {debutDate && debutPlace ? ", " : ""} {debutPlace}
                     </p>
                   </div>
                 )}
