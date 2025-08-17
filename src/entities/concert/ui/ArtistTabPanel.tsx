@@ -5,8 +5,8 @@ import FanCultureInfo from "./FanCultureInfo";
 interface ArtistTabPanelProps {
   concertId: number;
   artist: string;
-  birthDate: string;
-  birthPlace: string;
+  debutDate: string;
+  debutPlace: string;
   category: string;
   detail: string;
   instagramUrl: string;
@@ -18,8 +18,8 @@ interface ArtistTabPanelProps {
 function ArtistTabPanel({
   concertId,
   artist,
-  birthDate,
-  birthPlace,
+  debutDate,
+  debutPlace,
   category,
   detail,
   instagramUrl,
@@ -33,8 +33,8 @@ function ArtistTabPanel({
         <ArtistInfo
           concertId={concertId}
           artist={artist}
-          birthDate={birthDate}
-          birthPlace={birthPlace}
+          debutDate={debutDate}
+          debutPlace={debutPlace}
           category={category}
           detail={detail}
           instagramUrl={instagramUrl}
