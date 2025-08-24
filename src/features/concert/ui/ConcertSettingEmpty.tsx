@@ -5,60 +5,34 @@ import HelpModal from "../../../shared/ui/HelpModal";
 import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
 
 function ConcertSettingEmpty() {
-  const [isHelpPopupOpen, setIsHelpPopupOpen] = useState(false);
-
   const navigate = useNavigate();
-
-  const toggleHelpPopup = () => {
-    setIsHelpPopupOpen((prev) => !prev);
-  };
 
   const goToSetInterestConcertPage = () => {
     navigate("/set-concert");
   };
 
   return (
-    <div className="pt-24">
-      <div className="flex justify-between">
-        <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR ml-16">
-          관심있는 콘서트를
+    <div className="flex justify-between items-end bg-grayScaleBlack90 rounded-bl-20 px-16 pt-24 pb-30">
+      <div>
+        <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
+          반가워요!
           <br />
-          설정해 주세요
+          기다리는
+          <br />
+          콘서트가 있나요?
         </p>
-        <button
-          className="w-24 h-24 mt-7 mr-16 p-0 bg-transparent border-none cursor-pointer"
-          onClick={toggleHelpPopup}
-        >
-          <img src={HelpIcon} alt="help" className="w-full h-full" />
-        </button>
       </div>
       <button
-        className="w-full aspect-[343/167] mt-24 pl-16 pr-16 p-0 bg-transparent border-none cursor-pointer"
+        className="w-148 h-136 bg-grayScaleBlack80 rounded-10 border-none cursor-pointer"
         onClick={goToSetInterestConcertPage}
       >
-        <img src={ConcertAddIcon} alt="concert add" className="w-full h-full" />
+        <div className="flex flex-col items-center">
+          <img src={ConcertAddIcon} alt="concert add" className="w-40 h-40" />
+          <p className="mt-2 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
+            관심 콘서트 설정
+          </p>
+        </div>
       </button>
-
-      {isHelpPopupOpen && (
-        <HelpModal onClose={() => setIsHelpPopupOpen(false)}>
-          <div className="pt-19 pl-24">
-            <p className="pb-16 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
-              설정 시 콘서트 정보를 홈에서
-              <br />한 눈에 제공해줘요.
-            </p>
-            <p className="pb-16 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
-              현재는 메인 콘서트
-              <br />
-              하나만 설정 가능해요.
-            </p>
-            <p className="text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
-              콘서트 당일 이후에는
-              <br />
-              다시 초기화 돼요!
-            </p>
-          </div>
-        </HelpModal>
-      )}
     </div>
   );
 }
