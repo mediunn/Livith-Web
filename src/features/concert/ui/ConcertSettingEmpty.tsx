@@ -1,8 +1,6 @@
 import Lottie from "lottie-react";
 import ConcertAddMotion from "../../../shared/assets/ConcertAddIconMotion.json";
 import { useNavigate } from "react-router-dom";
-import HelpIcon from "../../../shared/assets/HelpIcon.svg";
-import HelpModal from "../../../shared/ui/HelpModal";
 
 function ConcertSettingEmpty() {
   const navigate = useNavigate();
