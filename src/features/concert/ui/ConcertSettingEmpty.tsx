@@ -1,8 +1,8 @@
-import { useState } from "react";
+import Lottie from "lottie-react";
+import ConcertAddMotion from "../../../shared/assets/ConcertAddIconMotion.json";
 import { useNavigate } from "react-router-dom";
 import HelpIcon from "../../../shared/assets/HelpIcon.svg";
 import HelpModal from "../../../shared/ui/HelpModal";
-import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
 
 function ConcertSettingEmpty() {
   const navigate = useNavigate();
@@ -27,7 +27,11 @@ function ConcertSettingEmpty() {
         onClick={goToSetInterestConcertPage}
       >
         <div className="flex flex-col items-center">
-          <img src={ConcertAddIcon} alt="concert add" className="w-40 h-40" />
+          <Lottie
+            animationData={ConcertAddMotion}
+            loop={true}
+            className="w-40 h-40"
+          />
           <p className="mt-2 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
             관심 콘서트 설정
           </p>
