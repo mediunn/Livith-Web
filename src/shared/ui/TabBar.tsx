@@ -66,7 +66,7 @@ function TabBar() {
           <p
             className={`${getTextColor("category")} text-Caption2-sm font-semibold font-NotoSansKR`}
           >
-            카테고리
+            탐색
           </p>
         </div>
         <div className="flex flex-col items-center mr-58 ">
