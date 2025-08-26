@@ -16,7 +16,7 @@ export async function getConcertList({
   cursor,
   size,
 }: GetConcertListParams): Promise<ApiResponse<ConcertListResponse>> {
-  const response = await axiosInstance.get("/api/v2/concerts", {
+  const response = await axiosInstance.get("/api/v3/concerts", {
     params: {
       filter,
       cursor,

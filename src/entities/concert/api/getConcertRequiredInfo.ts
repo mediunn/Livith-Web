@@ -12,7 +12,7 @@ export async function getConcertRequiredInfo(
   id: number
 ): Promise<ConcertRequired[]> {
   const response = await axiosInstance.get<ApiResponse<ConcertRequired[]>>(
-    `/api/v2/concerts/${id}/info`
+    `/api/v3/concerts/${id}/info`
   );
   return response.data.data;
 }
