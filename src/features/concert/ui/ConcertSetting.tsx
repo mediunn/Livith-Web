@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../../../shared/ui/TopBar";
+import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
+import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import ConcertTicketArrowIcon from "../../../shared/assets/ConcertTicketArrowIcon.svg";
 import WebSiteEarthIcon from "../../../shared/assets/WebSiteEarthIcon.svg";
 import WebSiteArrowIcon from "../../../shared/assets/WebSiteArrowIcon.svg";
@@ -47,11 +49,11 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
 
   return (
     <>
-      <TopBar />
+      <TopBar bgColor="bg-grayScaleBlack100" />
       <div>
         <div className="pt-24 pb-18 flex justify-between items-center">
           <p className="ml-27 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
-            내가 관심있는 콘서트 👀
+            나의 관심 콘서트
           </p>
           <div>
             <button
@@ -98,7 +100,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                 }}
               />
 
-              <div className="absolute bottom-26 left-19">
+              <div className="absolute bottom-24 left-19 mr-16">
                 {nearestSchedule && (
                   <>
                     <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
@@ -115,27 +117,25 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                     </p>
                   </>
                 )}
+                <div className="pt-14 flex items-center">
+                  <img src={ConcertDateIcon} alt="" className="w-24 h-24" />
+                  <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+                    {formatConcertDate(concert.startDate, concert.endDate)}
+                  </p>
+                </div>
 
-                <div className="pt-18 w-270 border-b border-dashed border-grayScaleBlack50 opacity-50" />
+                <div className="pt-2 flex items-center">
+                  <img src={ConcertVenueIcon} alt="" className="w-24 h-24" />
+                  <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+                    {concert.venue}
+                  </p>
+                </div>
 
-                <p className="pt-18 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
-                  {formatConcertDate(concert.startDate, concert.endDate)}
-                </p>
-                <p className="pt-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
-                  {concert.venue}
+                <div className="pt-16 w-270 border-b border-dashed border-grayScaleBlack50 opacity-50" />
+                <p className="pt-24 text-grayScaleBlack50 text-Body3-md font-medium font-NotoSansKR">
+                  {concert.title}
                 </p>
               </div>
-
-              <button
-                className="absolute bottom-26 right-16 w-46 h-46 bg-transparent border-none cursor-pointer"
-                onClick={() => navigate(`/concert/${concert.id}`)}
-              >
-                <img
-                  src={ConcertTicketArrowIcon}
-                  alt="concert ticket arrow"
-                  className="w-full h-full"
-                />
-              </button>
             </div>
 
             <a
