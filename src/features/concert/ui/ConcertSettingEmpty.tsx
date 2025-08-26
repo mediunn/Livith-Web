@@ -1,4 +1,5 @@
 import Lottie from "lottie-react";
+import TopBar from "../../../shared/ui/TopBar";
 import ConcertAddMotion from "../../../shared/assets/ConcertAddIconMotion.json";
 import { useNavigate } from "react-router-dom";
 import PopularConcert from "../../../widgets/PopularConcert";
@@ -12,6 +13,7 @@ function ConcertSettingEmpty() {
 
   return (
     <>
+      <TopBar bgColor="bg-grayScaleBlack90" />
       <div className="flex justify-between items-end bg-grayScaleBlack90 rounded-bl-20 px-16 pt-24 pb-30">
         <div>
           <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
