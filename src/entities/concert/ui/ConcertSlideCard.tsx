@@ -5,6 +5,7 @@ import { setConcertStatus } from "../../../features/search/utils/setConcertStatu
 type ConcertSlideCardProps = {
   imageUrl?: string;
   title: string;
+  artist?: string;
   date: string;
   status: ConcertStatus;
   daysLeft: number;
@@ -14,14 +15,15 @@ type ConcertSlideCardProps = {
 function ConcertSlideCard({
   imageUrl,
   title,
+  artist,
   date,
   status,
   daysLeft,
   onClick,
 }: ConcertSlideCardProps) {
   return (
-    <div className="w-139 h-280 cursor-pointer" onClick={onClick}>
-      <div className="w-139 h-196 relative">
+    <div className="w-108 h-262 cursor-pointer" onClick={onClick}>
+      <div className="w-108 h-158 relative">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -45,9 +47,14 @@ function ConcertSlideCard({
       <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 mb-0 line-clamp-2">
         {title}
       </p>
-      <p className="text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR mt-6 mb-0 line-clamp-1">
+      <p className="text-grayScaleBlack50 text-Caption1-sm font-semibold font-NotoSansKR mt-10 line-clamp-1">
         {date}
       </p>
+      {artist && (
+        <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR mt-4 line-clamp-1">
+          {artist}
+        </p>
+      )}
     </div>
   );
 }
