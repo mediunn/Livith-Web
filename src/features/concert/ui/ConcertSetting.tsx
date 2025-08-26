@@ -70,6 +70,22 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
         </div>
 
         <div className="w-full flex justify-center bg-grayScaleBlack90 ">
+          <button
+            className="absolute top-157 right-0 z-10 mt-16 mr-39 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
+            onClick={() => navigate(`/concert/${concert.id}`)}
+          >
+            <div className="px-10 py-8 flex items-center">
+              <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
+                더 많은 정보 확인하기
+              </p>
+              <img
+                src={ConcertTicketArrowIcon}
+                alt="concert ticket arrow"
+                className="w-24 h-24"
+              />
+            </div>
+          </button>
+
           <div className=" w-full mx-24 mb-24">
             <div className="relative w-full aspect-[3/4] mt-24">
               {/* 배경 이미지 + 마스크 */}
