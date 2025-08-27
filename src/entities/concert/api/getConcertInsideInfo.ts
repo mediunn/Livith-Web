@@ -4,7 +4,7 @@ import { Concert } from "../types/index"; // index.ts에서 export된 타입 사
 
 export async function getConcertInsideInfo(id: number): Promise<Concert> {
   const response = await axiosInstance.get<ApiResponse<Concert>>(
-    `/api/v2/concerts/${id}`
+    `/api/v3/concerts/${id}`
   );
   return response.data.data;
 }

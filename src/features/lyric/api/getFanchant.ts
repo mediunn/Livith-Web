@@ -13,7 +13,7 @@ export async function getFanchant(
   songId: number
 ): Promise<Fanchant> {
   const response = await axiosInstance.get<ApiResponse<Fanchant>>(
-    `/api/v2/setlists/${setlistId}/songs/${songId}/fanchant`
+    `/api/v3/setlists/${setlistId}/songs/${songId}/fanchant`
   );
   return response.data.data;
 }

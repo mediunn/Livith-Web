@@ -7,7 +7,7 @@ export async function getSetlistDetail({
   setlistId,
 }: SetlistDetailProps): Promise<ApiResponse<Setlist>> {
   const response = await axiosInstance.get(
-    `/api/v2/concerts/${concertId}/setlists/${setlistId}`
+    `/api/v3/concerts/${concertId}/setlists/${setlistId}`
   );
   return response.data;
 }

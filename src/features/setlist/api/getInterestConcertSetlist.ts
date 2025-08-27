@@ -8,7 +8,7 @@ export async function getInterestConcertSetlist({
   concertId: number;
 }): Promise<ApiResponse<Setlist>> {
   const response = await axiosInstance.get(
-    `/api/v2/concerts/${concertId}/main-setlist`
+    `/api/v3/concerts/${concertId}/main-setlist`
   );
   return response.data;
 }

@@ -24,14 +24,14 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
 
   return (
     <div className="pl-16 pr-16">
-      <div className="pt-24 pb-20">
+      <div className="pt-24 pb-8">
         <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
-          다가온 콘서트 일정을
+          날짜와 시간을
           <br />
-          확인해 보세요
+          잊지 말고 확인해요
         </p>
       </div>
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col">
         {sortedSchedules.map((schedule) => {
           const isPast = dayjs(schedule.scheduledAt).isBefore(dayjs(), "day");
           const dday = getFormatDday(schedule.scheduledAt);
@@ -40,7 +40,7 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
           return (
             <div
               key={schedule.id}
-              className={`flex items-center justify-between pl-15 pr-16 w-full h-64 bg-grayScaleBlack90 rounded-8 ${
+              className={`flex items-center justify-between w-full h-64  ${
                 isPast ? "opacity-30" : ""
               }`}
             >

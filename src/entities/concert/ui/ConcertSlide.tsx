@@ -113,10 +113,11 @@ function ConcertSlide({ filter, concerts }: ConcertSlideProps) {
         }}
       >
         {concerts.map((concert) => (
-          <SwiperSlide key={concert.id} style={{ width: 139 }}>
+          <SwiperSlide key={concert.id} style={{ width: 108 }}>
             <ConcertSlideCard
               imageUrl={concert.poster}
               title={concert.title}
+              artist={concert.artist}
               date={formatConcertDate(concert.startDate, concert.endDate)}
               status={concert.status}
               daysLeft={concert.daysLeft}
