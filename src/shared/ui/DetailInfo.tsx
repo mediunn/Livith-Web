@@ -1,6 +1,10 @@
 import WebSiteEarthIcon from "../../shared/assets/WebSiteEarthIcon.svg";
 import WebSiteArrowIcon from "../../shared/assets/WebSiteArrowIcon.svg";
 import EmptyConcertImageIcon from "../../shared/assets/EmptyConcertImageIcon.svg";
+import ConcertDateIcon from "../../shared/assets/ConcertDateIcon.svg";
+import ConcertVenueIcon from "../../shared/assets/ConcertVenueIcon.svg";
+import HotConcertChipIcon from "../../shared/assets/HotConcertChipIcon.svg";
+import ConcertAddIcon from "../../shared/assets/ConcertAddIcon.svg";
 
 interface DetailInfoProps {
   imageUrl: string;
@@ -22,7 +26,20 @@ function DetailInfo({
   ticketUrl,
 }: DetailInfoProps) {
   return (
-    <div className="w-full h-337 relative ">
+    <div className="w-full h-337 relative">
+      <button className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer">
+        <div className="px-10 py-8 flex items-center">
+          <img
+            src={ConcertAddIcon}
+            alt="concert ticket arrow"
+            className="w-24 h-24"
+          />
+          <p className="pl-4 text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
+            관심 콘서트 설정하기
+          </p>
+        </div>
+      </button>
+
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {imageUrl ? (
         <img
@@ -40,45 +57,33 @@ function DetailInfo({
           className="w-full h-full object-cover"
         />
       )}
-      <div className="absolute bottom-24 left-18 w-full pr-36">
-        <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR">
-          {artist}
-        </p>
-        <p className="pt-8 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
+      <div className="absolute bottom-28 left-16 w-full pr-32">
+        <div className="inline-flex items-center px-8 py-2 bg-lyricsTranslation rounded-24">
+          <img src={HotConcertChipIcon} alt="" className="w-24 h-24" />
+          <p className="text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
+            많이 찾는 콘서트 1위
+          </p>
+        </div>
+        <p className="pt-10 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
           {title}
         </p>
-
-        <div className="pt-18 w-full border-b border-dashed border-grayScaleBlack50" />
-
-        <p className="pt-18 text-grayScaleBlack30 text-Body1-sms font-regular font-NotoSansKR">
-          {date}
+        <p className="pt-10 text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
+          {artist}
         </p>
-        <p className="pt-4 text-grayScaleBlack30 text-Body1-sms font-regular font-NotoSansKR">
-          {venue}
-        </p>
-        <a
-          href={ticketSite ? ticketUrl : "#"}
-          target="_blank"
-          className={`w-full h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
-            ticketSite ? "bg-mainYellow30" : "bg-grayScaleBlack50"
-          }`}
-        >
-          <div className="flex items-center">
-            <img
-              src={WebSiteEarthIcon}
-              alt="web site earth"
-              className="w-18 h-18 mr-4"
-            />
-            <p>{ticketSite || "콘서트 관련 웹사이트가 없어요"}</p>
-          </div>
-          {ticketSite && (
-            <img
-              src={WebSiteArrowIcon}
-              alt="web site arrow"
-              className="w-8 h-8 ml-4"
-            />
-          )}
-        </a>
+
+        <div className="pt-10 flex items-center">
+          <img src={ConcertDateIcon} alt="" className="w-24 h-24" />
+          <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+            {date}
+          </p>
+        </div>
+
+        <div className="pt-4 flex items-center">
+          <img src={ConcertVenueIcon} alt="" className="w-24 h-24" />
+          <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+            {venue}
+          </p>
+        </div>
       </div>
     </div>
   );
