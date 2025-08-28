@@ -14,8 +14,7 @@ function ConcertInsideInfo({ concert }: ConcertInsideInfoProps) {
       title={concert.title}
       date={formatConcertDate(concert.startDate, concert.endDate)}
       venue={concert.venue}
-      ticketSite={concert.ticketSite}
-      ticketUrl={concert.ticketUrl}
+      label={concert.label}
     />
   );
 }

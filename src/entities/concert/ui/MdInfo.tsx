@@ -28,7 +28,7 @@ function MdInfo({ mds, concertId, mdCount, ticketUrl }: MdInfoProps) {
             </p>
           </div>
           <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
-            한 눈에 확인하세요
+            한 눈에 확인해요
           </p>
           {mds.length > 1 && (
             <button

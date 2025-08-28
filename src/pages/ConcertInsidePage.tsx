@@ -35,9 +35,10 @@ function ConcertInsidePage() {
 
   return (
     <div className="pb-90">
-      <ListHeader title={"공연 상세정보"} />
+      <ListHeader title={concert.title} />
       <ConcertInsideInfo concert={concert}></ConcertInsideInfo>
       <ConcertInfoTab
+        introduction={concert.introduction}
         concertId={Number(concertId)}
         ticketUrl={concert.ticketUrl}
       ></ConcertInfoTab>

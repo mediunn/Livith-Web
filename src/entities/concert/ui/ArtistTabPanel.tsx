@@ -1,12 +1,13 @@
 import { ConcertCulture } from "../api/getConcertCulture";
+import Intro from "./Intro";
 import ArtistInfo from "./ArtistInfo";
 import FanCultureInfo from "./FanCultureInfo";
 
 interface ArtistTabPanelProps {
+  introduction: string;
   concertId: number;
   artist: string;
   debutDate: string;
-  debutPlace: string;
   category: string;
   detail: string;
   instagramUrl: string;
@@ -16,10 +17,10 @@ interface ArtistTabPanelProps {
 }
 
 function ArtistTabPanel({
+  introduction,
   concertId,
   artist,
   debutDate,
-  debutPlace,
   category,
   detail,
   instagramUrl,
@@ -29,12 +30,12 @@ function ArtistTabPanel({
 }: ArtistTabPanelProps) {
   return (
     <>
+      <Intro introduction={introduction} />
       {artist && (
         <ArtistInfo
           concertId={concertId}
           artist={artist}
           debutDate={debutDate}
-          debutPlace={debutPlace}
           category={category}
           detail={detail}
           instagramUrl={instagramUrl}

@@ -218,7 +218,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
               }}
             >
               {schedules && schedules.length > 0 ? (
-                <ScheduleInfo schedules={schedules} />
+                <ScheduleInfo schedules={schedules} showReportButton={false} />
               ) : (
                 <EmptyConcertSchedulePanel />
               )}
