@@ -5,6 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="/Livith.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Livith</title>
+    <script src="https://cdn.amplitude.com/script/b75dd9f708fdd48cb387d684ebe29527.js"></script>
+    <script>
+      window.amplitude.add(window.sessionReplay.plugin({ sampleRate: 1 }));
+      window.amplitude.init("b75dd9f708fdd48cb387d684ebe29527", {
+        fetchRemoteConfig: true,
+        autocapture: true,
+      });
+    </script>
   </head>
   <!-- Google tag (gtag.js) -->
   <script
