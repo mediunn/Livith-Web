@@ -8,7 +8,6 @@ interface ArtistTabPanelProps {
   concertId: number;
   artist: string;
   debutDate: string;
-  debutPlace: string;
   category: string;
   detail: string;
   instagramUrl: string;
@@ -22,7 +21,6 @@ function ArtistTabPanel({
   concertId,
   artist,
   debutDate,
-  debutPlace,
   category,
   detail,
   instagramUrl,
@@ -38,7 +36,6 @@ function ArtistTabPanel({
           concertId={concertId}
           artist={artist}
           debutDate={debutDate}
-          debutPlace={debutPlace}
           category={category}
           detail={detail}
           instagramUrl={instagramUrl}

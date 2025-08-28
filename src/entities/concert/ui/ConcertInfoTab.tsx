@@ -199,7 +199,6 @@ function ConcertInfoTab({
                 concertId={concertId}
                 artist={artist?.artist || ""}
                 debutDate={artist?.debutDate || ""}
-                debutPlace={artist?.debutPlace || ""}
                 category={artist?.category || ""}
                 detail={artist?.detail || ""}
                 instagramUrl={artist?.instagramUrl || ""}

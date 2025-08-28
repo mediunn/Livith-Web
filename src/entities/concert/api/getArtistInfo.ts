@@ -5,7 +5,6 @@ export type Artist = {
   id: number;
   artist: string;
   debutDate: string;
-  debutPlace: string;
   category: string;
   detail: string;
   instagramUrl: string;
