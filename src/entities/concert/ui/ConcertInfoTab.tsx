@@ -141,9 +141,22 @@ function ConcertInfoTab({
 
   return (
     <>
-      <Box sx={{ width: "100%" }}>
+      <Box
+        sx={{
+          width: "100%",
+        }}
+      >
         <TabContext value={tabValue}>
-          <Box sx={{ borderBottom: 2, borderColor: "#222831" }}>
+          <Box
+            sx={{
+              position: "sticky",
+              top: 66, // ListHeader 높이
+              zIndex: 60,
+              backgroundColor: "#14171B",
+              borderBottom: 2,
+              borderColor: "#222831",
+            }}
+          >
             <TabList
               onChange={handleChange}
               aria-label="tab"
