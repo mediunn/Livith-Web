@@ -24,15 +24,28 @@ function ArtistInfo({
   keywords,
   imgUrl,
 }: ArtistInfoProps) {
+  const handleClick = () => {
+    window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
+  };
+
   return (
     <>
       <div className="mx-16">
-        <div className="pt-24 pb-17">
+        <div className="pt-30 pb-20 flex justify-between items-end">
           <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
-            가수에 대한
+            아티스트 정보
             <br />
-            정보를 필독해요
+            함께 알아볼까요?
           </p>
+
+          <div
+            onClick={handleClick}
+            className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
+          >
+            <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
+              정보 제보
+            </p>
+          </div>
         </div>
 
         <div>
