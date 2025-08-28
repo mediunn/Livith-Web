@@ -191,7 +191,7 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
             )}
           </TabPanel>
           <TabPanel
-            value="3"
+            value="2"
             sx={{
               padding: "0",
             }}
@@ -211,7 +211,7 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
             )}
           </TabPanel>
           <TabPanel
-            value="2"
+            value="3"
             sx={{
               padding: "0",
             }}
