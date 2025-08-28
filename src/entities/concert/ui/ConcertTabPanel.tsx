@@ -23,7 +23,7 @@ function ConcertTabPanel({
   return (
     <>
       {schedules && schedules.length > 0 && (
-        <ScheduleInfo schedules={schedules} />
+        <ScheduleInfo schedules={schedules} showReportButton={true} />
       )}
 
       {concertRequiredInfo && concertRequiredInfo.length > 0 && (

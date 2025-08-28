@@ -7,9 +7,10 @@ import {
 
 type ScheduleInfoProps = {
   schedules: Schedule[];
+  showReportButton?: boolean;
 };
 
-function ScheduleInfo({ schedules }: ScheduleInfoProps) {
+function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
   const concertSchedules = schedules.filter((s) => s.category === "공연");
 
   const upcomingSchedules = schedules
@@ -22,14 +23,29 @@ function ScheduleInfo({ schedules }: ScheduleInfoProps) {
 
   const sortedSchedules = [...upcomingSchedules, ...pastSchedules];
 
+  const handleClick = () => {
+    window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
+  };
+
   return (
     <div className="pl-16 pr-16">
-      <div className="pt-24 pb-8">
+      <div className="pt-24 pb-8 flex justify-between items-end">
         <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
           날짜와 시간을
           <br />
           잊지 말고 확인해요
         </p>
+
+        {showReportButton && (
+          <div
+            onClick={handleClick}
+            className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
+          >
+            <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
+              정보 제보
+            </p>
+          </div>
+        )}
       </div>
       <div className="flex flex-col">
         {sortedSchedules.map((schedule) => {
