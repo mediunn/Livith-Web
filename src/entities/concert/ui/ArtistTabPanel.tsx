@@ -1,4 +1,5 @@
 import { ConcertCulture } from "../api/getConcertCulture";
+import Intro from "./Intro";
 import ArtistInfo from "./ArtistInfo";
 import FanCultureInfo from "./FanCultureInfo";
 
@@ -29,6 +30,7 @@ function ArtistTabPanel({
 }: ArtistTabPanelProps) {
   return (
     <>
+      <Intro />
       {artist && (
         <ArtistInfo
           concertId={concertId}
