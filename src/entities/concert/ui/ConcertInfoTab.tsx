@@ -11,13 +11,11 @@ import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import SetlistTabPanel from "./SetlistTabPanel";
 import EmptyConcertInfoTabPanel from "./EmptyConcertInfoTabPanel";
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-} from "@material-tailwind/react";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 import { getSetlistInfo, Setlist } from "../api/getSetlistInfo";
 
 interface ConcertInfoTabProps {
@@ -30,16 +28,16 @@ const TAB_KEY = `selectedTab`;
 function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
   const getInitialTab = () => {
     const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
-    return storedTab === "artist" ||
-      storedTab === "concert" ||
-      storedTab === "setlist"
+    return storedTab === "1" || storedTab === "2" || storedTab === "3"
       ? storedTab
-      : "artist";
+      : "1";
   };
-  const [selectedTab, setSelectedTab] = useState(getInitialTab);
-  const handleTabChange = (tab: string) => {
-    setSelectedTab(tab);
-    localStorage.setItem(`${TAB_KEY}-${concertId}`, tab);
+
+  const [tabValue, setTabValue] = useState<string>(getInitialTab);
+
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+    setTabValue(newValue);
+    localStorage.setItem(`${TAB_KEY}-${concertId}`, newValue);
   };
 
   const [artist, setArtist] = useState<Artist | null>(null);
@@ -50,17 +48,6 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
   >(null);
   const [mds, setMd] = useState<Md[] | null>(null);
   const [setlist, setSetlist] = useState<Setlist[] | null>(null);
-
-  useEffect(() => {
-    const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
-    if (
-      storedTab === "artist" ||
-      storedTab === "concert" ||
-      storedTab === "setlist"
-    ) {
-      setSelectedTab(storedTab);
-    }
-  }, [concertId]);
 
   useEffect(() => {
     if (!concertId || isNaN(concertId)) {
@@ -148,109 +135,96 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
   }, [concertId]);
 
   return (
-    <Tabs value={selectedTab} className="pt-16">
-      <TabsHeader
-        {...({} as any)}
-        className="h-57 mx-16 px-7 py-6 items-center bg-grayScaleBlack90 rounded-12"
-        indicatorProps={{
-          className: "bg-mainYellow30 shadow-none rounded-12",
-        }}
-      >
-        <Tab
-          {...({} as any)}
-          value="artist"
-          className="h-41"
-          onClick={() => handleTabChange("artist")}
-        >
-          <p
-            className={`${
-              selectedTab === "artist"
-                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
-            }`}
+    <>
+      <Box sx={{ width: "100%" }}>
+        <TabContext value={tabValue}>
+          <Box sx={{ borderBottom: 2, borderColor: "#222831" }}>
+            <TabList
+              onChange={handleChange}
+              aria-label="tab"
+              sx={{
+                "& .MuiTab-root": {
+                  flex: 1,
+                  height: "64px",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  fontFamily: '"NotoSansKR", sans-serif',
+                  letterSpacing: "-0.05em",
+                  lineHeight: "1.4",
+                  textTransform: "none",
+                  color: "#808794",
+                },
+                "& .MuiTab-root.Mui-selected": {
+                  color: "#FFFFFF",
+                },
+                "& .MuiTabs-indicator": {
+                  backgroundColor: "#FFFFFF",
+                },
+              }}
+            >
+              <Tab label="가수 정보" value="1" />
+              <Tab label="콘서트 정보" value="2" />
+              <Tab label="셋리스트" value="3" />
+            </TabList>
+          </Box>
+          <TabPanel
+            value="1"
+            sx={{
+              padding: "0",
+            }}
           >
-            가수 정보
-          </p>
-        </Tab>
-
-        <Tab
-          {...({} as any)}
-          value="concert"
-          className="h-41"
-          onClick={() => handleTabChange("concert")}
-        >
-          <p
-            className={`${
-              selectedTab === "concert"
-                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
-            }`}
+            {!artist && ConcertCulture.length === 0 ? (
+              <EmptyConcertInfoTabPanel text={"가수 정보"} />
+            ) : (
+              <ArtistTabPanel
+                concertId={concertId}
+                artist={artist?.artist || ""}
+                debutDate={artist?.debutDate || ""}
+                debutPlace={artist?.debutPlace || ""}
+                category={artist?.category || ""}
+                detail={artist?.detail || ""}
+                instagramUrl={artist?.instagramUrl || ""}
+                keywords={artist?.keywords || []}
+                imgUrl={artist?.imgUrl || ""}
+                concertCulture={ConcertCulture}
+              />
+            )}
+          </TabPanel>
+          <TabPanel
+            value="3"
+            sx={{
+              padding: "0",
+            }}
           >
-            콘서트 정보
-          </p>
-        </Tab>
-
-        <Tab
-          {...({} as any)}
-          value="setlist"
-          className="h-41"
-          onClick={() => handleTabChange("setlist")}
-        >
-          <p
-            className={`${
-              selectedTab === "setlist"
-                ? "text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
-                : "text-grayScaleBlack5 text-Body3-sm font-semibold font-NotoSansKR"
-            }`}
+            {(!schedules || schedules.length === 0) &&
+            (!concertRequiredInfo || concertRequiredInfo.length === 0) &&
+            (!mds || mds.length === 0) ? (
+              <EmptyConcertInfoTabPanel text={"콘서트 정보"} />
+            ) : (
+              <ConcertTabPanel
+                concertId={concertId}
+                ticketUrl={ticketUrl}
+                schedules={schedules}
+                concertRequiredInfo={concertRequiredInfo}
+                mds={mds}
+              />
+            )}
+          </TabPanel>
+          <TabPanel
+            value="2"
+            sx={{
+              padding: "0",
+            }}
           >
-            셋리스트
-          </p>
-        </Tab>
-      </TabsHeader>
-
-      <TabsBody {...({} as any)}>
-        <TabPanel value="artist" className="p-0">
-          {!artist && ConcertCulture.length === 0 ? (
-            <EmptyConcertInfoTabPanel text={"가수 정보"} />
-          ) : (
-            <ArtistTabPanel
-              concertId={concertId}
-              artist={artist?.artist || ""}
-              debutDate={artist?.debutDate || ""}
-              debutPlace={artist?.debutPlace || ""}
-              category={artist?.category || ""}
-              detail={artist?.detail || ""}
-              instagramUrl={artist?.instagramUrl || ""}
-              keywords={artist?.keywords || []}
-              imgUrl={artist?.imgUrl || ""}
-              concertCulture={ConcertCulture}
-            />
-          )}
-        </TabPanel>
-        <TabPanel value="concert" className="p-0">
-          {(!schedules || schedules.length === 0) &&
-          (!concertRequiredInfo || concertRequiredInfo.length === 0) &&
-          (!mds || mds.length === 0) ? (
-            <EmptyConcertInfoTabPanel text={"콘서트 정보"} />
-          ) : (
-            <ConcertTabPanel
-              concertId={concertId}
-              ticketUrl={ticketUrl}
-              schedules={schedules}
-              concertRequiredInfo={concertRequiredInfo}
-              mds={mds}
-            />
-          )}
-        </TabPanel>
-        <TabPanel value="setlist" className="p-0">
-          {setlist && setlist.length > 0 ? (
-            <SetlistTabPanel setlist={setlist} concertId={concertId} />
-          ) : (
-            <EmptyConcertInfoTabPanel text={"셋리스트"} />
-          )}
-        </TabPanel>
-      </TabsBody>
-    </Tabs>
+            {setlist && setlist.length > 0 ? (
+              <SetlistTabPanel setlist={setlist} concertId={concertId} />
+            ) : (
+              <EmptyConcertInfoTabPanel text={"셋리스트"} />
+            )}
+          </TabPanel>
+        </TabContext>
+      </Box>
+    </>
   );
 }
 
