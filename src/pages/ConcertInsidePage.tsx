@@ -38,6 +38,7 @@ function ConcertInsidePage() {
       <ListHeader title={concert.title} />
       <ConcertInsideInfo concert={concert}></ConcertInsideInfo>
       <ConcertInfoTab
+        introduction={concert.introduction}
         concertId={Number(concertId)}
         ticketUrl={concert.ticketUrl}
       ></ConcertInfoTab>

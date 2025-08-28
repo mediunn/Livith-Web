@@ -21,11 +21,16 @@ import { getSetlistInfo, Setlist } from "../api/getSetlistInfo";
 interface ConcertInfoTabProps {
   concertId: number;
   ticketUrl: string;
+  introduction: string;
 }
 
 const TAB_KEY = `selectedTab`;
 
-function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
+function ConcertInfoTab({
+  concertId,
+  ticketUrl,
+  introduction,
+}: ConcertInfoTabProps) {
   const getInitialTab = () => {
     const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
     return storedTab === "1" || storedTab === "2" || storedTab === "3"
@@ -177,6 +182,7 @@ function ConcertInfoTab({ concertId, ticketUrl }: ConcertInfoTabProps) {
               <EmptyConcertInfoTabPanel text={"가수 정보"} />
             ) : (
               <ArtistTabPanel
+                introduction={introduction}
                 concertId={concertId}
                 artist={artist?.artist || ""}
                 debutDate={artist?.debutDate || ""}

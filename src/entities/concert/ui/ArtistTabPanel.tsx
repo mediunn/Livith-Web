@@ -4,6 +4,7 @@ import ArtistInfo from "./ArtistInfo";
 import FanCultureInfo from "./FanCultureInfo";
 
 interface ArtistTabPanelProps {
+  introduction: string;
   concertId: number;
   artist: string;
   debutDate: string;
@@ -17,6 +18,7 @@ interface ArtistTabPanelProps {
 }
 
 function ArtistTabPanel({
+  introduction,
   concertId,
   artist,
   debutDate,
@@ -30,7 +32,7 @@ function ArtistTabPanel({
 }: ArtistTabPanelProps) {
   return (
     <>
-      <Intro />
+      <Intro introduction={introduction} />
       {artist && (
         <ArtistInfo
           concertId={concertId}

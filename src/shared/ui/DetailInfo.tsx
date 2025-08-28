@@ -12,8 +12,7 @@ interface DetailInfoProps {
   title: string;
   date: string;
   venue: string;
-  ticketSite: string;
-  ticketUrl: string;
+  label: string;
 }
 
 function DetailInfo({
@@ -22,8 +21,7 @@ function DetailInfo({
   title,
   date,
   venue,
-  ticketSite,
-  ticketUrl,
+  label,
 }: DetailInfoProps) {
   return (
     <div className="w-full h-337 relative">
@@ -61,7 +59,7 @@ function DetailInfo({
         <div className="inline-flex items-center px-8 py-2 bg-lyricsTranslation rounded-24">
           <img src={HotConcertChipIcon} alt="" className="w-24 h-24" />
           <p className="text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
-            많이 찾는 콘서트 1위
+            {label}
           </p>
         </div>
         <p className="pt-10 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">

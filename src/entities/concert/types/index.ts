@@ -19,11 +19,12 @@ export type Concert = {
   status: ConcertStatus;
   poster: string;
   artist: string;
-  sortedIndex: number;
   daysLeft: number;
   ticketSite: string;
   ticketUrl: string;
   venue: string;
+  introduction: string;
+  label: string;
 };
 
 export type ConcertListResponse = {
