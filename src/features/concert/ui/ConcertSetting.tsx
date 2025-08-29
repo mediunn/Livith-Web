@@ -58,7 +58,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
           <div>
             <button
               onClick={openSheet}
-              className="mr-16 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
+              className="mr-24 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
             >
               수정하기
             </button>

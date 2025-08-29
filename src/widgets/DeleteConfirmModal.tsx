@@ -1,4 +1,8 @@
+import Lottie from "lottie-react";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
+import { toast } from "react-toastify";
+import DeleteConcertToastIconMotion from "../shared/assets/DeleteConcertToastIconMotion.json";
+
 interface DeleteConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -7,7 +11,22 @@ function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
   const STORAGE_KEY = "InterestConcertId";
   const handleDelete = () => {
     localStorage.removeItem(STORAGE_KEY);
-    window.location.replace("/");
+    toast(
+      <div className="flex items-center space-x-13">
+        <Lottie animationData={DeleteConcertToastIconMotion} />
+        <span>관심 콘서트가 삭제되었어요</span>
+      </div>,
+      {
+        position: "top-center",
+        autoClose: 3000,
+      }
+    );
+
+    onClose();
+
+    setTimeout(() => {
+      window.location.replace("/");
+    }, 4500);
   };
   if (!isOpen) return null;
 
@@ -26,13 +45,13 @@ function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
           </p>
           <div className="flex flex-row justify-center space-x-14 mt-20 ">
             <button
-              className="bg-grayScaleBlack5 text-labelSociable100 text-Body2-md font-medium font-NotoSansKR rounded-11 py-18 px-20"
+              className="bg-grayScaleBlack5 text-caution100 text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-22"
               onClick={handleDelete}
             >
               지금은 삭제할래요
             </button>
             <button
-              className="bg-grayScaleBlack80 text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR rounded-11 py-18 px-20"
+              className="bg-grayScaleBlack80 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-34"
               onClick={onClose}
             >
               잘못 눌렀어요
