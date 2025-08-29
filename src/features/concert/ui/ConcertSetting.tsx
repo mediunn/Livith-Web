@@ -4,8 +4,6 @@ import TopBar from "../../../shared/ui/TopBar";
 import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import ConcertTicketArrowIcon from "../../../shared/assets/ConcertTicketArrowIcon.svg";
-import WebSiteEarthIcon from "../../../shared/assets/WebSiteEarthIcon.svg";
-import WebSiteArrowIcon from "../../../shared/assets/WebSiteArrowIcon.svg";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -18,7 +16,6 @@ import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 import { Schedule } from "../../../entities/concert/api/getSchedule";
 import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
 import dayjs from "../../../shared/lib/dayjs";
-import { getRemainingDaysText } from "../utils/formatScheduleDate";
 import EditInterestConcertBottomSheet from "../../../features/interest/ui/EditInterestConcertBottomSheet";
 
 interface ConcertSettingProps {
@@ -42,10 +39,37 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
   const navigate = useNavigate();
 
   const upcomingSchedules = schedules
-    .filter((s) => dayjs(s.scheduledAt).isSameOrAfter(dayjs(), "day"))
+    .filter(
+      (s) =>
+        (s.type === "TICKETING" || s.type === "CONCERT") &&
+        dayjs(s.scheduledAt).isSameOrAfter(dayjs(), "day")
+    )
     .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix());
 
   const nearestSchedule = upcomingSchedules[0];
+
+  const DDayDate = nearestSchedule
+    ? dayjs(nearestSchedule.scheduledAt).diff(dayjs(), "day") === 0
+      ? "D-Day"
+      : `D-${dayjs(nearestSchedule.scheduledAt).diff(dayjs(), "day")}`
+    : "";
+
+  const DDayLabel = (schedule: Schedule) => {
+    const daysLeft = dayjs(schedule.scheduledAt).diff(dayjs(), "day");
+
+    if (schedule.type === "TICKETING") {
+      return "준비를 시작해 볼까요?";
+    }
+
+    if (schedule.type === "CONCERT") {
+      if (daysLeft === 0) {
+        return "놓친 정보가 있으면 확인해요!";
+      }
+      return "준비를 시작해 볼까요?";
+    }
+
+    return "";
+  };
 
   return (
     <>
@@ -120,16 +144,16 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                 {nearestSchedule && (
                   <>
                     <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
-                      {nearestSchedule.category}
+                      {nearestSchedule.type === "CONCERT"
+                        ? "콘서트"
+                        : nearestSchedule.type === "TICKETING"
+                          ? "티켓팅"
+                          : nearestSchedule.category}{" "}
+                      까지{" "}
+                      <span className="text-mainYellow30">{DDayDate},</span>
                     </p>
                     <p className="pt-2 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
-                      <span className="text-mainYellow30">
-                        {getRemainingDaysText(nearestSchedule.scheduledAt)}
-                      </span>{" "}
-                      {getRemainingDaysText(nearestSchedule.scheduledAt) ===
-                      "바로 오늘"
-                        ? "이에요!"
-                        : "앞으로 다가왔어요!"}
+                      {DDayLabel(nearestSchedule)}
                     </p>
                   </>
                 )}

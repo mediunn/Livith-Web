@@ -5,6 +5,7 @@ export type Schedule = {
   id: number;
   category: string;
   scheduledAt: string;
+  type: string;
 };
 
 export async function getSchedule(id: number): Promise<Schedule[]> {
