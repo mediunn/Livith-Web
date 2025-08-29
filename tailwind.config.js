@@ -63,6 +63,8 @@ module.exports = withMT({
       animation: {
         fadeOut: "fadeOut 1s ease-in-out",
         "scale-in-out": "scaleInOut 2s ease-in-out infinite",
+        "toast-in": "toast-in 0.8s ease-out forwards",
+        "toast-out": "toast-out 0.7s ease-out forwards",
       },
 
       keyframes: {
@@ -74,6 +76,17 @@ module.exports = withMT({
           "0%, 100%": { transform: "scale(1)" },
           "50%": { transform: "scale(1.15)" },
         },
+        "toast-in": {
+          "0%": { transform: "translateY(-100%)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        "toast-out": {
+          "0%": { transform: "translateY(0)", opacity: "1" },
+          "100%": { transform: "translateY(-100%)", opacity: "0" },
+        },
+      },
+      boxShadow: {
+        "custom-toast": "0 0 18px rgba(0, 0, 0, 0.4)",
       },
     },
   },

@@ -58,7 +58,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
           <div>
             <button
               onClick={openSheet}
-              className="mr-16 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
+              className="mr-24 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
             >
               수정하기
             </button>
@@ -206,8 +206,8 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                   },
                 }}
               >
-                <Tab label="콘서트 일정정보" value="1" />
-                <Tab label="관련 셋리스트" value="2" />
+                <Tab label="콘서트 일정" value="1" />
+                <Tab label="셋리스트" value="2" />
               </TabList>
             </Box>
             <TabPanel

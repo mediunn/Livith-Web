@@ -37,7 +37,9 @@ function BriefSetlistSongList({
             artist={song.artist}
             orderIndex={song.orderIndex}
             setlistId={setlistId}
-            breif={true}
+            onClick={() => {
+              navigate(`/songs/${song.id}`);
+            }}
           />
         ))}
       </div>
@@ -50,7 +52,7 @@ function BriefSetlistSongList({
       >
         <div className="flex flex-row text-grayScaleBlack50 justify-center space-x-8">
           <p className="text-Body4-re font-regular font-NotoSansKR ">
-            더 많은 셋리스트는 상세보기로
+            더 많은 노래를 확인해 보세요
           </p>
           <img src={MiniArrowIcon} alt="Mini Arrow Icon" />
         </div>

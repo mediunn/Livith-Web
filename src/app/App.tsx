@@ -14,6 +14,7 @@ import SetlistDetailPage from "../pages/SetlistDetailPage";
 import SetInterestConcertPage from "../pages/SetInterestConcertPage";
 import MdPage from "../pages/MdPage";
 import CompleteSetConcert from "../widgets/CompleteSetConcert";
+import Toast from "../widgets/Toast";
 
 const queryClient = new QueryClient();
 
@@ -79,6 +80,7 @@ function App() {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
+        <Toast />
       </QueryClientProvider>
     </RecoilRoot>
   );

@@ -20,14 +20,17 @@ function InterestConcertSetlist() {
     return <div>Error...</div>;
   }
 
-  let status = "";
+  let label1 = "";
+  let label2 = "";
 
   if (!setlist || !setlist!.id) {
-    status = "";
+    return null;
   } else if (setlist.type === SetlistType.EXPECTED) {
-    status = "예상";
+    label1 = "이전 콘서트를 기반으로";
+    label2 = "어런 노래를 예상해요";
   } else {
-    status = "이전";
+    label1 = "이전 콘서트에서";
+    label2 = "어떤 노래를 불렀을까요?";
   }
 
   return (
@@ -37,8 +40,8 @@ function InterestConcertSetlist() {
       ) : (
         <>
           <div className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR mt-24">
-            <p>{status} 콘서트 셋리스트를</p>
-            <p>참고해 보세요</p>
+            <p>{label1}</p>
+            <p>{label2}</p>
           </div>
           {setlist.type !== SetlistType.EXPECTED ? (
             <InterestConcertSetlistDetail setlist={setlist} />
