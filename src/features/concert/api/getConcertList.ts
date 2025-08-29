@@ -1,24 +1,21 @@
-import {
-  ConcertListResponse,
-  ConcertFilter,
-} from "../../../entities/concert/types";
+import { ConcertListResponse } from "../../../entities/concert/types";
 import { ApiResponse } from "../../../shared/types/response";
 import axiosInstance from "../../../shared/api/axiosInstance";
 
 type GetConcertListParams = {
-  filter: ConcertFilter;
-  cursor?: number | null;
+  id?: number | null;
+  cursor?: string | null;
   size?: number | null;
 };
 
 export async function getConcertList({
-  filter,
+  id,
   cursor,
   size,
 }: GetConcertListParams): Promise<ApiResponse<ConcertListResponse>> {
   const response = await axiosInstance.get("/api/v3/concerts", {
     params: {
-      filter,
+      id,
       cursor,
       size,
     },

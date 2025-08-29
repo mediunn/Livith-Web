@@ -12,7 +12,7 @@ function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
   const handleDelete = () => {
     localStorage.removeItem(STORAGE_KEY);
     toast(
-      <div className="flex items-center space-x-13">
+      <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
         <Lottie animationData={DeleteConcertToastIconMotion} />
         <span>관심 콘서트가 삭제되었어요</span>
       </div>,

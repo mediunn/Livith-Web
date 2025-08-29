@@ -1,20 +1,21 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { ConcertFilter } from "../../../entities/concert/types";
 import { getConcertList } from "../api/getConcertList";
 
 type UseConcertListParams = {
-  filter: ConcertFilter;
   size: number;
 };
-
-export const useConcertList = ({ filter, size }: UseConcertListParams) => {
+export const useConcertList = ({ size }: UseConcertListParams) => {
   return useInfiniteQuery({
-    queryKey: ["concerts", filter],
+    queryKey: ["concerts"],
     queryFn: ({ pageParam }) =>
-      getConcertList({ filter, cursor: pageParam, size }),
-    initialPageParam: undefined,
+      getConcertList({
+        id: pageParam?.id,
+        cursor: pageParam?.startDate,
+        size,
+      }),
+    initialPageParam: { id: null, startDate: null }, // ✅ 명시적으로 선언
     getNextPageParam: (lastPage) => {
-      return lastPage.data.cursor;
+      return lastPage.data.cursor ?? undefined;
     },
     select: (data) => {
       return {

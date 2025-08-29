@@ -4,7 +4,7 @@ import { ApiResponse } from "../../../shared/types/response";
 
 type GetSearchResultProps = {
   keyword: string;
-  cursor?: number | null;
+  cursor?: string | null;
   size?: number | null;
 };
 export async function getSearchResult({
