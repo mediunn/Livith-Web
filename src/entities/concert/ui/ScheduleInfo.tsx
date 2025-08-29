@@ -4,13 +4,19 @@ import {
   getFormatDday,
   getFormatDateTime,
 } from "../../../features/concert/utils/formatScheduleDate";
+import AGroupTicketWebsiteBtn from "../../../shared/ui/AGroupTicketWebsiteBtn";
 
 type ScheduleInfoProps = {
   schedules: Schedule[];
   showReportButton?: boolean;
+  ticketUrl: string;
 };
 
-function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
+function ScheduleInfo({
+  schedules,
+  showReportButton,
+  ticketUrl,
+}: ScheduleInfoProps) {
   const concertSchedules = schedules.filter((s) => s.category === "공연");
 
   const upcomingSchedules = schedules
@@ -75,6 +81,8 @@ function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
           );
         })}
       </div>
+
+      <AGroupTicketWebsiteBtn ticketUrl={ticketUrl} />
     </div>
   );
 }
