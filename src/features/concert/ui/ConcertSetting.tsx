@@ -206,8 +206,8 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                   },
                 }}
               >
-                <Tab label="콘서트 일정정보" value="1" />
-                <Tab label="관련 셋리스트" value="2" />
+                <Tab label="콘서트 일정" value="1" />
+                <Tab label="셋리스트" value="2" />
               </TabList>
             </Box>
             <TabPanel

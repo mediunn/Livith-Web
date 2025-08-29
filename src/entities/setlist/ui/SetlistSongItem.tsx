@@ -8,7 +8,6 @@ interface SetlistSongItemProps {
   songId: number;
   setlistId: number;
   onClick?: () => void;
-  breif?: boolean;
 }
 function SetlistSongItem({
   title,
@@ -16,7 +15,6 @@ function SetlistSongItem({
   // imageUrl,
   orderIndex,
   onClick,
-  breif = false,
 }: SetlistSongItemProps) {
   const paddedIndex = orderIndex.toString().padStart(2, "0");
 
@@ -38,13 +36,11 @@ function SetlistSongItem({
           {artist}
         </p>
       </div>
-      {!breif && (
-        <img
-          src={SongPlayIcon}
-          alt="Play Icon"
-          className="w-[32px] h-[32px] my-15 object-cover ml-auto mr-3"
-        />
-      )}
+      <img
+        src={SongPlayIcon}
+        alt="Play Icon"
+        className="w-[32px] h-[32px] my-15 object-cover ml-auto mr-3"
+      />
     </div>
   );
 }
