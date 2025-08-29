@@ -45,7 +45,7 @@ function InputSearchBar({
   return (
     <div className="bg-grayScaleBlack100 max-w-md w-full flex pt-13 pb-12 pl-16 pr-16 ">
       {recent && setRecent && <BackArrow />}
-      <div className="flex items-center relative w-full ml-2 py-7 pl-16 bg-grayScaleWhite rounded-10">
+      <div className="flex items-center relative w-full ml-2 py-7 pl-16 bg-grayScaleBlack90 rounded-10">
         <input
           ref={inputRef}
           type="text"
@@ -65,7 +65,7 @@ function InputSearchBar({
           placeholder="찾고 있는 콘서트는 무엇인가요?"
           onCompositionStart={() => setIsComposing(true)}
           onCompositionEnd={() => setIsComposing(false)}
-          className="w-full my-9 text-grayScaleBlack80 text-Body3-md font-medium font-NotoSansKR border-none outline-none"
+          className="w-full my-9 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR border-none outline-none bg-transparent placeholder-grayScaleBlack50"
         />
         {input && !showResults ? (
           <img
@@ -76,7 +76,7 @@ function InputSearchBar({
           />
         ) : (
           <div className="mr-11">
-            <SearchIcon color="black" />
+            <SearchIcon color="#DBDCDF" />
           </div>
         )}
       </div>
