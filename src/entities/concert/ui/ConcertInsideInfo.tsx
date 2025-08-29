@@ -9,6 +9,7 @@ interface ConcertInsideInfoProps {
 function ConcertInsideInfo({ concert }: ConcertInsideInfoProps) {
   return (
     <DetailInfo
+      id={concert.id}
       imageUrl={concert.poster}
       artist={concert.artist}
       title={concert.title}

@@ -27,7 +27,7 @@ function InterestConcertSetlist() {
     return null;
   } else if (setlist.type === SetlistType.EXPECTED) {
     label1 = "이전 콘서트를 기반으로";
-    label2 = "어런 노래를 예상해요";
+    label2 = "이런 노래를 예상해요";
   } else {
     label1 = "이전 콘서트에서";
     label2 = "어떤 노래를 불렀을까요?";

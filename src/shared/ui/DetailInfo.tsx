@@ -5,8 +5,11 @@ import ConcertDateIcon from "../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../shared/assets/ConcertVenueIcon.svg";
 import HotConcertChipIcon from "../../shared/assets/HotConcertChipIcon.svg";
 import ConcertAddIcon from "../../shared/assets/ConcertAddIcon.svg";
+import { useState } from "react";
+import ChangeConcertConfirmModal from "../../widgets/ChangeConcertConfirmModal";
 
 interface DetailInfoProps {
+  id: string;
   imageUrl: string;
   artist: string;
   title: string;
@@ -16,6 +19,7 @@ interface DetailInfoProps {
 }
 
 function DetailInfo({
+  id,
   imageUrl,
   artist,
   title,
@@ -23,9 +27,14 @@ function DetailInfo({
   venue,
   label,
 }: DetailInfoProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="w-full h-337 relative">
-      <button className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer">
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
+      >
         <div className="px-10 py-8 flex items-center">
           <img
             src={ConcertAddIcon}
@@ -83,6 +92,11 @@ function DetailInfo({
           </p>
         </div>
       </div>
+      <ChangeConcertConfirmModal
+        id={id}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

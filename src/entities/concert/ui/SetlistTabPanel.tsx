@@ -10,15 +10,25 @@ interface SetlistTabPanelProps {
 
 function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
   const navigate = useNavigate();
-
+  const handleClick = () => {
+    window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
+  };
   return (
     <div className="mx-16 pb-54">
-      <div className="pt-24 pb-20">
+      <div className="pt-24 pb-20 flex flex-row justify-between items-end">
         <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
-          콘서트 셋리스트로
+          셋리스트를
           <br />
-          콘서트를 즐겨요
+          확인해 보세요
         </p>
+        <div
+          onClick={handleClick}
+          className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
+        >
+          <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
+            정보 제보
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-3 gap-x-10 gap-y-24">
