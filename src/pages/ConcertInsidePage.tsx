@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ListHeader from "../shared/ui/ListHeader";
 import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
@@ -8,8 +8,6 @@ import { Concert } from "../entities/concert/types";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
-  const location = useLocation();
-  const status = location.state?.status;
 
   const [concert, setConcert] = useState<Concert | null>(null);
 

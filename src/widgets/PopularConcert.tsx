@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
-import ConcertSlide from "../entities/concert/ui/ConcertSlide";
-import { ConcertFilter, Concert } from "../entities/concert/types";
-import { getConcertList } from "../features/concert/api/getConcertList";
-
-// 추후 최신 콘서트 목록 api 대신 인기 콘서트 api로 수정
+import SectionConcertSlide from "../entities/concert/ui/SectionConcertSlide";
+import { SectionConcert } from "../entities/concert/types";
+import { getHomeConcertList } from "../features/concert/api/getHomeConcertList";
 
 function PopularConcert() {
-  const [concerts, setConcerts] = useState<Concert[] | null>(null);
+  const [concerts, setConcerts] = useState<SectionConcert[] | null>(null);
 
   useEffect(() => {
     const fetchConcerts = async () => {
       try {
-        const res = await getConcertList({
-          filter: ConcertFilter.NEW,
-          size: 10,
-        });
-        setConcerts(res.data.data);
+        const data = await getHomeConcertList();
+
+        // id === 1 (이 달의 인기 콘서트)
+        const popularSection = data.find((section) => section.id === 1);
+
+        if (popularSection) {
+          setConcerts(popularSection.concerts);
+        } else {
+          setConcerts([]);
+        }
       } catch (error) {
-        console.error("콘서트 목록 조회 API 호출 실패:", error);
+        console.error("홈 섹션 콘서트 목록 조회 실패:", error);
         setConcerts([]);
       }
     };
@@ -38,7 +41,7 @@ function PopularConcert() {
           인기 콘서트
         </p>
       </div>
-      <ConcertSlide filter={ConcertFilter.NEW} concerts={concerts} />
+      <SectionConcertSlide concerts={concerts} />
     </div>
   );
 }
