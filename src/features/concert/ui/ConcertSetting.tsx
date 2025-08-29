@@ -153,30 +153,6 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                 </p>
               </div>
             </div>
-
-            <a
-              href={concert.ticketSite ? concert.ticketUrl : "#"}
-              target="_blank"
-              className={`w-full h-37 mt-16 pl-8 pr-8 flex items-center justify-between text-grayScaleBlack100 text-Body4-sm font-semibold font-NotoSansKR rounded-6 border-none cursor-pointer ${
-                concert.ticketSite ? "bg-mainYellow30" : "bg-grayScaleBlack50"
-              }`}
-            >
-              <div className="flex items-center">
-                <img
-                  src={WebSiteEarthIcon}
-                  alt="web site earth"
-                  className="w-18 h-18 mr-4"
-                />
-                <p>{concert.ticketSite || "콘서트 관련 웹사이트가 없어요"}</p>
-              </div>
-              {concert.ticketSite && (
-                <img
-                  src={WebSiteArrowIcon}
-                  alt="web site arrow"
-                  className="w-8 h-8 ml-4"
-                />
-              )}
-            </a>
           </div>
         </div>
 
