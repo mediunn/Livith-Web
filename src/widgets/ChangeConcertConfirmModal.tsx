@@ -17,7 +17,7 @@ function ChangeConcertConfirmModal({
     localStorage.setItem(STORAGE_KEY, id);
     onClose();
     toast(
-      <div className="flex items-center space-x-13 text-grayScaleWhite text-Body3 font-medium font-NotoSansKR">
+      <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
         <Lottie animationData={InterestConcertToastIconMotion} />
         <span>관심 공연을 변경했어요</span>
       </div>,

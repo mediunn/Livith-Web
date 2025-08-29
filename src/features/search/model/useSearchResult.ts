@@ -10,7 +10,13 @@ export const useSearchResult = ({ keyword, size }: UseSearchResultParams) => {
   return useInfiniteQuery({
     queryKey: ["concerts", keyword],
     queryFn: ({ pageParam }) =>
-      getSearchResult({ keyword, cursor: pageParam, size }),
+      getSearchResult({
+        keyword,
+        cursor: pageParam
+          ? JSON.stringify({ value: pageParam.value, id: pageParam.id })
+          : undefined,
+        size,
+      }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.data.cursor;
