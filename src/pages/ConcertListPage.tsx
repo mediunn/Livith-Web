@@ -21,7 +21,7 @@ function ConcertListPage() {
   return (
     <div>
       <ListHeader title={concertFilter} />
-      <ConcertList filter={status as ConcertFilter} />
+      <ConcertList />
     </div>
   );
 }

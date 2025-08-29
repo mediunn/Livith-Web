@@ -1,12 +1,7 @@
-import { ConcertFilter } from "../entities/concert/types";
 import { useConcertList } from "../features/concert/model/useConcertList";
 import { InfiniteConcertList } from "./InfiniteConcertList";
 
-type ConcertListProps = {
-  filter: ConcertFilter;
-};
-
-export function ConcertList({ filter }: ConcertListProps) {
+export function ConcertList() {
   const size = 15; // 페이지당 항목 수
   const {
     data,
@@ -15,7 +10,7 @@ export function ConcertList({ filter }: ConcertListProps) {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useConcertList({ filter, size });
+  } = useConcertList({ size });
   return (
     <InfiniteConcertList
       concerts={data?.pages}

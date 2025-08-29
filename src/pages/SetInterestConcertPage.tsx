@@ -66,7 +66,6 @@ function SetInterestConcertPage() {
           {!input && showAll && (
             <div className="mt-12 h-full">
               <SelectableConcertList
-                filter={ConcertFilter.ALL}
                 selectedConcertState={{
                   value: selectedConcert,
                   setValue: setSelectedConcert,
