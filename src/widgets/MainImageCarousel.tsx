@@ -78,7 +78,7 @@ function MainImageCarousel() {
 
   return (
     <div
-      className="relative w-full h-365"
+      className="relative w-full h-365 mb-6"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
