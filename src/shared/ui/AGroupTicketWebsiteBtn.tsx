@@ -2,10 +2,16 @@ import WebSiteEarthIcon from "../assets/WebSiteEarthIcon.svg";
 
 interface AGroupTicketWebsiteBtnProps {
   ticketUrl: string;
+  onClick?: () => void;
 }
-function AGroupTicketWebsiteBtn({ ticketUrl }: AGroupTicketWebsiteBtnProps) {
+function AGroupTicketWebsiteBtn({
+  ticketUrl,
+  onClick,
+}: AGroupTicketWebsiteBtnProps) {
   const handleClick = () => {
-    if (ticketUrl) {
+    if (onClick) {
+      onClick();
+    } else if (ticketUrl) {
       window.open(ticketUrl, "_blank");
     }
   };

@@ -8,6 +8,19 @@ import { Md } from "../api/getMd";
 import AGroupTicketWebsiteBtn from "../../../shared/ui/AGroupTicketWebsiteBtn";
 import BGroupTicketWebsiteBtn from "../../../shared/ui/BGroupTicketWebsiteBtn";
 
+import { analytics } from "../../../app/firebase";
+import { logEvent } from "firebase/analytics";
+
+// A/B 테스트 그룹 배정 유틸
+function getExperimentGroup(): "A" | "B" {
+  let group = localStorage.getItem("ticketBtnGroup") as "A" | "B" | null;
+  if (!group) {
+    group = Math.random() < 0.5 ? "A" : "B";
+    localStorage.setItem("ticketBtnGroup", group);
+  }
+  return group;
+}
+
 interface ConcertTabPanelProps {
   concertId: number;
   ticketUrl: string;
@@ -25,26 +38,53 @@ function ConcertTabPanel({
 }: ConcertTabPanelProps) {
   const bottomSensorRef = useRef<HTMLDivElement | null>(null);
   const [showFloatingBtn, setShowFloatingBtn] = useState(false);
+  const [group, setGroup] = useState<"A" | "B">("A");
 
+  // 최초 그룹 배정만 수행
+  useEffect(() => {
+    const assignedGroup = getExperimentGroup();
+    setGroup(assignedGroup);
+  }, []);
+
+  // visibilitychange 기반 복귀 감지
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const ticketOpened = localStorage.getItem("ticketOpened");
+      //ticketOpened === "true"으로 새 탭이 열렸을 경우에만 page_view_returned 이벤트 기록
+      if (document.visibilityState === "visible" && ticketOpened === "true") {
+        logEvent(analytics, "page_view_returned", { group, debug_mode: true });
+        // page_view_returned 이벤트 기록 후 다음 복귀 감지를 위해 localStorage 초기화
+        localStorage.removeItem("ticketOpened");
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [group]);
+
+  // BGroupTicketWebsiteBtn 플로팅 버튼 표시
   useEffect(() => {
     if (!bottomSensorRef.current) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowFloatingBtn(entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0,
-      }
+      ([entry]) => setShowFloatingBtn(entry.isIntersecting),
+      { root: null, threshold: 0 }
     );
 
     observer.observe(bottomSensorRef.current);
-
     return () => {
       if (bottomSensorRef.current) observer.unobserve(bottomSensorRef.current);
     };
   }, []);
+
+  const handleTicketClick = () => {
+    window.open(ticketUrl, "_blank");
+    // 티켓 웹사이트 버튼을 클릭하여 새 탭을 열었음을 기록
+    localStorage.setItem("ticketOpened", "true");
+    logEvent(analytics, "ticket_button_click", { group, debug_mode: true });
+  };
 
   return (
     <>
@@ -56,12 +96,20 @@ function ConcertTabPanel({
       <div ref={bottomSensorRef} className="h-1 w-full"></div>
 
       <div className="mx-16 mt-10">
-        {/* <AGroupTicketWebsiteBtn ticketUrl={ticketUrl} /> */}
-
-        {showFloatingBtn && (
-          <div className="fixed bottom-16 left-[50vw] -translate-x-1/2 w-[88%] max-w-400 z-50">
-            <BGroupTicketWebsiteBtn ticketUrl={ticketUrl} />
-          </div>
+        {group === "A" ? (
+          <AGroupTicketWebsiteBtn
+            ticketUrl={ticketUrl}
+            onClick={handleTicketClick}
+          />
+        ) : (
+          showFloatingBtn && (
+            <div className="fixed bottom-16 left-[50vw] -translate-x-1/2 w-[88%] max-w-400 z-50">
+              <BGroupTicketWebsiteBtn
+                ticketUrl={ticketUrl}
+                onClick={handleTicketClick}
+              />
+            </div>
+          )
         )}
       </div>
 

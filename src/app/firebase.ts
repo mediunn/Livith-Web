@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, logEvent, setUserProperties } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,3 +19,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+
+// ✅ 로컬 개발 환경에서 DebugView 자동 활성화
+if (import.meta.env.MODE === "development") {
+  setUserProperties(analytics, { is_debug_mode: true });
+  (window as any).gtag?.("set", "debug_mode", true);
+}
+
+export { app, analytics, logEvent };
