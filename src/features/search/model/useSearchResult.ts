@@ -17,7 +17,7 @@ export const useSearchResult = ({ keyword, size }: UseSearchResultParams) => {
           : undefined,
         size,
       }),
-    initialPageParam: undefined,
+    initialPageParam: { id: null, value: null },
     getNextPageParam: (lastPage) => {
       return lastPage.data.cursor;
     },
