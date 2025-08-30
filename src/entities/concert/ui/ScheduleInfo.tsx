@@ -3,7 +3,7 @@ import dayjs from "../../../shared/lib/dayjs";
 import {
   getFormatDday,
   getFormatDateTime,
-} from "../../../features/concert/utils/formatScheduleDate";
+} from "../../../features/concert/utils/formatScheduleDate.ts";
 
 type ScheduleInfoProps = {
   schedules: Schedule[];
