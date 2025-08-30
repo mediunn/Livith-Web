@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
 import Lottie from "lottie-react";
 import InterestConcertToastIconMotion from "../shared/assets/InterestConcertToastIconMotion.json";
+import { useEffect, useState } from "react";
 interface ChangeConcertConfirmModalProps {
   id: string;
   isOpen: boolean;
@@ -13,17 +14,24 @@ function ChangeConcertConfirmModal({
   onClose,
 }: ChangeConcertConfirmModalProps) {
   const STORAGE_KEY = "InterestConcertId";
+
   const handleChange = () => {
     localStorage.setItem(STORAGE_KEY, id);
     onClose();
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <Lottie animationData={InterestConcertToastIconMotion} />
+        <Lottie
+          animationData={InterestConcertToastIconMotion}
+          loop={false}
+          autoplay={true}
+          style={{ width: 24, height: 24 }}
+        />
         <span>관심 공연을 변경했어요</span>
       </div>,
       {
         position: "top-center",
         autoClose: 3000,
+        pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
       }
     );
   };
