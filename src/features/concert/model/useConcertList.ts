@@ -13,7 +13,7 @@ export const useConcertList = ({ size }: UseConcertListParams) => {
         cursor: pageParam?.startDate,
         size,
       }),
-    initialPageParam: { id: null, startDate: null }, // ✅ 명시적으로 선언
+    initialPageParam: { id: null, startDate: null },
     getNextPageParam: (lastPage) => {
       return lastPage.data.cursor ?? undefined;
     },
