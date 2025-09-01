@@ -13,12 +13,13 @@ function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
     localStorage.removeItem(STORAGE_KEY);
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <Lottie animationData={DeleteConcertToastIconMotion} />
+        <Lottie animationData={DeleteConcertToastIconMotion} loop={false} />
         <span>관심 콘서트가 삭제되었어요</span>
       </div>,
       {
         position: "top-center",
         autoClose: 3000,
+        pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
       }
     );
 
