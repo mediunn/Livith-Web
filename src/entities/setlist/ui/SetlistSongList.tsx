@@ -14,6 +14,9 @@ type SetlistSongListProps = {
 function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
   const setSetlistId = useSetRecoilState(setlistIdState);
   const navigate = useNavigate();
+  const handleClick = () => {
+    window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
+  };
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
 
   if (isLoading) {
@@ -25,9 +28,19 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
 
   return (
     <div className="mx-16 mt-30 pb-30">
-      <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
-        {setlistType === SetlistType.EXPECTED ? "예상" : ""} 셋리스트
-      </p>
+      <div className="flex flex-row justify-between items-end">
+        <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+          {setlistType === SetlistType.EXPECTED ? "예상" : ""} 셋리스트
+        </p>
+        <div
+          onClick={handleClick}
+          className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
+        >
+          <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
+            정보 제보
+          </p>
+        </div>
+      </div>
       {songs?.length === 0 ? (
         <EmptySongList />
       ) : (
