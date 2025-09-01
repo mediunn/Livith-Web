@@ -24,7 +24,10 @@ function ChangeConcertConfirmModal({
           animationData={InterestConcertToastIconMotion}
           loop={false}
           autoplay={true}
-          style={{ width: 24, height: 24 }}
+          renderer="svg"
+          rendererSettings={{
+            preserveAspectRatio: "xMidYMid meet",
+          }}
         />
         <span>관심 공연을 변경했어요</span>
       </div>,
