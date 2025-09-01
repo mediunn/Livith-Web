@@ -37,7 +37,9 @@ function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
             <div
               className="cursor-pointer"
               onClick={() => {
-                navigate(`/setlist/${setlistItem.id}/${concertId}`);
+                navigate(`/setlist/${setlistItem.id}/${concertId}`, {
+                  state: { setlistTitle: setlistItem.title },
+                });
               }}
             >
               <div className="w-full aspect-[108/158] relative">
