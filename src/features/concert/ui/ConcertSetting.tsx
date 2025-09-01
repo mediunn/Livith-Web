@@ -148,7 +148,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                         ? "콘서트"
                         : nearestSchedule.type === "TICKETING"
                           ? "티켓팅"
-                          : nearestSchedule.category}{" "}
+                          : nearestSchedule.category}
                       까지{" "}
                       <span className="text-mainYellow30">{DDayDate},</span>
                     </p>
