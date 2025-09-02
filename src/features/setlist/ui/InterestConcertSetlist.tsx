@@ -44,6 +44,7 @@ function InterestConcertSetlist() {
       <BriefSetlistSongList
         setlistId={setlist.id}
         concertId={Number(concertId)}
+        setlistTitle={setlist.title}
       />
     </div>
   );

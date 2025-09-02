@@ -8,11 +8,13 @@ import { useNavigate } from "react-router-dom";
 type BriefSetlistSongListProps = {
   setlistId: number;
   concertId: number;
+  setlistTitle: string;
 };
 
 function BriefSetlistSongList({
   setlistId,
   concertId,
+  setlistTitle,
 }: BriefSetlistSongListProps) {
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
 
@@ -46,7 +48,9 @@ function BriefSetlistSongList({
       {/* <img src={MoreIcon} alt="More Icon" /> */}
       <div
         onClick={() => {
-          navigate(`/setlist/${setlistId}/${concertId}`);
+          navigate(`/setlist/${setlistId}/${concertId}`, {
+            state: { setlistTitle },
+          });
         }}
         className="h-57 w-full flex flex-col justify-center bg-grayScaleBlack80 rounded-b-10 cursor-pointer"
       >
