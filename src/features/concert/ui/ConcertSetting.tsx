@@ -17,6 +17,7 @@ import { Schedule } from "../../../entities/concert/api/getSchedule";
 import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
 import dayjs from "../../../shared/lib/dayjs";
 import EditInterestConcertBottomSheet from "../../../features/interest/ui/EditInterestConcertBottomSheet";
+import { getFormatDday } from "../utils/formatScheduleDate";
 
 interface ConcertSettingProps {
   concert: Concert;
@@ -38,34 +39,46 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
 
   const navigate = useNavigate();
 
+  const now = dayjs();
+
   const upcomingSchedules = schedules
     .filter(
       (s) =>
         (s.type === "TICKETING" || s.type === "CONCERT") &&
-        dayjs(s.scheduledAt).isSameOrAfter(dayjs(), "day")
+        dayjs(s.scheduledAt).isSameOrAfter(now, "day")
     )
     .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix());
 
-  const nearestSchedule = upcomingSchedules[0];
+  // 다가오는 일정이 있으면 그 중 가장 가까운 일정, 없으면 가장 마지막 일정
+  const nearestSchedule =
+    upcomingSchedules[0] ??
+    schedules
+      .filter((s) => s.type === "TICKETING" || s.type === "CONCERT")
+      .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix())
+      .slice(-1)[0];
+
+  // nearestSchedule이 다가오는 일정인지 확인
+  const isUpcoming =
+    upcomingSchedules.length > 0 && nearestSchedule === upcomingSchedules[0];
 
   const DDayDate = nearestSchedule
-    ? dayjs(nearestSchedule.scheduledAt).diff(dayjs(), "day") === 0
-      ? "D-Day"
-      : `D-${dayjs(nearestSchedule.scheduledAt).diff(dayjs(), "day")}`
+    ? getFormatDday(nearestSchedule.scheduledAt)
     : "";
 
   const DDayLabel = (schedule: Schedule) => {
-    const daysLeft = dayjs(schedule.scheduledAt).diff(dayjs(), "day");
+    const today = dayjs().startOf("day");
+    const target = dayjs(nearestSchedule.scheduledAt).startOf("day");
+    const diff = target.diff(today, "day");
 
     if (schedule.type === "TICKETING") {
-      return "준비를 시작해 볼까요?";
+      if (diff >= 0) return "준비를 시작해 볼까요?";
+      return "알차게 즐기고 오셨나요?";
     }
 
     if (schedule.type === "CONCERT") {
-      if (daysLeft === 0) {
-        return "놓친 정보가 있으면 확인해요!";
-      }
-      return "준비를 시작해 볼까요?";
+      if (diff === 0) return "놓친 정보가 있으면 확인해요!";
+      if (diff > 0) return "준비를 시작해 볼까요?";
+      return "알차게 즐기고 오셨나요?";
     }
 
     return "";
@@ -149,7 +162,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                         : nearestSchedule.type === "TICKETING"
                           ? "티켓팅"
                           : nearestSchedule.category}
-                      까지{" "}
+                      {isUpcoming && "까지"}{" "}
                       <span className="text-mainYellow30">{DDayDate},</span>
                     </p>
                     <p className="pt-2 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
