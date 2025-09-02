@@ -10,6 +10,7 @@ import BGroupTicketWebsiteBtn from "../../../shared/ui/BGroupTicketWebsiteBtn";
 
 import { analytics } from "../../../app/firebase";
 import { logEvent } from "firebase/analytics";
+import ConcertSettingSnackBar from "../../../shared/ui/ConcertSettingSnackBar";
 
 // A/B 테스트 그룹 배정 유틸
 function getExperimentGroup(): "A" | "B" {
@@ -39,6 +40,7 @@ function ConcertTabPanel({
   const bottomSensorRef = useRef<HTMLDivElement | null>(null);
   const [showFloatingBtn, setShowFloatingBtn] = useState(false);
   const [group, setGroup] = useState<"A" | "B">("A");
+  const [showSnackBar, setShowSnackBar] = useState(false);
 
   // 최초 그룹 배정만 수행
   useEffect(() => {
@@ -55,6 +57,8 @@ function ConcertTabPanel({
         logEvent(analytics, "page_view_returned", { group, debug_mode: true });
         // page_view_returned 이벤트 기록 후 다음 복귀 감지를 위해 localStorage 초기화
         localStorage.removeItem("ticketOpened");
+
+        setShowSnackBar(true); // 복귀 시 SnackBar 표시
       }
     };
 
@@ -96,22 +100,35 @@ function ConcertTabPanel({
       <div ref={bottomSensorRef} className="h-1 w-full"></div>
 
       <div className="mx-16 mt-10">
-        {group === "A" ? (
-          <AGroupTicketWebsiteBtn
-            ticketUrl={ticketUrl}
-            onClick={handleTicketClick}
-          />
-        ) : (
-          showFloatingBtn && (
-            <div className="fixed bottom-16 left-[50vw] -translate-x-1/2 w-[88%] max-w-400 z-50">
-              <BGroupTicketWebsiteBtn
+        {!showSnackBar && (
+          <>
+            {group === "A" ? (
+              <AGroupTicketWebsiteBtn
                 ticketUrl={ticketUrl}
                 onClick={handleTicketClick}
               />
-            </div>
-          )
+            ) : (
+              showFloatingBtn && (
+                <div className="fixed bottom-16 left-[50vw] -translate-x-1/2 w-[88%] max-w-400 z-50">
+                  <BGroupTicketWebsiteBtn
+                    ticketUrl={ticketUrl}
+                    onClick={handleTicketClick}
+                  />
+                </div>
+              )
+            )}
+          </>
         )}
       </div>
+
+      {showSnackBar && (
+        <div className="fixed bottom-16 left-[50vw] -translate-x-1/2 w-[88%] max-w-400 z-50">
+          <ConcertSettingSnackBar
+            id={concertId}
+            onClose={() => setShowSnackBar(false)}
+          />
+        </div>
+      )}
 
       {concertRequiredInfo && concertRequiredInfo.length > 0 && (
         <RequiredInfo
