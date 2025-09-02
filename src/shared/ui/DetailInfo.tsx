@@ -64,13 +64,15 @@ function DetailInfo({
           className="w-full h-full object-cover"
         />
       )}
-      <div className="absolute bottom-28 left-16 w-full pr-32">
-        <div className="inline-flex items-center px-8 py-2 bg-lyricsTranslation rounded-24">
-          <img src={HotConcertChipIcon} alt="" className="w-24 h-24" />
-          <p className="text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
-            {label}
-          </p>
-        </div>
+      <div className="absolute bottom-28 left-0 w-full px-16">
+        {label && (
+          <div className="inline-flex items-center px-8 py-2 bg-lyricsTranslation rounded-24">
+            <img src={HotConcertChipIcon} alt="" className="w-24 h-24" />
+            <p className="text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
+              {label}
+            </p>
+          </div>
+        )}
         <p className="pt-10 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
           {title}
         </p>

@@ -34,7 +34,7 @@ function ConcertSettingEmpty() {
               loop={true}
               className="w-40 h-40"
             />
-            <p className="mt-2 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
+            <p className="mt-7 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
               관심 콘서트 설정
             </p>
           </div>
