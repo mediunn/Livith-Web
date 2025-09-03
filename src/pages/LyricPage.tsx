@@ -218,7 +218,7 @@ function LyricPage() {
               isOpen={true}
               onClose={() => {}} // 바텀 시트가 닫히지 않게 빈 함수 전달
               ref={sheetRef}
-              snapPoints={[-32, -300, 40]}
+              snapPoints={[-32, -320, 40]}
               initialSnap={1} // 중간 위치에서 시작
             >
               <Sheet.Container
