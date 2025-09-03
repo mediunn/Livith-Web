@@ -232,16 +232,20 @@ function LyricPage() {
                 <Sheet.Content className="bg-grayScaleBlack90">
                   <Sheet.Scroller draggableAt="top" autoPadding>
                     <div>
-                      <div className="mx-16 mb-20 pb-16">
-                        <p className="text-mainYellow30 text-Body4-sm font-semibold font-NotoSansKR">
-                          떼창 포인트
-                        </p>
-                        <p className="pt-4 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
-                          박수 타이밍에 맞춰 치기와 Koi 댄스인데 딱 두줄까지만
-                          허용되도록 하겠습니다~~~~
-                        </p>
-                      </div>
-                      <div className="mx-16 h-2 bg-grayScaleBlack80"></div>
+                      {fanchantData?.fanchantPoint && (
+                        <>
+                          <div className="mx-16 mb-20 pb-16">
+                            <p className="text-mainYellow30 text-Body4-sm font-semibold font-NotoSansKR">
+                              떼창 포인트
+                            </p>
+                            <p className="pt-4 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
+                              {fanchantData.fanchantPoint}
+                            </p>
+                          </div>
+                          <div className="mx-16 h-2 bg-grayScaleBlack80"></div>
+                        </>
+                      )}
+
                       {songData ? (
                         <Lyric
                           songData={songData}
