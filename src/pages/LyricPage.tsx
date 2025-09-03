@@ -221,7 +221,13 @@ function LyricPage() {
               snapPoints={[-32, -300, 40]}
               initialSnap={1} // 중간 위치에서 시작
             >
-              <Sheet.Container>
+              <Sheet.Container
+                className="!mx-auto !max-w-md "
+                style={{
+                  left: "0",
+                  right: "0",
+                }}
+              >
                 <Sheet.Header className="bg-grayScaleBlack90" />
                 <Sheet.Content className="bg-grayScaleBlack90">
                   <Sheet.Scroller draggableAt="top" autoPadding>
