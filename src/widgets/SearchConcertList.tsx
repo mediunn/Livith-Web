@@ -5,6 +5,7 @@ import { getSearchConcertList } from "../features/concert/api/getSearchConcertLi
 
 type SearchConcertListProps = {
   id: number;
+  onClick?: () => void;
 };
 
 function SearchConcertList({ id }: SearchConcertListProps) {

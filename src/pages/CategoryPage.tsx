@@ -8,8 +8,18 @@ function CategoryPage() {
     <div className="pb-120">
       <TopBar bgColor="bg-grayScaleBlack100" />
       <MainImageCarousel></MainImageCarousel>
-      <SearchConcertList id={1}></SearchConcertList>
-      <SearchConcertList id={2}></SearchConcertList>
+      <SearchConcertList
+        id={1}
+        onClick={() => {
+          window.amplitude.track("click_first_concert_cell");
+        }}
+      ></SearchConcertList>
+      <SearchConcertList
+        id={2}
+        onClick={() => {
+          window.amplitude.track("click_second_concert_cell");
+        }}
+      ></SearchConcertList>
       <TabBar></TabBar>
     </div>
   );
