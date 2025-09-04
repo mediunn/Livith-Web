@@ -1,16 +1,29 @@
 import { toast } from "react-toastify";
 import Lottie from "lottie-react";
 import InterestConcertToastIconMotion from "../../shared/assets/InterestConcertToastIconMotion.json";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../../app/firebase";
 
 interface ConcertSettingSnackBarProps {
   id: string | number;
   onClose: () => void;
+  group: "A" | "B";
 }
 
-function ConcertSettingSnackBar({ id, onClose }: ConcertSettingSnackBarProps) {
+function ConcertSettingSnackBar({
+  id,
+  onClose,
+  group,
+}: ConcertSettingSnackBarProps) {
   const STORAGE_KEY = "InterestConcertId";
   const handleChange = () => {
     localStorage.setItem(STORAGE_KEY, String(id));
+
+    logEvent(analytics, "concert_setting_button_click", {
+      group,
+      debug_mode: true,
+    });
+
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
         <Lottie animationData={InterestConcertToastIconMotion} />

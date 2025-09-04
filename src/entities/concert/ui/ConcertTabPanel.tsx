@@ -128,6 +128,7 @@ function ConcertTabPanel({
           <ConcertSettingSnackBar
             id={concertId}
             onClose={() => setShowSnackBar(false)}
+            group={group}
           />
         </div>
       )}
