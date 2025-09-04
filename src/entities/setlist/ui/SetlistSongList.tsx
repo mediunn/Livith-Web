@@ -15,6 +15,7 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
   const setSetlistId = useSetRecoilState(setlistIdState);
   const navigate = useNavigate();
   const handleClick = () => {
+    window.amplitude.track("click_report_setlist");
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
@@ -55,6 +56,7 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
               setlistId={setlistId}
               onClick={() => {
                 {
+                  window.amplitude.track("click_song_cell");
                   setSetlistId(setlistId);
                   navigate(`/songs/${song.id}`);
                 }
