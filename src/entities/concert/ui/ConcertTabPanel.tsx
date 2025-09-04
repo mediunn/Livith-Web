@@ -106,6 +106,7 @@ function ConcertTabPanel({
               <AGroupTicketWebsiteBtn
                 ticketUrl={ticketUrl}
                 onClick={handleTicketClick}
+                group={group}
               />
             ) : (
               showFloatingBtn && (
@@ -113,6 +114,7 @@ function ConcertTabPanel({
                   <BGroupTicketWebsiteBtn
                     ticketUrl={ticketUrl}
                     onClick={handleTicketClick}
+                    group={group}
                   />
                 </div>
               )
