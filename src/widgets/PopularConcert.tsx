@@ -41,7 +41,12 @@ function PopularConcert() {
           인기 콘서트
         </p>
       </div>
-      <SectionConcertSlide concerts={concerts} />
+      <SectionConcertSlide
+        concerts={concerts}
+        onClick={() => {
+          window.amplitude.track("click_concert_cell_main");
+        }}
+      />
     </div>
   );
 }
