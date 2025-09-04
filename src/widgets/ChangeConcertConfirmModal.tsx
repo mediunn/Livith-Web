@@ -16,6 +16,7 @@ function ChangeConcertConfirmModal({
   const STORAGE_KEY = "InterestConcertId";
 
   const handleChange = () => {
+    window.amplitude.track("confirm_change_interest");
     localStorage.setItem(STORAGE_KEY, id);
     onClose();
     toast(
@@ -61,7 +62,10 @@ function ChangeConcertConfirmModal({
             </button>
             <button
               className="bg-grayScaleBlack80 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-28"
-              onClick={onClose}
+              onClick={() => {
+                window.amplitude.track("cancel_change_interest");
+                onClose();
+              }}
             >
               변경하지 않아요
             </button>
