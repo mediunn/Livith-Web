@@ -6,6 +6,7 @@ export type Fanchant = {
   setlistId: number;
   songId: number;
   fanchant: string[];
+  fanchantPoint: string;
 };
 
 export async function getFanchant(
