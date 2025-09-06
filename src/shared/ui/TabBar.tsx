@@ -35,6 +35,8 @@ function TabBar() {
           <button
             className="w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
             onClick={() => {
+              window.amplitude.track("click_nav_home");
+
               navigate("/");
             }}
           >
@@ -54,6 +56,8 @@ function TabBar() {
           <button
             className="w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
             onClick={() => {
+              window.amplitude.track("click_nav_explore");
+
               navigate("/category");
             }}
           >
@@ -73,6 +77,8 @@ function TabBar() {
           <button
             className="w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
             onClick={() => {
+              window.amplitude.track("click_nav_my");
+
               navigate("/my");
             }}
           >

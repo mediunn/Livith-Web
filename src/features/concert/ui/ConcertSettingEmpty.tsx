@@ -8,6 +8,7 @@ function ConcertSettingEmpty() {
   const navigate = useNavigate();
 
   const goToSetInterestConcertPage = () => {
+    window.amplitude.track("click_interest_concert_main");
     navigate("/set-concert");
   };
 

@@ -40,6 +40,7 @@ function BriefSetlistSongList({
             orderIndex={song.orderIndex}
             setlistId={setlistId}
             onClick={() => {
+              window.amplitude.track("click_setlist_song_main");
               navigate(`/songs/${song.id}`);
             }}
           />
@@ -48,6 +49,7 @@ function BriefSetlistSongList({
       {/* <img src={MoreIcon} alt="More Icon" /> */}
       <div
         onClick={() => {
+          window.amplitude.track("click_more_songs_main");
           navigate(`/setlist/${setlistId}/${concertId}`, {
             state: { setlistTitle },
           });

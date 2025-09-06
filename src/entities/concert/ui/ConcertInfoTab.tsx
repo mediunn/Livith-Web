@@ -180,9 +180,27 @@ function ConcertInfoTab({
                 },
               }}
             >
-              <Tab label="아티스트 상세" value="1" />
-              <Tab label="콘서트 상세" value="2" />
-              <Tab label="셋리스트" value="3" />
+              <Tab
+                label="아티스트 상세"
+                value="1"
+                onClick={() => {
+                  window.amplitude.track("click_artist_detail_segment");
+                }}
+              />
+              <Tab
+                label="콘서트 상세"
+                value="2"
+                onClick={() => {
+                  window.amplitude.track("click_concert_detail_segment");
+                }}
+              />
+              <Tab
+                label="셋리스트"
+                value="3"
+                onClick={() => {
+                  window.amplitude.track("click_setlist_segment_detail");
+                }}
+              />
             </TabList>
           </Box>
           <TabPanel

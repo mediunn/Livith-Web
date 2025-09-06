@@ -11,6 +11,7 @@ interface SetlistTabPanelProps {
 function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
   const navigate = useNavigate();
   const handleClick = () => {
+    window.amplitude.track("click_report_setlist_section");
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
   return (
@@ -37,6 +38,7 @@ function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
             <div
               className="cursor-pointer"
               onClick={() => {
+                window.amplitude.track("click_setlist_cell");
                 navigate(`/setlist/${setlistItem.id}/${concertId}`, {
                   state: { setlistTitle: setlistItem.title },
                 });

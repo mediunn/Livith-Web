@@ -10,6 +10,8 @@ interface DeleteConfirmModalProps {
 function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
   const STORAGE_KEY = "InterestConcertId";
   const handleDelete = () => {
+    window.amplitude.track("click_confirm_delete");
+
     localStorage.removeItem(STORAGE_KEY);
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
@@ -60,7 +62,10 @@ function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
             </button>
             <button
               className="bg-grayScaleBlack80 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-34"
-              onClick={onClose}
+              onClick={() => {
+                window.amplitude.track("click_cancel_delete");
+                onClose();
+              }}
             >
               잘못 눌렀어요
             </button>

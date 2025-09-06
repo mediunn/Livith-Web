@@ -8,6 +8,7 @@ interface FanCultureInfoProps {
 
 function FanCultureInfo({ concertCulture, cultureCount }: FanCultureInfoProps) {
   const handleClick = () => {
+    window.amplitude.track("click_report_fan_tips");
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
   return (

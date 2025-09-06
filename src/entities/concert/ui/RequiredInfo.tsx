@@ -8,6 +8,7 @@ type RequiredInfoProps = {
 
 function RequiredInfo({ concertRequiredInfo, ticketUrl }: RequiredInfoProps) {
   const handleClick = () => {
+    window.amplitude.track("click_report_concert_info");
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
 

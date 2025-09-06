@@ -12,6 +12,7 @@ import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
 
 type SectionConcertSlideProps = {
   concerts: SectionConcert[];
+  onClick?: () => void;
 };
 
 function SectionConcertSlide({ concerts }: SectionConcertSlideProps) {

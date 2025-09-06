@@ -94,7 +94,10 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
           </p>
           <div>
             <button
-              onClick={openSheet}
+              onClick={() => {
+                openSheet();
+                window.amplitude.track("click_change_concert_main");
+              }}
               className="mr-24 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
             >
               수정하기
@@ -109,7 +112,10 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
         <div className="w-full flex justify-center bg-grayScaleBlack90 ">
           <button
             className="absolute top-157 right-0 z-10 mt-16 mr-39 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
-            onClick={() => navigate(`/concert/${concert.id}`)}
+            onClick={() => {
+              window.amplitude.track("click_more_info_main");
+              navigate(`/concert/${concert.id}`);
+            }}
           >
             <div className="px-10 py-8 flex items-center">
               <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
@@ -219,8 +225,22 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                   },
                 }}
               >
-                <Tab label="콘서트 일정" value="1" />
-                <Tab label="셋리스트" value="2" />
+                <Tab
+                  label="콘서트 일정"
+                  value="1"
+                  onClick={() => {
+                    window.amplitude.track(
+                      "click_concert_schedule_segment_main"
+                    );
+                  }}
+                />
+                <Tab
+                  label="셋리스트"
+                  value="2"
+                  onClick={() => {
+                    window.amplitude.track("click_setlist_segment_main");
+                  }}
+                />
               </TabList>
             </Box>
             <TabPanel
