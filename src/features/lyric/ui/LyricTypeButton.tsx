@@ -29,11 +29,23 @@ function LyricTypeButton({
                 ? "bg-lyricsTranslation"
                 : "bg-mainYellow30";
 
+        const handleClick = () => {
+          onToggle(index);
+
+          if (!isActive) {
+            if (label === "원어") {
+              window.amplitude.track("toggle_original_on");
+            } else if (label === "발음") {
+              window.amplitude.track("toggle_pronunciation_on");
+            }
+          }
+        };
+
         return (
           <div key={label}>
             <button
               key={label}
-              onClick={() => onToggle(index)}
+              onClick={handleClick}
               className={`
                px-10 py-5 rounded-35 cursor-pointer
               ${isActive ? `${activeBgColor} text-grayScaleBlack100` : "bg-grayScaleBlack100 border border-solid border-grayScaleBlack80 text-grayScaleBlack50"}
