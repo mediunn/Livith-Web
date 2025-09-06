@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../entities/lyric/ui/Lyric";
@@ -12,9 +12,11 @@ import YouTubePlayer from "../entities/lyric/ui/YouTubePlayer";
 import EmptyYouTubePlayer from "../entities/lyric/ui/EmptyYouTubePlayer";
 import EmptyConcertInfoTabPanel from "../entities/concert/ui/EmptyConcertInfoTabPanel";
 import { getSong, Song } from "../entities/lyric/api/getSong";
+import { Sheet, SheetRef } from "react-modal-sheet";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
+  const sheetRef = useRef<SheetRef>(null);
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -211,17 +213,57 @@ function LyricPage() {
             hasFanchant={hasFanchant}
           />
 
-          {songData ? (
-            <Lyric
-              songData={songData}
-              activeButtons={activeButtons}
-              fanchantData={fanchantData}
-            />
-          ) : (
-            <div className="pt-51">
-              <EmptyConcertInfoTabPanel text="가사 정보" />
-            </div>
-          )}
+          <div>
+            <Sheet
+              isOpen={true}
+              onClose={() => {}} // 바텀 시트가 닫히지 않게 빈 함수 전달
+              ref={sheetRef}
+              snapPoints={[-32, -320, 40]}
+              initialSnap={1} // 중간 위치에서 시작
+            >
+              <Sheet.Container
+                className="!mx-auto !max-w-md "
+                style={{
+                  left: "0",
+                  right: "0",
+                }}
+              >
+                <Sheet.Header className="bg-grayScaleBlack90" />
+                <Sheet.Content className="bg-grayScaleBlack90">
+                  <Sheet.Scroller draggableAt="top" autoPadding>
+                    <div>
+                      {fanchantData?.fanchantPoint && (
+                        <>
+                          <div className="mx-16 mb-20 pb-16">
+                            <p className="text-mainYellow30 text-Body4-sm font-semibold font-NotoSansKR">
+                              떼창 포인트
+                            </p>
+                            <p className="pt-4 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
+                              {fanchantData.fanchantPoint}
+                            </p>
+                          </div>
+                          <div className="mx-16 h-2 bg-grayScaleBlack80"></div>
+                        </>
+                      )}
+
+                      {songData ? (
+                        <Lyric
+                          songData={songData}
+                          activeButtons={activeButtons}
+                          fanchantData={fanchantData}
+                        />
+                      ) : (
+                        <div className="pt-51">
+                          <EmptyConcertInfoTabPanel text="가사 정보" />
+                        </div>
+                      )}
+                    </div>
+                  </Sheet.Scroller>
+                </Sheet.Content>
+              </Sheet.Container>
+              <Sheet.Backdrop />
+            </Sheet>
+          </div>
         </>
       )}
 
