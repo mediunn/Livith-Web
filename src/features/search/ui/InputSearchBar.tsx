@@ -62,7 +62,7 @@ function InputSearchBar({
             setShowResults(false); // 입력값이 바뀌면 검색결과 숨김
           }}
           onKeyDown={handleKeyDown}
-          placeholder="찾고 있는 콘서트는 무엇인가요?"
+          placeholder="찾고 있는 콘서트나 가수를 검색하세요"
           onCompositionStart={() => setIsComposing(true)}
           onCompositionEnd={() => setIsComposing(false)}
           className="w-full my-9 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR border-none outline-none bg-transparent placeholder-grayScaleBlack50"
