@@ -32,7 +32,10 @@ function DetailInfo({
   return (
     <div className="w-full h-337 relative">
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          window.amplitude.track("click_interest_concert_detail");
+          setIsModalOpen(true);
+        }}
         className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
       >
         <div className="px-10 py-8 flex items-center">

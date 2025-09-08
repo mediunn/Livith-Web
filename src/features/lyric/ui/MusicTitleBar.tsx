@@ -9,6 +9,7 @@ interface MusicTitleBarProps {
 
 function MusicTitleBar({ songId }: MusicTitleBarProps) {
   const handleClick = () => {
+    window.amplitude.track("click_report_song");
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
 

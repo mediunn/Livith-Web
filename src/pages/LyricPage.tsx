@@ -222,7 +222,7 @@ function LyricPage() {
               initialSnap={1} // 중간 위치에서 시작
             >
               <Sheet.Container
-                className="!mx-auto !max-w-md "
+                className="!mx-auto !max-w-md !bg-grayScaleBlack90 !rounded-t-30"
                 style={{
                   left: "0",
                   right: "0",

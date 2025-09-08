@@ -11,8 +11,6 @@ type ScheduleInfoProps = {
 };
 
 function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
-  const concertSchedules = schedules.filter((s) => s.category === "공연");
-
   const upcomingSchedules = schedules
     .filter((s) => dayjs(s.scheduledAt).isSameOrAfter(dayjs(), "day"))
     .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix());
@@ -24,6 +22,7 @@ function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
   const sortedSchedules = [...upcomingSchedules, ...pastSchedules];
 
   const handleClick = () => {
+    window.amplitude.track("click_report_schedule");
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
 
