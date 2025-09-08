@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import useConcertDetail from "../features/concert/model/useConcertDetail";
 import CompleteEffect from "../shared/assets/CompleteEffect.svg";
+import SetConcertCompleteMotion from "../shared/assets/SetConcertCompleteMotion.json";
+import Lottie from "lottie-react";
 
 function CompleteSetConcert() {
   const interestConcertId = localStorage.getItem("InterestConcertId");
@@ -22,10 +24,17 @@ function CompleteSetConcert() {
         {/* 겹쳐진 이미지 래퍼 */}
         <div className="relative w-full aspect-[3/4]">
           {/* 회전 효과 이미지 */}
-          <img
+          {/* <img
             src={CompleteEffect}
             alt="Complete Effect"
+
             className="absolute inset-0 w-full h-full animate-spin-slow z-0"
+          /> */}
+          <Lottie
+            animationData={SetConcertCompleteMotion}
+            loop={true} // 무한 반복 여부
+            autoplay={true} // 자동 재생 여부
+            className="absolute inset-0 w-full h-full z-0"
           />
 
           {/* 마스크 배경 이미지 */}
