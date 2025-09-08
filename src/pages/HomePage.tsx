@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
 import ConcertSetting from "../features/concert/ui/ConcertSetting";
-import TabBar, { TabType } from "../shared/ui/TabBar";
+import TabBar from "../shared/ui/TabBar";
 import { useTabDirection } from "../shared/hooks/useTabDirection";
-import { getConcertInsideInfo } from "../entities/concert/api/getConcertInsideInfo";
-import { Concert } from "../entities/concert/types";
-import { getSchedule, Schedule } from "../entities/concert/api/getSchedule";
+import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
+import { useSchedule } from "../entities/concert/model/useSchedule";
 
 function HomePage() {
-  const { direction, currentTab, updateDirection } = useTabDirection();
-
-  const [concert, setConcert] = useState<Concert | null>(null);
-  const [schedules, setSchedule] = useState<Schedule[]>([]);
+  const { updateDirection } = useTabDirection();
   const [interestConcertId, setInterestConcertId] = useState<string | null>(
     null
   );
@@ -21,34 +17,19 @@ function HomePage() {
     setInterestConcertId(id);
   }, []);
 
-  useEffect(() => {
-    async function fetchConcert() {
-      if (!interestConcertId) return;
-      try {
-        const data = await getConcertInsideInfo(Number(interestConcertId));
-        setConcert(data);
-      } catch (error) {
-        console.error("특정 콘서트 상세 정보 조회 API 호출 실패", error);
-      }
-    }
+  const { data: concert, isLoading: isConcertLoading } = useConcertInsideInfo(
+    interestConcertId ? Number(interestConcertId) : null
+  );
 
-    fetchConcert();
-  }, [interestConcertId]);
+  const { data: schedules = [], isLoading: isScheduleLoading } = useSchedule(
+    interestConcertId ? Number(interestConcertId) : null
+  );
 
-  useEffect(() => {
-    const fetchSchedule = async () => {
-      if (!interestConcertId) return;
-      try {
-        const data = await getSchedule(Number(interestConcertId));
-        setSchedule(data);
-      } catch (error) {
-        console.error("특정 콘서트 일정 목록 조회 API 호출 실패:", error);
-        setSchedule([]);
-      }
-    };
+  const isLoading = isConcertLoading || isScheduleLoading;
 
-    fetchSchedule();
-  }, [interestConcertId]);
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="pb-90">
