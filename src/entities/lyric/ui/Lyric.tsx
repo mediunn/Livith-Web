@@ -14,7 +14,7 @@ function Lyric({ songData, activeButtons, fanchantData }: LyricProps) {
   const setlistId = useRecoilValue(setlistIdState);
 
   return (
-    <div className="px-16 mt-49 w-full">
+    <div className="px-16 mt-30 w-full">
       {songData.lyrics.map((_, index) => (
         <div key={index} className="pb-20 w-full">
           {activeButtons[3] && setlistId !== null && fanchantData ? (

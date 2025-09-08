@@ -23,6 +23,7 @@ function ArtistInfo({
   imgUrl,
 }: ArtistInfoProps) {
   const handleClick = () => {
+    window.amplitude.track("click_report_artist_info");
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
 

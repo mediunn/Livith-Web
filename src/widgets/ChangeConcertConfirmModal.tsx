@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
 import Lottie from "lottie-react";
 import InterestConcertToastIconMotion from "../shared/assets/InterestConcertToastIconMotion.json";
+import { useEffect, useState } from "react";
 interface ChangeConcertConfirmModalProps {
   id: string;
   isOpen: boolean;
@@ -13,17 +14,28 @@ function ChangeConcertConfirmModal({
   onClose,
 }: ChangeConcertConfirmModalProps) {
   const STORAGE_KEY = "InterestConcertId";
+
   const handleChange = () => {
+    window.amplitude.track("confirm_change_interest");
     localStorage.setItem(STORAGE_KEY, id);
     onClose();
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <Lottie animationData={InterestConcertToastIconMotion} />
+        <Lottie
+          animationData={InterestConcertToastIconMotion}
+          loop={false}
+          autoplay={true}
+          renderer="svg"
+          rendererSettings={{
+            preserveAspectRatio: "xMidYMid meet",
+          }}
+        />
         <span>관심 공연을 변경했어요</span>
       </div>,
       {
         position: "top-center",
         autoClose: 3000,
+        pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
       }
     );
   };
@@ -50,7 +62,10 @@ function ChangeConcertConfirmModal({
             </button>
             <button
               className="bg-grayScaleBlack80 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-28"
-              onClick={onClose}
+              onClick={() => {
+                window.amplitude.track("cancel_change_interest");
+                onClose();
+              }}
             >
               변경하지 않아요
             </button>

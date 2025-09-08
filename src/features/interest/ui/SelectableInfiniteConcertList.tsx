@@ -51,7 +51,7 @@ export function SelectableInfiniteConcertList({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-x-10 gap-y-24 px-16 min-h-[calc(100vh-72px)]">
+    <div className="grid grid-cols-3 gap-x-10 gap-y-24 px-16 ">
       {concerts?.map((concert) => {
         const isSelected = selectedConcert === concert.id;
         return (

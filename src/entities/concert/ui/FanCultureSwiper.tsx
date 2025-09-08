@@ -126,11 +126,11 @@ function FanCultureSwiper({ concertCulture }: FanCultureSwiperProps) {
               ref={(el) => {
                 if (el) cardRefs.current[i] = el;
               }}
-              className="w-228 mb-37 bg-grayScaleBlack80 rounded-8 "
+              className="w-228 mb-37 bg-grayScaleBlack90 rounded-8 "
             >
               <div className="px-12 py-20">
                 <div className="relative">
-                  <div className="inline-flex items-center justify-center bg-grayScaleBlack90 rounded-24">
+                  <div className="inline-flex items-center justify-center bg-grayScaleBlack80 rounded-24">
                     <p className="px-9 py-4 text-grayScaleBlack30 text-Caption1-Bold font-bold font-NotoSansKR">
                       팬문화 {i + 1}
                     </p>

@@ -3,6 +3,7 @@ import { ConcertFilter } from "../entities/concert/types";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import ListHeader from "../shared/ui/ListHeader";
+import { motion } from "framer-motion";
 
 function ConcertListPage() {
   const { status } = useParams();
@@ -21,7 +22,24 @@ function ConcertListPage() {
   return (
     <div>
       <ListHeader title={concertFilter} />
-      <ConcertList filter={status as ConcertFilter} />
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, x: "100%" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: "-100%" }}
+        transition={{
+          x: {
+            type: "spring",
+            stiffness: 756,
+            damping: 48,
+            mass: 1,
+            duration: 0.25,
+          },
+          opacity: { duration: 0.1, ease: "easeOut" },
+        }}
+      >
+        <ConcertList />
+      </motion.div>
     </div>
   );
 }

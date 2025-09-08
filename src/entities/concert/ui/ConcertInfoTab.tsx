@@ -180,9 +180,27 @@ function ConcertInfoTab({
                 },
               }}
             >
-              <Tab label="가수 정보" value="1" />
-              <Tab label="콘서트 정보" value="2" />
-              <Tab label="셋리스트" value="3" />
+              <Tab
+                label="아티스트 상세"
+                value="1"
+                onClick={() => {
+                  window.amplitude.track("click_artist_detail_segment");
+                }}
+              />
+              <Tab
+                label="콘서트 상세"
+                value="2"
+                onClick={() => {
+                  window.amplitude.track("click_concert_detail_segment");
+                }}
+              />
+              <Tab
+                label="셋리스트"
+                value="3"
+                onClick={() => {
+                  window.amplitude.track("click_setlist_segment_detail");
+                }}
+              />
             </TabList>
           </Box>
           <TabPanel
@@ -192,7 +210,7 @@ function ConcertInfoTab({
             }}
           >
             {!artist && ConcertCulture.length === 0 ? (
-              <EmptyConcertInfoTabPanel text={"가수 정보"} />
+              <EmptyConcertInfoTabPanel text={"아티스트 상세"} />
             ) : (
               <ArtistTabPanel
                 introduction={introduction}
@@ -217,7 +235,7 @@ function ConcertInfoTab({
             {(!schedules || schedules.length === 0) &&
             (!concertRequiredInfo || concertRequiredInfo.length === 0) &&
             (!mds || mds.length === 0) ? (
-              <EmptyConcertInfoTabPanel text={"콘서트 정보"} />
+              <EmptyConcertInfoTabPanel text={"콘서트 상세"} />
             ) : (
               <ConcertTabPanel
                 concertId={concertId}

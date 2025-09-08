@@ -1,15 +1,12 @@
 import { useConcertList } from "../../../features/concert/model/useConcertList";
-import { ConcertFilter } from "../../../entities/concert/types";
 import { SelectableInfiniteConcertList } from "./SelectableInfiniteConcertList";
 import { StateWithSetter } from "../../../shared/types/props";
 
 type SelectableConcertListProps = {
-  filter: ConcertFilter;
   selectedConcertState: StateWithSetter<string | null>;
 };
 
 export function SelectableConcertList({
-  filter,
   selectedConcertState,
 }: SelectableConcertListProps) {
   const size = 15; // 페이지당 항목 수
@@ -20,7 +17,7 @@ export function SelectableConcertList({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useConcertList({ filter, size });
+  } = useConcertList({ size });
   return (
     <SelectableInfiniteConcertList
       concerts={data?.pages}

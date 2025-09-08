@@ -32,7 +32,10 @@ function DetailInfo({
   return (
     <div className="w-full h-337 relative">
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          window.amplitude.track("click_interest_concert_detail");
+          setIsModalOpen(true);
+        }}
         className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
       >
         <div className="px-10 py-8 flex items-center">
@@ -64,13 +67,15 @@ function DetailInfo({
           className="w-full h-full object-cover"
         />
       )}
-      <div className="absolute bottom-28 left-16 w-full pr-32">
-        <div className="inline-flex items-center px-8 py-2 bg-lyricsTranslation rounded-24">
-          <img src={HotConcertChipIcon} alt="" className="w-24 h-24" />
-          <p className="text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
-            {label}
-          </p>
-        </div>
+      <div className="absolute bottom-28 left-0 w-full px-16">
+        {label && (
+          <div className="inline-flex items-center px-8 py-2 bg-lyricsTranslation rounded-24">
+            <img src={HotConcertChipIcon} alt="" className="w-24 h-24" />
+            <p className="text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
+              {label}
+            </p>
+          </div>
+        )}
         <p className="pt-10 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
           {title}
         </p>

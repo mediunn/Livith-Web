@@ -6,6 +6,8 @@ type UseSearchResultParams = {
   size?: number;
 };
 
+type Cursor = { id: number | null; value: string | null };
+
 export const useSearchResult = ({ keyword, size }: UseSearchResultParams) => {
   return useInfiniteQuery({
     queryKey: ["concerts", keyword],
@@ -17,7 +19,7 @@ export const useSearchResult = ({ keyword, size }: UseSearchResultParams) => {
           : undefined,
         size,
       }),
-    initialPageParam: undefined,
+    initialPageParam: undefined as Cursor | undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.data.cursor;
     },

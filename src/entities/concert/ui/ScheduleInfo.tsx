@@ -3,7 +3,7 @@ import dayjs from "../../../shared/lib/dayjs";
 import {
   getFormatDday,
   getFormatDateTime,
-} from "../../../features/concert/utils/formatScheduleDate";
+} from "../../../features/concert/utils/formatScheduleDate.ts";
 
 type ScheduleInfoProps = {
   schedules: Schedule[];
@@ -22,6 +22,7 @@ function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
   const sortedSchedules = [...upcomingSchedules, ...pastSchedules];
 
   const handleClick = () => {
+    window.amplitude.track("click_report_schedule");
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
 

@@ -12,7 +12,6 @@ function InterestConcertSetlist() {
     isLoading,
     isError,
   } = useInterestConcertSetlist({ concertId: Number(concertId) });
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -23,8 +22,8 @@ function InterestConcertSetlist() {
   let label1 = "";
   let label2 = "";
 
-  if (!setlist || !setlist!.id) {
-    return null;
+  if (!setlist || setlist!.id === undefined) {
+    return <EmptySetList />;
   } else if (setlist.type === SetlistType.EXPECTED) {
     label1 = "이전 콘서트를 기반으로";
     label2 = "이런 노래를 예상해요";
@@ -35,23 +34,18 @@ function InterestConcertSetlist() {
 
   return (
     <div className="mx-16 pb-38">
-      {!setlist || !setlist!.id ? (
-        <EmptySetList />
-      ) : (
-        <>
-          <div className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR mt-24">
-            <p>{label1}</p>
-            <p>{label2}</p>
-          </div>
-          {setlist.type !== SetlistType.EXPECTED ? (
-            <InterestConcertSetlistDetail setlist={setlist} />
-          ) : null}
-          <BriefSetlistSongList
-            setlistId={setlist.id}
-            concertId={Number(concertId)}
-          />
-        </>
-      )}
+      <div className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR mt-24">
+        <p>{label1}</p>
+        <p>{label2}</p>
+      </div>
+      {setlist.type !== SetlistType.EXPECTED ? (
+        <InterestConcertSetlistDetail setlist={setlist} />
+      ) : null}
+      <BriefSetlistSongList
+        setlistId={setlist.id}
+        concertId={Number(concertId)}
+        setlistTitle={setlist.title}
+      />
     </div>
   );
 }

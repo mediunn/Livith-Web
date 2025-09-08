@@ -10,15 +10,25 @@ interface DeleteConfirmModalProps {
 function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
   const STORAGE_KEY = "InterestConcertId";
   const handleDelete = () => {
+    window.amplitude.track("click_confirm_delete");
+
     localStorage.removeItem(STORAGE_KEY);
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <Lottie animationData={DeleteConcertToastIconMotion} />
+        <Lottie
+          animationData={DeleteConcertToastIconMotion}
+          loop={false}
+          renderer="svg"
+          rendererSettings={{
+            preserveAspectRatio: "xMidYMid meet",
+          }}
+        />
         <span>관심 콘서트가 삭제되었어요</span>
       </div>,
       {
         position: "top-center",
         autoClose: 3000,
+        pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
       }
     );
 
@@ -52,7 +62,10 @@ function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
             </button>
             <button
               className="bg-grayScaleBlack80 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-34"
-              onClick={onClose}
+              onClick={() => {
+                window.amplitude.track("click_cancel_delete");
+                onClose();
+              }}
             >
               잘못 눌렀어요
             </button>

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
 import ConcertSetting from "../features/concert/ui/ConcertSetting";
-import TabBar from "../shared/ui/TabBar";
+import TabBar, { TabType } from "../shared/ui/TabBar";
+import { useTabDirection } from "../shared/hooks/useTabDirection";
 import { getConcertInsideInfo } from "../entities/concert/api/getConcertInsideInfo";
 import { Concert } from "../entities/concert/types";
 import { getSchedule, Schedule } from "../entities/concert/api/getSchedule";
 
 function HomePage() {
+  const { direction, currentTab, updateDirection } = useTabDirection();
+
   const [concert, setConcert] = useState<Concert | null>(null);
   const [schedules, setSchedule] = useState<Schedule[]>([]);
   const [interestConcertId, setInterestConcertId] = useState<string | null>(
@@ -54,7 +57,12 @@ function HomePage() {
       ) : (
         <ConcertSettingEmpty />
       )}
-      <TabBar />
+
+      <TabBar
+        onTabChange={(tab) => {
+          updateDirection(tab);
+        }}
+      />
     </div>
   );
 }

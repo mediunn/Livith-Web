@@ -12,7 +12,7 @@ function LyricTypeButton({
   hasFanchant,
 }: LyricTypeButtonProps) {
   return (
-    <div className="mt-25 px-16 flex bg-grayScaleBlack100 w-full max-w-md">
+    <div className="mt-24 px-16 flex bg-grayScaleBlack100 w-full max-w-md">
       {lyricType.map((label, index) => {
         // 응원법 버튼 비활성화 조건
         if (label === "응원법" && !hasFanchant) return null;
@@ -29,16 +29,28 @@ function LyricTypeButton({
                 ? "bg-lyricsTranslation"
                 : "bg-mainYellow30";
 
+        const handleClick = () => {
+          onToggle(index);
+
+          if (!isActive) {
+            if (label === "원어") {
+              window.amplitude.track("toggle_original_on");
+            } else if (label === "발음") {
+              window.amplitude.track("toggle_pronunciation_on");
+            }
+          }
+        };
+
         return (
           <div key={label}>
             <button
               key={label}
-              onClick={() => onToggle(index)}
+              onClick={handleClick}
               className={`
-              h-30 px-17 rounded-35 cursor-pointer
+               px-10 py-5 rounded-35 cursor-pointer
               ${isActive ? `${activeBgColor} text-grayScaleBlack100` : "bg-grayScaleBlack100 border border-solid border-grayScaleBlack80 text-grayScaleBlack50"}
-              ${isActive ? "text-Body4-sm font-semibold font-NotoSansKR" : "text-Body4-md font-medium font-NotoSansKR"}
-              ${index !== 0 ? "ml-10" : ""}
+              ${isActive ? "text-Body4-sm font-semibold font-NotoSansKR" : "text-Body4-md font-medium font-NotoSansKR"}
+              ${index !== 0 ? "ml-8" : ""}
             `}
             >
               {label} {isActive ? "ON" : "OFF"}
