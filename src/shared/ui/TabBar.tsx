@@ -7,7 +7,9 @@ import CategoryIconActive from "../assets/CategoryIconActive.svg";
 import MyIcon from "../assets/MyIcon.svg";
 import MyIconActive from "../assets/MyIconActive.svg";
 
-function TabBar() {
+export type TabType = "home" | "category" | "my";
+
+function TabBar({ onTabChange }: { onTabChange?: (tab: TabType) => void }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState<"home" | "category" | "my">(
@@ -38,6 +40,7 @@ function TabBar() {
               window.amplitude.track("click_nav_home");
 
               navigate("/");
+              onTabChange?.("home");
             }}
           >
             <img
@@ -59,6 +62,7 @@ function TabBar() {
               window.amplitude.track("click_nav_explore");
 
               navigate("/category");
+              onTabChange?.("category");
             }}
           >
             <img
@@ -80,6 +84,7 @@ function TabBar() {
               window.amplitude.track("click_nav_my");
 
               navigate("/my");
+              onTabChange?.("my");
             }}
           >
             <img
