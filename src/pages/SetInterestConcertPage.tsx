@@ -89,18 +89,18 @@ function SetInterestConcertPage() {
             )
           )}
         </div>
-
-        {/* 버튼: 항상 화면 맨 아래 */}
-        <div className="sticky bottom-0 bg-grayScaleBlack100 pt-24 pb-60 z-50 px-16">
-          <SetInterestConcertButton
-            selectedConcertState={{
-              value: selectedConcert,
-              setValue: setSelectedConcert,
-            }}
-          />
-        </div>
       </motion.div>
+      {/* 버튼: 항상 화면 맨 아래 */}
+      <div className="sticky bottom-0 bg-grayScaleBlack100 pt-24 pb-60 z-50 px-16">
+        <SetInterestConcertButton
+          selectedConcertState={{
+            value: selectedConcert,
+            setValue: setSelectedConcert,
+          }}
+        />
+      </div>
     </div>
   );
 }
+
 export default SetInterestConcertPage;
