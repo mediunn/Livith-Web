@@ -53,3 +53,25 @@ export type SectionConcert = {
   label: string;
   sortedIndex: number;
 };
+
+export enum GenreFilter {
+  ALL = "ALL",
+  JPOP = "JPOP",
+  ROCK_METAL = "ROCK_METAL",
+  RAP_HIPHOP = "RAP_HIPHOP",
+  CLASSIC_JAZZ = "CLASSIC_JAZZ",
+  ACOUSTIC = "ACOUSTIC",
+  ELECTRONIC = "ELECTRONIC",
+}
+
+export enum StatusFilter {
+  ALL = "ALL",
+  ONGOING = "ONGOING",
+  UPCOMING = "UPCOMING",
+  COMPLETED = "COMPLETED",
+}
+
+export enum SortFilter {
+  LATEST = "LATEST",
+  ALPHABETICAL = "ALPHABETICAL",
+}

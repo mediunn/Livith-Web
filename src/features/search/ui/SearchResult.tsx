@@ -19,6 +19,8 @@ function SearchResult({ keyword, selectedConcertState }: SearchResultProps) {
     isFetchingNextPage,
   } = useSearchResult({ keyword, size });
 
+  window.amplitude.track("click_search_complete");
+
   return (
     <>
       {data?.totalCount === 0 ? (
