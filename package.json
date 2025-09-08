@@ -26,6 +26,7 @@
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^8.6.0",
     "firebase": "^12.2.1",
+    "framer-motion": "^12.23.12",
     "lottie-react": "^2.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
