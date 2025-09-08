@@ -12,7 +12,7 @@ function SortMenu({ sort, setSort }: SortMenuProps) {
   const inactiveClass = "text-Body4-md font-medium text-grayScaleWhite";
 
   return (
-    <div className="absolute right-3 top-30 w-98 flex flex-col border border-grayScaleBlack80 bg-grayScaleBlack90 rounded-tl-16 rounded-bl-16 rounded-br-16 px-14 py-16 gap-6">
+    <div className="absolute right-3 top-30 w-98 flex flex-col border border-grayScaleBlack80 bg-grayScaleBlack90 rounded-tl-16 rounded-bl-16 rounded-br-16 px-14 py-16 gap-6 z-10">
       <button
         type="button"
         className={`${baseClass} ${sort === SortFilter.LATEST ? activeClass : inactiveClass}`}

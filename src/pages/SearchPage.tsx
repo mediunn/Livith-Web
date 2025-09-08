@@ -15,6 +15,7 @@ import FilterBottomSheet from "../features/search/ui/FilterBottomSheet";
 import { FilterChips } from "../features/search/ui/FilterChips";
 import { InfiniteConcertList } from "../widgets/InfiniteConcertList";
 import ConcertList from "../widgets/ConcertList";
+import FilterSearch from "../features/search/ui/FilterSearch";
 function SearchPage() {
   const [input, setInput] = useState<string>("");
   const [recent, setRecent] = useState<string[]>([]);
@@ -73,10 +74,11 @@ function SearchPage() {
 
         {/* 검색 결과 개수 표시 */}
         {showResults && input && (
-          <div className="px-16 py-24 sticky top-[72px] bg-grayScaleBlack100 z-40">
-            {/* height만큼 top 값을 줘야 아래에서 겹치지 않음 */}
-            <SearchResultCount keyword={input} />
-          </div>
+          <></>
+          // <div className="px-16 py-24 sticky top-[72px] bg-grayScaleBlack100 z-40">
+          //   {/* height만큼 top 값을 줘야 아래에서 겹치지 않음 */}
+          //   <SearchResultCount keyword={input} />
+          // </div>
         )}
       </div>
       {/* 필터 영역 */}
@@ -103,6 +105,12 @@ function SearchPage() {
         <SearchResult keyword={input} />
       ) : (
         <>
+          <FilterSearch
+            keyword={input}
+            genre={genre}
+            status={status}
+            sort={sort}
+          />
           {/* 최근 검색어 */}
           {/* {!input && recent.length > 0 && (
             <RecentSearch

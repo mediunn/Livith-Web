@@ -50,9 +50,10 @@ function InputSearchBar({
           ref={inputRef}
           type="text"
           value={input}
-          onFocus={() => {
+          onFocus={(e) => {
             setShowResults(false);
             setShowAll?.(false);
+            e.currentTarget.placeholder = ""; // 포커스 시 placeholder 숨김
           }} // 포커스 시 검색 결과 숨김
           onBlur={() => {
             setShowAll?.(true);
@@ -72,7 +73,10 @@ function InputSearchBar({
             src={CloseRoundIcon}
             alt="삭제 아이콘"
             className="mr-16 cursor-pointer"
-            onClick={() => setInput("")}
+            onClick={() => {
+              setInput("");
+              inputRef.current?.focus(); // 다시 포커스 줘서 커서 유지
+            }}
           />
         ) : (
           <div className="mr-11">
