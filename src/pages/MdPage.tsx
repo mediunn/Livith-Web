@@ -4,6 +4,7 @@ import ListHeader from "../shared/ui/ListHeader";
 import MdList from "../widgets/MdList";
 import { getConcertInsideInfo } from "../entities/concert/api/getConcertInsideInfo";
 import { Concert } from "../entities/concert/types";
+import { motion } from "framer-motion";
 
 function MdPage() {
   const location = useLocation();
@@ -33,7 +34,24 @@ function MdPage() {
   return (
     <div className="pb-90">
       <ListHeader title={"MD 상세보기"} />
-      <MdList concertId={concertId} ticketUrl={concert.ticketUrl} />
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, x: "100%" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: "-100%" }}
+        transition={{
+          x: {
+            type: "spring",
+            stiffness: 756,
+            damping: 48,
+            mass: 1,
+            duration: 0.25,
+          },
+          opacity: { duration: 0.1, ease: "easeOut" },
+        }}
+      >
+        <MdList concertId={concertId} ticketUrl={concert.ticketUrl} />
+      </motion.div>
     </div>
   );
 }

@@ -13,32 +13,30 @@ function CategoryPage() {
     <div className="pb-120">
       <TopBar bgColor="bg-grayScaleBlack100" />
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentTab}
-          initial={{ opacity: 0, x: 10 * direction }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -10 * direction }}
-          transition={{
-            opacity: { duration: 0.1, ease: "easeOut" },
-            x: { duration: 0.15, ease: "easeOut" },
+      <motion.div
+        key={currentTab}
+        initial={{ opacity: 0, x: 10 * direction }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -10 * direction }}
+        transition={{
+          opacity: { duration: 0.1, ease: "easeOut" },
+          x: { duration: 0.15, ease: "easeOut" },
+        }}
+      >
+        <MainImageCarousel></MainImageCarousel>
+        <SearchConcertList
+          id={1}
+          onClick={() => {
+            window.amplitude.track("click_first_concert_cell");
           }}
-        >
-          <MainImageCarousel></MainImageCarousel>
-          <SearchConcertList
-            id={1}
-            onClick={() => {
-              window.amplitude.track("click_first_concert_cell");
-            }}
-          ></SearchConcertList>
-          <SearchConcertList
-            id={2}
-            onClick={() => {
-              window.amplitude.track("click_second_concert_cell");
-            }}
-          ></SearchConcertList>
-        </motion.div>
-      </AnimatePresence>
+        ></SearchConcertList>
+        <SearchConcertList
+          id={2}
+          onClick={() => {
+            window.amplitude.track("click_second_concert_cell");
+          }}
+        ></SearchConcertList>
+      </motion.div>
 
       <TabBar
         onTabChange={(tab) => {

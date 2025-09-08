@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { SetlistType } from "../entities/setlist/types";
 import ListHeader from "../shared/ui/ListHeader";
 import SetlistCollection from "../entities/setlist/ui/SetlistCollection";
+import { motion } from "framer-motion";
 
 function SetlistCollectionPage() {
   const { type, concertId } = useParams();
@@ -18,10 +19,27 @@ function SetlistCollectionPage() {
   return (
     <div>
       <ListHeader title={setlistType} />
-      <SetlistCollection
-        type={type as SetlistType}
-        concertId={Number(concertId)}
-      />
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, x: "100%" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: "-100%" }}
+        transition={{
+          x: {
+            type: "spring",
+            stiffness: 756,
+            damping: 48,
+            mass: 1,
+            duration: 0.25,
+          },
+          opacity: { duration: 0.1, ease: "easeOut" },
+        }}
+      >
+        <SetlistCollection
+          type={type as SetlistType}
+          concertId={Number(concertId)}
+        />
+      </motion.div>
     </div>
   );
 }

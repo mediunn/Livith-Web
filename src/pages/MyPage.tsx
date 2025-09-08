@@ -10,36 +10,34 @@ function MyPage() {
 
   return (
     <div className="pb-90">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentTab}
-          initial={{
-            opacity: 0, // fade in 시작
-            x: 10 * direction, // move in 시작
-          }}
-          animate={{
-            opacity: 1, // fade in 완료
-            x: 0, // move in 완료
-          }}
-          exit={{
-            opacity: 0, // fade out
-            x: -10 * direction, // move out
-          }}
-          transition={{
-            opacity: {
-              duration: 0.1, // fade in/out 0.1초
-              ease: "easeOut",
-            },
-            x: {
-              duration: 0.15, // move in/out 0.15초
-              ease: "easeOut",
-            },
-          }}
-        >
-          <ReportConcert></ReportConcert>
-          <Info></Info>
-        </motion.div>
-      </AnimatePresence>
+      <motion.div
+        key={currentTab}
+        initial={{
+          opacity: 0, // fade in 시작
+          x: 10 * direction, // move in 시작
+        }}
+        animate={{
+          opacity: 1, // fade in 완료
+          x: 0, // move in 완료
+        }}
+        exit={{
+          opacity: 0, // fade out
+          x: -10 * direction, // move out
+        }}
+        transition={{
+          opacity: {
+            duration: 0.1, // fade in/out 0.1초
+            ease: "easeOut",
+          },
+          x: {
+            duration: 0.15, // move in/out 0.15초
+            ease: "easeOut",
+          },
+        }}
+      >
+        <ReportConcert></ReportConcert>
+        <Info></Info>
+      </motion.div>
 
       <TabBar
         onTabChange={(tab) => {
