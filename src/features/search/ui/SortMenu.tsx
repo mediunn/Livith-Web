@@ -16,14 +16,20 @@ function SortMenu({ sort, setSort }: SortMenuProps) {
       <button
         type="button"
         className={`${baseClass} ${sort === SortFilter.LATEST ? activeClass : inactiveClass}`}
-        onClick={() => setSort(SortFilter.LATEST)}
+        onClick={() => {
+          setSort(SortFilter.LATEST);
+          window.amplitude.track("click_confirm_delete");
+        }}
       >
         최신순
       </button>
       <button
         type="button"
         className={`${baseClass} ${sort === SortFilter.ALPHABETICAL ? activeClass : inactiveClass}`}
-        onClick={() => setSort(SortFilter.ALPHABETICAL)}
+        onClick={() => {
+          setSort(SortFilter.ALPHABETICAL);
+          window.amplitude.track("click_sort_alphabetical");
+        }}
       >
         가나다순
       </button>

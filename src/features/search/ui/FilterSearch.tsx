@@ -33,7 +33,6 @@ function FilterSearch({ keyword, sort, genre, status }: FilterSearchProps) {
     isFetchingNextPage,
   } = useFilterSearch({ keyword: debounceValue, size, sort, genre, status });
 
-  console.log(data);
   return (
     <>
       {data?.totalCount === 0 ? (
@@ -48,6 +47,7 @@ function FilterSearch({ keyword, sort, genre, status }: FilterSearchProps) {
           isFetchingNextPage={isFetchingNextPage}
           isLoading={isLoading}
           isError={isError}
+          isSearch={true}
         />
       )}
     </>

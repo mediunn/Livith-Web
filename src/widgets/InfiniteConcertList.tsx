@@ -10,6 +10,7 @@ type InfiniteConcertListProps = {
   isFetchingNextPage?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  isSearch?: boolean;
 };
 
 export function InfiniteConcertList({
@@ -19,6 +20,7 @@ export function InfiniteConcertList({
   isFetchingNextPage,
   isLoading,
   isError,
+  isSearch,
 }: InfiniteConcertListProps) {
   const navigate = useNavigate();
   const { ref } = useInView({
@@ -53,6 +55,10 @@ export function InfiniteConcertList({
               navigate(`/concert/${concert.id}`, {
                 state: { status: concert.status },
               });
+              if (isSearch) {
+                // 검색 결과에서 클릭된 경우
+                window.amplitude.track("click_search_cell");
+              }
             }}
             artist={concert.artist}
             daysLeft={concert.daysLeft}

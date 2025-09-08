@@ -178,7 +178,14 @@ function FilterBottomSheet({
                     ? "bg-grayScaleBlack80 text-grayScaleBlack50 cursor-not-allowed"
                     : "bg-mainYellow30 text-grayScaleBlack100"
                 }`}
-                onClick={isResetDisabled ? undefined : handleReset}
+                onClick={
+                  isResetDisabled
+                    ? undefined
+                    : () => {
+                        handleReset();
+                        window.amplitude.track("click_reset_filter");
+                      }
+                }
               >
                 초기화
               </div>
@@ -188,7 +195,24 @@ function FilterBottomSheet({
                     ? "bg-mainYellow30 text-grayScaleBlack100"
                     : "bg-grayScaleBlack80 text-grayScaleBlack50 cursor-not-allowed"
                 }`}
-                onClick={isModified ? handleApply : undefined}
+                onClick={
+                  isModified
+                    ? () => {
+                        handleApply();
+                        window.amplitude.track("click_apply_filter");
+                        localGenres.forEach((genre) => {
+                          window.amplitude.track(
+                            `set_filter_${genre.toLowerCase()}`
+                          );
+                        });
+                        localStatuses.forEach((status) => {
+                          window.amplitude.track(
+                            `set_filter_${status.toLowerCase()}`
+                          );
+                        });
+                      }
+                    : undefined
+                }
               >
                 설정하기
               </div>

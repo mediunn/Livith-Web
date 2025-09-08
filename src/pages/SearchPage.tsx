@@ -101,40 +101,47 @@ function SearchPage() {
           onSheetClose={closeSheet}
         />
       )}
-      {showResults && input ? (
-        <SearchResult keyword={input} />
-      ) : (
-        <>
-          <FilterSearch
-            keyword={input}
-            genre={genre}
-            status={status}
-            sort={sort}
-          />
-          {/* 최근 검색어 */}
-          {/* {!input && recent.length > 0 && (
-            <RecentSearch
-              inputState={{ value: input, setValue: setInput }}
-              recentState={{ value: recent, setValue: setRecent }}
-              showResultsState={{
-                value: showResults,
-                setValue: setShowResults,
-              }}
-            />
-          )} */}
-          {/* 추천 검색어 */}
-          {/* {input.trim() && (
-            <RecommendSearch
-              inputState={{ value: input, setValue: setInput }}
-              recentState={{ value: recent, setValue: setRecent }}
-              showResultsState={{
-                value: showResults,
-                setValue: setShowResults,
-              }}
-            />
-          )} */}
-        </>
-      )}
+
+      <FilterSearch keyword={input} genre={genre} status={status} sort={sort} />
+      {/* 최근 검색어, 추천 검색어, 검색 결과 */}
+      {
+        // showResults && input ? (
+        //   <>
+        //     <SearchResult keyword={input} />
+        //   </>
+        // ) : (
+        //   <>
+        //     <FilterSearch
+        //       keyword={input}
+        //       genre={genre}
+        //       status={status}
+        //       sort={sort}
+        //     />
+        //     {/* 최근 검색어 */}
+        //     {!input && recent.length > 0 && (
+        //       <RecentSearch
+        //         inputState={{ value: input, setValue: setInput }}
+        //         recentState={{ value: recent, setValue: setRecent }}
+        //         showResultsState={{
+        //           value: showResults,
+        //           setValue: setShowResults,
+        //         }}
+        //       />
+        //     )}
+        //     {/* 추천 검색어 */}
+        //     {input.trim() && (
+        //       <RecommendSearch
+        //         inputState={{ value: input, setValue: setInput }}
+        //         recentState={{ value: recent, setValue: setRecent }}
+        //         showResultsState={{
+        //           value: showResults,
+        //           setValue: setShowResults,
+        //         }}
+        //       />
+        //     )}
+        //   </>
+        // )
+      }
     </div>
   );
 }
