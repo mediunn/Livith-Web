@@ -40,7 +40,7 @@ function SetlistDetail({
           className="w-full h-full object-cover"
         />
       )}
-      <div className="absolute bottom-36 left-18 w-full pr-36">
+      <div className="absolute bottom-36 pl-16 w-full pr-36">
         {setlist?.status && (
           <div className="bg-grayScaleBlack90 rounded-24 px-13 py-7 w-fit">
             <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR">
