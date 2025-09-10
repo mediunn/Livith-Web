@@ -236,6 +236,8 @@ function LyricPage() {
                 <Sheet.Header className="bg-grayScaleBlack90" />
                 <Sheet.Content className="bg-grayScaleBlack90">
                   <Sheet.Scroller draggableAt="top" autoPadding>
+                    <div className=" sticky top-0 h-20 w-full bg-gradient-to-b from-grayScaleBlack90 to-transparent z-10" />
+
                     <div>
                       {fanchantData?.fanchantPoint && (
                         <>
