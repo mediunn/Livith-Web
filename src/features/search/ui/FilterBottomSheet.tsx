@@ -9,6 +9,7 @@ import {
   genreOrder,
   statusOrder,
 } from "../../../entities/concert/constants/filterOrders";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface FilterBottomSheetProps {
   isSheetOpen: boolean;
@@ -39,6 +40,9 @@ function FilterBottomSheet({
   // 초기화 버튼 활성화 여부 (선택된 항목이 없으면 비활성)
   const isResetDisabled =
     localGenres[0] === GenreFilter.ALL && localStatuses[0] === StatusFilter.ALL;
+
+  const [resetAnimating, setResetAnimating] = useState(false);
+  const [applyAnimating, setApplyAnimating] = useState(false);
 
   // 시트 열릴 때 초기값 동기화
   useEffect(() => {
@@ -177,50 +181,75 @@ function FilterBottomSheet({
 
             {/* 버튼 */}
             <div className="flex flex-row gap-2.5 justify-center">
-              <div
-                className={`flex-1 min-w-[120px] py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR text-center whitespace-nowrap cursor-pointer ${
-                  isResetDisabled
-                    ? "bg-grayScaleBlack80 text-grayScaleBlack50 cursor-not-allowed"
-                    : "bg-mainYellow30 text-grayScaleBlack100"
-                }`}
-                onClick={
-                  isResetDisabled
-                    ? undefined
-                    : () => {
-                        handleReset();
-                        window.amplitude.track("click_reset_filter");
-                      }
-                }
-              >
-                초기화
-              </div>
-              <div
-                className={`flex-1 min-w-[120px] py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR text-center whitespace-nowrap cursor-pointer ${
-                  isModified
-                    ? "bg-mainYellow30 text-grayScaleBlack100"
-                    : "bg-grayScaleBlack80 text-grayScaleBlack50 cursor-not-allowed"
-                }`}
-                onClick={
-                  isModified
-                    ? () => {
-                        handleApply();
-                        window.amplitude.track("click_apply_filter");
-                        localGenres.forEach((genre) => {
-                          window.amplitude.track(
-                            `set_filter_${genre.toLowerCase()}`
-                          );
-                        });
-                        localStatuses.forEach((status) => {
-                          window.amplitude.track(
-                            `set_filter_${status.toLowerCase()}`
-                          );
-                        });
-                      }
-                    : undefined
-                }
-              >
-                설정하기
-              </div>
+              <AnimatePresence>
+                {!resetAnimating && (
+                  <motion.div
+                    key="reset-btn"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className={`flex-1 min-w-[120px] py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR text-center whitespace-nowrap cursor-pointer ${
+                      isResetDisabled
+                        ? "bg-grayScaleBlack80 text-grayScaleBlack50 cursor-not-allowed"
+                        : "bg-mainYellow30 text-grayScaleBlack100"
+                    }`}
+                    onClick={
+                      isResetDisabled
+                        ? undefined
+                        : () => {
+                            setResetAnimating(true); // 페이드아웃 시작
+                            setTimeout(() => {
+                              handleReset(); // 애니메이션 끝난 뒤 실행
+                              window.amplitude.track("click_reset_filter");
+                              setResetAnimating(false); // 다시 보여주기
+                            }, 150);
+                          }
+                    }
+                  >
+                    초기화
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {!applyAnimating && (
+                  <motion.div
+                    key="apply-btn"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className={`flex-1 min-w-[120px] py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR text-center whitespace-nowrap cursor-pointer ${
+                      isModified
+                        ? "bg-mainYellow30 text-grayScaleBlack100"
+                        : "bg-grayScaleBlack80 text-grayScaleBlack50 cursor-not-allowed"
+                    }`}
+                    onClick={
+                      isModified
+                        ? () => {
+                            setApplyAnimating(true);
+                            setTimeout(() => {
+                              handleApply();
+                              window.amplitude.track("click_apply_filter");
+                              localGenres.forEach((genre) => {
+                                window.amplitude.track(
+                                  `set_filter_${genre.toLowerCase()}`
+                                );
+                              });
+                              localStatuses.forEach((status) => {
+                                window.amplitude.track(
+                                  `set_filter_${status.toLowerCase()}`
+                                );
+                              });
+                              setApplyAnimating(false);
+                            }, 150);
+                          }
+                        : undefined
+                    }
+                  >
+                    설정하기
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </Sheet.Content>
