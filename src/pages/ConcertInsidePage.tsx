@@ -5,7 +5,6 @@ import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
 import { getConcertInsideInfo } from "../entities/concert/api/getConcertInsideInfo";
 import { Concert } from "../entities/concert/types";
-import { motion } from "framer-motion";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
@@ -35,29 +34,12 @@ function ConcertInsidePage() {
   return (
     <div className="pb-90">
       <ListHeader title={concert.title} />
-      <motion.div
-        key={location.pathname}
-        initial={{ opacity: 0, x: "100%" }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: "-100%" }}
-        transition={{
-          x: {
-            type: "spring",
-            stiffness: 756,
-            damping: 48,
-            mass: 1,
-            duration: 0.25,
-          },
-          opacity: { duration: 0.1, ease: "easeOut" },
-        }}
-      >
-        <ConcertInsideInfo concert={concert}></ConcertInsideInfo>
-        <ConcertInfoTab
-          introduction={concert.introduction}
-          concertId={Number(concertId)}
-          ticketUrl={concert.ticketUrl}
-        ></ConcertInfoTab>
-      </motion.div>
+      <ConcertInsideInfo concert={concert}></ConcertInsideInfo>
+      <ConcertInfoTab
+        introduction={concert.introduction}
+        concertId={Number(concertId)}
+        ticketUrl={concert.ticketUrl}
+      ></ConcertInfoTab>
     </div>
   );
 }
