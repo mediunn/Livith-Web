@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
 import ConcertSetting from "../features/concert/ui/ConcertSetting";
 import TabBar from "../shared/ui/TabBar";
@@ -9,14 +9,7 @@ import Lottie from "lottie-react";
 import DeleteConcertToastIconMotion from "../shared/assets/DeleteConcertToastIconMotion.json";
 
 function HomePage() {
-  const [interestConcertId, setInterestConcertId] = useState<string | null>(
-    null
-  );
-
-  useEffect(() => {
-    const id = localStorage.getItem("InterestConcertId");
-    setInterestConcertId(id);
-  }, []);
+  const interestConcertId = localStorage.getItem("InterestConcertId");
 
   const { data: concert, isLoading: isConcertLoading } = useConcertInsideInfo(
     interestConcertId ? Number(interestConcertId) : null
