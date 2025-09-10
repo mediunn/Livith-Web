@@ -30,6 +30,9 @@ function CategoryPage() {
     <div className="pb-120">
       <TopBar bgColor="bg-grayScaleBlack100" />
       <div
+        onClick={() => {
+          window.amplitude.track("click_search_bar");
+        }}
         className={`sticky top-60 max-w-md w-full flex pt-13 pb-12 pl-16 pr-16 -mt-78 z-50 transition-colors duration-300 ${
           bgActive ? "bg-grayScaleBlack100" : "bg-transparent"
         }`}
