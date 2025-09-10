@@ -17,6 +17,7 @@ import { Sheet, SheetRef } from "react-modal-sheet";
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
   const sheetRef = useRef<SheetRef>(null);
+  const [currentSnap, setCurrentSnap] = useState<number | null>(null);
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -218,8 +219,12 @@ function LyricPage() {
               isOpen={true}
               onClose={() => {}} // 바텀 시트가 닫히지 않게 빈 함수 전달
               ref={sheetRef}
-              snapPoints={[-32, -320, 40]}
+              snapPoints={[-32, -320, 42]}
               initialSnap={1} // 중간 위치에서 시작
+              onSnap={(snapIndex) => {
+                const snapPoints = [-32, -320, 42];
+                setCurrentSnap(snapPoints[snapIndex]);
+              }}
             >
               <Sheet.Container
                 className="!mx-auto !max-w-md !bg-grayScaleBlack90 !rounded-t-30"
@@ -231,6 +236,8 @@ function LyricPage() {
                 <Sheet.Header className="bg-grayScaleBlack90" />
                 <Sheet.Content className="bg-grayScaleBlack90">
                   <Sheet.Scroller draggableAt="top" autoPadding>
+                    <div className=" sticky top-0 h-20 w-full bg-gradient-to-b from-grayScaleBlack90 to-transparent z-10" />
+
                     <div>
                       {fanchantData?.fanchantPoint && (
                         <>
@@ -261,7 +268,14 @@ function LyricPage() {
                   </Sheet.Scroller>
                 </Sheet.Content>
               </Sheet.Container>
-              <Sheet.Backdrop />
+              <Sheet.Backdrop
+                style={{
+                  backgroundColor:
+                    currentSnap === -32
+                      ? "rgba(20, 23, 27, 0.9)"
+                      : "transparent",
+                }}
+              />
             </Sheet>
           </div>
         </>
