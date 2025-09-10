@@ -6,33 +6,16 @@ import MainImageCarouselSlide from "./MainImageCarouselSlide";
 import "../shared/styles/slick-theme.css";
 import PrevArrow from "../shared/assets/PrevArrow.svg";
 import NextArrow from "../shared/assets/NextArrow.svg";
-import { getBanner } from "../features/concert/api/getBanner";
-
-type BannerProps = {
-  id: number;
-  title: string;
-  category: string;
-  imgUrl: string;
-  content: string;
-};
+import { useBanner } from "../features/concert/model/useBanner";
 
 function MainImageCarousel() {
   // pc일 경우 마우스 hover시 캐러셀 전환 버튼 나타나도록
   const [isHovered, setIsHovered] = useState(false);
-  const [banners, setBanners] = useState<BannerProps[]>([]);
+  const { data: banners = [], isLoading } = useBanner();
 
-  useEffect(() => {
-    const fetchBanners = async () => {
-      try {
-        const data = await getBanner();
-        setBanners(data);
-      } catch (error) {
-        console.error("배너 조회 API 호출 실패:", error);
-      }
-    };
-
-    fetchBanners();
-  }, []);
+  if (isLoading) {
+    return null;
+  }
 
   const CustomPrevArrow = (props: any) => {
     const { onClick, style } = props;
