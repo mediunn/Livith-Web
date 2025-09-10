@@ -1,5 +1,6 @@
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Concert,
   ConcertFilter,
@@ -51,17 +52,20 @@ export function SelectableInfiniteConcertList({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-x-10 gap-y-24 px-16 ">
+    <div className="grid grid-cols-3 gap-x-10 gap-y-24 px-16">
       {concerts?.map((concert) => {
         const isSelected = selectedConcert === concert.id;
         return (
-          <div
+          <motion.div
+            key={concert.id}
             onClick={() =>
               setSelectedConcert(
                 selectedConcert === concert.id ? null : concert.id
               )
             }
-            key={concert.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.25, ease: "easeIn" }}
           >
             <div className="cursor-pointer">
               <div className="w-full aspect-[108/158] relative">
@@ -69,15 +73,21 @@ export function SelectableInfiniteConcertList({
                   <img
                     src={concert.poster}
                     alt="콘서트 이미지"
-                    className={`w-full h-full rounded-6 object-cover ${isSelected ? "border-2 border-mainYellow30" : ""}`}
+                    className={`w-full h-full rounded-6 object-cover ${
+                      isSelected ? "border-2 border-mainYellow30" : ""
+                    }`}
                   />
                 ) : (
                   <div
-                    className={`w-full bg-grayScaleBlack80 rounded-6 ${isSelected ? "border-2 border-mainYellow30" : ""}`}
+                    className={`w-full bg-grayScaleBlack80 rounded-6 ${
+                      isSelected ? "border-2 border-mainYellow30" : ""
+                    }`}
                   />
                 )}
                 <div
-                  className={`absolute top-10 left-10 px-13 py-8 inline-flex items-center justify-center h-32 rounded-24 ${isSelected ? "bg-mainYellow30" : "bg-grayScaleBlack90 "}`}
+                  className={`absolute top-10 left-10 px-13 py-8 inline-flex items-center justify-center h-32 rounded-24 ${
+                    isSelected ? "bg-mainYellow30" : "bg-grayScaleBlack90"
+                  }`}
                 >
                   <p
                     className={`text-Caption1-Bold font-bold font-NotoSansKR ${
@@ -105,7 +115,7 @@ export function SelectableInfiniteConcertList({
                 </p>
               )}
             </div>
-          </div>
+          </motion.div>
         );
       })}
 
