@@ -8,6 +8,7 @@ import {
 import { useFilterSearch } from "../model/useFilterSearch";
 import useDebounce from "../model/useDebounce";
 import { useState } from "react";
+import ConcertCardListSkeleton from "../../../features/concert/ui/ConcertCardListSkeleton";
 
 type FilterSearchProps = {
   keyword: string;
@@ -33,6 +34,13 @@ function FilterSearch({ keyword, sort, genre, status }: FilterSearchProps) {
     isFetchingNextPage,
   } = useFilterSearch({ keyword: debounceValue, size, sort, genre, status });
 
+  if (isLoading) {
+    return (
+      <div className="mx-16 pt-19">
+        <ConcertCardListSkeleton num={9} />
+      </div>
+    );
+  }
   return (
     <>
       {data?.totalCount === 0 ? (

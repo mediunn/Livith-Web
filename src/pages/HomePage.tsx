@@ -57,7 +57,7 @@ function HomePage() {
 
   return (
     <div className="pb-90">
-      {interestConcertId && concert ? (
+      {interestConcertId && concert && !isLoading ? (
         <ConcertSetting concert={concert} schedules={schedules} />
       ) : (
         <ConcertSettingEmpty />

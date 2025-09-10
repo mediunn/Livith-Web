@@ -1,3 +1,4 @@
+import ConcertCardListSkeleton from "../features/concert/ui/ConcertCardListSkeleton";
 import SectionConcertSlide from "../entities/concert/ui/SectionConcertSlide";
 import { useSearchConcertList } from "../features/concert/model/useSearchConcertList";
 
@@ -17,7 +18,13 @@ function SearchConcertList({ id }: SearchConcertListProps) {
           {data.sectionTitle}
         </p>
       </div>
-      <SectionConcertSlide concerts={data.concerts} />
+      {isLoading ? (
+        <div className="mx-16">
+          <ConcertCardListSkeleton num={3} />
+        </div>
+      ) : (
+        <SectionConcertSlide concerts={data.concerts} />
+      )}
     </div>
   );
 }
