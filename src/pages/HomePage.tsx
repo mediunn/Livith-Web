@@ -28,10 +28,6 @@ function HomePage() {
 
   const isLoading = isConcertLoading || isScheduleLoading;
 
-  if (isLoading) {
-    return null;
-  }
-
   // 관심 콘서트 삭제 토스트
   useEffect(() => {
     if (localStorage.getItem("deleteConcertToast") === "true") {
