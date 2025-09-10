@@ -3,12 +3,10 @@ import TopBar from "../shared/ui/TopBar";
 import MainImageCarousel from "../widgets/MainImageCarousel";
 import SearchConcertList from "../widgets/SearchConcertList";
 import TabBar from "../shared/ui/TabBar";
-import { useTabDirection } from "../shared/hooks/useTabDirection";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "../shared/assets/SearchIcon.tsx";
 
 function CategoryPage() {
-  const { updateDirection } = useTabDirection();
   const navigate = useNavigate();
   const [bgActive, setBgActive] = useState(false);
 
@@ -60,7 +58,7 @@ function CategoryPage() {
         onClick={() => window.amplitude.track("click_second_concert_cell")}
       />
 
-      <TabBar onTabChange={(tab) => updateDirection(tab)} />
+      <TabBar />
     </div>
   );
 }
