@@ -18,7 +18,7 @@ function Info() {
             버전 정보
           </p>
           <p className="m-0 text-grayScaleBlack30 text-Body4-sm font-regular font-NotoSansKR">
-            1.0.0
+            1.1.0
           </p>
         </div>
         <div
