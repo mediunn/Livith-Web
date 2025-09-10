@@ -4,6 +4,11 @@ import { GenreFilter, StatusFilter } from "../../../entities/concert/types";
 import { StateWithSetter } from "../../../shared/types/props";
 import { genreMap } from "../../../entities/concert/constants/filterMaps";
 import { statusMap } from "../../../entities/concert/constants/filterMaps";
+import { sortFilter } from "../../../features/concert/utils/sortFilter";
+import {
+  genreOrder,
+  statusOrder,
+} from "../../../entities/concert/constants/filterOrders";
 
 interface FilterBottomSheetProps {
   isSheetOpen: boolean;
@@ -81,12 +86,12 @@ function FilterBottomSheet({
     setGenreSelected(
       localGenres.length === 0 || localGenres.includes(GenreFilter.ALL)
         ? [GenreFilter.ALL]
-        : [...localGenres]
+        : sortFilter(localGenres, genreOrder)
     );
     setStatusSelected(
       localStatuses.length === 0 || localStatuses.includes(StatusFilter.ALL)
         ? [StatusFilter.ALL]
-        : [...localStatuses]
+        : sortFilter(localStatuses, statusOrder)
     );
     onSheetClose();
   };

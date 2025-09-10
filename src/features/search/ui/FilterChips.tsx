@@ -100,7 +100,11 @@ export function FilterChips({
           </div>
         )}
       </div>
-      <div className="relative flex flex-row" ref={sortRef}>
+      <div
+        className="relative flex flex-row"
+        ref={sortRef}
+        onClick={() => setIsSortClicked(!isSortClicked)}
+      >
         <div className="text-grayScaleWhite text-Caption1-Bold font-bold font-NotoSansKR mr-4">
           {sort === SortFilter.LATEST ? "최신순" : "가나다순"}
         </div>
@@ -108,7 +112,6 @@ export function FilterChips({
           src={isSortClicked ? SortUpIcon : SortDownIcon}
           alt="Sort Icon"
           className="cursor-pointer"
-          onClick={() => setIsSortClicked(!isSortClicked)}
         />
         {isSortClicked && <SortMenu sort={sort} setSort={setSort} />}
       </div>

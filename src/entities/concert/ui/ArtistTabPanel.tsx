@@ -31,7 +31,7 @@ function ArtistTabPanel({
   return (
     <>
       <Intro introduction={introduction} />
-      {artist && (
+      {(category || instagramUrl || debutDate || detail) && (
         <ArtistInfo
           concertId={concertId}
           artist={artist}
