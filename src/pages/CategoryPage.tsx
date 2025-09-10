@@ -4,19 +4,18 @@ import MainImageCarousel from "../widgets/MainImageCarousel";
 import SearchConcertList from "../widgets/SearchConcertList";
 import TabBar from "../shared/ui/TabBar";
 import { useTabDirection } from "../shared/hooks/useTabDirection";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "../shared/assets/SearchIcon.tsx";
 
 function CategoryPage() {
-  const { direction, currentTab, updateDirection } = useTabDirection();
+  const { updateDirection } = useTabDirection();
   const navigate = useNavigate();
   const [bgActive, setBgActive] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      if (scrollY > 60 + 365) {
+      if (scrollY > 365) {
         setBgActive(true);
       } else {
         setBgActive(false);
@@ -31,7 +30,7 @@ function CategoryPage() {
     <div className="pb-120">
       <TopBar bgColor="bg-grayScaleBlack100" />
       <div
-        className={`sticky top-60 max-w-md w-full flex pt-13 pb-12 pl-16 pr-16 z-50 transition-colors duration-300 ${
+        className={`sticky top-60 max-w-md w-full flex pt-13 pb-12 pl-16 pr-16 -mt-78 z-50 transition-colors duration-300 ${
           bgActive ? "bg-grayScaleBlack100" : "bg-transparent"
         }`}
       >
@@ -48,26 +47,15 @@ function CategoryPage() {
         </div>
       </div>
 
-      <motion.div
-        key={currentTab}
-        initial={{ opacity: 0, x: 10 * direction }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -10 * direction }}
-        transition={{
-          opacity: { duration: 0.1, ease: "easeOut" },
-          x: { duration: 0.15, ease: "easeOut" },
-        }}
-      >
-        <MainImageCarousel />
-        <SearchConcertList
-          id={1}
-          onClick={() => window.amplitude.track("click_first_concert_cell")}
-        />
-        <SearchConcertList
-          id={2}
-          onClick={() => window.amplitude.track("click_second_concert_cell")}
-        />
-      </motion.div>
+      <MainImageCarousel />
+      <SearchConcertList
+        id={1}
+        onClick={() => window.amplitude.track("click_first_concert_cell")}
+      />
+      <SearchConcertList
+        id={2}
+        onClick={() => window.amplitude.track("click_second_concert_cell")}
+      />
 
       <TabBar onTabChange={(tab) => updateDirection(tab)} />
     </div>
