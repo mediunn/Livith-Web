@@ -268,10 +268,7 @@ function LyricPage() {
       )}
 
       {popupMessage && (
-        <LyricModal
-          isFadingOut={isFadingOut}
-          onClose={() => setPopupMessage(null)}
-        >
+        <LyricModal onClose={() => setPopupMessage(null)}>
           <p
             className="text-center text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR"
             style={{ whiteSpace: "pre-line" }}
