@@ -65,6 +65,7 @@ module.exports = withMT({
         "scale-in-out": "scaleInOut 2s ease-in-out infinite",
         "toast-in": "toast-in 0.8s ease-out forwards",
         "toast-out": "toast-out 0.7s ease-out forwards",
+        shimmer: "shimmer 1.5s infinite",
       },
 
       keyframes: {
@@ -83,6 +84,11 @@ module.exports = withMT({
         "toast-out": {
           "0%": { transform: "translateY(0)", opacity: "1" },
           "100%": { transform: "translateY(-100%)", opacity: "0" },
+        },
+        shimmer: {
+          "0%": { backgroundColor: "#2F3745" },
+          "50%": { backgroundColor: "#222831" },
+          "100%": { backgroundColor: "#2F3745" },
         },
       },
       boxShadow: {

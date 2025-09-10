@@ -1,12 +1,9 @@
+import ConcertCardListSkeleton from "../features/concert/ui/ConcertCardListSkeleton";
 import SectionConcertSlide from "../entities/concert/ui/SectionConcertSlide";
 import { useHomeConcertList } from "../features/concert/model/useHomeConcertList";
 
 function PopularConcert() {
   const { data: concerts = [], isLoading } = useHomeConcertList();
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <div>
@@ -17,12 +14,18 @@ function PopularConcert() {
           인기 콘서트
         </p>
       </div>
-      <SectionConcertSlide
-        concerts={concerts}
-        onClick={() => {
-          window.amplitude.track("click_concert_cell_main");
-        }}
-      />
+      {isLoading ? (
+        <div className="mx-16">
+          <ConcertCardListSkeleton num={3} />
+        </div>
+      ) : (
+        <SectionConcertSlide
+          concerts={concerts}
+          onClick={() => {
+            window.amplitude.track("click_concert_cell_main");
+          }}
+        />
+      )}
     </div>
   );
 }

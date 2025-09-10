@@ -3,6 +3,7 @@ import { InfiniteConcertList } from "../../../widgets/InfiniteConcertList";
 import EmptySearchResult from "./EmptySearchResult";
 import { StateWithSetter } from "../../../shared/types/props";
 import { SelectableInfiniteConcertList } from "../../../features/interest/ui/SelectableInfiniteConcertList";
+import ConcertCardListSkeleton from "../../../features/concert/ui/ConcertCardListSkeleton";
 
 type SearchResultProps = {
   keyword: string;
@@ -20,6 +21,14 @@ function SearchResult({ keyword, selectedConcertState }: SearchResultProps) {
   } = useSearchResult({ keyword, size });
 
   window.amplitude.track("click_search_complete");
+
+  if (isLoading) {
+    return (
+      <div className="mx-16">
+        <ConcertCardListSkeleton num={9} />
+      </div>
+    );
+  }
 
   return (
     <>

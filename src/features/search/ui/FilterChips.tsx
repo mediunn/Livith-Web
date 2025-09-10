@@ -13,6 +13,7 @@ import SortMenu from "./SortMenu";
 import { genreMap } from "../../../entities/concert/constants/filterMaps";
 import { statusMap } from "../../../entities/concert/constants/filterMaps";
 import { StateWithSetter } from "../../../shared/types/props";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface FilterChipsProps {
   openSheet: () => void;
@@ -113,7 +114,20 @@ export function FilterChips({
           alt="Sort Icon"
           className="cursor-pointer"
         />
-        {isSortClicked && <SortMenu sort={sort} setSort={setSort} />}
+        <AnimatePresence>
+          {isSortClicked && (
+            <motion.div
+              style={{ zIndex: 10 }}
+              initial={{ opacity: 0, y: -20 }} // 위에서 시작
+              animate={{ opacity: 1, y: 0 }} // 제자리로 내려옴
+              exit={{ opacity: 0, y: -20 }} // 다시 위로 들어감
+              transition={{ duration: 0.3, ease: "easeOut" }} // 0.3초 easy-out
+              className="absolute top-full right-1 top-1"
+            >
+              <SortMenu sort={sort} setSort={setSort} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
