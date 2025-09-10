@@ -1,7 +1,4 @@
-import Lottie from "lottie-react";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
-import { toast } from "react-toastify";
-import DeleteConcertToastIconMotion from "../shared/assets/DeleteConcertToastIconMotion.json";
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;
@@ -13,31 +10,11 @@ function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
     window.amplitude.track("click_confirm_delete");
 
     localStorage.removeItem(STORAGE_KEY);
-    toast(
-      <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <Lottie
-          animationData={DeleteConcertToastIconMotion}
-          loop={false}
-          renderer="svg"
-          rendererSettings={{
-            preserveAspectRatio: "xMidYMid meet",
-          }}
-        />
-        <span>관심 콘서트가 삭제되었어요</span>
-      </div>,
-      {
-        position: "top-center",
-        autoClose: 3000,
-        pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
-      }
-    );
-
+    localStorage.setItem("deleteConcertToast", "true");
+    window.location.href = "/";
     onClose();
-
-    setTimeout(() => {
-      window.location.replace("/");
-    }, 4500);
   };
+
   if (!isOpen) return null;
 
   return (
