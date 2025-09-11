@@ -26,14 +26,17 @@ function HomePage() {
     if (localStorage.getItem("deleteConcertToast") === "true") {
       toast(
         <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-          <Lottie
-            animationData={DeleteConcertToastIconMotion}
-            loop={false}
-            renderer="svg"
-            rendererSettings={{
-              preserveAspectRatio: "xMidYMid meet",
-            }}
-          />
+          <div className="w-24 h-24">
+            <Lottie
+              animationData={DeleteConcertToastIconMotion}
+              loop={false}
+              renderer="svg"
+              style={{ width: "100%", height: "100%" }}
+              rendererSettings={{
+                preserveAspectRatio: "xMidYMid meet",
+              }}
+            />
+          </div>
           <span>관심 콘서트가 삭제되었어요</span>
         </div>,
         {

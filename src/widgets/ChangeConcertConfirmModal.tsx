@@ -23,15 +23,18 @@ function ChangeConcertConfirmModal({
     onClose();
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <Lottie
-          animationData={InterestConcertToastIconMotion}
-          loop={false}
-          autoplay={true}
-          renderer="svg"
-          rendererSettings={{
-            preserveAspectRatio: "xMidYMid meet",
-          }}
-        />
+        <div className="w-24 h-24">
+          <Lottie
+            animationData={InterestConcertToastIconMotion}
+            loop={false}
+            autoplay={true}
+            renderer="svg"
+            style={{ width: "100%", height: "100%" }}
+            rendererSettings={{
+              preserveAspectRatio: "xMidYMid meet",
+            }}
+          />
+        </div>
         <span>관심 공연을 변경했어요</span>
       </div>,
       {
