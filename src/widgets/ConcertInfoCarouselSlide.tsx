@@ -22,7 +22,7 @@ function ConcertInfoCarouselSlide({
 
   return (
     <div className="relative w-full h-274 rounded-8" onClick={handleClick}>
-      <div className="h-274 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-50"></div>
+      <div className="h-274 absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-90"></div>
       {imageUrl ? (
         <img
           src={imageUrl}
