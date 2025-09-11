@@ -7,10 +7,9 @@ type MdInfoProps = {
   concertId: number;
   mds: Md[];
   mdCount: number;
-  ticketUrl: string;
 };
 
-function MdInfo({ mds, concertId, mdCount, ticketUrl }: MdInfoProps) {
+function MdInfo({ mds, concertId, mdCount }: MdInfoProps) {
   const navigate = useNavigate();
 
   return (
@@ -40,7 +39,7 @@ function MdInfo({ mds, concertId, mdCount, ticketUrl }: MdInfoProps) {
           )}
         </div>
 
-        {mds.length > 0 && <MdSlide mds={mds} ticketUrl={ticketUrl} />}
+        {mds.length > 0 && <MdSlide mds={mds} />}
       </div>
     </>
   );
