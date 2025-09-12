@@ -96,7 +96,11 @@ function ConcertTabPanel({
 
     logEvent(analytics, "ticket_button_click", { group, debug_mode: true });
 
-    window.amplitude.track("ticket_button_click", { group });
+    if (group === "A") {
+      window.amplitude.track("A_ticket_button_click");
+    } else if (group === "B") {
+      window.amplitude.track("B_ticket_button_click");
+    }
   };
 
   return (

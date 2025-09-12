@@ -36,7 +36,7 @@ function BGroupTicketWebsiteBtn({
             debug_mode: true,
           });
 
-          window.amplitude.track("BButton_section_reached", { group });
+          window.amplitude.track("B_Button_section_reached");
 
           recordedRef.current = true;
           observer.disconnect();

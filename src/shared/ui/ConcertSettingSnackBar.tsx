@@ -26,7 +26,11 @@ function ConcertSettingSnackBar({
       debug_mode: true,
     });
 
-    window.amplitude.track("concert_setting_button_click", { group });
+    if (group === "A") {
+      window.amplitude.track("A_concert_setting_button_click");
+    } else if (group === "B") {
+      window.amplitude.track("B_concert_setting_button_click");
+    }
 
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
