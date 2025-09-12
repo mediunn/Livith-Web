@@ -229,6 +229,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                 <Tab
                   label="콘서트 일정"
                   value="1"
+                  disableRipple
                   onClick={() => {
                     window.amplitude.track(
                       "click_concert_schedule_segment_main"
@@ -238,6 +239,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                 <Tab
                   label="셋리스트"
                   value="2"
+                  disableRipple
                   onClick={() => {
                     window.amplitude.track("click_setlist_segment_main");
                   }}
