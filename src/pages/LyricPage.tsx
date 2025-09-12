@@ -13,11 +13,13 @@ import EmptyYouTubePlayer from "../entities/lyric/ui/EmptyYouTubePlayer";
 import EmptyConcertInfoTabPanel from "../entities/concert/ui/EmptyConcertInfoTabPanel";
 import { getSong, Song } from "../entities/lyric/api/getSong";
 import { Sheet, SheetRef } from "react-modal-sheet";
+import { useBodyScrollLock } from "../shared/model/useBodyScrollLock";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
   const sheetRef = useRef<SheetRef>(null);
   const [currentSnap, setCurrentSnap] = useState<number | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(true);
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -168,6 +170,8 @@ function LyricPage() {
     setActiveButtons(newState);
   };
 
+  useBodyScrollLock(isSheetOpen);
+
   if (isLyricLoading || !songData) {
     return (
       <div className="flex justify-center items-center h-60">
@@ -216,8 +220,8 @@ function LyricPage() {
 
           <div>
             <Sheet
-              isOpen={true}
-              onClose={() => {}} // 바텀 시트가 닫히지 않게 빈 함수 전달
+              isOpen={isSheetOpen}
+              onClose={() => setIsSheetOpen(false)}
               ref={sheetRef}
               snapPoints={[-32, -320, 42]}
               initialSnap={1} // 중간 위치에서 시작
