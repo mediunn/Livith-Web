@@ -21,9 +21,8 @@ function SetlistDetail({
     }
   }, [setlist?.type, setSetlistType]);
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Error: {error.message}</div>;
-
+  if (isLoading) return null;
+  if (error) return null;
   return (
     <div className="w-full h-337 relative ">
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>

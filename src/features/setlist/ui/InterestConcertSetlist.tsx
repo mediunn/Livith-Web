@@ -12,12 +12,12 @@ function InterestConcertSetlist() {
     isLoading,
     isError,
   } = useInterestConcertSetlist({ concertId: Number(concertId) });
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (isError) {
-  //   return <div>Error...</div>;
-  // }
+  if (isLoading) {
+    return null;
+  }
+  if (isError) {
+    return null;
+  }
 
   let label1 = "";
   let label2 = "";

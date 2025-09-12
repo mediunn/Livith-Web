@@ -19,12 +19,12 @@ function BriefSetlistSongList({
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
 
   const navigate = useNavigate();
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (isError) {
-  //   return <div>Error...</div>;
-  // }
+  if (isLoading) {
+    return null;
+  }
+  if (isError) {
+    return null;
+  }
 
   return songs?.length === 0 ? (
     <EmptySongList />

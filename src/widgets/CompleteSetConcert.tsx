@@ -16,8 +16,8 @@ function CompleteSetConcert() {
 
   const navigate = useNavigate();
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (isError) return <div>Error...</div>;
+  if (isLoading) return null;
+  if (isError) return null;
   return (
     <>
       <div className="relative w-full h-[calc(100vh-76px)] max-w-md mx-auto overflow-hidden flex flex-col items-center justify-center">
