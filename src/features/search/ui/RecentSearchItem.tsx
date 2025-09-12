@@ -47,7 +47,6 @@ function RecentSearchItem({
       </p>
       <img
         src={CloseIcon}
-        alt="삭제 아이콘"
         onClick={(e) => {
           e.stopPropagation(); // 부모 onClick 실행 막기
           handleDeleteRecent();

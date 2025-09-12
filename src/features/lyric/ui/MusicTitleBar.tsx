@@ -45,7 +45,7 @@ function MusicTitleBar({ songId }: MusicTitleBarProps) {
               }
             }}
           >
-            <img src={NavPrev} alt="prev" className="w-full h-full" />
+            <img src={NavPrev} className="w-full h-full" />
           </button>
           <p className="pl-4 text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR line-clamp-1">
             {title}

@@ -73,11 +73,7 @@ function SectionConcertSlide({ concerts }: SectionConcertSlideProps) {
           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
           onClick={goPrev}
         >
-          <img
-            src={ConcertSlidePrevArrow}
-            alt="prev"
-            className="w-full h-full"
-          />
+          <img src={ConcertSlidePrevArrow} className="w-full h-full" />
         </button>
       )}
 
@@ -88,11 +84,7 @@ function SectionConcertSlide({ concerts }: SectionConcertSlideProps) {
           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
           onClick={goNext}
         >
-          <img
-            src={ConcertSlideNextArrow}
-            alt="next"
-            className="w-full h-full"
-          />
+          <img src={ConcertSlideNextArrow} className="w-full h-full" />
         </button>
       )}
 

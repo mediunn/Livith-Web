@@ -27,13 +27,11 @@ function SectionConcertSlideCard({
         {imageUrl ? (
           <img
             src={imageUrl}
-            alt=" "
             className="w-full h-full rounded-6 object-cover"
           />
         ) : (
           <img
             src={EmptyConcertCardIcon}
-            alt="empty"
             className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
           />
         )}

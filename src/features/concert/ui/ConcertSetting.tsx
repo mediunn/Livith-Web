@@ -122,11 +122,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
               <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
                 더 많은 정보 확인하기
               </p>
-              <img
-                src={ConcertTicketArrowIcon}
-                alt="concert ticket arrow"
-                className="w-24 h-24"
-              />
+              <img src={ConcertTicketArrowIcon} className="w-24 h-24" />
             </div>
           </button>
 
@@ -178,14 +174,14 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                   </>
                 )}
                 <div className="pt-14 flex items-center">
-                  <img src={ConcertDateIcon} alt="" className="w-24 h-24" />
+                  <img src={ConcertDateIcon} className="w-24 h-24" />
                   <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
                     {formatConcertDate(concert.startDate, concert.endDate)}
                   </p>
                 </div>
 
                 <div className="pt-2 flex items-center">
-                  <img src={ConcertVenueIcon} alt="" className="w-24 h-24" />
+                  <img src={ConcertVenueIcon} className="w-24 h-24" />
                   <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
                     {concert.venue}
                   </p>

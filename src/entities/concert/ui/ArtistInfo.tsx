@@ -79,11 +79,7 @@ function ArtistInfo({
                     target="_blank"
                     className="absolute right-0 bottom-0 border-none cursor-pointer"
                   >
-                    <img
-                      src={InstagramIcon}
-                      alt="instagram"
-                      className="w-30 h-30"
-                    />
+                    <img src={InstagramIcon} className="w-30 h-30" />
                   </a>
                 )}
               </div>

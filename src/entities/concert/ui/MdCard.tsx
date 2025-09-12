@@ -16,11 +16,7 @@ function MdCard({ name, price, imgUrl, ticketUrl }: MdCardProps) {
     <div onClick={handleClick} className="cursor-pointer">
       <div className="w-full aspect-[108/158] relative">
         {imgUrl ? (
-          <img
-            src={imgUrl}
-            alt="MD 이미지"
-            className="w-full h-full rounded-6 object-cover"
-          />
+          <img src={imgUrl} className="w-full h-full rounded-6 object-cover" />
         ) : (
           <div className="w-full bg-grayScaleBlack80 rounded-6" />
         )}

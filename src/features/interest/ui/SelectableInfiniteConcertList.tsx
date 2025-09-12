@@ -72,7 +72,6 @@ export function SelectableInfiniteConcertList({
                 {concert.poster ? (
                   <img
                     src={concert.poster}
-                    alt="콘서트 이미지"
                     className={`w-full h-full rounded-6 object-cover ${
                       isSelected ? "border-2 border-mainYellow30" : ""
                     }`}

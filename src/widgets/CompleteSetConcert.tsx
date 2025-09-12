@@ -33,7 +33,6 @@ function CompleteSetConcert() {
           {/* 회전 효과 이미지 */}
           {/* <img
             src={CompleteEffect}
-            alt="Complete Effect"
 
             className="absolute inset-0 w-full h-full animate-spin-slow z-0"
           /> */}

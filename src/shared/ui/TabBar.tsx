@@ -42,7 +42,6 @@ function TabBar() {
           >
             <img
               src={activeTab === "home" ? HomeIconActive : HomeIcon}
-              alt="home"
               className="w-full h-full"
             />
           </button>
@@ -63,7 +62,6 @@ function TabBar() {
           >
             <img
               src={activeTab === "category" ? CategoryIconActive : CategoryIcon}
-              alt="category"
               className="w-full h-full"
             />
           </button>
@@ -84,7 +82,6 @@ function TabBar() {
           >
             <img
               src={activeTab === "my" ? MyIconActive : MyIcon}
-              alt="my"
               className="w-full h-full"
             />
           </button>

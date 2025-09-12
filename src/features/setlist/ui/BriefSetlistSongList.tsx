@@ -46,7 +46,7 @@ function BriefSetlistSongList({
           />
         ))}
       </div>
-      {/* <img src={MoreIcon} alt="More Icon" /> */}
+      {/* <img src={MoreIcon}  /> */}
       <div
         onClick={() => {
           window.amplitude.track("click_more_songs_main");
@@ -60,7 +60,7 @@ function BriefSetlistSongList({
           <p className="text-Body4-re font-regular font-NotoSansKR ">
             더 많은 노래를 확인해 보세요
           </p>
-          <img src={MiniArrowIcon} alt="Mini Arrow Icon" />
+          <img src={MiniArrowIcon} />
         </div>
       </div>
     </div>

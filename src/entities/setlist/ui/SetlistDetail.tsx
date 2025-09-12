@@ -28,15 +28,10 @@ function SetlistDetail({
     <div className="w-full h-337 relative ">
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {setlist?.imgUrl ? (
-        <img
-          src={setlist?.imgUrl}
-          alt="concert image"
-          className="w-full h-full object-cover"
-        />
+        <img src={setlist?.imgUrl} className="w-full h-full object-cover" />
       ) : (
         <img
           src={EmptySetlistImageIcon}
-          alt="empty concert image"
           className="w-full h-full object-cover"
         />
       )}

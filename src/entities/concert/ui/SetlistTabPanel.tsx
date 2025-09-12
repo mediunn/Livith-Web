@@ -48,7 +48,6 @@ function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
                 {setlistItem.imgUrl ? (
                   <img
                     src={setlistItem.imgUrl}
-                    alt="이미지"
                     className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
                     onError={(e) => {
                       e.currentTarget.src = EmptyConcertCardIcon;
@@ -57,7 +56,6 @@ function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
                 ) : (
                   <img
                     src={EmptyConcertCardIcon}
-                    alt="empty"
                     className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
                   />
                 )}

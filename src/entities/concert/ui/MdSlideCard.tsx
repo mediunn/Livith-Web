@@ -11,7 +11,6 @@ function MdSlideCard({ name, price, imageUrl }: MdSlideCardProps) {
         {imageUrl ? (
           <img
             src={imageUrl}
-            alt=""
             className="w-full h-full rounded-6 object-cover"
           />
         ) : (

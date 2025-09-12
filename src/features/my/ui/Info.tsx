@@ -29,11 +29,7 @@ function Info() {
             업데이트 노트
           </p>
           <button className="w-8 h-16 p-0 bg-transparent border-none">
-            <img
-              src={MyNextArrow}
-              alt="next arrow"
-              className=" w-full h-full"
-            />
+            <img src={MyNextArrow} className=" w-full h-full" />
           </button>
         </div>
         <div
@@ -44,11 +40,7 @@ function Info() {
             이용약관
           </p>
           <button className="w-8 h-16 p-0 bg-transparent border-none ">
-            <img
-              src={MyNextArrow}
-              alt="next arrow"
-              className=" w-full h-full"
-            />
+            <img src={MyNextArrow} className=" w-full h-full" />
           </button>
         </div>
       </div>
