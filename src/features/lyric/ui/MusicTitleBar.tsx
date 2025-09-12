@@ -36,7 +36,14 @@ function MusicTitleBar({ songId }: MusicTitleBarProps) {
         <div className="flex items-center flex-1 min-w-0">
           <button
             className="w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
-            onClick={() => navigate(-1)}
+            onClick={() => {
+              // 이전 페이지가 없으면 홈으로 이동
+              if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate("/");
+              }
+            }}
           >
             <img src={NavPrev} alt="prev" className="w-full h-full" />
           </button>
