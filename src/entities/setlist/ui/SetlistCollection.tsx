@@ -27,8 +27,8 @@ function SetlistCollection({ type, concertId }: SetlistCollectionProps) {
       }
     },
   });
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error</div>;
+  // if (isLoading) return <div>Loading...</div>;
+  // if (isError) return <div>Error</div>;
 
   return (
     <div className="grid grid-cols-3 gap-x-9 gap-y-24 mt-24 mx-16">
