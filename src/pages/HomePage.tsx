@@ -43,11 +43,11 @@ function HomePage() {
           position: "top-center",
           autoClose: 3000,
           pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
-          onClose: () => {
-            localStorage.removeItem("deleteConcertToast");
-          },
         }
       );
+      setTimeout(() => {
+        localStorage.removeItem("deleteConcertToast");
+      }, 100);
     }
   }, []);
 
