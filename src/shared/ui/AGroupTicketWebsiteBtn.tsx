@@ -29,8 +29,8 @@ function AGroupTicketWebsiteBtn({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !recordedRef.current) {
-          logEvent(analytics, "AButton_section_reached", {
-            section: "AButton",
+          logEvent(analytics, "A_Button_section_reached", {
+            section: "A_Button",
             group,
             debug_mode: true,
           });
@@ -53,13 +53,13 @@ function AGroupTicketWebsiteBtn({
       rect.top < window.innerHeight &&
       rect.bottom > 0
     ) {
-      logEvent(analytics, "AButton_section_reached", {
-        section: "AButton",
+      logEvent(analytics, "A_Button_section_reached", {
+        section: "A_Button",
         group,
         debug_mode: true,
       });
 
-      window.amplitude.track("AButton_section_reached", { group });
+      window.amplitude.track("A_Button_section_reached");
 
       recordedRef.current = true;
       observer.disconnect();

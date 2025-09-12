@@ -59,7 +59,11 @@ function ConcertTabPanel({
       if (document.visibilityState === "visible" && ticketOpened === "true") {
         logEvent(analytics, "page_view_returned", { group, debug_mode: true });
 
-        window.amplitude.track("page_view_returned", { group });
+        if (group === "A") {
+          window.amplitude.track("A_page_view_returned");
+        } else if (group === "B") {
+          window.amplitude.track("B_page_view_returned");
+        }
 
         // page_view_returned 이벤트 기록 후 다음 복귀 감지를 위해 localStorage 초기화
         localStorage.removeItem("ticketOpened");
