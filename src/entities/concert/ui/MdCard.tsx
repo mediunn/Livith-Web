@@ -1,3 +1,5 @@
+import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
+
 type MdCardProps = {
   name: string;
   price: string;
@@ -18,7 +20,10 @@ function MdCard({ name, price, imgUrl, ticketUrl }: MdCardProps) {
         {imgUrl ? (
           <img src={imgUrl} className="w-full h-full rounded-6 object-cover" />
         ) : (
-          <div className="w-full bg-grayScaleBlack80 rounded-6" />
+          <img
+            src={EmptyConcertCardIcon}
+            className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+          />
         )}
       </div>
       <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2">
