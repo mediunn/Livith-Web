@@ -10,6 +10,7 @@ import {
   statusOrder,
 } from "../../../entities/concert/constants/filterOrders";
 import { motion, AnimatePresence } from "framer-motion";
+import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 
 interface FilterBottomSheetProps {
   isSheetOpen: boolean;
@@ -51,6 +52,8 @@ function FilterBottomSheet({
       setLocalStatuses(statusSelected);
     }
   }, [isSheetOpen, genreSelected, statusSelected]);
+
+  useBodyScrollLock(isSheetOpen);
 
   // 공통 토글 함수
   function toggleOption<T>(

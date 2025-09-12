@@ -4,6 +4,7 @@ import EditInterestConcertIcon from "../../../shared/assets/EditIcon.svg";
 import TrashCanIcon from "../../../shared/assets/TrashCanIcon.svg";
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmModal from "../../../widgets/DeleteConfirmModal";
+import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 
 interface EditBottomSheetProps {
   isSheetOpen: boolean;
@@ -17,6 +18,7 @@ function EditInterestConcertBottomSheet({
   const ref = useRef<SheetRef>(null);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  useBodyScrollLock(isSheetOpen);
 
   return (
     <>

@@ -28,6 +28,7 @@ function DetailInfo({
   label,
 }: DetailInfoProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isToastActive, setIsToastActive] = useState(false);
 
   return (
     <div className="w-full h-337 relative">
@@ -36,6 +37,7 @@ function DetailInfo({
           window.amplitude.track("click_interest_concert_detail");
           setIsModalOpen(true);
         }}
+        disabled={isToastActive}
         className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
       >
         <div className="px-10 py-8 flex items-center">
@@ -101,6 +103,7 @@ function DetailInfo({
         id={id}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        setIsToastActive={setIsToastActive}
       />
     </div>
   );

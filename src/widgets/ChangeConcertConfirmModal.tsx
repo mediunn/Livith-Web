@@ -8,12 +8,14 @@ interface ChangeConcertConfirmModalProps {
   id: string;
   isOpen: boolean;
   onClose: () => void;
+  setIsToastActive: (value: boolean) => void;
 }
 
 function ChangeConcertConfirmModal({
   id,
   isOpen,
   onClose,
+  setIsToastActive,
 }: ChangeConcertConfirmModalProps) {
   const STORAGE_KEY = "InterestConcertId";
 
@@ -21,23 +23,28 @@ function ChangeConcertConfirmModal({
     window.amplitude.track("confirm_change_interest");
     localStorage.setItem(STORAGE_KEY, id);
     onClose();
+    setIsToastActive(true);
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <Lottie
-          animationData={InterestConcertToastIconMotion}
-          loop={false}
-          autoplay={true}
-          renderer="svg"
-          rendererSettings={{
-            preserveAspectRatio: "xMidYMid meet",
-          }}
-        />
+        <div className="w-24 h-24">
+          <Lottie
+            animationData={InterestConcertToastIconMotion}
+            loop={false}
+            autoplay={true}
+            renderer="svg"
+            style={{ width: "100%", height: "100%" }}
+            rendererSettings={{
+              preserveAspectRatio: "xMidYMid meet",
+            }}
+          />
+        </div>
         <span>관심 공연을 변경했어요</span>
       </div>,
       {
         position: "top-center",
         autoClose: 3000,
         pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
+        onClose: () => setIsToastActive(false),
       }
     );
   };

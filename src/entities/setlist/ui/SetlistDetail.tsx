@@ -48,7 +48,7 @@ function SetlistDetail({
             </p>
           </div>
         )}
-        <p className="pt-6 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR break-words whitespace-normal max-w-[57%]">
+        <p className="pt-6 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR break-words whitespace-normal max-w-[90%]">
           {setlist?.title}
         </p>
 
