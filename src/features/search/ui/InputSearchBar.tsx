@@ -71,7 +71,6 @@ function InputSearchBar({
         {input && !showResults ? (
           <img
             src={CloseRoundIcon}
-            alt="삭제 아이콘"
             className="mr-16 cursor-pointer"
             onClick={() => {
               setInput("");

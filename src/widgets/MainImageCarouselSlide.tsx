@@ -14,7 +14,7 @@ function MainImageCarouselSlide({
   return (
     <div className="relative w-full h-365">
       {/* 배경 */}
-      <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
+      <img src={imageUrl} className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-100"></div>
 
       <div className="absolute bottom-30 left-0 p-16 w-full flex flex-col gap-8">

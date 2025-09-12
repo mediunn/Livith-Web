@@ -34,7 +34,6 @@ function SetListCard({
         {imageUrl ? (
           <img
             src={imageUrl}
-            alt="이미지"
             className="w-full h-full rounded-6 object-cover"
           />
         ) : (

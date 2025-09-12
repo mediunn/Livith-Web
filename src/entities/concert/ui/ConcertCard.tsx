@@ -27,7 +27,6 @@ function ConcertCard({
         {imageUrl ? (
           <img
             src={imageUrl}
-            alt="콘서트 이미지"
             className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
             onError={(e) => {
               e.currentTarget.src = EmptyConcertCardIcon;
@@ -36,7 +35,6 @@ function ConcertCard({
         ) : (
           <img
             src={EmptyConcertCardIcon}
-            alt="empty"
             className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
           />
         )}

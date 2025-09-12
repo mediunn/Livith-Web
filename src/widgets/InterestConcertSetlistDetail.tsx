@@ -6,11 +6,7 @@ function InterestConcertSetlistDetail({ setlist }: { setlist: Setlist }) {
     <div className="bg-grayScaleWhite rounded-10 mt-20 p-10">
       <div className="flex flex-row items-center">
         {setlist.imgUrl && (
-          <img
-            src={setlist.imgUrl}
-            alt="Concert"
-            className="h-90 w-90 rounded-8 mr-16 "
-          />
+          <img src={setlist.imgUrl} className="h-90 w-90 rounded-8 mr-16 " />
         )}
         <div className="my-7 ">
           <p className="text-grayScaleBlack100 text-Body2-md font-medium font-NotoSansKR line-clamp-1">

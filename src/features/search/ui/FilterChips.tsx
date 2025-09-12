@@ -45,7 +45,7 @@ export function FilterChips({
             <div className="text-Body4-md font-medium text-grayScaleBlack30 font-NotoSansKR ml-4">
               전체장르
             </div>
-            <img src={FilterDownIcon} alt="Filter Down Icon" />
+            <img src={FilterDownIcon} />
           </div>
         ) : (
           <div
@@ -60,7 +60,6 @@ export function FilterChips({
             </div>
             <img
               src={CloseBlackIcon}
-              alt="Close Icon"
               onClick={(e) => {
                 e.stopPropagation(); // 부모 div의 onClick 실행 안 되게 막음
                 setGenreSelected([GenreFilter.ALL]);
@@ -77,7 +76,7 @@ export function FilterChips({
             <div className="text-Body4-md font-medium text-grayScaleBlack30 font-NotoSansKR ">
               전체기간
             </div>
-            <img src={FilterDownIcon} alt="Filter Down Icon" />
+            <img src={FilterDownIcon} />
           </div>
         ) : (
           <div
@@ -92,7 +91,6 @@ export function FilterChips({
             </div>
             <img
               src={CloseBlackIcon}
-              alt="Close Icon"
               onClick={(e) => {
                 e.stopPropagation(); // 부모 div의 onClick 실행 안 되게 막음
                 setStatusSelected([StatusFilter.ALL]);
@@ -111,7 +109,6 @@ export function FilterChips({
         </div>
         <img
           src={isSortClicked ? SortUpIcon : SortDownIcon}
-          alt="Sort Icon"
           className="cursor-pointer"
         />
         <AnimatePresence>

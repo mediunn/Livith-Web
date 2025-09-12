@@ -1,3 +1,5 @@
+import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
+
 type MdCardProps = {
   name: string;
   price: string;
@@ -16,13 +18,12 @@ function MdCard({ name, price, imgUrl, ticketUrl }: MdCardProps) {
     <div onClick={handleClick} className="cursor-pointer">
       <div className="w-full aspect-[108/158] relative">
         {imgUrl ? (
-          <img
-            src={imgUrl}
-            alt="MD 이미지"
-            className="w-full h-full rounded-6 object-cover"
-          />
+          <img src={imgUrl} className="w-full h-full rounded-6 object-cover" />
         ) : (
-          <div className="w-full bg-grayScaleBlack80 rounded-6" />
+          <img
+            src={EmptyConcertCardIcon}
+            className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+          />
         )}
       </div>
       <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2">

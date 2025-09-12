@@ -25,7 +25,6 @@ function SetlistSongItem({
     >
       {/* <img
         src={imageUrl}
-        alt="Empty Icon"
         className=" w-[62px] h-[62px] object-cover ml-5 rounded-6"
       /> */}
       <div className="flex flex-col justify-center space-y-4">
@@ -38,7 +37,6 @@ function SetlistSongItem({
       </div>
       <img
         src={SongPlayIcon}
-        alt="Play Icon"
         className="w-[32px] h-[32px] my-15 object-cover ml-auto mr-3"
       />
     </div>

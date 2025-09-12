@@ -41,11 +41,7 @@ function DetailInfo({
         className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
       >
         <div className="px-10 py-8 flex items-center">
-          <img
-            src={ConcertAddIcon}
-            alt="concert ticket arrow"
-            className="w-24 h-24"
-          />
+          <img src={ConcertAddIcon} className="w-24 h-24" />
           <p className="pl-4 text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
             관심 콘서트 설정하기
           </p>
@@ -56,7 +52,6 @@ function DetailInfo({
       {imageUrl ? (
         <img
           src={imageUrl}
-          alt=" "
           className="w-full h-full object-cover"
           onError={(e) => {
             e.currentTarget.src = EmptyConcertImageIcon;
@@ -65,14 +60,13 @@ function DetailInfo({
       ) : (
         <img
           src={EmptyConcertImageIcon}
-          alt="empty"
           className="w-full h-full object-cover"
         />
       )}
       <div className="absolute bottom-28 left-0 w-full px-16">
         {label && (
           <div className="inline-flex items-center px-8 py-2 bg-lyricsTranslation rounded-24">
-            <img src={HotConcertChipIcon} alt="" className="w-24 h-24" />
+            <img src={HotConcertChipIcon} className="w-24 h-24" />
             <p className="text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
               {label}
             </p>
@@ -86,14 +80,14 @@ function DetailInfo({
         </p>
 
         <div className="pt-10 flex items-center">
-          <img src={ConcertDateIcon} alt="" className="w-24 h-24" />
+          <img src={ConcertDateIcon} className="w-24 h-24" />
           <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
             {date}
           </p>
         </div>
 
         <div className="pt-4 flex items-center">
-          <img src={ConcertVenueIcon} alt="" className="w-24 h-24" />
+          <img src={ConcertVenueIcon} className="w-24 h-24" />
           <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
             {venue}
           </p>

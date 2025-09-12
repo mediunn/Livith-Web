@@ -9,7 +9,7 @@ function TopBar({ bgColor = "bg-transparent" }: TopBarProps) {
     <div
       className={`sticky top-0 z-50 flex items-center justify-between w-full h-60 ${bgColor}`}
     >
-      <img src={LogoIcon} alt="logo" className={"ml-16 w-101 h-25"} />
+      <img src={LogoIcon} className={"ml-16 w-101 h-25"} />
     </div>
   );
 }

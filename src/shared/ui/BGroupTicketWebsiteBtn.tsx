@@ -73,11 +73,7 @@ function BGroupTicketWebsiteBtn({
         onClick={handleClick}
         className="flex px-16 py-10 w-full inline-flex items-center bg-grayScaleBlack80 rounded-8 cursor-pointer"
       >
-        <img
-          src={WebSiteEarthIcon}
-          alt="web site earth"
-          className="w-18 h-18 mr-10"
-        />
+        <img src={WebSiteEarthIcon} className="w-18 h-18 mr-10" />
         <div>
           <p className="text-grayScaleBlack5 text-Body2-sm font-semibold font-NotoSansKR">
             티켓 웹사이트 바로가기

@@ -39,7 +39,7 @@ function EditInterestConcertBottomSheet({
               }}
               className="flex flex-row py-15 space-x-16 px-17 cursor-pointer"
             >
-              <img src={EditInterestConcertIcon} alt="Edit Icon" className="" />
+              <img src={EditInterestConcertIcon} />
               <div className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR">
                 메인 콘서트 바꾸기
               </div>
@@ -52,7 +52,7 @@ function EditInterestConcertBottomSheet({
               }}
               className="flex flex-row py-15 space-x-16 px-17 cursor-pointer"
             >
-              <img src={TrashCanIcon} alt="Trash Icon" />
+              <img src={TrashCanIcon} />
               <p className="text-lyricsTranslation text-Body2-md font-medium font-NotoSansKR ">
                 콘서트 삭제하기
               </p>

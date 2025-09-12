@@ -26,7 +26,6 @@ function ConcertInfoCarouselSlide({
       {imageUrl ? (
         <img
           src={imageUrl}
-          alt=" "
           className="w-full h-full object-cover rounded-8"
           onError={(e) => {
             e.currentTarget.src = EmptyConcertInfoIcon;
@@ -35,7 +34,6 @@ function ConcertInfoCarouselSlide({
       ) : (
         <img
           src={EmptyConcertInfoIcon}
-          alt="empty"
           className="w-full h-full object-cover rounded-8"
         />
       )}

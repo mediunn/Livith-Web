@@ -26,7 +26,7 @@ function MainImageCarousel() {
         className={`absolute left-16 top-111 w-38 h-38 z-10 bg-transparent border-none p-0 cursor-pointer
           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <img src={PrevArrow} alt="prev" className="w-10 h-19 ml-14" />
+        <img src={PrevArrow} className="w-10 h-19 ml-14" />
       </button>
     );
   };
@@ -40,7 +40,7 @@ function MainImageCarousel() {
         className={`absolute right-16 top-111 w-38 h-38 z-10 bg-transparent border-none p-0 cursor-pointer
           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <img src={NextArrow} alt="next" className="w-10 h-19 ml-14" />
+        <img src={NextArrow} className="w-10 h-19 ml-14" />
       </button>
     );
   };
