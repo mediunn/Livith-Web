@@ -26,6 +26,8 @@ function ConcertSettingSnackBar({
       debug_mode: true,
     });
 
+    window.amplitude.track("concert_setting_button_click", { group });
+
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
         <div className="w-24 h-24">

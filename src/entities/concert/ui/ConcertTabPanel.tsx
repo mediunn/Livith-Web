@@ -46,6 +46,9 @@ function ConcertTabPanel({
   useEffect(() => {
     const assignedGroup = getExperimentGroup();
     setGroup(assignedGroup);
+
+    // 앰플리튜드에 그룹 속성 저장
+    window.amplitude.setUserProperties?.({ ticketBtnGroup: group });
   }, []);
 
   // visibilitychange 기반 복귀 감지
@@ -55,6 +58,9 @@ function ConcertTabPanel({
       //ticketOpened === "true"으로 새 탭이 열렸을 경우에만 page_view_returned 이벤트 기록
       if (document.visibilityState === "visible" && ticketOpened === "true") {
         logEvent(analytics, "page_view_returned", { group, debug_mode: true });
+
+        window.amplitude.track("page_view_returned", { group });
+
         // page_view_returned 이벤트 기록 후 다음 복귀 감지를 위해 localStorage 초기화
         localStorage.removeItem("ticketOpened");
 
@@ -87,7 +93,10 @@ function ConcertTabPanel({
     window.open(ticketUrl, "_blank");
     // 티켓 웹사이트 버튼을 클릭하여 새 탭을 열었음을 기록
     localStorage.setItem("ticketOpened", "true");
+
     logEvent(analytics, "ticket_button_click", { group, debug_mode: true });
+
+    window.amplitude.track("ticket_button_click", { group });
   };
 
   return (

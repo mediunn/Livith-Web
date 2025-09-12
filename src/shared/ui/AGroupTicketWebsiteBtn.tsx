@@ -34,6 +34,9 @@ function AGroupTicketWebsiteBtn({
             group,
             debug_mode: true,
           });
+
+          window.amplitude.track("AButton_section_reached", { group });
+
           recordedRef.current = true;
           observer.disconnect();
         }
@@ -55,6 +58,9 @@ function AGroupTicketWebsiteBtn({
         group,
         debug_mode: true,
       });
+
+      window.amplitude.track("AButton_section_reached", { group });
+
       recordedRef.current = true;
       observer.disconnect();
     }
