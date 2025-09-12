@@ -7,7 +7,10 @@ export function useHomeConcertList() {
     queryFn: getHomeConcertList,
     select: (data: HomeSection[]) => {
       const popularSection = data.find((section) => section.id === 1);
-      return popularSection?.concerts || [];
+      return {
+        sectionTitle: popularSection?.sectionTitle || "",
+        concerts: popularSection?.concerts || [],
+      };
     },
   });
 }

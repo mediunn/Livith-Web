@@ -33,14 +33,14 @@ function MusicTitleBar({ songId }: MusicTitleBarProps) {
   return (
     <div className="sticky top-0 z-50 bg-grayScaleBlack100 max-w-md w-full h-66">
       <div className="pt-20 px-16 flex justify-between items-end items-center">
-        <div className="flex items-center">
+        <div className="flex items-center flex-1 min-w-0">
           <button
             className="w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
             onClick={() => navigate(-1)}
           >
             <img src={NavPrev} alt="prev" className="w-full h-full" />
           </button>
-          <p className="pl-4 text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+          <p className="pl-4 text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR line-clamp-1">
             {title}
           </p>
         </div>
