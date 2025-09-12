@@ -11,10 +11,9 @@ import { Md } from "../api/getMd";
 
 type MdSlideProps = {
   mds: Md[];
-  ticketUrl: string;
 };
 
-function MdSlide({ mds, ticketUrl }: MdSlideProps) {
+function MdSlide({ mds }: MdSlideProps) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -108,12 +107,7 @@ function MdSlide({ mds, ticketUrl }: MdSlideProps) {
       >
         {mds.map((md) => (
           <SwiperSlide key={md.id} style={{ width: 108 }}>
-            <MdSlideCard
-              name={md.name}
-              price={md.price}
-              imageUrl={md.imgUrl}
-              ticketUrl={ticketUrl}
-            />
+            <MdSlideCard name={md.name} price={md.price} imageUrl={md.imgUrl} />
           </SwiperSlide>
         ))}
       </Swiper>

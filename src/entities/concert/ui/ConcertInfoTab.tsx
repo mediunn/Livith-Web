@@ -183,6 +183,7 @@ function ConcertInfoTab({
               <Tab
                 label="아티스트 상세"
                 value="1"
+                disableRipple
                 onClick={() => {
                   window.amplitude.track("click_artist_detail_segment");
                 }}
@@ -190,6 +191,7 @@ function ConcertInfoTab({
               <Tab
                 label="콘서트 상세"
                 value="2"
+                disableRipple
                 onClick={() => {
                   window.amplitude.track("click_concert_detail_segment");
                 }}
@@ -197,6 +199,7 @@ function ConcertInfoTab({
               <Tab
                 label="셋리스트"
                 value="3"
+                disableRipple
                 onClick={() => {
                   window.amplitude.track("click_setlist_segment_detail");
                 }}

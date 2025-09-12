@@ -141,12 +141,7 @@ function ConcertTabPanel({
       )}
 
       {mds && mds.length > 0 && (
-        <MdInfo
-          mds={mds}
-          concertId={concertId}
-          mdCount={mds.length}
-          ticketUrl={ticketUrl}
-        />
+        <MdInfo mds={mds} concertId={concertId} mdCount={mds.length} />
       )}
     </>
   );

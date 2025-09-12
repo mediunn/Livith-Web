@@ -2,23 +2,16 @@ type MdSlideCardProps = {
   name: string;
   price: string;
   imageUrl?: string;
-  ticketUrl: string;
 };
 
-function MdSlideCard({ name, price, imageUrl, ticketUrl }: MdSlideCardProps) {
-  const handleClick = () => {
-    if (ticketUrl) {
-      window.open(ticketUrl, "_blank");
-    }
-  };
-
+function MdSlideCard({ name, price, imageUrl }: MdSlideCardProps) {
   return (
-    <div className="w-108 h-214 cursor-pointer" onClick={handleClick}>
+    <div className="w-108 h-214 cursor-pointer">
       <div className="w-108 h-158 relative">
         {imageUrl ? (
           <img
             src={imageUrl}
-            alt="MD 이미지"
+            alt=""
             className="w-full h-full rounded-6 object-cover"
           />
         ) : (

@@ -143,7 +143,7 @@ function FanCultureSwiper({ concertCulture }: FanCultureSwiperProps) {
                 <div className="pt-12 w-full border-b border-dashed border-grayScaleBlack50" />
 
                 <div className="flex pt-12">
-                  <p className="text-grayScaleWhite text-Body4-md font-medium font-NotoSansKR">
+                  <p className="text-grayScaleBlack30 text-Body4-md font-medium font-NotoSansKR">
                     {culture.content}
                   </p>
                 </div>
