@@ -221,7 +221,9 @@ function LyricPage() {
           <div>
             <Sheet
               isOpen={isSheetOpen}
-              onClose={() => setIsSheetOpen(false)}
+              onClose={() => {
+                sheetRef.current?.snapTo(2);
+              }}
               ref={sheetRef}
               snapPoints={[-32, -320, 42]}
               initialSnap={1} // 중간 위치에서 시작
