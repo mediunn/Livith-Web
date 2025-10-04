@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import MdCard from "../entities/concert/ui/MdCard";
-import { getMd, Md } from "../entities/concert/api/getMd";
+import { useMd } from "../entities/concert/model/useMd";
 
 interface MdListProps {
   concertId?: number;
@@ -8,22 +7,7 @@ interface MdListProps {
 }
 
 export function MdList({ concertId, ticketUrl }: MdListProps) {
-  const [mds, setMd] = useState<Md[] | null>(null);
-
-  useEffect(() => {
-    const fetchMds = async () => {
-      if (!concertId) return;
-      try {
-        const data = await getMd(concertId);
-        setMd(data);
-      } catch (error) {
-        console.error("특정 콘서트의 MD 목록 조회 API 호출 실패:", error);
-        setMd([]);
-      }
-    };
-
-    fetchMds();
-  }, [concertId]);
+  const { data: mds = [] } = useMd(concertId ?? null);
 
   return (
     <div className="mt-18 grid grid-cols-3 gap-x-10 gap-y-24 mx-16">

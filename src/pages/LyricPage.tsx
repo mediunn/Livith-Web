@@ -4,16 +4,16 @@ import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../entities/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
-import { Fanchant, getFanchant } from "../features/lyric/api/getFanchant";
 import { useRecoilValue } from "recoil";
 import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 import { BeatLoader } from "react-spinners";
 import YouTubePlayer from "../entities/lyric/ui/YouTubePlayer";
 import EmptyYouTubePlayer from "../entities/lyric/ui/EmptyYouTubePlayer";
 import EmptyConcertInfoTabPanel from "../entities/concert/ui/EmptyConcertInfoTabPanel";
-import { getSong, Song } from "../entities/lyric/api/getSong";
 import { Sheet, SheetRef } from "react-modal-sheet";
 import { useBodyScrollLock } from "../shared/model/useBodyScrollLock";
+import { useSong } from "../entities/lyric/model/useSong";
+import { useFanchant } from "../features/lyric/model/useFanchant";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -26,9 +26,6 @@ function LyricPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  const [songData, setSongData] = useState<Song | null>(null);
-  const [isLyricLoading, setIsLyricLoading] = useState(true);
-
   // 초기값: 원어, 발음, 해석, 응원법 true
   const [activeButtons, setActiveButtons] = useState<boolean[]>([
     true,
@@ -37,65 +34,30 @@ function LyricPage() {
     true,
   ]);
 
-  // 응원법 존재 확인
-  const [hasFanchant, setHasFanchant] = useState(false);
   const setlistId = useRecoilValue(setlistIdState);
 
-  const [fanchantData, setFanchantData] = useState<Fanchant | null>(null);
-  const [isFanchantLoading, setIsFanchantLoading] = useState(true);
+  const { data: songData, isLoading: isLyricLoading } = useSong(Number(songId));
 
+  const { data: fanchantData, isLoading: isFanchantLoading } = useFanchant(
+    setlistId,
+    songId ? Number(songId) : null
+  );
+
+  // 응원법 존재 확인
+  const hasFanchant = fanchantData?.fanchant?.some(
+    (line) => line.trim() !== ""
+  );
+
+  // 응원법 없을 시 버튼 off
   useEffect(() => {
-    const fetchSongData = async () => {
-      setIsLyricLoading(true);
-      try {
-        const data = await getSong(Number(songId));
-        setSongData(data);
-      } catch (error) {
-        console.error("특정 노래의 가사 정보 조회 API 호출 실패:", error);
-      } finally {
-        setIsLyricLoading(false);
-      }
-    };
-
-    fetchSongData();
-  }, [songId]);
-
-  useEffect(() => {
-    const fetchFanchantExistence = async () => {
-      setIsFanchantLoading(true);
-      try {
-        const fanchantData = await getFanchant(
-          Number(setlistId),
-          Number(songId)
-        );
-        const hasAnyFanchant = fanchantData?.fanchant?.some(
-          (line) => line.trim() !== ""
-        );
-
-        setHasFanchant(hasAnyFanchant);
-
-        setFanchantData(fanchantData);
-
-        // 응원법이 없을 시 응원법 버튼 값 false로 변경
-        if (!hasAnyFanchant) {
-          setActiveButtons((prev) => {
-            const newButtons = [...prev];
-            newButtons[3] = false;
-            return newButtons;
-          });
-        }
-      } catch (error) {
-        console.error("응원법 조회 API 호출 실패:", error);
-        setHasFanchant(false);
-      } finally {
-        setIsFanchantLoading(false);
-      }
-    };
-
-    if (setlistId !== null && songId) {
-      fetchFanchantExistence();
+    if (fanchantData && !hasFanchant) {
+      setActiveButtons((prev) => {
+        const newButtons = [...prev];
+        newButtons[3] = false;
+        return newButtons;
+      });
     }
-  }, [setlistId, songId]);
+  }, [fanchantData, hasFanchant]);
 
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -215,7 +177,7 @@ function LyricPage() {
           <LyricTypeButton
             activeButtons={activeButtons}
             onToggle={toggleButton}
-            hasFanchant={hasFanchant}
+            hasFanchant={!!hasFanchant}
           />
 
           <div>
@@ -263,7 +225,7 @@ function LyricPage() {
                         <Lyric
                           songData={songData}
                           activeButtons={activeButtons}
-                          fanchantData={fanchantData}
+                          fanchantData={fanchantData ?? null}
                         />
                       ) : (
                         <div className="pt-51">
