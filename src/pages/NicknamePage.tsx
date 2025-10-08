@@ -66,12 +66,17 @@ function NicknamePage() {
         </p>
       </div>
 
-      <div className="absolute bottom-50 w-full">
-        <div className="h-52 mx-16 flex items-center justify-center bg-grayScaleBlack50 rounded-6">
-          <p className="text-grayScaleBlack30 text-Body2-sm font-semibold font-NotoSansKR">
-            가입 완료
-          </p>
-        </div>
+      <div className="absolute bottom-50 w-full px-16">
+        <button
+          disabled={nickname.length === 0} // 임시 비활성화 조건
+          className={`h-52 w-full flex items-center justify-center rounded-6 text-Body2-sm font-semibold font-NotoSansKR  ${
+            nickname.length > 0
+              ? "bg-mainYellow30 text-grayScaleBlack100"
+              : "bg-grayScaleBlack50 text-grayScaleBlack30"
+          }`}
+        >
+          가입 완료
+        </button>
       </div>
     </>
   );
