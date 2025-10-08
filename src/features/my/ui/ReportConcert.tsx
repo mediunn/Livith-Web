@@ -1,3 +1,5 @@
+import FeedbackIcon from "../../../shared/assets/FeedbackIcon.svg";
+
 function ReprotConcert() {
   const handleClick = () => {
     window.location.href = "https://forms.gle/q7uQEr4XSiQmoVkM6";
@@ -18,6 +20,7 @@ function ReprotConcert() {
         </button>
       </div>
       <div className="w-full h-5 bg-[#29303C]"></div>
+      <img src={FeedbackIcon} className="w-full h-full px-16 py-20" />
     </>
   );
 }
