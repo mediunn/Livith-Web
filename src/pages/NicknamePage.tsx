@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import NavPrev from "../shared/assets/NavPrevIcon.svg";
 
 function NicknamePage() {
   const navigate = useNavigate();
+
+  const [nickname, setNickname] = useState("");
 
   return (
     <>
@@ -29,9 +32,17 @@ function NicknamePage() {
           닉네임을 설정해 주세요
         </p>
         <div className="pt-22 pb-12 flex w-full">
-          <div className="flex-1 px-16 py-14 bg-grayScaleBlack90 rounded-10">
-            <p className="text-grayScaleBlack50 text-Body3-md font-medium font-NotoSansKR">
-              예시 ) 홍길동12
+          <div className="flex flex items-center flex-1 px-16 py-14 bg-grayScaleBlack90 rounded-10">
+            <input
+              type="text"
+              placeholder="예시 ) 홍길동12"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              className="bg-transparent outline-none text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full"
+              maxLength={10}
+            />
+            <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR">
+              {nickname.length}/10
             </p>
           </div>
           <div className="px-16 py-14 ml-12 bg-grayScaleBlack80 rounded-10">
