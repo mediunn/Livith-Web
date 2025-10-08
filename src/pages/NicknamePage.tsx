@@ -1,0 +1,59 @@
+import { useNavigate } from "react-router-dom";
+import NavPrev from "../shared/assets/NavPrevIcon.svg";
+
+function NicknamePage() {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <div className="pt-20 px-16 pb-8 flex justify-between items-end items-center">
+        <div className="flex items-center flex-1 min-w-0">
+          <button
+            className="w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <img src={NavPrev} className="w-full h-full" />
+          </button>
+          <p className="pl-4 text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR line-clamp-1">
+            닉네임 수정
+          </p>
+        </div>
+      </div>
+
+      <div className="px-16">
+        <p className="pt-30 text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+          라이빗에서 사용할
+          <br />
+          닉네임을 설정해 주세요
+        </p>
+        <div className="pt-22 pb-12 flex w-full">
+          <div className="flex-1 px-16 py-14 bg-grayScaleBlack90 rounded-10">
+            <p className="text-grayScaleBlack50 text-Body3-md font-medium font-NotoSansKR">
+              예시 ) 홍길동12
+            </p>
+          </div>
+          <div className="px-16 py-14 ml-12 bg-grayScaleBlack80 rounded-10">
+            <p className="text-grayScaleBlack50 text-Body3-md font-medium font-NotoSansKR">
+              중복확인
+            </p>
+          </div>
+        </div>
+        <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR">
+          10자리 이내, 문자/숫자로 입력 가능해요
+        </p>
+      </div>
+
+      <div className="absolute bottom-50 w-full">
+        <div className="h-52 mx-16 flex items-center justify-center bg-grayScaleBlack50 rounded-6">
+          <p className="text-grayScaleBlack30 text-Body2-sm font-semibold font-NotoSansKR">
+            가입 완료
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default NicknamePage;
