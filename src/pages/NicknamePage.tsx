@@ -6,6 +6,17 @@ function NicknamePage() {
   const navigate = useNavigate();
 
   const [nickname, setNickname] = useState("");
+  const MAX_NICKNAME_LENGTH = 10;
+
+  const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    if (value.length > MAX_NICKNAME_LENGTH) {
+      value = value.slice(0, MAX_NICKNAME_LENGTH);
+    }
+
+    setNickname(value);
+  };
 
   return (
     <>
@@ -37,9 +48,8 @@ function NicknamePage() {
               type="text"
               placeholder="예시 ) 홍길동12"
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={handleChangeNickname}
               className="bg-transparent outline-none text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full"
-              maxLength={10}
             />
             <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR">
               {nickname.length}/10
