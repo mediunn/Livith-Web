@@ -160,9 +160,10 @@ function ConcertInfoTab({
             <TabList
               onChange={handleChange}
               aria-label="tab"
+              variant="scrollable"
+              scrollButtons={false}
               sx={{
                 "& .MuiTab-root": {
-                  flex: 1,
                   height: "64px",
                   fontSize: "16px",
                   fontWeight: 600,
@@ -171,6 +172,8 @@ function ConcertInfoTab({
                   lineHeight: "1.4",
                   textTransform: "none",
                   color: "#808794",
+                  flexShrink: 0,
+                  minWidth: "106px",
                 },
                 "& .MuiTab-root.Mui-selected": {
                   color: "#FFFFFF",
@@ -203,6 +206,18 @@ function ConcertInfoTab({
                 onClick={() => {
                   window.amplitude.track("click_setlist_segment_detail");
                 }}
+              />
+              <Tab
+                label={
+                  <div className="flex">
+                    <p>소통·댓글</p>
+                    <p className="pl-2 text-mainYellow30 text-Body2-sm font-semibold font-NotoSansKR">
+                      0
+                    </p>
+                  </div>
+                }
+                value="4"
+                disableRipple
               />
             </TabList>
           </Box>
@@ -261,6 +276,13 @@ function ConcertInfoTab({
               <EmptyConcertInfoTabPanel text={"셋리스트"} />
             )}
           </TabPanel>
+
+          <TabPanel
+            value="4"
+            sx={{
+              padding: "0",
+            }}
+          ></TabPanel>
         </TabContext>
       </Box>
     </>
