@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 function Nickname() {
-  const handleClick = () => {
-    window.location.href = "https://forms.gle/q7uQEr4XSiQmoVkM6";
-  };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -9,19 +9,19 @@ function Nickname() {
         <div className="mx-16 mt-213 mb-20 w-full flex justify-between items-end items-center">
           <div className="">
             <div className="flex items-center">
-              <p className="mr-2 text-grayScaleWhite text-Head1-sm font-medium font-NotoSansKR">
+              <p className="mr-2 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
                 닉네임
               </p>
-              <p className="text-grayScaleWhite text-Head1-md font-medium font-NotoSansKR">
+              <p className="text-grayScaleBlack30 text-Head1-md font-medium font-NotoSansKR">
                 님, 반가워요!
               </p>
             </div>
-            <p className="text-grayScaleWhite text-Head1-md font-semibold font-NotoSansKR">
+            <p className="text-grayScaleBlack30 text-Head1-md font-medium font-NotoSansKR">
               공연 준비 시작해 볼까요?
             </p>
           </div>
           <button
-            onClick={handleClick}
+            onClick={() => navigate(`/nickname`)}
             className="px-12 py-6 bg-grayScaleBlack80 rounded-17 text-grayScaleBlack5 text-Body4-md font-medium font-NotoSansKR"
           >
             닉네임 수정

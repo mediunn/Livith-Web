@@ -2,6 +2,10 @@ import MyNextArrow from "../../../shared/assets/MyNextArrow.svg";
 import FeedbackIcon from "../../../shared/assets/FeedbackIcon.svg";
 
 function Info() {
+  const handleClick = () => {
+    window.location.href = "https://forms.gle/q7uQEr4XSiQmoVkM6";
+  };
+
   const handleClickUpdate = () => {
     window.location.href =
       "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc800dab7fc177f325eade?pvs=4";
@@ -13,7 +17,11 @@ function Info() {
 
   return (
     <div>
-      <img src={FeedbackIcon} className="w-full h-full px-16 py-20" />
+      <img
+        onClick={handleClick}
+        src={FeedbackIcon}
+        className="w-full h-full px-16 py-20"
+      />
 
       <div className="pl-16 pr-18">
         <div className="mt-14 flex justify-between">
