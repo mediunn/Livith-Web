@@ -228,7 +228,7 @@ function ConcertInfoTab({
             }}
           >
             {!artist && ConcertCulture.length === 0 ? (
-              <EmptyConcertInfoTabPanel text={"아티스트 상세"} />
+              <EmptyConcertInfoTabPanel text={"아티스트 상세가 없어요"} />
             ) : (
               <ArtistTabPanel
                 introduction={introduction}
@@ -253,7 +253,7 @@ function ConcertInfoTab({
             {(!schedules || schedules.length === 0) &&
             (!concertRequiredInfo || concertRequiredInfo.length === 0) &&
             (!mds || mds.length === 0) ? (
-              <EmptyConcertInfoTabPanel text={"콘서트 상세"} />
+              <EmptyConcertInfoTabPanel text={"콘서트 상세가 없어요"} />
             ) : (
               <ConcertTabPanel
                 concertId={concertId}
@@ -273,7 +273,7 @@ function ConcertInfoTab({
             {setlist && setlist.length > 0 ? (
               <SetlistTabPanel setlist={setlist} concertId={concertId} />
             ) : (
-              <EmptyConcertInfoTabPanel text={"셋리스트"} />
+              <EmptyConcertInfoTabPanel text={"셋리스트가 없어요"} />
             )}
           </TabPanel>
 
@@ -282,7 +282,19 @@ function ConcertInfoTab({
             sx={{
               padding: "0",
             }}
-          ></TabPanel>
+          >
+            <div>
+              <div className="flex pt-24 px-16">
+                <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+                  모든 댓글
+                </p>
+                <p className="pl-4 text-mainYellow30 text-Body1-sm font-semibold font-NotoSansKR">
+                  0
+                </p>
+              </div>
+              <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} />
+            </div>
+          </TabPanel>
         </TabContext>
       </Box>
     </>
