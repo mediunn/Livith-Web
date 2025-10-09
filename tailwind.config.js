@@ -28,6 +28,7 @@ module.exports = withMT({
       fontSize: {
         Title: ["26px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "Head1-sm": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
+        "Head1-md": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "Head1-re": ["22px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "Body1-sm": ["18px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],
         "Body2-sm": ["16px", { lineHeight: "1.4", letterSpacing: "-0.05em" }],

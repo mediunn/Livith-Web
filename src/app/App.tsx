@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import ConcertInsidePage from "../pages/ConcertInsidePage";
 import CategoryPage from "../pages/CategoryPage";
 import MyPage from "../pages/MyPage";
+import NicknamePage from "../pages/NicknamePage";
 import ConcertListPage from "../pages/ConcertListPage";
 import RootLayout from "./RootLayout";
 import SearchPage from "../pages/SearchPage";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "my",
         element: <MyPage />,
+      },
+      {
+        path: "nickname",
+        element: <NicknamePage />,
       },
       {
         path: "concerts/:status",
