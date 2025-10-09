@@ -17,6 +17,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { getSetlistInfo, Setlist } from "../api/getSetlistInfo";
+import CommentInputBar from "./CommentInputBar";
 
 interface ConcertInfoTabProps {
   concertId: number;
@@ -293,6 +294,8 @@ function ConcertInfoTab({
                 </p>
               </div>
               <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} />
+
+              <CommentInputBar />
             </div>
           </TabPanel>
         </TabContext>
