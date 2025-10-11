@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProfileIcon from "../../../shared/assets/ProfileIcon.svg";
 import DeleteCommentModal from "../../../widgets/DeleteCommentModal";
+import ReportCommentModal from "../../../widgets/ReportCommentModal";
 
 function Comment() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,14 +22,19 @@ function Comment() {
             }}
             className="bg-grayScaleBlack100 rounded-24 px-12 py-4 text-grayScaleBlack80 text-Caption1-Bold font-bold font-NotoSansKR"
           >
-            삭제
+            {/* 삭제 */}
+            신고
           </button>
         </div>
         <p className="pt-12 text-grayScaleWhite text-Body2-re font-regular font-NotoSansKR">
           댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ
         </p>
       </div>
-      <DeleteCommentModal
+      {/* <DeleteCommentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      /> */}
+      <ReportCommentModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
