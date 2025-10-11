@@ -51,14 +51,13 @@ function DeleteCommentModal({ isOpen, onClose }: DeleteCommentModalProps) {
               <p className="text-grayScaleBlack100 text-Body2-md font-medium font-NotoSansKR text-center mt-10">
                 댓글을 삭제하시겠어요?
               </p>
-              <div className="flex flex-row justify-center space-x-14 mt-20 ">
-                <button className="bg-grayScaleBlack5 text-caution100 text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-18">
+              <div className="flex flex-row justify-center gap-9 mt-20 px-16 h-57">
+                <button className="flex-1 bg-grayScaleBlack5 text-caution100 text-Body3-md font-medium font-NotoSansKR rounded-8">
                   지금은 삭제할래요
                 </button>
                 <button
-                  className="bg-grayScaleBlack80 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-28"
+                  className="flex-1 bg-grayScaleBlack80 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR rounded-8"
                   onClick={() => {
-                    window.amplitude.track("cancel_change_interest");
                     onClose();
                   }}
                 >

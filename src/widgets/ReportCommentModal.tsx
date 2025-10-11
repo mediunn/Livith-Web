@@ -92,17 +92,16 @@ function ReportCommentModal({ isOpen, onClose }: ReportCommentModalProps) {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-row justify-center space-x-14 mt-20 ">
+              <div className="flex flex-row justify-center gap-9 mt-20 px-16 h-57">
                 <button
                   disabled={!isActive}
-                  className="bg-grayScaleBlack5 text-caution100 text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-40"
+                  className="flex-1 bg-grayScaleBlack5 text-caution100 text-Body3-md font-medium font-NotoSansKR rounded-8"
                 >
                   신고할래요
                 </button>
                 <button
-                  className="bg-grayScaleBlack80 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR rounded-8 py-18 px-32"
+                  className="flex-1 bg-grayScaleBlack80 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR rounded-8"
                   onClick={() => {
-                    window.amplitude.track("cancel_change_interest");
                     onClose();
                   }}
                 >
