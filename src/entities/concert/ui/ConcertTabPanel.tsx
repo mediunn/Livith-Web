@@ -5,7 +5,12 @@ import MdInfo from "./MdInfo";
 import { Schedule } from "../api/getSchedule";
 import { ConcertRequired } from "../api/getConcertRequiredInfo";
 import { Md } from "../api/getMd";
+<<<<<<< HEAD
 import TicketWebsiteBtn from "../../../shared/ui/TicketWebsiteBtn";
+=======
+import AGroupTicketWebsiteBtn from "../../../shared/ui/AGroupTicketWebsiteBtn";
+import BGroupTicketWebsiteBtn from "../../../shared/ui/BGroupTicketWebsiteBtn";
+>>>>>>> 3ece216 (feat : 3차 A/B 테스트 애널리틱스 이벤트 삭제)
 import ConcertSettingSnackBar from "../../../shared/ui/ConcertSettingSnackBar";
 
 interface ConcertTabPanelProps {
