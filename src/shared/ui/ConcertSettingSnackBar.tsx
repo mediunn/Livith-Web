@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import Lottie from "lottie-react";
 import InterestConcertToastIconMotion from "../../shared/assets/InterestConcertToastIconMotion.json";
-import { logEvent } from "firebase/analytics";
-import { analytics } from "../../app/firebase";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ConcertSettingSnackBarProps {
@@ -20,11 +18,6 @@ function ConcertSettingSnackBar({
   const STORAGE_KEY = "InterestConcertId";
   const handleChange = () => {
     localStorage.setItem(STORAGE_KEY, String(id));
-
-    logEvent(analytics, "concert_setting_button_click", {
-      group,
-      debug_mode: true,
-    });
 
     if (group === "A") {
       window.amplitude.track("A_concert_setting_button_click");

@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
 import WebSiteEarthIcon from "../assets/WebSiteEarthIcon.svg";
-import { logEvent } from "firebase/analytics";
-import { analytics } from "../../app/firebase";
 
 interface BGroupTicketWebsiteBtnProps {
   ticketUrl: string;
@@ -30,12 +28,6 @@ function BGroupTicketWebsiteBtn({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !recordedRef.current) {
-          logEvent(analytics, "B_Button_section_reached", {
-            section: "B_Button",
-            group,
-            debug_mode: true,
-          });
-
           window.amplitude.track("B_Button_section_reached");
 
           recordedRef.current = true;
@@ -54,12 +46,6 @@ function BGroupTicketWebsiteBtn({
       rect.top < window.innerHeight &&
       rect.bottom > 0
     ) {
-      logEvent(analytics, "B_Button_section_reached", {
-        section: "B_Button",
-        group,
-        debug_mode: true,
-      });
-
       window.amplitude.track("B_Button_section_reached");
 
       recordedRef.current = true;
