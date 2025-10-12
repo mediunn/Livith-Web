@@ -54,12 +54,6 @@ function ConcertTabPanel({
       const ticketOpened = localStorage.getItem("ticketOpened");
       //ticketOpened === "true"으로 새 탭이 열렸을 경우에만 page_view_returned 이벤트 기록
       if (document.visibilityState === "visible" && ticketOpened === "true") {
-        if (group === "A") {
-          window.amplitude.track("A_page_view_returned");
-        } else if (group === "B") {
-          window.amplitude.track("B_page_view_returned");
-        }
-
         // page_view_returned 이벤트 기록 후 다음 복귀 감지를 위해 localStorage 초기화
         localStorage.removeItem("ticketOpened");
 
@@ -92,12 +86,6 @@ function ConcertTabPanel({
     window.open(ticketUrl, "_blank");
     // 티켓 웹사이트 버튼을 클릭하여 새 탭을 열었음을 기록
     localStorage.setItem("ticketOpened", "true");
-
-    if (group === "A") {
-      window.amplitude.track("A_ticket_button_click");
-    } else if (group === "B") {
-      window.amplitude.track("B_ticket_button_click");
-    }
   };
 
   return (
@@ -116,7 +104,6 @@ function ConcertTabPanel({
               <AGroupTicketWebsiteBtn
                 ticketUrl={ticketUrl}
                 onClick={handleTicketClick}
-                group={group}
               />
             ) : (
               showFloatingBtn && (
@@ -124,7 +111,6 @@ function ConcertTabPanel({
                   <BGroupTicketWebsiteBtn
                     ticketUrl={ticketUrl}
                     onClick={handleTicketClick}
-                    group={group}
                   />
                 </div>
               )
@@ -138,7 +124,6 @@ function ConcertTabPanel({
           <ConcertSettingSnackBar
             id={concertId}
             onClose={() => setShowSnackBar(false)}
-            group={group}
           />
         </div>
       )}

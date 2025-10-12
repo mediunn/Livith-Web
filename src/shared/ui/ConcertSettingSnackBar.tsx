@@ -7,23 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 interface ConcertSettingSnackBarProps {
   id: string | number;
   onClose: () => void;
-  group: "A" | "B";
 }
 
-function ConcertSettingSnackBar({
-  id,
-  onClose,
-  group,
-}: ConcertSettingSnackBarProps) {
+function ConcertSettingSnackBar({ id, onClose }: ConcertSettingSnackBarProps) {
   const STORAGE_KEY = "InterestConcertId";
   const handleChange = () => {
     localStorage.setItem(STORAGE_KEY, String(id));
-
-    if (group === "A") {
-      window.amplitude.track("A_concert_setting_button_click");
-    } else if (group === "B") {
-      window.amplitude.track("B_concert_setting_button_click");
-    }
 
     toast(
       <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
