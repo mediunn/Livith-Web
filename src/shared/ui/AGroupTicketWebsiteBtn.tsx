@@ -1,61 +1,21 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import WebSiteEarthIcon from "../assets/WebSiteEarthIcon.svg";
 
 interface AGroupTicketWebsiteBtnProps {
   ticketUrl: string;
   onClick?: () => void;
-  group: "A" | "B";
 }
 function AGroupTicketWebsiteBtn({
   ticketUrl,
   onClick,
-  group,
 }: AGroupTicketWebsiteBtnProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const recordedRef = useRef(false); // 이벤트 기록 여부
 
   const handleClick = () => {
     if (onClick) onClick();
     else if (ticketUrl) window.open(ticketUrl, "_blank");
   };
 
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    // 스크롤하여 섹션 도달시 이벤트 기록
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !recordedRef.current) {
-          window.amplitude.track("A_Button_section_reached");
-
-          recordedRef.current = true;
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 } // 섹션이 10% 이상 노출시 도달로 판단
-    );
-
-    const frameId = requestAnimationFrame(() => observer.observe(el));
-
-    // 스크롤 전 초기 화면에서 섹션이 노출되는 경우 즉시 이벤트 기록
-    const rect = el.getBoundingClientRect();
-    if (
-      !recordedRef.current &&
-      rect.top < window.innerHeight &&
-      rect.bottom > 0
-    ) {
-      window.amplitude.track("A_Button_section_reached");
-
-      recordedRef.current = true;
-      observer.disconnect();
-    }
-
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frameId);
-    };
-  }, [group]);
   return (
     <>
       <div
