@@ -143,7 +143,7 @@ function ConcertInfoTab({
               padding: "0",
             }}
           >
-            {!artist && ConcertCulture.length === 0 ? (
+            {!artist && concertCulture.length === 0 ? (
               <EmptyConcertInfoTabPanel text={"아티스트 상세가 없어요"} />
             ) : (
               <ArtistTabPanel
