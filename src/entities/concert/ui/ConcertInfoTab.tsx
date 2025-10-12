@@ -14,6 +14,8 @@ import { useConcertRequiredInfo } from "../model/useConcertRequiredInfo";
 import { useMd } from "../model/useMd";
 import { useArtistInfo } from "../model/useArtistInfo";
 import { useSetlist } from "../model/useSetlist";
+import CommentInputBar from "./CommentInputBar";
+import CommentTabPanel from "./CommentTabPanel";
 
 interface ConcertInfoTabProps {
   concertId: number;
@@ -74,9 +76,10 @@ function ConcertInfoTab({
             <TabList
               onChange={handleChange}
               aria-label="tab"
+              variant="scrollable"
+              scrollButtons={false}
               sx={{
                 "& .MuiTab-root": {
-                  flex: 1,
                   height: "64px",
                   fontSize: "16px",
                   fontWeight: 600,
@@ -85,6 +88,8 @@ function ConcertInfoTab({
                   lineHeight: "1.4",
                   textTransform: "none",
                   color: "#808794",
+                  flexShrink: 0,
+                  minWidth: "106px",
                 },
                 "& .MuiTab-root.Mui-selected": {
                   color: "#FFFFFF",
@@ -118,6 +123,18 @@ function ConcertInfoTab({
                   window.amplitude.track("click_setlist_segment_detail");
                 }}
               />
+              <Tab
+                label={
+                  <div className="flex">
+                    <p>소통·댓글</p>
+                    <p className="pl-2 text-mainYellow30 text-Body2-sm font-semibold font-NotoSansKR">
+                      0
+                    </p>
+                  </div>
+                }
+                value="4"
+                disableRipple
+              />
             </TabList>
           </Box>
           <TabPanel
@@ -126,8 +143,8 @@ function ConcertInfoTab({
               padding: "0",
             }}
           >
-            {!artist && concertCulture.length === 0 ? (
-              <EmptyConcertInfoTabPanel text={"아티스트 상세"} />
+            {!artist && ConcertCulture.length === 0 ? (
+              <EmptyConcertInfoTabPanel text={"아티스트 상세가 없어요"} />
             ) : (
               <ArtistTabPanel
                 introduction={introduction}
@@ -152,7 +169,7 @@ function ConcertInfoTab({
             {(!schedules || schedules.length === 0) &&
             (!concertRequiredInfo || concertRequiredInfo.length === 0) &&
             (!mds || mds.length === 0) ? (
-              <EmptyConcertInfoTabPanel text={"콘서트 상세"} />
+              <EmptyConcertInfoTabPanel text={"콘서트 상세가 없어요"} />
             ) : (
               <ConcertTabPanel
                 concertId={concertId}
@@ -172,8 +189,31 @@ function ConcertInfoTab({
             {setlist && setlist.length > 0 ? (
               <SetlistTabPanel setlist={setlist} concertId={concertId} />
             ) : (
-              <EmptyConcertInfoTabPanel text={"셋리스트"} />
+              <EmptyConcertInfoTabPanel text={"셋리스트가 없어요"} />
             )}
+          </TabPanel>
+
+          <TabPanel
+            value="4"
+            sx={{
+              padding: "0",
+            }}
+          >
+            <div>
+              <div className="flex pt-24 px-16">
+                <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+                  모든 댓글
+                </p>
+                <p className="pl-4 text-mainYellow30 text-Body1-sm font-semibold font-NotoSansKR">
+                  0
+                </p>
+              </div>
+
+              {/* <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} /> */}
+              <CommentTabPanel />
+
+              <CommentInputBar />
+            </div>
           </TabPanel>
         </TabContext>
       </Box>
