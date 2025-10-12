@@ -1,16 +1,10 @@
-import { useRef } from "react";
 import WebSiteEarthIcon from "../assets/WebSiteEarthIcon.svg";
 
-interface AGroupTicketWebsiteBtnProps {
+interface TicketWebsiteBtnProps {
   ticketUrl: string;
   onClick?: () => void;
 }
-function AGroupTicketWebsiteBtn({
-  ticketUrl,
-  onClick,
-}: AGroupTicketWebsiteBtnProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
+function TicketWebsiteBtn({ ticketUrl, onClick }: TicketWebsiteBtnProps) {
   const handleClick = () => {
     if (onClick) onClick();
     else if (ticketUrl) window.open(ticketUrl, "_blank");
@@ -19,7 +13,6 @@ function AGroupTicketWebsiteBtn({
   return (
     <>
       <div
-        ref={sectionRef}
         onClick={handleClick}
         className="flex p-16 w-full inline-flex items-center bg-grayScaleBlack80 rounded-8 cursor-pointer"
       >
@@ -37,4 +30,4 @@ function AGroupTicketWebsiteBtn({
   );
 }
 
-export default AGroupTicketWebsiteBtn;
+export default TicketWebsiteBtn;
