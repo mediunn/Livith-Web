@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import WebSiteEarthIcon from "../assets/WebSiteEarthIcon.svg";
 
 interface AGroupTicketWebsiteBtnProps {
