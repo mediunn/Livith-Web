@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../entities/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
+import SignUpTooltip from "./SignUpTooltip";
 
 interface ConcertSettingEmptyProps {
   group: "A" | "B" | "C";
@@ -29,6 +30,8 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
     window.amplitude.track("click_interest_concert_main");
     navigate("/set-concert");
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   return (
     <>
