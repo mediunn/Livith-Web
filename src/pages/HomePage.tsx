@@ -8,6 +8,24 @@ import { toast } from "react-toastify";
 import Lottie from "lottie-react";
 import DeleteConcertToastIconMotion from "../shared/assets/DeleteConcertToastIconMotion.json";
 
+// A/B 테스트 그룹 배정 유틸
+function getExperimentGroup(): "A" | "B" | "C" {
+  let group = localStorage.getItem("induceSignupTooltipGroup") as
+    | "A"
+    | "B"
+    | "C"
+    | null;
+  if (!group) {
+    const random = Math.random();
+    if (random < 1 / 3) group = "A";
+    else if (random < 2 / 3) group = "B";
+    else group = "C";
+
+    localStorage.setItem("induceSignupTooltipGroup", group);
+  }
+  return group;
+}
+
 function HomePage() {
   const interestConcertId = localStorage.getItem("InterestConcertId");
 
@@ -51,12 +69,16 @@ function HomePage() {
     }
   }, []);
 
+  const group = getExperimentGroup();
+
   return (
     <div className="pb-90">
       {interestConcertId && concert && !isLoading ? (
         <ConcertSetting concert={concert} schedules={schedules} />
       ) : (
-        <ConcertSettingEmpty />
+        <>
+          <ConcertSettingEmpty group={group} />
+        </>
       )}
 
       <TabBar />
