@@ -57,6 +57,8 @@ function HomePage() {
     }
   }, [showSignupComplete]);
 
+  const group = getExperimentGroup();
+
   return (
     <div className="pb-90">
       {concertId && concert && !isLoading ? (
