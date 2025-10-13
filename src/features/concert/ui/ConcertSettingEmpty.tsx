@@ -30,6 +30,8 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
     navigate("/set-concert");
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   return (
     <>
       <TopBar bgColor="bg-grayScaleBlack90" />
