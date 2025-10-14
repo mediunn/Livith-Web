@@ -23,7 +23,7 @@ export async function getSearchResult({
   status,
   sort,
 }: GetSearchResultProps): Promise<ApiResponse<ConcertListResponse>> {
-  const response = await axiosInstance.get("/api/v3/search", {
+  const response = await axiosInstance.get("/api/v4/search", {
     params: {
       keyword,
       cursor,

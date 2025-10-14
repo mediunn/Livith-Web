@@ -10,7 +10,7 @@ export type Schedule = {
 
 export async function getSchedule(id: number): Promise<Schedule[]> {
   const response = await axiosInstance.get<ApiResponse<Schedule[]>>(
-    `/api/v3/concerts/${id}/schedule`
+    `/api/v4/concerts/${id}/schedule`
   );
   return response.data.data;
 }
