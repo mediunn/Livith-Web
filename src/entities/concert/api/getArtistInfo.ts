@@ -14,7 +14,7 @@ export type Artist = {
 
 export async function getArtistInfo(id: number): Promise<Artist> {
   const response = await axiosInstance.get<ApiResponse<Artist>>(
-    `/api/v3/concerts/${id}/artist`
+    `/api/v4/concerts/${id}/artist`
   );
   return response.data.data;
 }
