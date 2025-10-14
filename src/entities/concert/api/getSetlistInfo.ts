@@ -15,7 +15,7 @@ export type Setlist = {
 
 export async function getSetlistInfo(id: number): Promise<Setlist[]> {
   const response = await axiosInstance.get<ApiResponse<Setlist[]>>(
-    `/api/v3/concerts/${id}/setlists`
+    `/api/v4/concerts/${id}/setlists`
   );
   return response.data.data;
 }

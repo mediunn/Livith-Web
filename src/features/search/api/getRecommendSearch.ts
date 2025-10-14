@@ -6,7 +6,7 @@ export async function getRecommendSearch({
 }: {
   letter: string;
 }): Promise<ApiResponse<string[]>> {
-  const response = await axiosInstance.get("/api/v3/search/suggestions", {
+  const response = await axiosInstance.get("/api/v4/search/suggestions", {
     params: {
       letter,
     },

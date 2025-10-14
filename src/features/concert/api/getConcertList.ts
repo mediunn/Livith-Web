@@ -13,7 +13,7 @@ export async function getConcertList({
   cursor,
   size,
 }: GetConcertListParams): Promise<ApiResponse<ConcertListResponse>> {
-  const response = await axiosInstance.get("/api/v3/concerts", {
+  const response = await axiosInstance.get("/api/v4/concerts", {
     params: {
       id,
       cursor,
