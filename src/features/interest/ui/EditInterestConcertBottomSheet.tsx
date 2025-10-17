@@ -9,11 +9,13 @@ import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 interface EditBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
+  concertId: number;
 }
 
 function EditInterestConcertBottomSheet({
   isSheetOpen,
   onSheetClose,
+  concertId,
 }: EditBottomSheetProps) {
   const ref = useRef<SheetRef>(null);
   const navigate = useNavigate();
@@ -74,6 +76,7 @@ function EditInterestConcertBottomSheet({
           setIsModalOpen(false);
           onSheetClose();
         }}
+        concertId={concertId}
       />
     </>
   );
