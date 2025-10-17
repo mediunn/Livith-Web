@@ -3,6 +3,7 @@ import WarningIcon from "../shared/assets/WarningIcon.svg";
 import Lottie from "lottie-react";
 import InterestConcertToastIconMotion from "../shared/assets/InterestConcertToastIconMotion.json";
 import { AnimatePresence, motion } from "framer-motion";
+import { setInterestConcert } from "../entities/concert/api/setInterestConcert";
 
 interface ChangeConcertConfirmModalProps {
   id: string;
@@ -17,36 +18,42 @@ function ChangeConcertConfirmModal({
   onClose,
   setIsToastActive,
 }: ChangeConcertConfirmModalProps) {
-  const STORAGE_KEY = "InterestConcertId";
-
-  const handleChange = () => {
+  const handleChange = async () => {
     window.amplitude.track("confirm_change_interest");
-    localStorage.setItem(STORAGE_KEY, id);
-    onClose();
-    setIsToastActive(true);
-    toast(
-      <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <div className="w-24 h-24">
-          <Lottie
-            animationData={InterestConcertToastIconMotion}
-            loop={false}
-            autoplay={true}
-            renderer="svg"
-            style={{ width: "100%", height: "100%" }}
-            rendererSettings={{
-              preserveAspectRatio: "xMidYMid meet",
-            }}
-          />
-        </div>
-        <span>관심 공연을 변경했어요</span>
-      </div>,
-      {
-        position: "top-center",
-        autoClose: 3000,
-        pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
-        onClose: () => setIsToastActive(false),
-      }
-    );
+
+    try {
+      const token = import.meta.env.VITE_ACCESS_TOKEN;
+      await setInterestConcert(Number(id), token);
+
+      onClose();
+      setIsToastActive(true);
+
+      toast(
+        <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
+          <div className="w-24 h-24">
+            <Lottie
+              animationData={InterestConcertToastIconMotion}
+              loop={false}
+              autoplay={true}
+              renderer="svg"
+              style={{ width: "100%", height: "100%" }}
+              rendererSettings={{
+                preserveAspectRatio: "xMidYMid meet",
+              }}
+            />
+          </div>
+          <span>관심 공연을 변경했어요</span>
+        </div>,
+        {
+          position: "top-center",
+          autoClose: 3000,
+          pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
+          onClose: () => setIsToastActive(false),
+        }
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   if (!isOpen) return null;
