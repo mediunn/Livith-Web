@@ -18,6 +18,7 @@ function DeleteConfirmModal({
   const token = import.meta.env.VITE_ACCESS_TOKEN;
 
   const handleDelete = async () => {
+    window.amplitude.track("click_confirm_delete");
     if (!concertId) return;
 
     try {
