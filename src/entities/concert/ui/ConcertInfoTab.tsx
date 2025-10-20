@@ -39,8 +39,6 @@ function ConcertInfoTab({
   } = useConcertCommentInfinite({ concertId });
   const totalCount = commentData?.totalCount ?? 0;
 
-  console.log(commentData);
-
   const getInitialTab = () => {
     const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
     return storedTab === "1" || storedTab === "2" || storedTab === "3"
