@@ -228,7 +228,10 @@ function ConcertInfoTab({
                 />
               )}
 
-              <CommentInputBar />
+              <CommentInputBar
+                concertId={concertId}
+                accessToken={import.meta.env.VITE_ACCESS_TOKEN}
+              />
             </div>
           </TabPanel>
         </TabContext>
