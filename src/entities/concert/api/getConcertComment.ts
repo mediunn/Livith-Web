@@ -13,15 +13,20 @@ export async function getConcertComment({
   cursor,
   size = 15,
 }: GetConcertCommentParams) {
-  const response = await axios.get(`/api/v4/concerts/${concertId}/comments`, {
-    params: {
-      cursor,
-      size,
-    },
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+  const response = await axios.get(
+    `${SERVER_URL}api/v4/concerts/${concertId}/comments`,
+    {
+      params: {
+        cursor,
+        size,
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
 
   return response.data;
 }
