@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProfileIcon from "../../../shared/assets/ProfileIcon.svg";
 import DeleteCommentModal from "../../../widgets/DeleteCommentModal";
 import ReportCommentModal from "../../../widgets/ReportCommentModal";
+import { useDeleteConcertComment } from "../model/useDeleteConcertComment";
 
 interface CommentProps {
   id: number;
@@ -10,8 +11,19 @@ interface CommentProps {
   content: string;
 }
 
-function Comment({ nickname, content }: CommentProps) {
+function Comment({ id, userId, nickname, content }: CommentProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const deleteCommentMutation = useDeleteConcertComment();
+
+  const handleDelete = async () => {
+    try {
+      await deleteCommentMutation.mutateAsync(id);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -29,22 +41,23 @@ function Comment({ nickname, content }: CommentProps) {
             }}
             className="bg-grayScaleBlack100 rounded-24 px-12 py-4 text-grayScaleBlack80 text-Caption1-Bold font-bold font-NotoSansKR"
           >
-            {/* 삭제 */}
-            신고
+            삭제
+            {/* 신고 */}
           </button>
         </div>
         <p className="pt-12 text-grayScaleWhite text-Body2-re font-regular font-NotoSansKR">
           {content}
         </p>
       </div>
-      {/* <DeleteCommentModal
+      <DeleteCommentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onDelete={handleDelete}
+      />
+      {/* <ReportCommentModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       /> */}
-      <ReportCommentModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </>
   );
 }
