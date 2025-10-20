@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import SetlistTabPanel from "./SetlistTabPanel";
@@ -16,6 +16,7 @@ import { useArtistInfo } from "../model/useArtistInfo";
 import { useSetlist } from "../model/useSetlist";
 import CommentInputBar from "./CommentInputBar";
 import CommentTabPanel from "./CommentTabPanel";
+import { useConcertCommentInfinite } from "../model/useConcertComment";
 
 interface ConcertInfoTabProps {
   concertId: number;
@@ -30,6 +31,16 @@ function ConcertInfoTab({
   ticketUrl,
   introduction,
 }: ConcertInfoTabProps) {
+  const {
+    data: commentData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useConcertCommentInfinite({ concertId });
+  const totalCount = commentData?.totalCount ?? 0;
+
+  console.log(commentData);
+
   const getInitialTab = () => {
     const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
     return storedTab === "1" || storedTab === "2" || storedTab === "3"
@@ -128,7 +139,7 @@ function ConcertInfoTab({
                   <div className="flex">
                     <p>소통·댓글</p>
                     <p className="pl-2 text-mainYellow30 text-Body2-sm font-semibold font-NotoSansKR">
-                      0
+                      {totalCount}
                     </p>
                   </div>
                 }
@@ -205,12 +216,19 @@ function ConcertInfoTab({
                   모든 댓글
                 </p>
                 <p className="pl-4 text-mainYellow30 text-Body1-sm font-semibold font-NotoSansKR">
-                  0
+                  {totalCount}
                 </p>
               </div>
-
-              {/* <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} /> */}
-              <CommentTabPanel />
+              {commentData?.totalCount === 0 ? (
+                <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} />
+              ) : (
+                <CommentTabPanel
+                  comments={commentData?.comments ?? []}
+                  fetchNextPage={fetchNextPage}
+                  hasNextPage={hasNextPage}
+                  isFetchingNextPage={isFetchingNextPage}
+                />
+              )}
 
               <CommentInputBar />
             </div>

@@ -3,7 +3,14 @@ import ProfileIcon from "../../../shared/assets/ProfileIcon.svg";
 import DeleteCommentModal from "../../../widgets/DeleteCommentModal";
 import ReportCommentModal from "../../../widgets/ReportCommentModal";
 
-function Comment() {
+interface CommentProps {
+  id: number;
+  userId: number;
+  nickname: string;
+  content: string;
+}
+
+function Comment({ nickname, content }: CommentProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -13,7 +20,7 @@ function Comment() {
           <div className="flex items-center">
             <img src={ProfileIcon} className="w-32 h-32" />
             <p className="pl-8 text-grayScaleBlack30 text-Body3-sm font-semibold font-NotoSansKR">
-              닉네임
+              {nickname}
             </p>
           </div>
           <button
@@ -27,7 +34,7 @@ function Comment() {
           </button>
         </div>
         <p className="pt-12 text-grayScaleWhite text-Body2-re font-regular font-NotoSansKR">
-          댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ
+          {content}
         </p>
       </div>
       {/* <DeleteCommentModal
