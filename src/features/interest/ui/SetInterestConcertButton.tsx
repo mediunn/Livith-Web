@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { StateWithSetter } from "../../../shared/types/props";
 import { motion, AnimatePresence } from "framer-motion";
+import { setInterestConcert } from "../../../entities/concert/api/setInterestConcert";
 
 type SetInterestConcertButtonProps = {
   selectedConcertState: StateWithSetter<string | null>;
@@ -13,12 +14,17 @@ export const SetInterestConcertButton = ({
   },
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
-  const STORAGE_KEY = "InterestConcertId";
+  const token = import.meta.env.VITE_ACCESS_TOKEN;
 
-  const handleSetInterestConcert = () => {
-    if (selectedConcert) {
-      localStorage.setItem(STORAGE_KEY, selectedConcert);
+  const handleSetInterestConcert = async () => {
+    if (!selectedConcert) return;
+
+    try {
+      await setInterestConcert(Number(selectedConcert), token);
+
       navigate("/complete-set", { replace: true });
+    } catch (err) {
+      console.error(err);
     }
   };
 
