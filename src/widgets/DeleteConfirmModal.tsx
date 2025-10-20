@@ -1,19 +1,59 @@
 import { AnimatePresence, motion } from "framer-motion";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
+import { toast } from "react-toastify";
+import Lottie from "lottie-react";
+import DeleteConcertToastIconMotion from "../shared/assets/DeleteConcertToastIconMotion.json";
+import { deleteInterestConcert } from "../entities/concert/api/deleteInterestConcert";
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
+  concertId: number;
 }
-function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
-  const STORAGE_KEY = "InterestConcertId";
-  const handleDelete = () => {
-    window.amplitude.track("click_confirm_delete");
+function DeleteConfirmModal({
+  isOpen,
+  onClose,
+  concertId,
+}: DeleteConfirmModalProps) {
+  const token = import.meta.env.VITE_ACCESS_TOKEN;
 
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.setItem("deleteConcertToast", "true");
-    window.location.href = "/";
-    onClose();
+  const handleDelete = async () => {
+    window.amplitude.track("click_confirm_delete");
+    if (!concertId) return;
+
+    try {
+      await deleteInterestConcert(concertId, token);
+
+      // 성공 시 관심 콘서트 삭제 토스트
+      toast(
+        <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
+          <div className="w-24 h-24">
+            <Lottie
+              animationData={DeleteConcertToastIconMotion}
+              loop={false}
+              renderer="svg"
+              style={{ width: "100%", height: "100%" }}
+              rendererSettings={{
+                preserveAspectRatio: "xMidYMid meet",
+              }}
+            />
+          </div>
+          <span>관심 콘서트가 삭제되었어요</span>
+        </div>,
+        {
+          position: "top-center",
+          autoClose: 3000,
+          pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
+        }
+      );
+
+      // 홈으로 이동
+      window.location.href = "/";
+    } catch (err) {
+      console.error(err);
+    } finally {
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
