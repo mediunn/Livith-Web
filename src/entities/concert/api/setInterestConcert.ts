@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../../shared/api/axiosInstance";
 
 export interface SetInterestConcertResponse {
   id: number;
@@ -8,10 +8,8 @@ export const setInterestConcert = async (
   concertId: number,
   token: string
 ): Promise<SetInterestConcertResponse> => {
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
-  const response = await axios.post(
-    `${SERVER_URL}api/v4/users/interest-concert`,
+  const response = await axiosInstance.post(
+    `api/v4/users/interest-concert`,
     { concertId },
     {
       headers: {

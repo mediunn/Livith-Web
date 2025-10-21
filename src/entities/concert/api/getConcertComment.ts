@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../../shared/api/axiosInstance";
 
 const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 
@@ -18,10 +18,8 @@ export async function getConcertComment({
   cursor,
   size,
 }: GetConcertCommentParams) {
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
-  const response = await axios.get(
-    `${SERVER_URL}api/v4/concerts/${concertId}/comments`,
+  const response = await axiosInstance.get(
+    `api/v4/concerts/${concertId}/comments`,
     {
       params: {
         cursorId: cursor?.id,
