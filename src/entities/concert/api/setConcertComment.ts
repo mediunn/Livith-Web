@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../../shared/api/axiosInstance";
 
 interface PostConcertCommentParams {
   concertId: number;
@@ -11,10 +11,8 @@ export const setConcertComment = async ({
   content,
   accessToken,
 }: PostConcertCommentParams) => {
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
-  const response = await axios.post(
-    `${SERVER_URL}api/v4/concerts/${concertId}/comment`,
+  const response = await axiosInstance.post(
+    `/api/v4/concerts/${concertId}/comments`,
     { content },
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
