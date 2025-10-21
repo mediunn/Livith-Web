@@ -16,7 +16,7 @@ import { useArtistInfo } from "../model/useArtistInfo";
 import { useSetlist } from "../model/useSetlist";
 import CommentInputBar from "./CommentInputBar";
 import CommentTabPanel from "./CommentTabPanel";
-import { useConcertCommentInfinite } from "../model/useConcertComment";
+import { useConcertComment } from "../model/useConcertComment";
 
 interface ConcertInfoTabProps {
   concertId: number;
@@ -31,13 +31,15 @@ function ConcertInfoTab({
   ticketUrl,
   introduction,
 }: ConcertInfoTabProps) {
+  const size = 15; // 페이지당 항목 수
   const {
-    data: commentData,
+    data,
+    isLoading,
+    isError,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useConcertCommentInfinite({ concertId });
-  const totalCount = commentData?.totalCount ?? 0;
+  } = useConcertComment({ concertId, size });
 
   const getInitialTab = () => {
     const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
@@ -137,7 +139,7 @@ function ConcertInfoTab({
                   <div className="flex">
                     <p>소통·댓글</p>
                     <p className="pl-2 text-mainYellow30 text-Body2-sm font-semibold font-NotoSansKR">
-                      {totalCount}
+                      {data?.totalCount ?? 0}
                     </p>
                   </div>
                 }
@@ -214,14 +216,14 @@ function ConcertInfoTab({
                   모든 댓글
                 </p>
                 <p className="pl-4 text-mainYellow30 text-Body1-sm font-semibold font-NotoSansKR">
-                  {totalCount}
+                  {data?.totalCount ?? 0}
                 </p>
               </div>
-              {commentData?.totalCount === 0 ? (
+              {data?.totalCount === 0 ? (
                 <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} />
               ) : (
                 <CommentTabPanel
-                  comments={commentData?.comments ?? []}
+                  comments={data?.pages ?? []}
                   fetchNextPage={fetchNextPage}
                   hasNextPage={hasNextPage}
                   isFetchingNextPage={isFetchingNextPage}
