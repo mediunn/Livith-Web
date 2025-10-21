@@ -16,6 +16,7 @@ import SetInterestConcertPage from "../pages/SetInterestConcertPage";
 import MdPage from "../pages/MdPage";
 import CompleteSetConcert from "../widgets/CompleteSetConcert";
 import Toast from "../widgets/Toast";
+import SignupAgreementPage from "../pages/SignupAgreementPage";
 
 const queryClient = new QueryClient();
 
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "complete-set",
         element: <CompleteSetConcert />,
+      },
+      {
+        path: "signup-agreement",
+        element: <SignupAgreementPage />,
       },
     ],
   },
