@@ -2,16 +2,21 @@ import axios from "axios";
 
 const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 
+type Cursor = {
+  id: number;
+  createdAt: string;
+};
+
 type GetConcertCommentParams = {
-  concertId: number;
-  cursor?: string | null;
-  size?: number;
+  concertId?: number | null;
+  cursor?: Cursor | null;
+  size?: number | null;
 };
 
 export async function getConcertComment({
   concertId,
   cursor,
-  size = 15,
+  size,
 }: GetConcertCommentParams) {
   const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
@@ -19,7 +24,8 @@ export async function getConcertComment({
     `${SERVER_URL}api/v4/concerts/${concertId}/comments`,
     {
       params: {
-        cursor,
+        cursorId: cursor?.id,
+        cursorCreatedAt: cursor?.createdAt,
         size,
       },
       headers: {
@@ -28,5 +34,5 @@ export async function getConcertComment({
     }
   );
 
-  return response.data;
+  return response.data.data;
 }

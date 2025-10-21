@@ -3,10 +3,12 @@ import { getConcertComment } from "../api/getConcertComment";
 
 type UseConcertCommentParams = {
   concertId: number;
+  size: number;
 };
 
-export const useConcertCommentInfinite = ({
+export const useConcertComment = ({
   concertId,
+  size,
 }: UseConcertCommentParams) => {
   return useInfiniteQuery({
     queryKey: ["concertComments", concertId],
@@ -14,15 +16,15 @@ export const useConcertCommentInfinite = ({
       getConcertComment({
         concertId,
         cursor: pageParam ?? null,
-        size: 15,
+        size,
       }),
     initialPageParam: null,
-    getNextPageParam: (lastPage) => lastPage?.data?.cursor ?? undefined,
+    getNextPageParam: (lastPage) => {
+      return lastPage.data.cursor ?? undefined;
+    },
     select: (data) => ({
-      comments: data.pages.flatMap((page) => page?.data?.data || []),
-      pageParams: data.pageParams,
-      totalCount: data.pages[0]?.data?.totalCount ?? 0,
+      pages: data.pages.flatMap((page) => page.data),
+      totalCount: data.pages[0]?.totalCount ?? 0,
     }),
-    enabled: !!concertId,
   });
 };
