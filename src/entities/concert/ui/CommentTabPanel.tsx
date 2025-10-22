@@ -13,6 +13,8 @@ interface CommentTabPanelProps {
   fetchNextPage: () => void;
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
+  myUserId: number;
+  accessToken: string;
 }
 
 function CommentTabPanel({
@@ -20,6 +22,8 @@ function CommentTabPanel({
   fetchNextPage,
   hasNextPage,
   isFetchingNextPage,
+  myUserId,
+  accessToken,
 }: CommentTabPanelProps) {
   const { ref } = useInView({
     triggerOnce: false,
@@ -40,6 +44,8 @@ function CommentTabPanel({
               userId={comment.userId}
               nickname={comment.nickname}
               content={comment.content}
+              myUserId={myUserId}
+              accessToken={accessToken}
             />
           </div>
         );

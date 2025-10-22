@@ -5,9 +5,14 @@ import { AnimatePresence, motion } from "framer-motion";
 interface ReportCommentModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (reason: string) => void;
 }
 
-function ReportCommentModal({ isOpen, onClose }: ReportCommentModalProps) {
+function ReportCommentModal({
+  isOpen,
+  onClose,
+  onSubmit,
+}: ReportCommentModalProps) {
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -26,6 +31,10 @@ function ReportCommentModal({ isOpen, onClose }: ReportCommentModalProps) {
 
   // 신고 버튼 활성화 조건
   const isActive = value.length >= 0 && value.length <= 200;
+
+  const handleSubmit = () => {
+    onSubmit(value);
+  };
 
   return (
     <AnimatePresence>
@@ -95,6 +104,7 @@ function ReportCommentModal({ isOpen, onClose }: ReportCommentModalProps) {
               <div className="flex flex-row justify-center gap-9 mt-20 px-16 h-57">
                 <button
                   disabled={!isActive}
+                  onClick={handleSubmit}
                   className="flex-1 bg-grayScaleBlack5 text-caution100 text-Body3-md font-medium font-NotoSansKR rounded-8"
                 >
                   신고할래요

@@ -227,6 +227,8 @@ function ConcertInfoTab({
                   fetchNextPage={fetchNextPage}
                   hasNextPage={hasNextPage}
                   isFetchingNextPage={isFetchingNextPage}
+                  myUserId={2} //임의 지정 (추후 유저 정보 조회 API 연동 필요)
+                  accessToken={import.meta.env.VITE_ACCESS_TOKEN}
                 />
               )}
 
