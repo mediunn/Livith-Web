@@ -4,9 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 interface DeleteCommentModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onDelete: () => void;
 }
 
-function DeleteCommentModal({ isOpen, onClose }: DeleteCommentModalProps) {
+function DeleteCommentModal({
+  isOpen,
+  onClose,
+  onDelete,
+}: DeleteCommentModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -52,7 +57,10 @@ function DeleteCommentModal({ isOpen, onClose }: DeleteCommentModalProps) {
                 댓글을 삭제하시겠어요?
               </p>
               <div className="flex flex-row justify-center gap-9 mt-20 px-16 h-57">
-                <button className="flex-1 bg-grayScaleBlack5 text-caution100 text-Body3-md font-medium font-NotoSansKR rounded-8">
+                <button
+                  className="flex-1 bg-grayScaleBlack5 text-caution100 text-Body3-md font-medium font-NotoSansKR rounded-8"
+                  onClick={onDelete}
+                >
                   지금은 삭제할래요
                 </button>
                 <button

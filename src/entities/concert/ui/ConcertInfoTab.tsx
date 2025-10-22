@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import SetlistTabPanel from "./SetlistTabPanel";
@@ -16,6 +16,7 @@ import { useArtistInfo } from "../model/useArtistInfo";
 import { useSetlist } from "../model/useSetlist";
 import CommentInputBar from "./CommentInputBar";
 import CommentTabPanel from "./CommentTabPanel";
+import { useConcertComment } from "../model/useConcertComment";
 
 interface ConcertInfoTabProps {
   concertId: number;
@@ -30,6 +31,16 @@ function ConcertInfoTab({
   ticketUrl,
   introduction,
 }: ConcertInfoTabProps) {
+  const size = 15; // 페이지당 항목 수
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useConcertComment({ concertId, size });
+
   const getInitialTab = () => {
     const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
     return storedTab === "1" || storedTab === "2" || storedTab === "3"
@@ -128,7 +139,7 @@ function ConcertInfoTab({
                   <div className="flex">
                     <p>소통·댓글</p>
                     <p className="pl-2 text-mainYellow30 text-Body2-sm font-semibold font-NotoSansKR">
-                      0
+                      {data?.totalCount ?? 0}
                     </p>
                   </div>
                 }
@@ -205,14 +216,26 @@ function ConcertInfoTab({
                   모든 댓글
                 </p>
                 <p className="pl-4 text-mainYellow30 text-Body1-sm font-semibold font-NotoSansKR">
-                  0
+                  {data?.totalCount ?? 0}
                 </p>
               </div>
+              {data?.totalCount === 0 ? (
+                <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} />
+              ) : (
+                <CommentTabPanel
+                  comments={data?.pages ?? []}
+                  fetchNextPage={fetchNextPage}
+                  hasNextPage={hasNextPage}
+                  isFetchingNextPage={isFetchingNextPage}
+                  myUserId={2} //임의 지정 (추후 유저 정보 조회 API 연동 필요)
+                  accessToken={import.meta.env.VITE_ACCESS_TOKEN}
+                />
+              )}
 
-              {/* <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} /> */}
-              <CommentTabPanel />
-
-              <CommentInputBar />
+              <CommentInputBar
+                concertId={concertId}
+                accessToken={import.meta.env.VITE_ACCESS_TOKEN}
+              />
             </div>
           </TabPanel>
         </TabContext>

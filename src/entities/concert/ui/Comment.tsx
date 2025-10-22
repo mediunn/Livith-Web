@@ -2,9 +2,54 @@ import { useState } from "react";
 import ProfileIcon from "../../../shared/assets/ProfileIcon.svg";
 import DeleteCommentModal from "../../../widgets/DeleteCommentModal";
 import ReportCommentModal from "../../../widgets/ReportCommentModal";
+import { useDeleteConcertComment } from "../model/useDeleteConcertComment";
+import { useReportComment } from "../model/useReportComment";
 
-function Comment() {
+interface CommentProps {
+  id: number;
+  userId: number;
+  nickname: string;
+  content: string;
+  myUserId: number;
+  accessToken: string;
+}
+
+function Comment({
+  id,
+  userId,
+  nickname,
+  content,
+  myUserId,
+  accessToken,
+}: CommentProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const deleteCommentMutation = useDeleteConcertComment();
+  const reportCommentMutation = useReportComment();
+
+  const isMyComment = userId === myUserId;
+
+  const handleDelete = async () => {
+    try {
+      await deleteCommentMutation.mutateAsync(id);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleReport = async (reason: string) => {
+    try {
+      await reportCommentMutation.mutateAsync({
+        id,
+        accessToken,
+        content: reason || undefined,
+      });
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -13,7 +58,7 @@ function Comment() {
           <div className="flex items-center">
             <img src={ProfileIcon} className="w-32 h-32" />
             <p className="pl-8 text-grayScaleBlack30 text-Body3-sm font-semibold font-NotoSansKR">
-              닉네임
+              {nickname}
             </p>
           </div>
           <button
@@ -22,22 +67,26 @@ function Comment() {
             }}
             className="bg-grayScaleBlack100 rounded-24 px-12 py-4 text-grayScaleBlack80 text-Caption1-Bold font-bold font-NotoSansKR"
           >
-            {/* 삭제 */}
-            신고
+            {isMyComment ? "삭제" : "신고"}
           </button>
         </div>
         <p className="pt-12 text-grayScaleWhite text-Body2-re font-regular font-NotoSansKR">
-          댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ댓글내용임ㅇㅇ
+          {content}
         </p>
       </div>
-      {/* <DeleteCommentModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      /> */}
-      <ReportCommentModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      {isMyComment ? (
+        <DeleteCommentModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onDelete={handleDelete}
+        />
+      ) : (
+        <ReportCommentModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleReport}
+        />
+      )}
     </>
   );
 }
