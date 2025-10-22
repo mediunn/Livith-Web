@@ -1,8 +1,22 @@
 import { useState, useRef, useEffect } from "react";
+import { useSetConcertComment } from "../model/useSetConcertComment";
 
-function CommentInputBar() {
+interface CommentInputBarProps {
+  concertId: number;
+  accessToken: string;
+}
+
+function CommentInputBar({ concertId, accessToken }: CommentInputBarProps) {
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const commentMutation = useSetConcertComment({ concertId, accessToken });
+
+  const handleSubmit = () => {
+    if (!value) return;
+    commentMutation.mutate(value);
+    setValue("");
+  };
 
   // textarea 높이
   useEffect(() => {
@@ -42,6 +56,7 @@ function CommentInputBar() {
           />
         </div>
         <button
+          onClick={handleSubmit}
           disabled={!isActive}
           className={`px-16 py-14 ml-12 max-h-49 rounded-10 font-medium text-Body3-md font-NotoSansKR 
           ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}
