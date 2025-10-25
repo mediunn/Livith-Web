@@ -18,6 +18,7 @@ import CompleteSetConcert from "../widgets/CompleteSetConcert";
 import Toast from "../widgets/Toast";
 import SignupAgreementPage from "../pages/SignupAgreementPage";
 import SignupNicknamePage from "../pages/SignupNicknamePage";
+import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrapper";
 
 const queryClient = new QueryClient();
 
@@ -93,10 +94,12 @@ const router = createBrowserRouter([
 function App() {
   return (
     <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <Toast />
-      </QueryClientProvider>
+      <InitializeAuthWrapper>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <Toast />
+        </QueryClientProvider>
+      </InitializeAuthWrapper>
     </RecoilRoot>
   );
 }

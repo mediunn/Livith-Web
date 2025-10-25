@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import KakaoIcon from "../../../shared/assets/KakaoIcon.svg";
 import { useState } from "react";
 import AuthErrorModal from "./AuthErrorModal";
+import { useInitializeAuth } from "../../../shared/hooks/useInitializeAuth";
 const KakaoLoginButton = () => {
   const navigate = useNavigate();
   const SERVER_URL = import.meta.env.VITE_SERVER_URL;
@@ -11,6 +12,7 @@ const KakaoLoginButton = () => {
   const top = window.screenY + (window.innerHeight - popupHeight) / 2;
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const { initialize } = useInitializeAuth(); // 로그인 직후 Recoil 초기화용
 
   const handleKakaoLogin = () => {
     const popup = window.open(
@@ -19,7 +21,7 @@ const KakaoLoginButton = () => {
       `width=${popupWidth},height=${popupHeight},left=${left},top=${top},scrollbars=no`
     );
 
-    const listener = (event: MessageEvent) => {
+    const listener = async (event: MessageEvent) => {
       if (event.origin !== SERVER_URL) return;
 
       // 서버에서 payload로 보낸 데이터
@@ -42,8 +44,10 @@ const KakaoLoginButton = () => {
       }
       //기존 유저일 경우 액세스 토큰 저장 후 홈 화면으로 이동
       else {
-        navigate("/");
         localStorage.setItem("accessToken", payload.accessToken);
+        // 로그인 직후 Recoil 상태 초기화
+        await initialize();
+        navigate("/");
       }
 
       // 팝업 닫기
