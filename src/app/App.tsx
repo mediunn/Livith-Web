@@ -17,6 +17,10 @@ import MdPage from "../pages/MdPage";
 import CompleteSetConcert from "../widgets/CompleteSetConcert";
 import Toast from "../widgets/Toast";
 import WithdrawPage from "../pages/WithdrawPage";
+import SignupAgreementPage from "../pages/SignupAgreementPage";
+import SignupNicknamePage from "../pages/SignupNicknamePage";
+import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrapper";
+
 
 const queryClient = new QueryClient();
 
@@ -81,6 +85,14 @@ const router = createBrowserRouter([
         path: "complete-set",
         element: <CompleteSetConcert />,
       },
+      {
+        path: "signup/agreement",
+        element: <SignupAgreementPage />,
+      },
+      {
+        path: "signup/nickname",
+        element: <SignupNicknamePage />,
+      },
     ],
   },
 ]);
@@ -88,10 +100,12 @@ const router = createBrowserRouter([
 function App() {
   return (
     <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <Toast />
-      </QueryClientProvider>
+      <InitializeAuthWrapper>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <Toast />
+        </QueryClientProvider>
+      </InitializeAuthWrapper>
     </RecoilRoot>
   );
 }
