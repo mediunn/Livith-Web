@@ -45,7 +45,7 @@ const KakaoLoginButton = () => {
   return (
     <button
       onClick={handleKakaoLogin}
-      className="relative flex items-center justify-center mx-[8%] bg-[#FCE64A] h-52 rounded-6 mb-12"
+      className="relative flex items-center justify-center mx-16 bg-[#FCE64A] h-52 rounded-6 mb-12"
     >
       <img src={KakaoIcon} className="absolute left-20" />
       <p className="text-grayScaleBlack100 text-Body3-md font-NotoSansKR font-medium">
