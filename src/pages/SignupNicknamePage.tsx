@@ -7,6 +7,7 @@ import { validateNickname } from "../shared/utils/validateNickname";
 import { useCheckNickname } from "../features/auth/model/useCheckNickname";
 import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
 import { useSignup } from "../features/auth/model/useSignup";
+
 function SignupNicknamePage() {
   const navigate = useNavigate();
   const location = useLocation();
