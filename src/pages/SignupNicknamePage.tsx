@@ -57,13 +57,11 @@ function SignupNicknamePage() {
       },
       {
         onSuccess: () => {
-          console.log("회원가입 성공!");
           navigate("/", {
             state: { showSignupComplete: true, nickname: input },
           });
         },
         onError: (error) => {
-          console.error("회원가입 실패:", error);
           setIsErrorModalOpen(true);
         },
       }
