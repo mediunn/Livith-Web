@@ -9,21 +9,22 @@ function MyPage() {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    setIsLoggedIn(!!token);
+    // setIsLoggedIn(!!token);
+    setIsLoggedIn(false);
   }, []);
 
   return (
-    <>
+    <div className="pb-90">
       {isLoggedIn ? (
-        <div className="pb-90">
+        <>
           <Nickname></Nickname>
           <Info></Info>
           <TabBar />
-        </div>
+        </>
       ) : (
         <LoggedOutMyPage />
       )}
-    </>
+    </div>
   );
 }
 
