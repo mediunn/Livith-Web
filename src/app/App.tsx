@@ -17,6 +17,7 @@ import MdPage from "../pages/MdPage";
 import CompleteSetConcert from "../widgets/CompleteSetConcert";
 import Toast from "../widgets/Toast";
 import SignupAgreementPage from "../pages/SignupAgreementPage";
+import SignupNicknamePage from "../pages/SignupNicknamePage";
 
 const queryClient = new QueryClient();
 
@@ -78,8 +79,12 @@ const router = createBrowserRouter([
         element: <CompleteSetConcert />,
       },
       {
-        path: "signup-agreement",
+        path: "signup/agreement",
         element: <SignupAgreementPage />,
+      },
+      {
+        path: "signup/nickname",
+        element: <SignupNicknamePage />,
       },
     ],
   },

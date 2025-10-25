@@ -22,7 +22,9 @@ const KakaoLoginButton = () => {
       localStorage.setItem("recentLogin", "카카오");
       //새 유저일 경우 회원가입 페이지로 이동
       if (payload.isNewUser) {
-        navigate("/signup-agreement");
+        navigate("/signup/agreement", {
+          state: { tempUserData: payload.tempUserData },
+        });
       }
       //기존 유저일 경우 액세스 토큰 저장 후 홈 화면으로 이동
       else {
