@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../entities/recoil/atoms/userState";
 
 function Nickname() {
   const navigate = useNavigate();
-
+  const user = useRecoilValue(userState);
   return (
     <>
       <div className="flex justify-between h-297 inset-0 bg-gradient-to-b from-grayScaleBlack80 to-transparent opacity-100">
@@ -10,7 +12,7 @@ function Nickname() {
           <div className="">
             <div className="flex items-center">
               <p className="mr-2 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
-                닉네임
+                {user?.nickname}
               </p>
               <p className="text-grayScaleBlack30 text-Head1-md font-medium font-NotoSansKR">
                 님, 반가워요!
