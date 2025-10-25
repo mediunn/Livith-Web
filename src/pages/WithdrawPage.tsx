@@ -1,10 +1,16 @@
+//src\pages\WithdrawPage.tsx
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavPrev from "../shared/assets/NavPrevIcon.svg";
 import CheckboxIcon from "../shared/assets/CheckboxIcon.svg";
 import CheckboxIconActive from "../shared/assets/CheckboxIconActive.svg";
+import WithdrawBottomSheet from "../widgets/WithdrawBottomSheet";
 
 function WithdrawPage() {
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+  const openSheet = () => setIsSheetOpen(true);
+  const closeSheet = () => setIsSheetOpen(false);
+
   const navigate = useNavigate();
 
   const reasons = [
@@ -120,6 +126,9 @@ function WithdrawPage() {
       </div>
       <div className="absolute bottom-50 left-0 w-full px-16">
         <button
+          onClick={() => {
+            openSheet();
+          }}
           disabled={!isValid}
           className={`h-52 w-full flex items-center justify-center rounded-6 text-Body2-sm font-semibold font-NotoSansKR transition-colors ${
             isValid
@@ -129,6 +138,10 @@ function WithdrawPage() {
         >
           탈퇴하기
         </button>
+        <WithdrawBottomSheet
+          isSheetOpen={isSheetOpen}
+          onSheetClose={closeSheet}
+        />
       </div>
     </>
   );
