@@ -27,7 +27,6 @@ function SignupNicknamePage() {
 
   //모달
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
   useEffect(() => {
     setShowClear(input.length > 0 && isFocused);
   }, [input, isFocused]);
@@ -184,13 +183,8 @@ function SignupNicknamePage() {
           navigate("/");
           setIsErrorModalOpen(false);
         }}
-      />
-      <SignupCompleteModal
-        isOpen={isCompleteModalOpen}
-        onClose={() => {
-          setIsCompleteModalOpen(false);
-        }}
-        nickname={input}
+        title="오류가 발생했어요!"
+        description="홈에서 다시 시도해주세요"
       />
     </div>
   );
