@@ -7,6 +7,7 @@ import LoggedOutMyPage from "./LoggedOutMyPage";
 function MyPage() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
+  //임시로 로그인 상태 false로 설정
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     // setIsLoggedIn(!!token);
