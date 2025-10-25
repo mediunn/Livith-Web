@@ -22,8 +22,6 @@ function LoggedOutMyPage() {
       <img src={LogoIcon} className="h-52 my-115" />
       <LoginCalloutChip />
       <KakaoLoginButton />
-      {/* 애플 로그인 임시로 카카오 로그인으로 대체 */}
-      <KakaoLoginButton />
       {/* 정보 */}
       <div className="flex justify-center gap-18 text-grayScaleBlack30 text-Body4-re font-NotoSansKR font-regular mt-18 mb-27">
         <p>1.1.1</p>

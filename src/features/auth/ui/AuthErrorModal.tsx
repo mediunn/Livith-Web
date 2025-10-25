@@ -4,9 +4,16 @@ import { AnimatePresence, motion } from "framer-motion";
 interface AuthErrorModalProps {
   isOpen: boolean;
   onClose: () => void;
+  title: string;
+  description: string;
 }
 
-function AuthErrorModal({ isOpen, onClose }: AuthErrorModalProps) {
+function AuthErrorModal({
+  isOpen,
+  onClose,
+  title,
+  description,
+}: AuthErrorModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -46,10 +53,10 @@ function AuthErrorModal({ isOpen, onClose }: AuthErrorModalProps) {
             <div className="w-[327px] max-w-[87%] h-fit fixed flex flex-col bg-grayScaleBlack90 rounded-11 pb-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <img src={WarningTriangleIcon} className="mx-auto mt-16" />
               <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR text-center mt-4">
-                오류가 발생했어요!
+                {title}
               </p>
               <p className="text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR text-center mt-6">
-                홈에서 다시 시도해주세요
+                {description}
               </p>
               <button
                 className="bg-lyricsTranslation text-grayScaleBlack100 text-Body3-md font-medium font-NotoSansKR rounded-6 py-16 px-28 mx-16 mt-20"
