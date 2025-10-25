@@ -1,6 +1,6 @@
 import { cssTransition, ToastContainer } from "react-toastify";
 
-function Toast() {
+function CustomToastContainer() {
   return (
     <ToastContainer
       transition={cssTransition({
@@ -15,4 +15,4 @@ function Toast() {
   );
 }
 
-export default Toast;
+export default CustomToastContainer;
