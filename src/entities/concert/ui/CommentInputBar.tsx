@@ -3,14 +3,19 @@ import { useSetConcertComment } from "../model/useSetConcertComment";
 
 interface CommentInputBarProps {
   concertId: number;
-  accessToken: string;
 }
 
-function CommentInputBar({ concertId, accessToken }: CommentInputBarProps) {
+function CommentInputBar({ concertId }: CommentInputBarProps) {
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const commentMutation = useSetConcertComment({ concertId, accessToken });
+  const accessToken = localStorage.getItem("accessToken");
+  const isLoggedIn = !!accessToken;
+
+  const commentMutation = useSetConcertComment({
+    concertId,
+    accessToken: accessToken || "",
+  });
 
   const handleSubmit = () => {
     if (!value) return;
@@ -45,7 +50,12 @@ function CommentInputBar({ concertId, accessToken }: CommentInputBarProps) {
           <textarea
             ref={textareaRef}
             value={value}
-            placeholder="로그인 후 작성 가능해요"
+            placeholder={
+              isLoggedIn
+                ? "댓글은 400자까지 작성 가능해요"
+                : "로그인 후 작성 가능해요"
+            }
+            readOnly={!isLoggedIn}
             onChange={(e) => setValue(e.target.value)}
             className="bg-transparent outline-none text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
             rows={1}
