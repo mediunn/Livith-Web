@@ -57,9 +57,24 @@ function Comment({
         accessToken,
         content: reason || undefined,
       });
+      toast(
+        <CompleteToast
+          message={`신고가 완료되었어요
+검토 후 처리까지 약 1-2일 소요될 수 있어요`}
+        />,
+        {
+          position: "top-center",
+          autoClose: 3000,
+          pauseOnFocusLoss: false,
+        }
+      );
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      toast(<ErrorToast message="다시 시도해 주세요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
     }
   };
 
