@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useSetConcertComment } from "../model/useSetConcertComment";
+import { toast } from "react-toastify";
+import CompleteToast from "../../../shared/ui/CompleteToast";
+import ErrorToast from "../../../shared/ui/ErrorToast";
 
 interface CommentInputBarProps {
   concertId: number;
@@ -19,8 +22,23 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
 
   const handleSubmit = () => {
     if (!value) return;
-    commentMutation.mutate(value);
-    setValue("");
+    commentMutation.mutate(value, {
+      onSuccess: () => {
+        toast(<CompleteToast message="댓글이 작성되었어요" />, {
+          position: "top-center",
+          autoClose: 3000,
+          pauseOnFocusLoss: false,
+        });
+        setValue("");
+      },
+      onError: () => {
+        toast(<ErrorToast message="댓글 작성에 실패했어요" />, {
+          position: "top-center",
+          autoClose: 3000,
+          pauseOnFocusLoss: false,
+        });
+      },
+    });
   };
 
   // textarea 높이
