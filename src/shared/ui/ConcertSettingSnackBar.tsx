@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import { toast } from "react-toastify";
-import Lottie from "lottie-react";
-import InterestConcertToastIconMotion from "../../shared/assets/InterestConcertToastIconMotion.json";
 import { motion, AnimatePresence } from "framer-motion";
+import CompleteToast from "./CompleteToast";
+import { toast } from "react-toastify";
 
 interface ConcertSettingSnackBarProps {
   id: string | number;
@@ -14,27 +13,11 @@ function ConcertSettingSnackBar({ id, onClose }: ConcertSettingSnackBarProps) {
   const handleChange = () => {
     localStorage.setItem(STORAGE_KEY, String(id));
 
-    toast(
-      <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <div className="w-24 h-24">
-          <Lottie
-            animationData={InterestConcertToastIconMotion}
-            loop={false}
-            renderer="svg"
-            style={{ width: "100%", height: "100%" }}
-            rendererSettings={{
-              preserveAspectRatio: "xMidYMid meet",
-            }}
-          />
-        </div>
-        <span>관심 공연을 변경했어요</span>
-      </div>,
-      {
-        position: "top-center",
-        autoClose: 3000,
-        pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
-      }
-    );
+    toast(<CompleteToast message="관심 공연을 변경했어요" />, {
+      position: "top-center",
+      autoClose: 3000,
+      pauseOnFocusLoss: false,
+    });
   };
 
   useEffect(() => {
