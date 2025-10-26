@@ -16,9 +16,11 @@ import SetInterestConcertPage from "../pages/SetInterestConcertPage";
 import MdPage from "../pages/MdPage";
 import CompleteSetConcert from "../widgets/CompleteSetConcert";
 import Toast from "../widgets/Toast";
+import WithdrawPage from "../pages/WithdrawPage";
 import SignupAgreementPage from "../pages/SignupAgreementPage";
 import SignupNicknamePage from "../pages/SignupNicknamePage";
 import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrapper";
+
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "nickname",
         element: <NicknamePage />,
+      },
+      {
+        path: "withdraw",
+        element: <WithdrawPage />,
       },
       {
         path: "concerts/:status",
