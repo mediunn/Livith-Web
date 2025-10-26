@@ -4,6 +4,9 @@ import DeleteCommentModal from "../../../widgets/DeleteCommentModal";
 import ReportCommentModal from "../../../widgets/ReportCommentModal";
 import { useDeleteConcertComment } from "../model/useDeleteConcertComment";
 import { useReportComment } from "../model/useReportComment";
+import { toast } from "react-toastify";
+import CompleteToast from "../../../shared/ui/CompleteToast";
+import ErrorToast from "../../../shared/ui/ErrorToast";
 
 interface CommentProps {
   id: number;
@@ -32,9 +35,18 @@ function Comment({
   const handleDelete = async () => {
     try {
       await deleteCommentMutation.mutateAsync(id);
+      toast(<CompleteToast message="댓글이 삭제되었어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      toast(<ErrorToast message="댓글 삭제에 실패했어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
     }
   };
 
