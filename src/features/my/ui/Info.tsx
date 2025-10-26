@@ -1,5 +1,6 @@
 import MyNextArrow from "../../../shared/assets/MyNextArrow.svg";
 import FeedbackIcon from "../../../shared/assets/FeedbackIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 function Info() {
   const handleClick = () => {
@@ -14,6 +15,8 @@ function Info() {
     window.location.href =
       "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4";
   };
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -63,7 +66,7 @@ function Info() {
           </p>
         </div>
 
-        <div className="mt-30">
+        <div className="mt-30" onClick={() => navigate("/withdraw")}>
           <p className="m-0 text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             회원탈퇴
           </p>
