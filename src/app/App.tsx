@@ -15,12 +15,11 @@ import SetlistDetailPage from "../pages/SetlistDetailPage";
 import SetInterestConcertPage from "../pages/SetInterestConcertPage";
 import MdPage from "../pages/MdPage";
 import CompleteSetConcert from "../widgets/CompleteSetConcert";
-import Toast from "../widgets/Toast";
 import WithdrawPage from "../pages/WithdrawPage";
 import SignupAgreementPage from "../pages/SignupAgreementPage";
 import SignupNicknamePage from "../pages/SignupNicknamePage";
 import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrapper";
-
+import CustomToastContainer from "../widgets/CustomToastContainer";
 
 const queryClient = new QueryClient();
 
@@ -103,7 +102,7 @@ function App() {
       <InitializeAuthWrapper>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
-          <Toast />
+          <CustomToastContainer />
         </QueryClientProvider>
       </InitializeAuthWrapper>
     </RecoilRoot>
