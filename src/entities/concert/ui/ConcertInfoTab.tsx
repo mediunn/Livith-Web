@@ -17,6 +17,8 @@ import { useSetlist } from "../model/useSetlist";
 import CommentInputBar from "./CommentInputBar";
 import CommentTabPanel from "./CommentTabPanel";
 import { useConcertComment } from "../model/useConcertComment";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../entities/recoil/atoms/userState";
 
 interface ConcertInfoTabProps {
   concertId: number;
@@ -31,6 +33,8 @@ function ConcertInfoTab({
   ticketUrl,
   introduction,
 }: ConcertInfoTabProps) {
+  const user = useRecoilValue(userState);
+
   const size = 15; // 페이지당 항목 수
   const {
     data,
@@ -227,8 +231,7 @@ function ConcertInfoTab({
                   fetchNextPage={fetchNextPage}
                   hasNextPage={hasNextPage}
                   isFetchingNextPage={isFetchingNextPage}
-                  myUserId={2} //임의 지정 (추후 유저 정보 조회 API 연동 필요)
-                  accessToken={import.meta.env.VITE_ACCESS_TOKEN}
+                  myUserId={user?.id ?? 0}
                 />
               )}
 
