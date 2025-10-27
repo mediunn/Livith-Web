@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
+import { toast } from "react-toastify";
+import ErrorToast from "../shared/ui/ErrorToast";
 
 interface ReportCommentModalProps {
   isOpen: boolean;
@@ -14,18 +16,25 @@ function ReportCommentModal({
   onSubmit,
 }: ReportCommentModalProps) {
   const [value, setValue] = useState("");
+  const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   if (!isOpen) return null;
 
   // textarea 글자 수 제한
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const input = e.target.value;
+    const newValue = e.target.value;
+    setValue(newValue);
 
-    if (input.length <= 200) {
-      setValue(input);
-    } else {
-      setValue(input.slice(0, 200));
+    if (newValue.length > 200 && !hasShownToast) {
+      toast(<ErrorToast message="400자를 초과했어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
+      setHasShownToast(true);
+    } else if (newValue.length <= 200 && hasShownToast) {
+      setHasShownToast(false);
     }
   };
 
