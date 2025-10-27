@@ -14,7 +14,6 @@ interface CommentTabPanelProps {
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
   myUserId: number;
-  accessToken: string;
 }
 
 function CommentTabPanel({
@@ -23,8 +22,9 @@ function CommentTabPanel({
   hasNextPage,
   isFetchingNextPage,
   myUserId,
-  accessToken,
 }: CommentTabPanelProps) {
+  const accessToken = localStorage.getItem("accessToken") ?? "";
+
   const { ref } = useInView({
     triggerOnce: false,
     onChange: (inView) => {
