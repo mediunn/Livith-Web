@@ -1,21 +1,61 @@
 import { useState, useRef, useEffect } from "react";
 import { useSetConcertComment } from "../model/useSetConcertComment";
+import { toast } from "react-toastify";
+import CompleteToast from "../../../shared/ui/CompleteToast";
+import ErrorToast from "../../../shared/ui/ErrorToast";
 
 interface CommentInputBarProps {
   concertId: number;
-  accessToken: string;
 }
 
-function CommentInputBar({ concertId, accessToken }: CommentInputBarProps) {
+function CommentInputBar({ concertId }: CommentInputBarProps) {
   const [value, setValue] = useState("");
+  const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const commentMutation = useSetConcertComment({ concertId, accessToken });
+  const accessToken = localStorage.getItem("accessToken");
+  const isLoggedIn = !!accessToken;
+
+  const commentMutation = useSetConcertComment({
+    concertId,
+    accessToken: accessToken || "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.target.value;
+    setValue(newValue);
+
+    if (newValue.length > 400 && !hasShownToast) {
+      toast(<ErrorToast message="400자를 초과했어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
+      setHasShownToast(true);
+    } else if (newValue.length <= 400 && hasShownToast) {
+      setHasShownToast(false);
+    }
+  };
 
   const handleSubmit = () => {
     if (!value) return;
-    commentMutation.mutate(value);
-    setValue("");
+    commentMutation.mutate(value, {
+      onSuccess: () => {
+        toast(<CompleteToast message="댓글이 작성되었어요" />, {
+          position: "top-center",
+          autoClose: 3000,
+          pauseOnFocusLoss: false,
+        });
+        setValue("");
+      },
+      onError: () => {
+        toast(<ErrorToast message="댓글 작성에 실패했어요" />, {
+          position: "top-center",
+          autoClose: 3000,
+          pauseOnFocusLoss: false,
+        });
+      },
+    });
   };
 
   // textarea 높이
@@ -45,8 +85,13 @@ function CommentInputBar({ concertId, accessToken }: CommentInputBarProps) {
           <textarea
             ref={textareaRef}
             value={value}
-            placeholder="로그인 후 작성 가능해요"
-            onChange={(e) => setValue(e.target.value)}
+            placeholder={
+              isLoggedIn
+                ? "댓글은 400자까지 작성 가능해요"
+                : "로그인 후 작성 가능해요"
+            }
+            readOnly={!isLoggedIn}
+            onChange={handleChange}
             className="bg-transparent outline-none text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
             rows={1}
             style={{
