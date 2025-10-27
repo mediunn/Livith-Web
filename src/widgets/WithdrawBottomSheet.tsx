@@ -3,18 +3,33 @@ import { Sheet, SheetRef } from "react-modal-sheet";
 import { useRef, useState } from "react";
 import CheckboxIcon from "../shared/assets/CheckboxIcon.svg";
 import CheckboxIconActive from "../shared/assets/CheckboxIconActive.svg";
+import { useWithdraw } from "../features/auth/model/useWithdraw";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import ErrorToast from "../shared/ui/ErrorToast";
+import CompleteToast from "../shared/ui/CompleteToast";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../entities/recoil/atoms/userState";
 
 interface WithdrawBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
+  reasonText: string;
 }
 
 function WithdrawBottomSheet({
   isSheetOpen,
   onSheetClose,
+  reasonText,
 }: WithdrawBottomSheetProps) {
   const ref = useRef<SheetRef>(null);
   const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const setUser = useSetRecoilState(userState);
+
+  const { mutate: withdrawMutate } = useWithdraw();
 
   const handleCheckboxClick = () => {
     setIsChecked((prev) => !prev);
@@ -22,7 +37,33 @@ function WithdrawBottomSheet({
 
   const handleWithdraw = () => {
     if (isChecked) {
-      // 추후 탈퇴 api 연동
+      withdrawMutate(reasonText, {
+        onSuccess: (response) => {
+          localStorage.removeItem("accessToken");
+          navigate("/");
+          onSheetClose();
+          setUser(null);
+
+          queryClient.clear(); // 탈퇴 시 캐시 초기화
+          toast(
+            <CompleteToast
+              message={`탈퇴가 완료되었어요.\n더 좋은 서비스로 다시 만나요!`}
+            />,
+            {
+              position: "top-center",
+              autoClose: 3000,
+              pauseOnFocusLoss: false,
+            }
+          );
+        },
+        onError: (err) => {
+          toast(<ErrorToast message="탈퇴에 실패했어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
+        },
+      });
     }
   };
 
