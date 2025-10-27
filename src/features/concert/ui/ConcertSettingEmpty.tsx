@@ -3,11 +3,22 @@ import TopBar from "../../../shared/ui/TopBar";
 import ConcertAddMotion from "../../../shared/assets/ConcertAddIconMotion.json";
 import { useNavigate } from "react-router-dom";
 import PopularConcert from "../../../widgets/PopularConcert";
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../entities/recoil/atoms/userState";
+import LoginModal from "../../../features/auth/ui/LoginModal";
 
 function ConcertSettingEmpty() {
   const navigate = useNavigate();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  //로그인 되어있는지 확인
+  const user = useRecoilValue(userState);
 
-  const goToSetInterestConcertPage = () => {
+  const handleSetInterestConcert = () => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+      return;
+    }
     window.amplitude.track("click_interest_concert_main");
     navigate("/set-concert");
   };
@@ -28,7 +39,7 @@ function ConcertSettingEmpty() {
         </div>
         <button
           className="w-148 h-136 bg-grayScaleBlack80 rounded-10 border-none cursor-pointer"
-          onClick={goToSetInterestConcertPage}
+          onClick={handleSetInterestConcert}
         >
           <div className="flex flex-col items-center">
             <Lottie
@@ -43,6 +54,11 @@ function ConcertSettingEmpty() {
         </button>
       </div>
       <PopularConcert />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="interestConcert"
+      />
     </>
   );
 }
