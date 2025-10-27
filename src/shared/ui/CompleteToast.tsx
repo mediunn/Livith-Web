@@ -15,7 +15,7 @@ export default function CompleteToast({ message }: { message: string }) {
           }}
         />
       </div>
-      <div style={{ whiteSpace: "pre-line" }}>{message}</div>
+      <span style={{ whiteSpace: "pre-line" }}>{message}</span>
     </div>
   );
 }
