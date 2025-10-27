@@ -47,6 +47,10 @@ function WithdrawPage() {
     selected.length > 0 &&
     (!isEtcSelected || (isEtcSelected && value.trim().length >= 10));
 
+  const selectedReasons = selected.map((i) => reasons[i]).join(", ");
+  const reasonText = isEtcSelected
+    ? `${selectedReasons} (${value})`
+    : selectedReasons;
   return (
     <>
       <div className="pt-20 px-16 pb-8 flex justify-between items-end items-center">
@@ -107,7 +111,7 @@ function WithdrawPage() {
                     onChange={handleChange}
                     placeholder="10자 이상의 사유를 작성해 주세요"
                     maxLength={200}
-                    className="h-206 w-full px-14 pt-14 pb-30 resize-none rounded-6 bg-grayScaleBlack80 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR
+                    className="relative z-10 h-206 w-full px-14 pt-14 pb-30 resize-none overflow-y-auto rounded-6 bg-grayScaleBlack80 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR
                     placeholder:text-grayScaleBlack50
                     border border-transparent
                     focus:border focus:border-grayScaleBlack30
@@ -141,6 +145,7 @@ function WithdrawPage() {
         <WithdrawBottomSheet
           isSheetOpen={isSheetOpen}
           onSheetClose={closeSheet}
+          reasonText={reasonText}
         />
       </div>
     </>

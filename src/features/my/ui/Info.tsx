@@ -1,6 +1,8 @@
 import MyNextArrow from "../../../shared/assets/MyNextArrow.svg";
 import FeedbackIcon from "../../../shared/assets/FeedbackIcon.svg";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import LogoutModal from "../../../features/auth/ui/LogoutModal";
 
 function Info() {
   const handleClick = () => {
@@ -17,6 +19,8 @@ function Info() {
   };
 
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div>
@@ -60,18 +64,25 @@ function Info() {
           </button>
         </div>
 
-        <div className="mt-30">
+        <div
+          className="mt-30 cursor-pointer "
+          onClick={() => setIsModalOpen(true)}
+        >
           <p className="m-0 text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             로그아웃
           </p>
         </div>
 
-        <div className="mt-30" onClick={() => navigate("/withdraw")}>
+        <div
+          className="mt-30 cursor-pointer"
+          onClick={() => navigate("/withdraw")}
+        >
           <p className="m-0 text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             회원탈퇴
           </p>
         </div>
       </div>
+      <LogoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
