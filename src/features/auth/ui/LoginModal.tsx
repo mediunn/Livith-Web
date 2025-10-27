@@ -6,9 +6,10 @@ import KakaoLoginButton from "./KakaoLoginButton";
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
+  type: "concertInfo" | "interestConcert";
 }
 
-function LoginModal({ isOpen, onClose }: LoginModalProps) {
+function LoginModal({ isOpen, onClose, type }: LoginModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -51,11 +52,19 @@ function LoginModal({ isOpen, onClose }: LoginModalProps) {
                 onClick={onClose}
                 className="absolute right-16 top-16 mx-auto cursor-pointer"
               />
-              <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR text-center mt-30">
-                관심 콘서트 설정으로
-                <br />
-                필요한 정보를 한눈에 👀
-              </p>
+              {type === "interestConcert" ? (
+                <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR text-center mt-30">
+                  관심 콘서트 설정으로
+                  <br />
+                  필요한 정보를 한눈에 👀
+                </p>
+              ) : (
+                <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR text-center mt-30">
+                  공연 정보를 서로
+                  <br />
+                  공유하며 소통해요 👀
+                </p>
+              )}
               <p className="text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR text-center mt-6 mb-20">
                 <span className="text-mainYellow30">30초 만에 가입 완료</span>
                 하고 빠르게 이용해요
