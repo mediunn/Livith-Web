@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import PopularConcert from "../../../widgets/PopularConcert";
 import SignUpTooltip from "./SignUpTooltip";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../entities/recoil/atoms/userState";
+import LoginModal from "../../../features/auth/ui/LoginModal";
 
 interface ConcertSettingEmptyProps {
   group: "A" | "B" | "C";
@@ -12,10 +15,17 @@ interface ConcertSettingEmptyProps {
 
 function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
   const navigate = useNavigate();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  //로그인 되어있는지 확인
+  const user = useRecoilValue(userState);
 
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const goToSetInterestConcertPage = () => {
+  const handleSetInterestConcert = () => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+      return;
+    }
     window.amplitude.track("click_interest_concert_main");
     navigate("/set-concert");
   };
@@ -38,7 +48,7 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
         <div className="relative">
           <button
             className="w-148 h-136 bg-grayScaleBlack80 rounded-10 border-none cursor-pointer"
-            onClick={goToSetInterestConcertPage}
+            onClick={handleSetInterestConcert}
           >
             <div className="flex flex-col items-center">
               <Lottie
@@ -67,6 +77,11 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
       </div>
 
       <PopularConcert />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="interestConcert"
+      />
     </>
   );
 }
