@@ -4,6 +4,7 @@ import { logEvent } from "firebase/analytics";
 import { analytics } from "../../app/firebase";
 import { motion, AnimatePresence } from "framer-motion";
 import CompleteToast from "./CompleteToast";
+import { setInterestConcert } from "../../entities/concert/api/setInterestConcert";
 
 interface ConcertSettingSnackBarProps {
   id: string | number;
@@ -16,25 +17,30 @@ function ConcertSettingSnackBar({
   onClose,
   group,
 }: ConcertSettingSnackBarProps) {
-  const STORAGE_KEY = "InterestConcertId";
-  const handleChange = () => {
-    localStorage.setItem(STORAGE_KEY, String(id));
+  const token = localStorage.getItem("accessToken") ?? "";
 
-    logEvent(analytics, "concert_setting_button_click", {
-      group,
-      debug_mode: true,
-    });
+  const handleChange = async () => {
+    try {
+      await setInterestConcert(Number(id), token);
 
-    if (group === "A") {
-      window.amplitude.track("A_concert_setting_button_click");
-    } else if (group === "B") {
-      window.amplitude.track("B_concert_setting_button_click");
+      logEvent(analytics, "concert_setting_button_click", {
+        group,
+        debug_mode: true,
+      });
+
+      if (group === "A") {
+        window.amplitude.track("A_concert_setting_button_click");
+      } else if (group === "B") {
+        window.amplitude.track("B_concert_setting_button_click");
+      }
+      toast(<CompleteToast message="관심 공연을 변경했어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
+    } catch (error) {
+      console.error(error);
     }
-    toast(<CompleteToast message="관심 공연을 변경했어요" />, {
-      position: "top-center",
-      autoClose: 3000,
-      pauseOnFocusLoss: false,
-    });
   };
 
   useEffect(() => {

@@ -267,7 +267,7 @@ function ConcertSetting({
                 padding: "0",
               }}
             >
-              <InterestConcertSetlist />
+              <InterestConcertSetlist concertId={concertId} />
             </TabPanel>
           </TabContext>
         </Box>
