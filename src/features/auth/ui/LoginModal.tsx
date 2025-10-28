@@ -7,7 +7,7 @@ interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
   type: "concertInfo" | "interestConcert";
-  group: "A" | "B" | "C";
+  group?: "A" | "B" | "C";
 }
 
 function LoginModal({ isOpen, onClose, type, group }: LoginModalProps) {
