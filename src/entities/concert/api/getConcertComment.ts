@@ -1,6 +1,6 @@
 import axiosInstance from "../../../shared/api/axiosInstance";
 
-const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+const accessToken = localStorage.getItem("accessToken");
 
 type Cursor = {
   id: number;

@@ -1,6 +1,6 @@
 import axiosInstance from "../../../shared/api/axiosInstance";
 
-const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+const accessToken = localStorage.getItem("accessToken");
 
 export async function deleteConcertComment(id: number) {
   const response = await axiosInstance.delete(`api/v4/comments/${id}`, {
