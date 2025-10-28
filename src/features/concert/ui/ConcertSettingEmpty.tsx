@@ -3,7 +3,6 @@ import TopBar from "../../../shared/ui/TopBar";
 import ConcertAddMotion from "../../../shared/assets/ConcertAddIconMotion.json";
 import { useNavigate } from "react-router-dom";
 import PopularConcert from "../../../widgets/PopularConcert";
-import SignUpTooltip from "./SignUpTooltip";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../entities/recoil/atoms/userState";
@@ -30,8 +29,6 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
     window.amplitude.track("click_interest_concert_main");
     navigate("/set-concert");
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(true);
 
   return (
     <>
