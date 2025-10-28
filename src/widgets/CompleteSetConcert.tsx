@@ -3,15 +3,18 @@ import useConcertDetail from "../features/concert/model/useConcertDetail";
 import CompleteEffect from "../shared/assets/CompleteEffect.svg";
 import SetConcertCompleteMotion from "../shared/assets/SetConcertCompleteMotion.json";
 import Lottie from "lottie-react";
+import { useInterestConcert } from "../entities/concert/model/useInterestConcert";
 
 function CompleteSetConcert() {
-  const interestConcertId = localStorage.getItem("InterestConcertId");
+  const { data: interest, isLoading: isInterestLoading } = useInterestConcert();
+  const concertId = interest?.id ?? null;
+
   const {
     data: concert,
     isLoading,
     isError,
   } = useConcertDetail({
-    concertId: Number(interestConcertId),
+    concertId: concertId ?? 0,
   });
 
   const navigate = useNavigate();
