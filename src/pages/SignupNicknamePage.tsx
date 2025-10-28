@@ -26,7 +26,6 @@ function SignupNicknamePage() {
 
   //모달
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
   useEffect(() => {
     setShowClear(input.length > 0 && isFocused);
   }, [input, isFocused]);
@@ -108,7 +107,7 @@ function SignupNicknamePage() {
                 onBlur={(e) => {
                   setIsFocused(false);
                   if (!input) {
-                    e.currentTarget.placeholder = "예시 ) 홍길동12";
+                    e.currentTarget.placeholder = "예시 ) 홍길동";
                     setCheckMessage("10자리 이내, 문자/숫자로 입력 가능해요");
                   }
                 }}
@@ -127,7 +126,7 @@ function SignupNicknamePage() {
                   }
                 }}
                 onKeyDown={handleKeyDown}
-                placeholder="예시 ) 홍길동12"
+                placeholder="예시 ) 홍길동"
                 onCompositionStart={() => setIsComposing(true)}
                 onCompositionEnd={() => setIsComposing(false)}
                 className=" my-10 w-full border-none outline-none bg-transparent placeholder-grayScaleBlack50 text-grayScaleWhite"
