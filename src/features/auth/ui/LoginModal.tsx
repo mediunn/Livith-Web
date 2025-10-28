@@ -24,7 +24,7 @@ function LoginModal({ isOpen, onClose, type }: LoginModalProps) {
           />
 
           <motion.div
-            className="fixed z-[71]"
+            className="fixed z-[10000]"
             initial={{ opacity: 0 }}
             // 팝업 열릴 때
             animate={{
@@ -46,7 +46,7 @@ function LoginModal({ isOpen, onClose, type }: LoginModalProps) {
               },
             }}
           >
-            <div className=" w-[327px] max-w-[87%] h-fit fixed flex flex-col bg-grayScaleBlack90 rounded-11 pb-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="z-[10000] w-[327px] max-w-[87%] h-fit fixed flex flex-col bg-grayScaleBlack90 rounded-11 pb-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <img
                 src={CloseIcon}
                 onClick={onClose}

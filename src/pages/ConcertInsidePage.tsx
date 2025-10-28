@@ -43,7 +43,6 @@ function ConcertInsidePage() {
     // 이미 본 콘서트인지 체크
     if (!viewedConcerts.includes(concertId)) {
       const newViewed = [...viewedConcerts, concertId];
-      console.log("새로운 열람 기록:", newViewed);
       sessionStorage.setItem("viewedConcerts", JSON.stringify(newViewed));
 
       // 3개 열람 시 토스트

@@ -4,7 +4,7 @@ import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../entities/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 import { BeatLoader } from "react-spinners";
 import YouTubePlayer from "../entities/lyric/ui/YouTubePlayer";
@@ -14,12 +14,59 @@ import { Sheet, SheetRef } from "react-modal-sheet";
 import { useBodyScrollLock } from "../shared/model/useBodyScrollLock";
 import { useSong } from "../entities/lyric/model/useSong";
 import { useFanchant } from "../features/lyric/model/useFanchant";
+import LoginModal from "../features/auth/ui/LoginModal";
+import { userState } from "../entities/recoil/atoms/userState";
+import { toast } from "react-toastify";
+import LoginPromptToast from "../shared/ui/LoginPromptToast";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
   const sheetRef = useRef<SheetRef>(null);
   const [currentSnap, setCurrentSnap] = useState<number | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(true);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [user] = useRecoilState(userState);
+  const effectRan = useRef(false); // 실행 여부 추적
+
+  // 세션 스토리지에서 열람한 가사 노래 ID 배열 가져오기
+  const [viewedLyrics, setViewedLyrics] = useState<string[]>(() => {
+    const stored = sessionStorage.getItem("viewedLyrics");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  // 페이지 진입 시 열람 기록 업데이트
+  useEffect(() => {
+    if (effectRan.current) return; // 이미 실행됐으면 중단
+    effectRan.current = true;
+    if (!songId) return;
+
+    // 로그인 유저는 기록 저장 안 함
+    if (user) return;
+
+    // 이미 3개 이상 본 경우 추가 중단
+    if (viewedLyrics.length >= 3) return;
+
+    // 이미 본 가사인지 체크
+    if (!viewedLyrics.includes(songId)) {
+      const newViewed = [...viewedLyrics, songId];
+
+      sessionStorage.setItem("viewedLyrics", JSON.stringify(newViewed));
+
+      // 3개 열람 시 토스트
+      if (newViewed.length === 3) {
+        toast(
+          <LoginPromptToast
+            message="가사"
+            onLoginClick={() => {
+              setIsLoginModalOpen(true);
+              toast.dismiss();
+            }}
+          />,
+          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false }
+        );
+      }
+    }
+  }, [songId]);
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -259,6 +306,12 @@ function LyricPage() {
           </p>
         </LyricModal>
       )}
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="concertInfo"
+      />
     </div>
   );
 }
