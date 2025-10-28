@@ -70,7 +70,7 @@ function LoginModal({ isOpen, onClose, type }: LoginModalProps) {
                 하고 빠르게 이용해요
               </p>
               <img src={LoginGuideIcon} className="mx-auto mb-20" />
-              <KakaoLoginButton />
+              <KakaoLoginButton onClickLogin={onClose} />
             </div>
           </motion.div>
         </>
