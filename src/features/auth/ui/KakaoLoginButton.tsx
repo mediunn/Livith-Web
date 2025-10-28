@@ -5,8 +5,9 @@ import AuthErrorModal from "./AuthErrorModal";
 import { useInitializeAuth } from "../../../shared/hooks/useInitializeAuth";
 interface KakaoLoginButtonProps {
   onClickLogin?: () => void;
+  group?: "A" | "B" | "C";
 }
-const KakaoLoginButton = ({ onClickLogin }: KakaoLoginButtonProps) => {
+const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
   const navigate = useNavigate();
   const SERVER_URL = import.meta.env.VITE_SERVER_URL;
   const popupWidth = 400;
@@ -41,6 +42,10 @@ const KakaoLoginButton = ({ onClickLogin }: KakaoLoginButtonProps) => {
       localStorage.setItem("recentLogin", "카카오");
       //새 유저일 경우 회원가입 페이지로 이동
       if (payload.isNewUser) {
+        if (group) {
+          window.amplitude.track(`${group}_signUp`);
+        }
+
         navigate("/signup/agreement", {
           state: { tempUserData: payload.tempUserData },
         });

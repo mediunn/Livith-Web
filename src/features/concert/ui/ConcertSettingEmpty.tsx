@@ -83,6 +83,7 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
         type="interestConcert"
+        group={group}
       />
     </>
   );
