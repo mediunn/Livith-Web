@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
 import CompleteToast from "./CompleteToast";
+import { setInterestConcert } from "../../entities/concert/api/setInterestConcert";
 
 interface ConcertSettingSnackBarProps {
   id: string | number;
