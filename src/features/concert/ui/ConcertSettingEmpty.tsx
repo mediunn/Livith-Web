@@ -27,7 +27,7 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
       return;
     }
     window.amplitude.track("click_interest_concert_main");
-    navigate("/set-concert");
+    navigate("/set-concert", { state: { group } });
   };
 
   return (

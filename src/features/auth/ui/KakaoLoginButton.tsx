@@ -44,6 +44,7 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
       if (payload.isNewUser) {
         if (group) {
           window.amplitude.track(`${group}_signUp`);
+          localStorage.setItem("signedUpViaHomePage", "true");
         }
 
         navigate("/signup/agreement", {
