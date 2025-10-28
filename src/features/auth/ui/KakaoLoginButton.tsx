@@ -3,7 +3,10 @@ import KakaoIcon from "../../../shared/assets/KakaoIcon.svg";
 import { useState } from "react";
 import AuthErrorModal from "./AuthErrorModal";
 import { useInitializeAuth } from "../../../shared/hooks/useInitializeAuth";
-const KakaoLoginButton = () => {
+interface KakaoLoginButtonProps {
+  onClickLogin?: () => void;
+}
+const KakaoLoginButton = ({ onClickLogin }: KakaoLoginButtonProps) => {
   const navigate = useNavigate();
   const SERVER_URL = import.meta.env.VITE_SERVER_URL;
   const popupWidth = 400;
@@ -58,6 +61,10 @@ const KakaoLoginButton = () => {
     };
 
     window.addEventListener("message", listener);
+
+    if (onClickLogin) {
+      onClickLogin();
+    }
   };
 
   return (
