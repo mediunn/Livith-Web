@@ -14,7 +14,7 @@ export const SetInterestConcertButton = ({
   },
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
-  const token = import.meta.env.VITE_ACCESS_TOKEN;
+  const token = localStorage.getItem("accessToken") ?? "";
 
   const handleSetInterestConcert = async () => {
     if (!selectedConcert) return;

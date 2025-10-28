@@ -20,7 +20,7 @@ function ChangeConcertConfirmModal({
     window.amplitude.track("confirm_change_interest");
 
     try {
-      const token = import.meta.env.VITE_ACCESS_TOKEN;
+      const token = localStorage.getItem("accessToken") ?? "";
       await setInterestConcert(Number(id), token);
 
       onClose();
