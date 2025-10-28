@@ -7,6 +7,9 @@ import { useReportComment } from "../model/useReportComment";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/CompleteToast";
 import ErrorToast from "../../../shared/ui/ErrorToast";
+import { useRecoilState } from "recoil";
+import { userState } from "../../../entities/recoil/atoms/userState";
+import LoginModal from "../../../features/auth/ui/LoginModal";
 
 interface CommentProps {
   id: number;
@@ -26,11 +29,13 @@ function Comment({
   accessToken,
 }: CommentProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const deleteCommentMutation = useDeleteConcertComment();
   const reportCommentMutation = useReportComment();
 
   const isMyComment = userId === myUserId;
+  const [user] = useRecoilState(userState);
 
   const handleDelete = async () => {
     try {
@@ -78,6 +83,14 @@ function Comment({
     }
   };
 
+  const handleButtonClick = () => {
+    if (user === null) {
+      setIsLoginModalOpen(true);
+      return;
+    }
+    setIsModalOpen(true);
+  };
+
   return (
     <>
       <div className="px-16 py-21 bg-grayScaleBlack90 rounded-6">
@@ -89,9 +102,7 @@ function Comment({
             </p>
           </div>
           <button
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
+            onClick={handleButtonClick}
             className="bg-grayScaleBlack100 rounded-24 px-12 py-4 text-grayScaleBlack80 text-Caption1-Bold font-bold font-NotoSansKR"
           >
             {isMyComment ? "삭제" : "신고"}
@@ -114,6 +125,11 @@ function Comment({
           onSubmit={handleReport}
         />
       )}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="concertInfo"
+      />
     </>
   );
 }

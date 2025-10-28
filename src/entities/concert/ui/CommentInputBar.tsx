@@ -3,6 +3,9 @@ import { useSetConcertComment } from "../model/useSetConcertComment";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/CompleteToast";
 import ErrorToast from "../../../shared/ui/ErrorToast";
+import LoginModal from "../../../features/auth/ui/LoginModal";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../entities/recoil/atoms/userState";
 
 interface CommentInputBarProps {
   concertId: number;
@@ -12,9 +15,11 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
   const [value, setValue] = useState("");
   const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken");
-  const isLoggedIn = !!accessToken;
+  const user = useRecoilValue(userState);
+  const isLoggedIn = !!user;
 
   const commentMutation = useSetConcertComment({
     concertId,
@@ -91,6 +96,12 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
                 : "로그인 후 작성 가능해요"
             }
             readOnly={!isLoggedIn}
+            onFocus={() => {
+              if (!isLoggedIn) {
+                // 로그인 안 되어 있으면 포커스 막고 모달 띄움
+                setIsLoginModalOpen(true);
+              }
+            }}
             onChange={handleChange}
             className="bg-transparent outline-none text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
             rows={1}
@@ -110,6 +121,11 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
           등록
         </button>
       </div>
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="concertInfo"
+      />
     </>
   );
 }
