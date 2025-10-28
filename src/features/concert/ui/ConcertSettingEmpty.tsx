@@ -56,24 +56,26 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
                 loop={true}
                 className="w-40 h-40"
               />
-              {group === "A" ? (
+              {group === "A" && !user ? (
                 <p className="mt-7 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
                   30초 로그인 후 <br />
                   관심 콘서트 설정
                 </p>
-              ) : group === "B" || group === "C" ? (
+              ) : (
                 <p className="mt-7 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
                   관심 콘서트 설정
                 </p>
-              ) : null}
+              )}
             </div>
           </button>
         </div>
-        <SignUpTooltip
-          group={group}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
+        {!user && (
+          <SignUpTooltip
+            group={group}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
       </div>
 
       <PopularConcert />
