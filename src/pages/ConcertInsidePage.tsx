@@ -27,11 +27,7 @@ function ConcertInsidePage() {
     window.scrollTo(0, 0);
   }, []);
 
-  const {
-    data: concert,
-    isLoading,
-    isError,
-  } = useConcertInsideInfo(Number(concertId));
+  const { data: concert } = useConcertInsideInfo(Number(concertId));
   // 페이지 진입 시 열람 기록 업데이트
   useEffect(() => {
     if (effectRan.current) return; // 이미 실행됐으면 중단
@@ -40,6 +36,9 @@ function ConcertInsidePage() {
 
     // 로그인 유저는 기록 저장 안 함
     if (user) return;
+
+    // 이미 3개 이상 본 경우 추가 중단
+    if (viewedConcerts.length >= 3) return;
 
     // 이미 본 콘서트인지 체크
     if (!viewedConcerts.includes(concertId)) {
@@ -57,7 +56,7 @@ function ConcertInsidePage() {
               toast.dismiss();
             }}
           />,
-          { position: "top-center", autoClose: 30000, pauseOnFocusLoss: false }
+          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false }
         );
       }
     }
