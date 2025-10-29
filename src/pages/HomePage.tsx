@@ -8,6 +8,24 @@ import { useInterestConcert } from "../entities/concert/model/useInterestConcert
 import { useLocation } from "react-router-dom";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
 
+// A/B 테스트 그룹 배정 유틸
+function getExperimentGroup(): "A" | "B" | "C" {
+  let group = localStorage.getItem("induceSignupTooltipGroup") as
+    | "A"
+    | "B"
+    | "C"
+    | null;
+  if (!group) {
+    const random = Math.random();
+    if (random < 1 / 3) group = "A";
+    else if (random < 2 / 3) group = "B";
+    else group = "C";
+
+    localStorage.setItem("induceSignupTooltipGroup", group);
+  }
+  return group;
+}
+
 function HomePage() {
   const { data: interest, isLoading: isInterestLoading } = useInterestConcert();
   const concertId = interest?.id ?? null;
@@ -18,6 +36,8 @@ function HomePage() {
     useSchedule(concertId);
 
   const isLoading = isInterestLoading || isConcertLoading || isScheduleLoading;
+
+  const group = getExperimentGroup();
 
   const location = useLocation();
   const state = location.state as {
@@ -46,7 +66,9 @@ function HomePage() {
           schedules={schedules}
         />
       ) : (
-        <ConcertSettingEmpty />
+        <>
+          <ConcertSettingEmpty group={group} />
+        </>
       )}
 
       <TabBar />

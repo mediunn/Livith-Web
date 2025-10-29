@@ -5,6 +5,7 @@ import { setInterestConcert } from "../../../entities/concert/api/setInterestCon
 
 type SetInterestConcertButtonProps = {
   selectedConcertState: StateWithSetter<string | null>;
+  group?: "A" | "B" | "C";
 };
 
 export const SetInterestConcertButton = ({
@@ -12,6 +13,7 @@ export const SetInterestConcertButton = ({
     value: selectedConcert,
     setValue: setSelectedConcert,
   },
+  group,
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken") ?? "";
@@ -21,6 +23,10 @@ export const SetInterestConcertButton = ({
 
     try {
       await setInterestConcert(Number(selectedConcert), token);
+
+      if (group) {
+        window.amplitude.track(`${group}_set_interest_concert`);
+      }
 
       navigate("/complete-set", { replace: true });
     } catch (err) {

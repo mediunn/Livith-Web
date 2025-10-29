@@ -6,6 +6,7 @@ import SearchResult from "../features/search/ui/SearchResult";
 import RecommendSearch from "../features/search/ui/RecommendSearch";
 import SelectableConcertList from "../features/interest/ui/SelectableConcertList";
 import { SetInterestConcertButton } from "../features/interest/ui/SetInterestConcertButton";
+import { useLocation } from "react-router-dom";
 
 function SetInterestConcertPage() {
   const [input, setInput] = useState<string>("");
@@ -13,6 +14,10 @@ function SetInterestConcertPage() {
   // 검색 결과를 보여줄지 여부
   const [showResults, setShowResults] = useState(false);
   const [selectedConcert, setSelectedConcert] = useState<string | null>(null);
+
+  const location = useLocation();
+  const state = location.state as { group?: "A" | "B" | "C" } | null;
+  const group = state?.group;
 
   useEffect(() => {
     if (!showAll && !showResults) {
@@ -79,6 +84,7 @@ function SetInterestConcertPage() {
             value: selectedConcert,
             setValue: setSelectedConcert,
           }}
+          group={group}
         />
       </div>
     </div>
