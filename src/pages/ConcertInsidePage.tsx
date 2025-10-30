@@ -5,11 +5,23 @@ import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
 import { getConcertInsideInfo } from "../entities/concert/api/getConcertInsideInfo";
 import { Concert } from "../entities/concert/types";
+import SecretEventModal from "../shared/ui/SecretEventModal";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
 
   const [concert, setConcert] = useState<Concert | null>(null);
+
+  // 시크릿 이벤트 팝업
+  const [isSecretEventModalOpen, setIsSecretEventModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (concertId === "1509") {
+      setIsSecretEventModalOpen(true);
+    } else {
+      setIsSecretEventModalOpen(false);
+    }
+  }, [concertId]);
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -40,6 +52,12 @@ function ConcertInsidePage() {
         concertId={Number(concertId)}
         ticketUrl={concert.ticketUrl}
       ></ConcertInfoTab>
+      {concertId === "1509" && (
+        <SecretEventModal
+          isOpen={isSecretEventModalOpen}
+          onClose={() => setIsSecretEventModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
