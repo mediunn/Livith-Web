@@ -41,9 +41,9 @@ function DeleteConfirmModal({ isOpen, onClose }: DeleteConfirmModalProps) {
         <>
           <motion.div
             onClick={onClose}
-            className="max-w-md m-auto fixed inset-0 bg-black z-40 cursor-pointer"
+            className="max-w-md m-auto fixed inset-0 bg-grayScaleBlack100 z-40 cursor-pointer"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
+            animate={{ opacity: 0.9 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1, ease: "easeOut" }}
           />

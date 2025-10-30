@@ -20,9 +20,9 @@ function AuthErrorModal({
         <>
           {/* 배경 어둡게 Fade out 0.1 */}
           <motion.div
-            className="max-w-md m-auto fixed inset-0 bg-black z-[70]"
+            className="max-w-md m-auto fixed inset-0 bg-grayScaleBlack100 z-[70]"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
+            animate={{ opacity: 0.9 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1, ease: "easeOut" }}
           />
