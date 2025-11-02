@@ -5,7 +5,8 @@ import FeedbackIcon from "../shared/assets/FeedbackIcon.svg";
 
 function LoggedOutMyPage() {
   const handleClick = () => {
-    window.location.href = "https://forms.gle/q7uQEr4XSiQmoVkM6";
+    window.location.href =
+      "https://docs.google.com/forms/d/e/1FAIpQLSe-d5MhQrwsRRrk9isYiYVw1afI7a60Xm0IHbxmmAHe8AUiMA/viewform";
   };
 
   const handleClickUpdate = () => {
@@ -37,7 +38,7 @@ function LoggedOutMyPage() {
       <img
         onClick={handleClick}
         src={FeedbackIcon}
-        className="w-full h-full px-16 py-30"
+        className="mx-16 my-30 cursor-pointer"
       />
     </div>
   );

@@ -6,7 +6,8 @@ import LogoutModal from "../../../features/auth/ui/LogoutModal";
 
 function Info() {
   const handleClick = () => {
-    window.location.href = "https://forms.gle/q7uQEr4XSiQmoVkM6";
+    window.location.href =
+      "https://docs.google.com/forms/d/e/1FAIpQLSe-d5MhQrwsRRrk9isYiYVw1afI7a60Xm0IHbxmmAHe8AUiMA/viewform";
   };
 
   const handleClickUpdate = () => {

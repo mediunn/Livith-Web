@@ -23,6 +23,10 @@ function SignupAgreementPage() {
     setIsUseChecked(newState);
     setIsAdChecked(newState);
   };
+  const handleClickCondition = () => {
+    window.location.href =
+      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4";
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -64,7 +68,10 @@ function SignupAgreementPage() {
             <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR">
               필수
             </p>
-            <p className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6">
+            <p
+              onClick={handleClickCondition}
+              className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6"
+            >
               더보기 &gt;
             </p>
           </div>

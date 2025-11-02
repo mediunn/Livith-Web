@@ -84,7 +84,7 @@ function Comment({
   };
 
   const handleButtonClick = () => {
-    if (user === null) {
+    if (!user) {
       setIsLoginModalOpen(true);
       return;
     }

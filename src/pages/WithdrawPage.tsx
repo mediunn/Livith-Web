@@ -8,10 +8,12 @@ import WithdrawBottomSheet from "../widgets/WithdrawBottomSheet";
 
 function WithdrawPage() {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
-  const openSheet = () => setIsSheetOpen(true);
-  const closeSheet = () => setIsSheetOpen(false);
-
   const navigate = useNavigate();
+  const openSheet = () => setIsSheetOpen(true);
+  const closeSheet = () => {
+    setIsSheetOpen(false);
+    navigate("/my", { replace: true });
+  };
 
   const reasons = [
     "원하는 정보가 부족하거나 없어요",
