@@ -18,6 +18,7 @@ function ReportCommentModal({
   const [value, setValue] = useState("");
   const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const toastIdRef = useRef<string | number | null>(null);
 
   if (!isOpen) return null;
 
@@ -27,13 +28,18 @@ function ReportCommentModal({
     setValue(newValue);
 
     if (newValue.length > 200 && !hasShownToast) {
-      toast(<ErrorToast message="400자를 초과했어요" />, {
+      const id = toast(<ErrorToast message="200자를 초과했어요" />, {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: false,
         pauseOnFocusLoss: false,
       });
+      toastIdRef.current = id;
       setHasShownToast(true);
     } else if (newValue.length <= 200 && hasShownToast) {
+      if (toastIdRef.current) {
+        toast.dismiss(toastIdRef.current);
+        toastIdRef.current = null;
+      }
       setHasShownToast(false);
     }
   };
@@ -93,7 +99,6 @@ function ReportCommentModal({
                   value={value}
                   onChange={handleChange}
                   placeholder="신고 사유를 작성해 주세요"
-                  maxLength={200}
                   className="h-172 w-full px-14 pt-14 pb-30 resize-none rounded-6 bg-grayScaleBlack5 text-grayScaleBlack80 text-Body3-md font-medium font-NotoSansKR
                   placeholder:text-grayScaleBlack50
                   border border-transparent
