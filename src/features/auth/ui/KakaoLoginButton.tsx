@@ -33,9 +33,9 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
 
       // 탈퇴 후 7일 이내인 경우
       if (payload.error) {
+        setIsErrorModalOpen(true);
         popup?.close();
         window.removeEventListener("message", listener);
-        setIsErrorModalOpen(true);
         return;
       }
 
@@ -67,10 +67,6 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
     };
 
     window.addEventListener("message", listener);
-
-    if (onClickLogin) {
-      onClickLogin();
-    }
   };
 
   return (
@@ -87,6 +83,7 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
       <AuthErrorModal
         isOpen={isErrorModalOpen}
         onClose={() => {
+          if (onClickLogin) onClickLogin();
           navigate("/");
           setIsErrorModalOpen(false);
         }}
