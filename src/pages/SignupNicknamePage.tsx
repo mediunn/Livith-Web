@@ -95,7 +95,7 @@ function SignupNicknamePage() {
           {/* 닉네임 입력 */}
           <div className="flex gap-12 mb-10">
             <div
-              className={`flex flex-1 items-center  my-4 px-16 rounded-10 bg-grayScaleBlack90 ${isFocused ? "border border-grayScaleBlack50" : "border border-transparent"}`}
+              className={`flex flex-1 items-center px-12 rounded-10 bg-grayScaleBlack90 ${isFocused ? "border border-grayScaleBlack50" : "border border-transparent"}`}
             >
               <input
                 value={input}
@@ -129,7 +129,7 @@ function SignupNicknamePage() {
                 placeholder="예시 ) 홍길동"
                 onCompositionStart={() => setIsComposing(true)}
                 onCompositionEnd={() => setIsComposing(false)}
-                className=" my-10 w-full border-none outline-none bg-transparent placeholder-grayScaleBlack50 text-grayScaleWhite"
+                className="my-15 w-full border-none outline-none bg-transparent placeholder-grayScaleBlack50 text-grayScaleWhite"
               />
               <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR ml-12">
                 {input.length}/10
@@ -142,6 +142,7 @@ function SignupNicknamePage() {
                     e.preventDefault(); // 포커스 유지
                     setInput("");
                     setIsValidNickname(false);
+                    setIsNicknameChecked(false);
                     setCheckMessage("10자리 이내, 문자/숫자로 입력 가능해요");
                     inputRef.current?.focus();
                   }}
