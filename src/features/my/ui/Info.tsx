@@ -28,7 +28,7 @@ function Info() {
       <img
         onClick={handleClick}
         src={FeedbackIcon}
-        className="w-full h-full px-16 py-20"
+        className="w-full h-full px-16 py-20 cursor-pointer"
       />
 
       <div className="pl-16 pr-18">
