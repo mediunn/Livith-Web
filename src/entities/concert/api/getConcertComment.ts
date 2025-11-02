@@ -22,8 +22,7 @@ export async function getConcertComment({
     `api/v4/concerts/${concertId}/comments`,
     {
       params: {
-        cursorId: cursor?.id,
-        cursorCreatedAt: cursor?.createdAt,
+        cursor: cursor ? JSON.stringify(cursor) : undefined,
         size,
       },
       headers: {
