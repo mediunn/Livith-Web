@@ -108,7 +108,7 @@ function Comment({
             {isMyComment ? "삭제" : "신고"}
           </button>
         </div>
-        <p className="pt-12 text-grayScaleWhite text-Body2-re font-regular font-NotoSansKR">
+        <p className="pt-12 text-grayScaleWhite text-Body2-re font-regular font-NotoSansKR break-words whitespace-pre-wrap">
           {content}
         </p>
       </div>
