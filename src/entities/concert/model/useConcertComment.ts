@@ -20,11 +20,12 @@ export const useConcertComment = ({
       }),
     initialPageParam: null,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.cursor ?? undefined;
+      return lastPage.cursor ?? undefined;
     },
     select: (data) => ({
       pages: data.pages.flatMap((page) => page.data),
       totalCount: data.pages[0]?.totalCount ?? 0,
+      nextCursor: data.pages[data.pages.length - 1]?.cursor ?? null,
     }),
   });
 };

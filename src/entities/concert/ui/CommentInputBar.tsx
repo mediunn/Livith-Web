@@ -15,6 +15,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
   const [value, setValue] = useState("");
   const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const toastIdRef = useRef<string | number | null>(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken");
@@ -31,13 +32,19 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
     setValue(newValue);
 
     if (newValue.length > 400 && !hasShownToast) {
-      toast(<ErrorToast message="400자를 초과했어요" />, {
+      const id = toast(<ErrorToast message="400자를 초과했어요" />, {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: false,
         pauseOnFocusLoss: false,
       });
+      toastIdRef.current = id;
       setHasShownToast(true);
     } else if (newValue.length <= 400 && hasShownToast) {
+      // 글자 수가 줄어들면 토스트 닫기
+      if (toastIdRef.current) {
+        toast.dismiss(toastIdRef.current);
+        toastIdRef.current = null;
+      }
       setHasShownToast(false);
     }
   };
