@@ -8,6 +8,9 @@ import ConcertAddIcon from "../../shared/assets/ConcertAddIcon.svg";
 import { useState } from "react";
 import ChangeConcertConfirmModal from "../../widgets/ChangeConcertConfirmModal";
 import { ConcertStatus } from "../../entities/concert/types";
+import { useRecoilState } from "recoil";
+import { userState } from "../../entities/recoil/atoms/userState";
+import LoginModal from "../../features/auth/ui/LoginModal";
 
 interface DetailInfoProps {
   id: string;
@@ -31,14 +34,22 @@ function DetailInfo({
   status,
 }: DetailInfoProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isToastActive, setIsToastActive] = useState(false);
+
+  const [user] = useRecoilState(userState);
+  console.log(user);
 
   return (
     <div className="w-full h-337 relative">
       <button
         onClick={() => {
           window.amplitude.track("click_interest_concert_detail");
-          setIsModalOpen(true);
+          if (user) {
+            setIsModalOpen(true);
+          } else {
+            setIsLoginModalOpen(true);
+          }
         }}
         disabled={isToastActive}
         className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
@@ -103,6 +114,11 @@ function DetailInfo({
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         setIsToastActive={setIsToastActive}
+      />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="interestConcert"
       />
     </div>
   );
