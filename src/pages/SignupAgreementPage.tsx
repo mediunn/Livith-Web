@@ -24,8 +24,11 @@ function SignupAgreementPage() {
     setIsAdChecked(newState);
   };
   const handleClickCondition = () => {
-    window.location.href =
-      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4";
+    window.open(
+      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4",
+      "_blank", // 새 탭으로 열기
+      "noopener,noreferrer" // 보안 옵션 (부모 페이지 접근 차단)
+    );
   };
 
   return (
@@ -62,7 +65,7 @@ function SignupAgreementPage() {
                 <CheckBox checkColor="#808794" />
               )}
             </button>
-            <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-2">
+            <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-4">
               이용약관 동의
             </p>
             <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR">

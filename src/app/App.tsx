@@ -97,20 +97,20 @@ const router = createBrowserRouter([
   },
 ]);
 
-useEffect(() => {
-  const handlePageShow = (e: PageTransitionEvent) => {
-    if (e.persisted) {
-      // bfcache로 복귀한 경우
-      window.location.reload();
-    }
-  };
-  window.addEventListener("pageshow", handlePageShow);
-  return () => {
-    window.removeEventListener("pageshow", handlePageShow);
-  };
-}, []);
-
 function App() {
+  useEffect(() => {
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        // bfcache로 복귀한 경우
+        window.location.reload();
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
+
   return (
     <RecoilRoot>
       <InitializeAuthWrapper>
