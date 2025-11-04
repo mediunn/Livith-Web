@@ -25,6 +25,7 @@ function CustomToastContainer() {
           exit: "animate-toast-out",
           collapse: true,
         })}
+        draggable={false}
         hideProgressBar
         closeButton={false}
         toastClassName="shadow-custom-toast rounded-8 bg-grayScaleBlack80 w-343 mt-[15%] mx-auto z-50"
