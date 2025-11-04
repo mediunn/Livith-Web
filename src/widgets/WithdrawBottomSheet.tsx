@@ -40,6 +40,7 @@ function WithdrawBottomSheet({
       withdrawMutate(reasonText, {
         onSuccess: (response) => {
           localStorage.removeItem("accessToken");
+          localStorage.removeItem("recentLogin");
           navigate("/");
           onSheetClose();
           setUser(null);
