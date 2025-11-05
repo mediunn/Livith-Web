@@ -38,7 +38,6 @@ function DetailInfo({
   const [isToastActive, setIsToastActive] = useState(false);
 
   const [user] = useRecoilState(userState);
-  console.log(user);
 
   return (
     <div className="w-full h-337 relative">

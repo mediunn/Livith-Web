@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getSearchResult } from "../api/getSearchResult";
+import { ConcertStatus, StatusFilter } from "../../../entities/concert/types";
 
 type UseSearchResultParams = {
   keyword: string;
@@ -18,6 +19,11 @@ export const useSearchResult = ({ keyword, size }: UseSearchResultParams) => {
           ? JSON.stringify({ value: pageParam.value, id: pageParam.id })
           : undefined,
         size,
+        status: [
+          StatusFilter.ONGOING,
+          StatusFilter.COMPLETED,
+          StatusFilter.UPCOMING,
+        ],
       }),
     initialPageParam: undefined as Cursor | undefined,
     getNextPageParam: (lastPage) => {
