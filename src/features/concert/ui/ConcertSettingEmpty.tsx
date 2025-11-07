@@ -37,11 +37,23 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
       <div className="flex justify-between items-end bg-grayScaleBlack90 rounded-bl-20 px-16 pt-24 pb-30 relative">
         <div>
           <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
-            반가워요!
-            <br />
-            기다리는
-            <br />
-            콘서트가 있나요?
+            {user ? (
+              <>
+                {user.nickname}님,
+                <br />
+                기다리는
+                <br />
+                콘서트가 있나요?
+              </>
+            ) : (
+              <>
+                반가워요!
+                <br />
+                기다리는
+                <br />
+                콘서트가 있나요?
+              </>
+            )}
           </p>
         </div>
 
