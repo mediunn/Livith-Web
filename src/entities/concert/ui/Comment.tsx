@@ -103,7 +103,12 @@ function Comment({
           </div>
           <button
             onClick={handleButtonClick}
-            className="bg-grayScaleBlack100 rounded-24 px-12 py-4 text-grayScaleBlack80 text-Caption1-Bold font-bold font-NotoSansKR"
+            className={`bg-grayScaleBlack100 rounded-24 px-12 py-4 text-Caption1-Bold font-bold font-NotoSansKR
+          ${
+            isMyComment
+              ? "text-grayScaleBlack5 border border-grayScaleBlack80"
+              : "text-grayScaleBlack80"
+          }`}
           >
             {isMyComment ? "삭제" : "신고"}
           </button>
