@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "react-toastify";
@@ -17,10 +17,13 @@ function ReportCommentModal({
 }: ReportCommentModalProps) {
   const [value, setValue] = useState("");
   const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
+
+  const [isScrollable, setIsScrollable] = useState(false);
+  const [showTopGradient, setShowTopGradient] = useState(false);
+  const [showBottomGradient, setShowBottomGradient] = useState(false);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const toastIdRef = useRef<string | number | null>(null);
-
-  if (!isOpen) return null;
 
   // textarea 글자 수 제한
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,12 +47,43 @@ function ReportCommentModal({
     }
   };
 
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const checkScrollable = () => {
+      const canScroll = textarea.scrollHeight > textarea.clientHeight;
+      setIsScrollable(canScroll);
+
+      if (canScroll) {
+        const { scrollTop, scrollHeight, clientHeight } = textarea;
+        setShowTopGradient(scrollTop > 0);
+        setShowBottomGradient(scrollTop + clientHeight < scrollHeight);
+      } else {
+        setShowTopGradient(false);
+        setShowBottomGradient(false);
+      }
+    };
+
+    checkScrollable();
+
+    textarea.addEventListener("scroll", checkScrollable);
+    window.addEventListener("resize", checkScrollable);
+
+    return () => {
+      textarea.removeEventListener("scroll", checkScrollable);
+      window.removeEventListener("resize", checkScrollable);
+    };
+  }, [value]);
+
   // 신고 버튼 활성화 조건
   const isActive = value.length >= 0 && value.length <= 200;
 
   const handleSubmit = () => {
     onSubmit(value);
   };
+
+  if (!isOpen) return null;
 
   return (
     <AnimatePresence>
@@ -107,7 +141,12 @@ function ReportCommentModal({
                 />
 
                 {/* 그라데이션 */}
-                <div className="absolute top-0 h-30 w-full max-w-md bg-gradient-to-t from-transparent to-grayScaleBlack5" />
+                {isScrollable && showTopGradient && (
+                  <div className="pointer-events-none absolute top-0 left-0 h-30 w-[94%] bg-gradient-to-b from-grayScaleBlack5 to-transparent rounded-t-6" />
+                )}
+                {isScrollable && showBottomGradient && (
+                  <div className="pointer-events-none absolute bottom-30 left-0 h-30 w-[94%] bg-gradient-to-t from-grayScaleBlack5 to-transparent rounded-b-6" />
+                )}
 
                 <div className="absolute bottom-5 left-1 h-30 w-[94%] rounded-6 bg-grayScaleBlack5">
                   <p className="absolute bottom-14 right-0 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
