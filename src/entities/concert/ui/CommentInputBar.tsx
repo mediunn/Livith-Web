@@ -14,8 +14,10 @@ interface CommentInputBarProps {
 function CommentInputBar({ concertId }: CommentInputBarProps) {
   const [value, setValue] = useState("");
   const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
+  const [hasShownLineToast, setHasShownLineToast] = useState(false); // 줄 수 초과 토스트 중복 방지
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const toastIdRef = useRef<string | number | null>(null);
+  const lineToastIdRef = useRef<string | number | null>(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken");
@@ -29,6 +31,30 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
+    const lines = newValue.split("\n").length;
+
+    if (lines > 15) {
+      if (!hasShownLineToast) {
+        const id = toast(
+          <ErrorToast message="댓글은 15줄 이상 작성할 수 없어요" />,
+          {
+            position: "top-center",
+            autoClose: false,
+            pauseOnFocusLoss: false,
+          }
+        );
+        lineToastIdRef.current = id;
+        setHasShownLineToast(true);
+      }
+    } else if (lines <= 15 && hasShownLineToast) {
+      // 15줄 이하로 줄어들면 토스트 닫기
+      if (lineToastIdRef.current) {
+        toast.dismiss(lineToastIdRef.current);
+        lineToastIdRef.current = null;
+      }
+      setHasShownLineToast(false);
+    }
+
     setValue(newValue);
 
     if (newValue.length > 400 && !hasShownToast) {
@@ -85,8 +111,9 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
         : `${textarea.scrollHeight}px`;
   }, [value]);
 
+  const lineCount = value.split("\n").length;
   // 등록 버튼 활성화 조건
-  const isActive = value.length > 0 && value.length <= 400;
+  const isActive = value.length > 0 && value.length <= 400 && lineCount <= 15;
 
   return (
     <>
