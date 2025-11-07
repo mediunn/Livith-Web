@@ -75,7 +75,7 @@ function Info() {
         </div>
 
         <div
-          className="mt-30 cursor-pointer"
+          className="mt-30 mb-30 cursor-pointer"
           onClick={() => navigate("/withdraw")}
         >
           <p className="m-0 text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
