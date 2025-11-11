@@ -72,6 +72,18 @@ function Comment({
   };
 
   const handleReport = async (reason: string) => {
+    if (!navigator.onLine) {
+      toast(<ErrorToast message="다시 시도해 주세요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
+      return;
+    }
+
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     try {
       await reportCommentMutation.mutateAsync({
         id,
@@ -96,6 +108,8 @@ function Comment({
         autoClose: 3000,
         pauseOnFocusLoss: false,
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
