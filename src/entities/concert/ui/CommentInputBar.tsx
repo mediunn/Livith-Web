@@ -119,7 +119,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
     <>
       <div className="fixed bottom-69 h-52 w-full max-w-md bg-gradient-to-t from-grayScaleBlack100 to-transparent" />
 
-      <div className="fixed bottom-0 px-16 py-10 w-full max-w-md bg-grayScaleBlack100 flex justify-between items-end">
+      <div className="fixed bottom-0 px-16 pt-10 pb-10 w-full max-w-md bg-grayScaleBlack100 flex justify-between items-end pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center flex-1 px-16 py-14 bg-grayScaleBlack90 rounded-10">
           <textarea
             ref={textareaRef}
