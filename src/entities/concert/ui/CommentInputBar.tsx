@@ -13,6 +13,7 @@ interface CommentInputBarProps {
 
 function CommentInputBar({ concertId }: CommentInputBarProps) {
   const [value, setValue] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // 등록 버튼 중복 클릭 방지
   const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
   const [hasShownLineToast, setHasShownLineToast] = useState(false); // 줄 수 초과 토스트 중복 방지
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -76,7 +77,9 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
   };
 
   const handleSubmit = () => {
-    if (!value) return;
+    if (!value || isSubmitting) return; // 이미 요청 중이면 중단
+    setIsSubmitting(true); // 등록 중 상태 ON
+
     commentMutation.mutate(value, {
       onSuccess: () => {
         toast(<CompleteToast message="댓글이 작성되었어요" />, {
@@ -85,6 +88,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
           pauseOnFocusLoss: false,
         });
         setValue("");
+        setIsSubmitting(false); // 성공 후 버튼 다시 활성화
       },
       onError: () => {
         toast(<ErrorToast message="댓글 작성에 실패했어요" />, {
@@ -92,6 +96,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
           autoClose: 3000,
           pauseOnFocusLoss: false,
         });
+        setIsSubmitting(false); // 실패 후 버튼 다시 활성화
       },
     });
   };
