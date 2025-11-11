@@ -28,6 +28,8 @@ function Comment({
   myUserId,
   accessToken,
 }: CommentProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false); // 등록 버튼 중복 클릭 방지
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -38,6 +40,18 @@ function Comment({
   const [user] = useRecoilState(userState);
 
   const handleDelete = async () => {
+    if (!navigator.onLine) {
+      toast(<ErrorToast message="댓글 삭제에 실패했어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
+      return;
+    }
+
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     try {
       await deleteCommentMutation.mutateAsync(id);
       toast(<CompleteToast message="댓글이 삭제되었어요" />, {
@@ -52,6 +66,8 @@ function Comment({
         autoClose: 3000,
         pauseOnFocusLoss: false,
       });
+    } finally {
+      setIsSubmitting(false); // 요청 완료 후 버튼 다시 활성화
     }
   };
 
