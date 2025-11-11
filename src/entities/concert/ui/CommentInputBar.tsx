@@ -117,43 +117,46 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
 
   return (
     <>
-      <div className="fixed bottom-69 h-52 w-full max-w-md bg-gradient-to-t from-grayScaleBlack100 to-transparent" />
+      <div className="fixed bottom-0 w-full max-w-md bg-grayScaleBlack100 pb-[env(safe-area-inset-bottom)]">
+        {/* 그라데이션 */}
+        <div className="absolute -top-50 left-0 w-full h-52 bg-gradient-to-t from-grayScaleBlack100 to-transparent pointer-events-none" />
 
-      <div className="fixed bottom-0 px-16 pt-10 pb-10 w-full max-w-md bg-grayScaleBlack100 flex justify-between items-end pb-[env(safe-area-inset-bottom)]">
-        <div className="flex items-center flex-1 px-16 py-14 bg-grayScaleBlack90 rounded-10">
-          <textarea
-            ref={textareaRef}
-            value={value}
-            placeholder={
-              isLoggedIn
-                ? "댓글은 400자까지 작성 가능해요"
-                : "로그인 후 작성 가능해요"
-            }
-            readOnly={!isLoggedIn}
-            onFocus={() => {
-              if (!isLoggedIn) {
-                // 로그인 안 되어 있으면 포커스 막고 모달 띄움
-                setIsLoginModalOpen(true);
+        <div className="px-16 pt-10 pb-10 flex justify-between items-end">
+          <div className="flex items-center flex-1 px-16 py-14 bg-grayScaleBlack90 rounded-10">
+            <textarea
+              ref={textareaRef}
+              value={value}
+              placeholder={
+                isLoggedIn
+                  ? "댓글은 400자까지 작성 가능해요"
+                  : "로그인 후 작성 가능해요"
               }
-            }}
-            onChange={handleChange}
-            className="bg-transparent outline-none text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
-            rows={1}
-            style={{
-              lineHeight: "21px",
-              maxHeight: "84px",
-            }}
-          />
-        </div>
-        <button
-          onClick={handleSubmit}
-          disabled={!isActive}
-          className={`px-16 py-14 ml-12 max-h-49 rounded-10 font-medium text-Body3-md font-NotoSansKR 
+              readOnly={!isLoggedIn}
+              onFocus={() => {
+                if (!isLoggedIn) {
+                  // 로그인 안 되어 있으면 포커스 막고 모달 띄움
+                  setIsLoginModalOpen(true);
+                }
+              }}
+              onChange={handleChange}
+              className="bg-transparent outline-none text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
+              rows={1}
+              style={{
+                lineHeight: "21px",
+                maxHeight: "84px",
+              }}
+            />
+          </div>
+          <button
+            onClick={handleSubmit}
+            disabled={!isActive}
+            className={`px-16 py-14 ml-12 max-h-49 rounded-10 font-medium text-Body3-md font-NotoSansKR 
           ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}
         `}
-        >
-          등록
-        </button>
+          >
+            등록
+          </button>
+        </div>
       </div>
       <LoginModal
         isOpen={isLoginModalOpen}
