@@ -1,8 +1,9 @@
 import { cssTransition, ToastContainer, toast } from "react-toastify";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 function CustomToastContainer() {
   const touchStartY = useRef<number | null>(null);
+  const [topOffset, setTopOffset] = useState(0);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
@@ -17,6 +18,27 @@ function CustomToastContainer() {
     touchStartY.current = null;
   };
 
+  // visualViewport 기반 top offset 업데이트
+  useEffect(() => {
+    const updateTopOffset = () => {
+      if (window.visualViewport) {
+        setTopOffset(window.visualViewport.offsetTop);
+      } else {
+        setTopOffset(20);
+      }
+    };
+
+    updateTopOffset();
+
+    window.visualViewport?.addEventListener("resize", updateTopOffset);
+    window.visualViewport?.addEventListener("scroll", updateTopOffset);
+
+    return () => {
+      window.visualViewport?.removeEventListener("resize", updateTopOffset);
+      window.visualViewport?.removeEventListener("scroll", updateTopOffset);
+    };
+  }, []);
+
   return (
     <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
       <ToastContainer
@@ -27,6 +49,12 @@ function CustomToastContainer() {
         })}
         hideProgressBar
         closeButton={false}
+        style={{
+          position: "fixed",
+          top: `${topOffset}px`,
+          zIndex: 9999,
+          pointerEvents: "none",
+        }}
         toastClassName="shadow-custom-toast rounded-8 bg-grayScaleBlack80 w-343 mt-[15%] mx-auto z-50"
       />
     </div>
