@@ -6,12 +6,11 @@ type SignupResponse = {
   user: User;
   accessToken: string;
 };
-export async function signup({
-  userData,
-  client,
-}: SignupRequest): Promise<ApiResponse<SignupResponse>> {
+export async function signup(
+  userData: SignupRequest
+): Promise<ApiResponse<SignupResponse>> {
   const response = await axiosInstance.post(
-    `/api/v4/auth/signup?client=${client}`,
+    `/api/v4/auth/signup?client=web`,
     userData
   );
   return response.data;

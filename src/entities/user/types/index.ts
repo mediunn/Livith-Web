@@ -9,12 +9,9 @@ export type User = {
 };
 
 export type SignupRequest = {
-  userData: {
-    nickname: string;
-    provider: string;
-    providerId: string;
-    email: string;
-    marketingConsent: boolean;
-  };
-  client: string;
+  nickname: string;
+  provider: string;
+  providerId: string;
+  email: string;
+  marketingConsent: boolean;
 };
