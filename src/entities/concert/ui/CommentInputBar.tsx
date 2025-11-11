@@ -80,6 +80,16 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
     if (!value || isSubmitting) return; // 이미 요청 중이면 중단
     setIsSubmitting(true); // 등록 중 상태 ON
 
+    // Offline이면 즉시 reject
+    if (!navigator.onLine) {
+      toast(<ErrorToast message="댓글 작성에 실패했어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     commentMutation.mutate(value, {
       onSuccess: () => {
         toast(<CompleteToast message="댓글이 작성되었어요" />, {
