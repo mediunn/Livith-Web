@@ -4,9 +4,14 @@ import { use, useEffect, useState } from "react";
 import SignupButton from "../features/auth/ui/SignupButton";
 import { useLocation, useNavigate } from "react-router-dom";
 function SignupAgreementPage() {
-  const [isAllChecked, setIsAllChecked] = useState(false);
-  const [isUseChecked, setIsUseChecked] = useState(false);
-  const [isAdChecked, setIsAdChecked] = useState(false);
+  const [isUseChecked, setIsUseChecked] = useState<boolean>(
+    sessionStorage.getItem("isUseChecked") === "true" || false
+  );
+  const [isAdChecked, setIsAdChecked] = useState<boolean>(
+    sessionStorage.getItem("isAdChecked") === "true" || false
+  );
+
+  const [isAllChecked, setIsAllChecked] = useState(isUseChecked && isAdChecked);
   const location = useLocation();
   const { tempUserData } = location.state;
 
@@ -97,11 +102,13 @@ function SignupAgreementPage() {
       <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
         <SignupButton
           isActive={isUseChecked}
-          onClick={() =>
+          onClick={() => {
+            sessionStorage.setItem("isUseChecked", String(isUseChecked));
+            sessionStorage.setItem("isAdChecked", String(isAdChecked));
             navigate("/signup/nickname", {
               state: { isAdChecked, tempUserData },
-            })
-          }
+            });
+          }}
           title="다음"
         />
       </div>

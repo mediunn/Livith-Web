@@ -42,6 +42,8 @@ function SignupNicknamePage() {
   const { initialize } = useInitializeAuth();
 
   const handleSignup = () => {
+    sessionStorage.removeItem("isAdChecked");
+    sessionStorage.removeItem("isUseChecked");
     if (!tempUserData) {
       setIsErrorModalOpen(true);
       return;
