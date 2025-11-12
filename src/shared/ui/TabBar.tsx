@@ -28,7 +28,7 @@ function TabBar() {
     activeTab === tab ? "text-mainYellow30" : "text-[#737985]";
 
   return (
-    <div className="fixed bottom-0 z-50 bg-grayScaleBlack100 max-w-md w-full h-90">
+    <div className="fixed bottom-0 z-50 bg-grayScaleBlack100 max-w-md w-full h-90 pb-[env(safe-area-inset-bottom)]">
       <div className="w-full h-1 bg-grayScaleBlack80" />
       <div className="flex justify-between pt-12">
         <div className="flex flex-col items-center ml-57 ">
