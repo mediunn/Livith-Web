@@ -169,6 +169,9 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
           ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}
           ring-0 focus:ring-0 shadow-none focus:shadow-none focus:outline-none border-none focus:border-none
         `}
+            style={{
+              WebkitAppearance: "none", // iOS 기본 스타일 제거
+            }}
           >
             등록
           </button>
