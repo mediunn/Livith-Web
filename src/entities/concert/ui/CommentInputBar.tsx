@@ -167,6 +167,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
             disabled={!isActive}
             className={`px-16 py-14 ml-12 max-h-49 rounded-10 font-medium text-Body3-md font-NotoSansKR 
           ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}
+          focus:outline-none focus:ring-0 active:outline-none active:ring-0
         `}
           >
             등록
