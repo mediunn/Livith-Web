@@ -31,3 +31,10 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #808794 transparent;
 }
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
