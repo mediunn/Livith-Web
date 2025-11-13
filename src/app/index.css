@@ -38,3 +38,13 @@ button {
   appearance: none;
   border-radius: 0;
 }
+
+button::-webkit-focus-inner {
+  border: none;
+  outline: none;
+}
+
+button::-moz-focus-inner {
+  border: none;
+  outline: none;
+}
