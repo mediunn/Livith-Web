@@ -47,6 +47,9 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
           localStorage.setItem("signedUpViaHomePage", "true");
         }
 
+        sessionStorage.setItem("isAdChecked", "false");
+        sessionStorage.setItem("isUseChecked", "false");
+
         navigate("/signup/agreement", {
           state: { tempUserData: payload.tempUserData },
         });

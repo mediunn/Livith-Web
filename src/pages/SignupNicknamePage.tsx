@@ -7,6 +7,7 @@ import { validateNickname } from "../shared/utils/validateNickname";
 import { useCheckNickname } from "../features/auth/model/useCheckNickname";
 import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
 import { useSignup } from "../features/auth/model/useSignup";
+import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
 function SignupNicknamePage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,24 +39,31 @@ function SignupNicknamePage() {
   const { data, isFetching, isError, refetch } = useCheckNickname(input);
   const { mutate: signupMutate, isPending } = useSignup();
 
+  const { initialize } = useInitializeAuth();
+
   const handleSignup = () => {
+    sessionStorage.removeItem("isAdChecked");
+    sessionStorage.removeItem("isUseChecked");
     if (!tempUserData) {
       setIsErrorModalOpen(true);
       return;
     }
     signupMutate(
       {
-        userData: {
-          nickname: input,
-          provider: tempUserData.provider,
-          providerId: tempUserData.providerId,
-          email: tempUserData.email,
-          marketingConsent: isAdChecked,
-        },
-        client: "web",
+        nickname: input,
+        provider: tempUserData.provider,
+        providerId: tempUserData.providerId,
+        email: tempUserData.email,
+        marketingConsent: isAdChecked,
       },
       {
-        onSuccess: () => {
+        onSuccess: async (res) => {
+          console.log(res);
+          const { accessToken } = res.data;
+          if (accessToken) {
+            localStorage.setItem("accessToken", accessToken);
+            await initialize(); // 회원가입 후 바로 로그인
+          }
           navigate("/", {
             state: { showSignupComplete: true, nickname: input },
           });

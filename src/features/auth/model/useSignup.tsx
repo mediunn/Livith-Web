@@ -4,7 +4,6 @@ import { SignupRequest } from "../../../entities/user/types";
 
 export function useSignup() {
   return useMutation({
-    mutationFn: ({ userData, client }: SignupRequest) =>
-      signup({ userData, client }),
+    mutationFn: (userData: SignupRequest) => signup(userData),
   });
 }

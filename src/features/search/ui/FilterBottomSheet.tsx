@@ -194,7 +194,7 @@ function FilterBottomSheet({
                     className={`flex-1 min-w-[120px] py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR text-center whitespace-nowrap cursor-pointer ${
                       isResetDisabled
                         ? "bg-grayScaleBlack80 text-grayScaleBlack50 cursor-not-allowed"
-                        : "bg-mainYellow30 text-grayScaleBlack100"
+                        : "bg-grayScaleBlack50 text-grayScaleWhite"
                     }`}
                     onClick={
                       isResetDisabled

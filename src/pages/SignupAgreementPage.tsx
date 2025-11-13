@@ -4,9 +4,14 @@ import { use, useEffect, useState } from "react";
 import SignupButton from "../features/auth/ui/SignupButton";
 import { useLocation, useNavigate } from "react-router-dom";
 function SignupAgreementPage() {
-  const [isAllChecked, setIsAllChecked] = useState(false);
-  const [isUseChecked, setIsUseChecked] = useState(false);
-  const [isAdChecked, setIsAdChecked] = useState(false);
+  const [isUseChecked, setIsUseChecked] = useState<boolean>(
+    sessionStorage.getItem("isUseChecked") === "true" || false
+  );
+  const [isAdChecked, setIsAdChecked] = useState<boolean>(
+    sessionStorage.getItem("isAdChecked") === "true" || false
+  );
+
+  const [isAllChecked, setIsAllChecked] = useState(isUseChecked && isAdChecked);
   const location = useLocation();
   const { tempUserData } = location.state;
 
@@ -24,8 +29,11 @@ function SignupAgreementPage() {
     setIsAdChecked(newState);
   };
   const handleClickCondition = () => {
-    window.location.href =
-      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4";
+    window.open(
+      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4",
+      "_blank", // 새 탭으로 열기
+      "noopener,noreferrer" // 보안 옵션 (부모 페이지 접근 차단)
+    );
   };
 
   return (
@@ -62,7 +70,7 @@ function SignupAgreementPage() {
                 <CheckBox checkColor="#808794" />
               )}
             </button>
-            <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-2">
+            <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-4">
               이용약관 동의
             </p>
             <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR">
@@ -94,11 +102,13 @@ function SignupAgreementPage() {
       <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
         <SignupButton
           isActive={isUseChecked}
-          onClick={() =>
+          onClick={() => {
+            sessionStorage.setItem("isUseChecked", String(isUseChecked));
+            sessionStorage.setItem("isAdChecked", String(isAdChecked));
             navigate("/signup/nickname", {
               state: { isAdChecked, tempUserData },
-            })
-          }
+            });
+          }}
           title="다음"
         />
       </div>

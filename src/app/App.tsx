@@ -20,6 +20,7 @@ import SignupAgreementPage from "../pages/SignupAgreementPage";
 import SignupNicknamePage from "../pages/SignupNicknamePage";
 import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrapper";
 import CustomToastContainer from "../widgets/CustomToastContainer";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
@@ -97,6 +98,19 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  useEffect(() => {
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        // bfcache로 복귀한 경우
+        window.location.reload();
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
+
   return (
     <RecoilRoot>
       <InitializeAuthWrapper>

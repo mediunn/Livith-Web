@@ -47,6 +47,7 @@ function CustomToastContainer() {
           exit: "animate-toast-out",
           collapse: true,
         })}
+        draggable={false}
         hideProgressBar
         closeButton={false}
         style={{

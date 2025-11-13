@@ -43,6 +43,9 @@ function LyricPage() {
     // 로그인 유저는 기록 저장 안 함
     if (user) return;
 
+    // 이미 로그인 유도 토스트 띄운 경우 중단
+    if (sessionStorage.getItem("loginToastShown") === "true") return;
+
     // 이미 3개 이상 본 경우 추가 중단
     if (viewedLyrics.length >= 3) return;
 
@@ -64,6 +67,7 @@ function LyricPage() {
           />,
           { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false }
         );
+        sessionStorage.setItem("loginToastShown", "true");
       }
     }
   }, [songId]);

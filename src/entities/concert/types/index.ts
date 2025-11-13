@@ -70,6 +70,7 @@ export enum StatusFilter {
   ONGOING = "ONGOING",
   UPCOMING = "UPCOMING",
   COMPLETED = "COMPLETED",
+  CANCELED = "CANCELED",
 }
 
 export enum SortFilter {
