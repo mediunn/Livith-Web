@@ -54,7 +54,6 @@ function CustomToastContainer() {
           position: "fixed",
           top: `${topOffset}px`,
           zIndex: 9999,
-          pointerEvents: "none",
         }}
         toastClassName="shadow-custom-toast rounded-8 bg-grayScaleBlack80 w-343 mt-[15%] mx-auto z-50"
       />
