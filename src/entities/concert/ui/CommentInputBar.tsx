@@ -154,7 +154,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
                 }
               }}
               onChange={handleChange}
-              className="bg-transparent outline-none text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
+              className="bg-transparent outline-none text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
               rows={1}
               style={{
                 lineHeight: "21px",
@@ -165,7 +165,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
           <button
             onClick={handleSubmit}
             disabled={!isActive}
-            className={`px-16 py-14 ml-12 max-h-49 rounded-10 font-medium text-Body3-md font-NotoSansKR 
+            className={`px-16 py-14 ml-12 max-h-49 rounded-10 font-medium text-Body2-md font-NotoSansKR 
           ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}
         `}
           >
