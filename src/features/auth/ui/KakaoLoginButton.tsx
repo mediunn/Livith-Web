@@ -39,7 +39,6 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
         return;
       }
 
-      localStorage.setItem("recentLogin", "카카오");
       //새 유저일 경우 회원가입 페이지로 이동
       if (payload.isNewUser) {
         if (group) {
@@ -57,6 +56,8 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
       //기존 유저일 경우 액세스 토큰 저장 후 홈 화면으로 이동
       else {
         localStorage.setItem("accessToken", payload.accessToken);
+        localStorage.setItem("recentLogin", "카카오");
+
         // 로그인 직후 Recoil 상태 초기화
         await initialize();
         navigate("/");

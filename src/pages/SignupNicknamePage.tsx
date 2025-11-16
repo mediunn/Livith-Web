@@ -62,6 +62,8 @@ function SignupNicknamePage() {
           const { accessToken } = res.data;
           if (accessToken) {
             localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("recentLogin", "카카오");
+
             await initialize(); // 회원가입 후 바로 로그인
           }
           navigate("/", {
