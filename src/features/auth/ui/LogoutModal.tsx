@@ -7,6 +7,8 @@ import { useSetRecoilState } from "recoil";
 import { userState } from "../../../entities/recoil/atoms/userState";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import ErrorToast from "../../../shared/ui/ErrorToast";
+import { AxiosError } from "axios";
 
 interface LogoutModalProps {
   isOpen: boolean;
@@ -34,8 +36,24 @@ function LogoutModal({ isOpen, onClose }: LogoutModalProps) {
           queryClient.clear(); // 로그아웃 시 캐시 초기화
         },
         onError: (err) => {
-          console.error(err);
-          toast(<CompleteToast message="로그아웃에 실패했어요" />, {
+          const axiosErr = err as AxiosError;
+          // 401 Unauthorized = RefreshToken 없음/만료된 상태
+          if (axiosErr?.response?.status === 401) {
+            // RefreshToken이 없어도 결국 로그아웃된 상태이므로 AccessToken 삭제
+            localStorage.removeItem("accessToken");
+            setUser(null);
+            queryClient.clear();
+
+            toast(<CompleteToast message="로그아웃이 완료되었어요" />, {
+              position: "top-center",
+              autoClose: 3000,
+              pauseOnFocusLoss: false,
+            });
+
+            navigate("/");
+            return;
+          }
+          toast(<ErrorToast message="로그아웃에 실패했어요" />, {
             position: "top-center",
             autoClose: 3000,
             pauseOnFocusLoss: false,

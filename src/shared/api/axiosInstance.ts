@@ -27,7 +27,11 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     // accessToken 만료 && 아직 retry 안 한 경우
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.skipAuthRefresh
+    ) {
       if (isRefreshing) {
         // 다른 요청이 이미 refresh 중이라면 기다리기
         return new Promise((resolve) => {
