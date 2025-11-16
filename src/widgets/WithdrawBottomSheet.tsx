@@ -125,7 +125,10 @@ function WithdrawBottomSheet({
 
           <div className="flex gap-10 mb-50">
             <button
-              onClick={onSheetClose}
+              onClick={() => {
+                onSheetClose;
+                navigate("/my", { replace: true });
+              }}
               className="flex-1 py-15 rounded-6 bg-grayScaleBlack80 text-grayScaleBlack30 text-Body3-sm font-semibold font-NotoSansKR"
             >
               취소할래요
