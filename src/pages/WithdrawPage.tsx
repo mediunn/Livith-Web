@@ -12,7 +12,6 @@ function WithdrawPage() {
   const openSheet = () => setIsSheetOpen(true);
   const closeSheet = () => {
     setIsSheetOpen(false);
-    navigate("/my", { replace: true });
   };
 
   const reasons = [
