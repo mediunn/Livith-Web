@@ -1,12 +1,4 @@
-import { useEffect, useState } from "react";
-import { getArtistInfo, Artist } from "../api/getArtistInfo";
-import { getConcertCulture, ConcertCulture } from "../api/getConcertCulture";
-import { getSchedule, Schedule } from "../api/getSchedule";
-import {
-  getConcertRequiredInfo,
-  ConcertRequired,
-} from "../api/getConcertRequiredInfo";
-import { getMd, Md } from "../api/getMd";
+import { useState } from "react";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import SetlistTabPanel from "./SetlistTabPanel";
@@ -16,12 +8,23 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { getSetlistInfo, Setlist } from "../api/getSetlistInfo";
+import { useSchedule } from "../model/useSchedule";
+import { useConcertCulture } from "../model/useConcertCulture";
+import { useConcertRequiredInfo } from "../model/useConcertRequiredInfo";
+import { useMd } from "../model/useMd";
+import { useArtistInfo } from "../model/useArtistInfo";
+import { useSetlist } from "../model/useSetlist";
+import CommentInputBar from "./CommentInputBar";
+import CommentTabPanel from "./CommentTabPanel";
+import { useConcertComment } from "../model/useConcertComment";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../entities/recoil/atoms/userState";
 
 interface ConcertInfoTabProps {
   concertId: number;
   ticketUrl: string;
   introduction: string;
+  status: string;
 }
 
 const TAB_KEY = `selectedTab`;
@@ -30,7 +33,20 @@ function ConcertInfoTab({
   concertId,
   ticketUrl,
   introduction,
+  status,
 }: ConcertInfoTabProps) {
+  const user = useRecoilValue(userState);
+
+  const size = 15; // 페이지당 항목 수
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useConcertComment({ concertId, size });
+
   const getInitialTab = () => {
     const storedTab = localStorage.getItem(`${TAB_KEY}-${concertId}`);
     return storedTab === "1" || storedTab === "2" || storedTab === "3"
@@ -45,100 +61,17 @@ function ConcertInfoTab({
     localStorage.setItem(`${TAB_KEY}-${concertId}`, newValue);
   };
 
-  const [artist, setArtist] = useState<Artist | null>(null);
-  const [ConcertCulture, setConcertCulture] = useState<ConcertCulture[]>([]);
-  const [schedules, setSchedule] = useState<Schedule[] | null>(null);
-  const [concertRequiredInfo, setConcertRequiredInfo] = useState<
-    ConcertRequired[] | null
-  >(null);
-  const [mds, setMd] = useState<Md[] | null>(null);
-  const [setlist, setSetlist] = useState<Setlist[] | null>(null);
+  const { data: artist } = useArtistInfo(concertId);
 
-  useEffect(() => {
-    if (!concertId || isNaN(concertId)) {
-      // 유효하지 않은 concertId면 API 호출 안 함
-      return;
-    }
-    async function fetchConcert() {
-      try {
-        const data = await getArtistInfo(concertId);
-        setArtist(data);
-      } catch (error) {
-        console.error("특정 콘서트의 가수 정보 조회 API 호출 실패", error);
-      }
-    }
-    fetchConcert();
-  }, [concertId]);
+  const { data: concertCulture = [] } = useConcertCulture(concertId);
 
-  useEffect(() => {
-    const fetchConcertCulture = async () => {
-      try {
-        const data = await getConcertCulture(concertId);
-        setConcertCulture(data);
-      } catch (error) {
-        console.error("특정 콘서트 공연 문화 목록 조회 API 호출 실패:", error);
-      }
-    };
+  const { data: schedules = [] } = useSchedule(concertId);
 
-    fetchConcertCulture();
-  }, [concertId]);
+  const { data: concertRequiredInfo = [] } = useConcertRequiredInfo(concertId);
 
-  useEffect(() => {
-    const fetchSchedule = async () => {
-      try {
-        const data = await getSchedule(concertId);
-        setSchedule(data);
-      } catch (error) {
-        console.error("특정 콘서트 일정 목록 조회 API 호출 실패:", error);
-        setSchedule([]);
-      }
-    };
+  const { data: mds = [] } = useMd(concertId);
 
-    fetchSchedule();
-  }, [concertId]);
-
-  useEffect(() => {
-    const fetchConcertRequiredInfo = async () => {
-      try {
-        const data = await getConcertRequiredInfo(concertId);
-        setConcertRequiredInfo(data);
-      } catch (error) {
-        console.error("특정 콘서트 필수 정보 목록 조회 API 호출 실패:", error);
-        setConcertRequiredInfo([]);
-      }
-    };
-
-    fetchConcertRequiredInfo();
-  }, [concertId]);
-
-  useEffect(() => {
-    const fetchMds = async () => {
-      try {
-        const data = await getMd(concertId);
-        setMd(data);
-      } catch (error) {
-        console.error("특정 콘서트의 MD 목록 조회 API 호출 실패:", error);
-        setMd([]);
-      }
-    };
-
-    fetchMds();
-  }, [concertId]);
-
-  useEffect(() => {
-    const fetchSetlist = async () => {
-      try {
-        const data = await getSetlistInfo(concertId);
-        setSetlist(data);
-      } catch (error) {
-        console.error("특정 콘서트의 셋리스트 목록 조회 API 호출 실패:", error);
-        setSetlist([]);
-      }
-    };
-
-    fetchSetlist();
-  }, [concertId]);
-
+  const { data: setlist = [] } = useSetlist(concertId);
   return (
     <>
       <Box
@@ -160,9 +93,10 @@ function ConcertInfoTab({
             <TabList
               onChange={handleChange}
               aria-label="tab"
+              variant="scrollable"
+              scrollButtons={false}
               sx={{
                 "& .MuiTab-root": {
-                  flex: 1,
                   height: "64px",
                   fontSize: "16px",
                   fontWeight: 600,
@@ -171,6 +105,8 @@ function ConcertInfoTab({
                   lineHeight: "1.4",
                   textTransform: "none",
                   color: "#808794",
+                  flexShrink: 0,
+                  minWidth: "106px",
                 },
                 "& .MuiTab-root.Mui-selected": {
                   color: "#FFFFFF",
@@ -204,6 +140,18 @@ function ConcertInfoTab({
                   window.amplitude.track("click_setlist_segment_detail");
                 }}
               />
+              <Tab
+                label={
+                  <div className="flex">
+                    <p>소통·댓글</p>
+                    <p className="pl-2 text-mainYellow30 text-Body2-sm font-semibold font-NotoSansKR">
+                      {data?.totalCount ?? 0}
+                    </p>
+                  </div>
+                }
+                value="4"
+                disableRipple
+              />
             </TabList>
           </Box>
           <TabPanel
@@ -212,8 +160,8 @@ function ConcertInfoTab({
               padding: "0",
             }}
           >
-            {!artist && ConcertCulture.length === 0 ? (
-              <EmptyConcertInfoTabPanel text={"아티스트 상세"} />
+            {!artist && concertCulture.length === 0 ? (
+              <EmptyConcertInfoTabPanel text={"아티스트 상세가 없어요"} />
             ) : (
               <ArtistTabPanel
                 introduction={introduction}
@@ -225,7 +173,7 @@ function ConcertInfoTab({
                 instagramUrl={artist?.instagramUrl || ""}
                 keywords={artist?.keywords || []}
                 imgUrl={artist?.imgUrl || ""}
-                concertCulture={ConcertCulture}
+                concertCulture={concertCulture}
               />
             )}
           </TabPanel>
@@ -238,7 +186,7 @@ function ConcertInfoTab({
             {(!schedules || schedules.length === 0) &&
             (!concertRequiredInfo || concertRequiredInfo.length === 0) &&
             (!mds || mds.length === 0) ? (
-              <EmptyConcertInfoTabPanel text={"콘서트 상세"} />
+              <EmptyConcertInfoTabPanel text={"콘서트 상세가 없어요"} />
             ) : (
               <ConcertTabPanel
                 concertId={concertId}
@@ -246,6 +194,7 @@ function ConcertInfoTab({
                 schedules={schedules}
                 concertRequiredInfo={concertRequiredInfo}
                 mds={mds}
+                status={status}
               />
             )}
           </TabPanel>
@@ -258,8 +207,39 @@ function ConcertInfoTab({
             {setlist && setlist.length > 0 ? (
               <SetlistTabPanel setlist={setlist} concertId={concertId} />
             ) : (
-              <EmptyConcertInfoTabPanel text={"셋리스트"} />
+              <EmptyConcertInfoTabPanel text={"셋리스트가 없어요"} />
             )}
+          </TabPanel>
+
+          <TabPanel
+            value="4"
+            sx={{
+              padding: "0",
+            }}
+          >
+            <div>
+              <div className="flex pt-24 px-16">
+                <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+                  모든 댓글
+                </p>
+                <p className="pl-4 text-mainYellow30 text-Body1-sm font-semibold font-NotoSansKR">
+                  {data?.totalCount ?? 0}
+                </p>
+              </div>
+              {data?.totalCount === 0 ? (
+                <EmptyConcertInfoTabPanel text={"첫 댓글을 달아보세요!"} />
+              ) : (
+                <CommentTabPanel
+                  comments={data?.pages ?? []}
+                  fetchNextPage={fetchNextPage}
+                  hasNextPage={hasNextPage}
+                  isFetchingNextPage={isFetchingNextPage}
+                  myUserId={user?.id ?? 0}
+                />
+              )}
+
+              <CommentInputBar concertId={concertId} />
+            </div>
           </TabPanel>
         </TabContext>
       </Box>

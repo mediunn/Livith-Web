@@ -31,3 +31,20 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #808794 transparent;
 }
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+button::-webkit-focus-inner {
+  border: none;
+  outline: none;
+}
+
+button::-moz-focus-inner {
+  border: none;
+  outline: none;
+}

@@ -9,7 +9,9 @@ export const setConcertStatus = ({
 }) => {
   if (status === ConcertStatus.ONGOING) {
     return "진행중";
-  } else if (status === ConcertStatus.COMPLETED) {
+  } else if (status === ConcertStatus.CANCELED) {
+    return "공연취소";
+  } else if (status === ConcertStatus.COMPLETED || daysLeft < 0) {
     return "종료";
   } else if (daysLeft === 0) {
     return "D-Day";

@@ -16,6 +16,7 @@ function ConcertInsideInfo({ concert }: ConcertInsideInfoProps) {
       date={formatConcertDate(concert.startDate, concert.endDate)}
       venue={concert.venue}
       label={concert.label}
+      status={concert.status}
     />
   );
 }

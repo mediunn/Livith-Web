@@ -20,11 +20,16 @@ import EditInterestConcertBottomSheet from "../../../features/interest/ui/EditIn
 import { getFormatDday } from "../utils/formatScheduleDate";
 
 interface ConcertSettingProps {
+  concertId: number;
   concert: Concert;
   schedules: Schedule[];
 }
 
-function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
+function ConcertSetting({
+  concertId,
+  concert,
+  schedules,
+}: ConcertSettingProps) {
   const [tabValue, setTabValue] = useState("1");
   // isOpen 상태 관리
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
@@ -106,6 +111,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
             <EditInterestConcertBottomSheet
               isSheetOpen={isSheetOpen}
               onSheetClose={closeSheet}
+              concertId={concertId}
             />
           </div>
         </div>
@@ -261,7 +267,7 @@ function ConcertSetting({ concert, schedules }: ConcertSettingProps) {
                 padding: "0",
               }}
             >
-              <InterestConcertSetlist />
+              <InterestConcertSetlist concertId={concertId} />
             </TabPanel>
           </TabContext>
         </Box>

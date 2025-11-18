@@ -4,30 +4,78 @@ import MusicTitleBar from "../features/lyric/ui/MusicTitleBar";
 import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../entities/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
-import { Fanchant, getFanchant } from "../features/lyric/api/getFanchant";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
 import { BeatLoader } from "react-spinners";
 import YouTubePlayer from "../entities/lyric/ui/YouTubePlayer";
 import EmptyYouTubePlayer from "../entities/lyric/ui/EmptyYouTubePlayer";
 import EmptyConcertInfoTabPanel from "../entities/concert/ui/EmptyConcertInfoTabPanel";
-import { getSong, Song } from "../entities/lyric/api/getSong";
 import { Sheet, SheetRef } from "react-modal-sheet";
 import { useBodyScrollLock } from "../shared/model/useBodyScrollLock";
+import { useSong } from "../entities/lyric/model/useSong";
+import { useFanchant } from "../features/lyric/model/useFanchant";
+import LoginModal from "../features/auth/ui/LoginModal";
+import { userState } from "../entities/recoil/atoms/userState";
+import { toast } from "react-toastify";
+import LoginPromptToast from "../shared/ui/LoginPromptToast";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
   const sheetRef = useRef<SheetRef>(null);
   const [currentSnap, setCurrentSnap] = useState<number | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(true);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [user] = useRecoilState(userState);
+  const effectRan = useRef(false); // 실행 여부 추적
+
+  // 세션 스토리지에서 열람한 가사 노래 ID 배열 가져오기
+  const [viewedLyrics, setViewedLyrics] = useState<string[]>(() => {
+    const stored = sessionStorage.getItem("viewedLyrics");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  // 페이지 진입 시 열람 기록 업데이트
+  useEffect(() => {
+    if (effectRan.current) return; // 이미 실행됐으면 중단
+    effectRan.current = true;
+    if (!songId) return;
+
+    // 로그인 유저는 기록 저장 안 함
+    if (user) return;
+
+    // 이미 로그인 유도 토스트 띄운 경우 중단
+    if (sessionStorage.getItem("loginToastShown") === "true") return;
+
+    // 이미 3개 이상 본 경우 추가 중단
+    if (viewedLyrics.length >= 3) return;
+
+    // 이미 본 가사인지 체크
+    if (!viewedLyrics.includes(songId)) {
+      const newViewed = [...viewedLyrics, songId];
+
+      sessionStorage.setItem("viewedLyrics", JSON.stringify(newViewed));
+
+      // 3개 열람 시 토스트
+      if (newViewed.length === 3) {
+        toast(
+          <LoginPromptToast
+            message="가사"
+            onLoginClick={() => {
+              setIsLoginModalOpen(true);
+              toast.dismiss();
+            }}
+          />,
+          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false }
+        );
+        sessionStorage.setItem("loginToastShown", "true");
+      }
+    }
+  }, [songId]);
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const [songData, setSongData] = useState<Song | null>(null);
-  const [isLyricLoading, setIsLyricLoading] = useState(true);
 
   // 초기값: 원어, 발음, 해석, 응원법 true
   const [activeButtons, setActiveButtons] = useState<boolean[]>([
@@ -37,65 +85,30 @@ function LyricPage() {
     true,
   ]);
 
-  // 응원법 존재 확인
-  const [hasFanchant, setHasFanchant] = useState(false);
   const setlistId = useRecoilValue(setlistIdState);
 
-  const [fanchantData, setFanchantData] = useState<Fanchant | null>(null);
-  const [isFanchantLoading, setIsFanchantLoading] = useState(true);
+  const { data: songData, isLoading: isLyricLoading } = useSong(Number(songId));
 
+  const { data: fanchantData, isLoading: isFanchantLoading } = useFanchant(
+    setlistId,
+    songId ? Number(songId) : null
+  );
+
+  // 응원법 존재 확인
+  const hasFanchant = fanchantData?.fanchant?.some(
+    (line) => line.trim() !== ""
+  );
+
+  // 응원법 없을 시 버튼 off
   useEffect(() => {
-    const fetchSongData = async () => {
-      setIsLyricLoading(true);
-      try {
-        const data = await getSong(Number(songId));
-        setSongData(data);
-      } catch (error) {
-        console.error("특정 노래의 가사 정보 조회 API 호출 실패:", error);
-      } finally {
-        setIsLyricLoading(false);
-      }
-    };
-
-    fetchSongData();
-  }, [songId]);
-
-  useEffect(() => {
-    const fetchFanchantExistence = async () => {
-      setIsFanchantLoading(true);
-      try {
-        const fanchantData = await getFanchant(
-          Number(setlistId),
-          Number(songId)
-        );
-        const hasAnyFanchant = fanchantData?.fanchant?.some(
-          (line) => line.trim() !== ""
-        );
-
-        setHasFanchant(hasAnyFanchant);
-
-        setFanchantData(fanchantData);
-
-        // 응원법이 없을 시 응원법 버튼 값 false로 변경
-        if (!hasAnyFanchant) {
-          setActiveButtons((prev) => {
-            const newButtons = [...prev];
-            newButtons[3] = false;
-            return newButtons;
-          });
-        }
-      } catch (error) {
-        console.error("응원법 조회 API 호출 실패:", error);
-        setHasFanchant(false);
-      } finally {
-        setIsFanchantLoading(false);
-      }
-    };
-
-    if (setlistId !== null && songId) {
-      fetchFanchantExistence();
+    if (fanchantData && !hasFanchant) {
+      setActiveButtons((prev) => {
+        const newButtons = [...prev];
+        newButtons[3] = false;
+        return newButtons;
+      });
     }
-  }, [setlistId, songId]);
+  }, [fanchantData, hasFanchant]);
 
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -215,7 +228,7 @@ function LyricPage() {
           <LyricTypeButton
             activeButtons={activeButtons}
             onToggle={toggleButton}
-            hasFanchant={hasFanchant}
+            hasFanchant={!!hasFanchant}
           />
 
           <div>
@@ -263,7 +276,7 @@ function LyricPage() {
                         <Lyric
                           songData={songData}
                           activeButtons={activeButtons}
-                          fanchantData={fanchantData}
+                          fanchantData={fanchantData ?? null}
                         />
                       ) : (
                         <div className="pt-51">
@@ -297,6 +310,12 @@ function LyricPage() {
           </p>
         </LyricModal>
       )}
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="concertInfo"
+      />
     </div>
   );
 }

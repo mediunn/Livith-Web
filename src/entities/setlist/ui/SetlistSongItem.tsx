@@ -31,7 +31,7 @@ function SetlistSongItem({
         <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR ">
           {paddedIndex}. {title}
         </p>
-        <p className="text-grayScaleWhite text-Caption1-re font-regular font-NotoSansKR">
+        <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR">
           {artist}
         </p>
       </div>

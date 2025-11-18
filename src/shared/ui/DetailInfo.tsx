@@ -7,6 +7,10 @@ import HotConcertChipIcon from "../../shared/assets/HotConcertChipIcon.svg";
 import ConcertAddIcon from "../../shared/assets/ConcertAddIcon.svg";
 import { useState } from "react";
 import ChangeConcertConfirmModal from "../../widgets/ChangeConcertConfirmModal";
+import { ConcertStatus } from "../../entities/concert/types";
+import { useRecoilState } from "recoil";
+import { userState } from "../../entities/recoil/atoms/userState";
+import LoginModal from "../../features/auth/ui/LoginModal";
 
 interface DetailInfoProps {
   id: string;
@@ -16,6 +20,7 @@ interface DetailInfoProps {
   date: string;
   venue: string;
   label: string;
+  status: string;
 }
 
 function DetailInfo({
@@ -26,26 +31,36 @@ function DetailInfo({
   date,
   venue,
   label,
+  status,
 }: DetailInfoProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isToastActive, setIsToastActive] = useState(false);
+
+  const [user] = useRecoilState(userState);
 
   return (
     <div className="w-full h-337 relative">
       <button
         onClick={() => {
           window.amplitude.track("click_interest_concert_detail");
-          setIsModalOpen(true);
+          if (user) {
+            setIsModalOpen(true);
+          } else {
+            setIsLoginModalOpen(true);
+          }
         }}
         disabled={isToastActive}
         className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
       >
-        <div className="px-10 py-8 flex items-center">
-          <img src={ConcertAddIcon} className="w-24 h-24" />
-          <p className="pl-4 text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
-            관심 콘서트 설정하기
-          </p>
-        </div>
+        {status !== ConcertStatus.CANCELED && (
+          <div className="px-10 py-8 flex items-center">
+            <img src={ConcertAddIcon} className="w-24 h-24" />
+            <p className="pl-4 text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
+              관심 콘서트 설정하기
+            </p>
+          </div>
+        )}
       </button>
 
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
@@ -98,6 +113,11 @@ function DetailInfo({
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         setIsToastActive={setIsToastActive}
+      />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="interestConcert"
       />
     </div>
   );

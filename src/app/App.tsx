@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import ConcertInsidePage from "../pages/ConcertInsidePage";
 import CategoryPage from "../pages/CategoryPage";
 import MyPage from "../pages/MyPage";
+import NicknamePage from "../pages/NicknamePage";
 import ConcertListPage from "../pages/ConcertListPage";
 import RootLayout from "./RootLayout";
 import SearchPage from "../pages/SearchPage";
@@ -14,7 +15,12 @@ import SetlistDetailPage from "../pages/SetlistDetailPage";
 import SetInterestConcertPage from "../pages/SetInterestConcertPage";
 import MdPage from "../pages/MdPage";
 import CompleteSetConcert from "../widgets/CompleteSetConcert";
-import Toast from "../widgets/Toast";
+import WithdrawPage from "../pages/WithdrawPage";
+import SignupAgreementPage from "../pages/SignupAgreementPage";
+import SignupNicknamePage from "../pages/SignupNicknamePage";
+import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrapper";
+import CustomToastContainer from "../widgets/CustomToastContainer";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +44,14 @@ const router = createBrowserRouter([
       {
         path: "my",
         element: <MyPage />,
+      },
+      {
+        path: "nickname",
+        element: <NicknamePage />,
+      },
+      {
+        path: "withdraw",
+        element: <WithdrawPage />,
       },
       {
         path: "concerts/:status",
@@ -71,17 +85,40 @@ const router = createBrowserRouter([
         path: "complete-set",
         element: <CompleteSetConcert />,
       },
+      {
+        path: "signup/agreement",
+        element: <SignupAgreementPage />,
+      },
+      {
+        path: "signup/nickname",
+        element: <SignupNicknamePage />,
+      },
     ],
   },
 ]);
 
 function App() {
+  useEffect(() => {
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        // bfcache로 복귀한 경우
+        window.location.reload();
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
+
   return (
     <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <Toast />
-      </QueryClientProvider>
+      <InitializeAuthWrapper>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <CustomToastContainer />
+        </QueryClientProvider>
+      </InitializeAuthWrapper>
     </RecoilRoot>
   );
 }

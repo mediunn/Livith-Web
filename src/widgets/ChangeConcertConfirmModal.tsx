@@ -1,9 +1,8 @@
 import { toast } from "react-toastify";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
-import Lottie from "lottie-react";
-import InterestConcertToastIconMotion from "../shared/assets/InterestConcertToastIconMotion.json";
 import { AnimatePresence, motion } from "framer-motion";
-
+import { setInterestConcert } from "../entities/concert/api/setInterestConcert";
+import CompleteToast from "../shared/ui/CompleteToast";
 interface ChangeConcertConfirmModalProps {
   id: string;
   isOpen: boolean;
@@ -17,36 +16,24 @@ function ChangeConcertConfirmModal({
   onClose,
   setIsToastActive,
 }: ChangeConcertConfirmModalProps) {
-  const STORAGE_KEY = "InterestConcertId";
-
-  const handleChange = () => {
+  const handleChange = async () => {
     window.amplitude.track("confirm_change_interest");
-    localStorage.setItem(STORAGE_KEY, id);
-    onClose();
-    setIsToastActive(true);
-    toast(
-      <div className="flex items-center space-x-13 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-        <div className="w-24 h-24">
-          <Lottie
-            animationData={InterestConcertToastIconMotion}
-            loop={false}
-            autoplay={true}
-            renderer="svg"
-            style={{ width: "100%", height: "100%" }}
-            rendererSettings={{
-              preserveAspectRatio: "xMidYMid meet",
-            }}
-          />
-        </div>
-        <span>관심 공연을 변경했어요</span>
-      </div>,
-      {
+
+    try {
+      const token = localStorage.getItem("accessToken") ?? "";
+      await setInterestConcert(Number(id), token);
+
+      onClose();
+      setIsToastActive(true);
+      toast(<CompleteToast message="관심 공연을 변경했어요" />, {
         position: "top-center",
         autoClose: 3000,
-        pauseOnFocusLoss: false, // 창이 다른 곳에 있어도 시간 그대로 감
+        pauseOnFocusLoss: false,
         onClose: () => setIsToastActive(false),
-      }
-    );
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   if (!isOpen) return null;
@@ -58,9 +45,9 @@ function ChangeConcertConfirmModal({
           {/* 배경 어둡게 Fade out 0.1 */}
           <motion.div
             onClick={onClose}
-            className="max-w-md m-auto fixed inset-0 bg-black z-[70] cursor-pointer"
+            className="max-w-md m-auto fixed inset-0 bg-grayScaleBlack100 z-[70] cursor-pointer"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
+            animate={{ opacity: 0.9 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1, ease: "easeOut" }}
           />

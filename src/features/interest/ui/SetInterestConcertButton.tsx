@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { StateWithSetter } from "../../../shared/types/props";
 import { motion, AnimatePresence } from "framer-motion";
+import { setInterestConcert } from "../../../entities/concert/api/setInterestConcert";
 
 type SetInterestConcertButtonProps = {
   selectedConcertState: StateWithSetter<string | null>;
+  group?: "A" | "B" | "C";
 };
 
 export const SetInterestConcertButton = ({
@@ -11,14 +13,24 @@ export const SetInterestConcertButton = ({
     value: selectedConcert,
     setValue: setSelectedConcert,
   },
+  group,
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
-  const STORAGE_KEY = "InterestConcertId";
+  const token = localStorage.getItem("accessToken") ?? "";
 
-  const handleSetInterestConcert = () => {
-    if (selectedConcert) {
-      localStorage.setItem(STORAGE_KEY, selectedConcert);
+  const handleSetInterestConcert = async () => {
+    if (!selectedConcert) return;
+
+    try {
+      await setInterestConcert(Number(selectedConcert), token);
+
+      if (group) {
+        window.amplitude.track(`${group}_set_interest_concert`);
+      }
+
       navigate("/complete-set", { replace: true });
+    } catch (err) {
+      console.error(err);
     }
   };
 
