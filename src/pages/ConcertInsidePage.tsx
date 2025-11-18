@@ -74,6 +74,7 @@ function ConcertInsidePage() {
         introduction={concert.introduction}
         concertId={Number(concertId)}
         ticketUrl={concert.ticketUrl}
+        status={concert.status}
       ></ConcertInfoTab>
       <LoginModal
         isOpen={isLoginModalOpen}

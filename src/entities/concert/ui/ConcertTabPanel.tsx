@@ -7,6 +7,7 @@ import { ConcertRequired } from "../api/getConcertRequiredInfo";
 import { Md } from "../api/getMd";
 import TicketWebsiteBtn from "../../../shared/ui/TicketWebsiteBtn";
 import ConcertSettingSnackBar from "../../../shared/ui/ConcertSettingSnackBar";
+import { ConcertStatus } from "../../../entities/concert/types";
 
 interface ConcertTabPanelProps {
   concertId: number;
@@ -14,6 +15,7 @@ interface ConcertTabPanelProps {
   schedules: Schedule[] | null;
   concertRequiredInfo: ConcertRequired[] | null;
   mds: Md[] | null;
+  status: string;
 }
 
 function ConcertTabPanel({
@@ -22,6 +24,7 @@ function ConcertTabPanel({
   schedules,
   concertRequiredInfo,
   mds,
+  status,
 }: ConcertTabPanelProps) {
   const [showSnackBar, setShowSnackBar] = useState(false);
 
@@ -34,7 +37,9 @@ function ConcertTabPanel({
         // 다음 복귀 감지를 위해 localStorage 초기화
         localStorage.removeItem("ticketOpened");
 
-        setShowSnackBar(true); // 티켓 예매 페이지에서 복귀 시 SnackBar 표시
+        if (status !== ConcertStatus.CANCELED) {
+          setShowSnackBar(true); // 티켓 예매 페이지에서 복귀 시 SnackBar 표시
+        }
       }
     };
 
