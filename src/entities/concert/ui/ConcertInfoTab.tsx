@@ -24,6 +24,7 @@ interface ConcertInfoTabProps {
   concertId: number;
   ticketUrl: string;
   introduction: string;
+  status: string;
 }
 
 const TAB_KEY = `selectedTab`;
@@ -32,6 +33,7 @@ function ConcertInfoTab({
   concertId,
   ticketUrl,
   introduction,
+  status,
 }: ConcertInfoTabProps) {
   const user = useRecoilValue(userState);
 
@@ -192,6 +194,7 @@ function ConcertInfoTab({
                 schedules={schedules}
                 concertRequiredInfo={concertRequiredInfo}
                 mds={mds}
+                status={status}
               />
             )}
           </TabPanel>
