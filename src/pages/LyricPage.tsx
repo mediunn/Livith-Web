@@ -94,6 +94,11 @@ function LyricPage() {
     songId ? Number(songId) : null
   );
 
+  const hasAnyLyric =
+    (songData?.lyrics?.length ?? 0) > 0 ||
+    (songData?.pronunciation?.length ?? 0) > 0 ||
+    (songData?.translation?.length ?? 0) > 0;
+
   // 응원법 존재 확인
   const hasFanchant = fanchantData?.fanchant?.some(
     (line) => line.trim() !== ""
@@ -272,7 +277,7 @@ function LyricPage() {
                         </>
                       )}
 
-                      {songData ? (
+                      {hasAnyLyric ? (
                         <Lyric
                           songData={songData}
                           activeButtons={activeButtons}
