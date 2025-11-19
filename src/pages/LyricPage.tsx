@@ -23,7 +23,7 @@ function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
   const sheetRef = useRef<SheetRef>(null);
   const [currentSnap, setCurrentSnap] = useState<number | null>(null);
-  const [isSheetOpen, setIsSheetOpen] = useState(true);
+
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [user] = useRecoilState(userState);
   const effectRan = useRef(false); // 실행 여부 추적
@@ -98,6 +98,14 @@ function LyricPage() {
     (songData?.lyrics?.length ?? 0) > 0 ||
     (songData?.pronunciation?.length ?? 0) > 0 ||
     (songData?.translation?.length ?? 0) > 0;
+
+  const [isSheetOpen, setIsSheetOpen] = useState(hasAnyLyric);
+
+  useEffect(() => {
+    if (!hasAnyLyric) {
+      setIsSheetOpen(false);
+    }
+  }, [hasAnyLyric]);
 
   // 응원법 존재 확인
   const hasFanchant = fanchantData?.fanchant?.some(
@@ -230,78 +238,80 @@ function LyricPage() {
             <EmptyYouTubePlayer />
           )}
 
-          <LyricTypeButton
-            activeButtons={activeButtons}
-            onToggle={toggleButton}
-            hasFanchant={!!hasFanchant}
-          />
+          {hasAnyLyric && (
+            <LyricTypeButton
+              activeButtons={activeButtons}
+              onToggle={toggleButton}
+              hasFanchant={!!hasFanchant}
+            />
+          )}
 
-          <div>
-            <Sheet
-              isOpen={isSheetOpen}
-              onClose={() => {
-                sheetRef.current?.snapTo(2);
-              }}
-              ref={sheetRef}
-              snapPoints={[-32, -320, 42]}
-              initialSnap={1} // 중간 위치에서 시작
-              onSnap={(snapIndex) => {
-                const snapPoints = [-32, -320, 42];
-                setCurrentSnap(snapPoints[snapIndex]);
-              }}
-            >
-              <Sheet.Container
-                className="!mx-auto !max-w-md !bg-grayScaleBlack90 !rounded-t-30"
-                style={{
-                  left: "0",
-                  right: "0",
+          {hasAnyLyric ? (
+            <div>
+              <Sheet
+                isOpen={isSheetOpen}
+                onClose={() => {
+                  sheetRef.current?.snapTo(2);
+                }}
+                ref={sheetRef}
+                snapPoints={[-32, -320, 42]}
+                initialSnap={1} // 중간 위치에서 시작
+                onSnap={(snapIndex) => {
+                  const snapPoints = [-32, -320, 42];
+                  setCurrentSnap(snapPoints[snapIndex]);
                 }}
               >
-                <Sheet.Header className="bg-grayScaleBlack90" />
-                <Sheet.Content className="bg-grayScaleBlack90">
-                  <Sheet.Scroller draggableAt="top" autoPadding>
-                    <div className=" sticky top-0 h-20 w-full bg-gradient-to-b from-grayScaleBlack90 to-transparent z-10" />
+                <Sheet.Container
+                  className="!mx-auto !max-w-md !bg-grayScaleBlack90 !rounded-t-30"
+                  style={{
+                    left: "0",
+                    right: "0",
+                  }}
+                >
+                  <Sheet.Header className="bg-grayScaleBlack90" />
+                  <Sheet.Content className="bg-grayScaleBlack90">
+                    <Sheet.Scroller draggableAt="top" autoPadding>
+                      <div className=" sticky top-0 h-20 w-full bg-gradient-to-b from-grayScaleBlack90 to-transparent z-10" />
 
-                    <div>
-                      {fanchantData?.fanchantPoint && (
-                        <>
-                          <div className="mx-16 mb-20 pb-16">
-                            <p className="text-mainYellow30 text-Body4-sm font-semibold font-NotoSansKR">
-                              떼창 포인트
-                            </p>
-                            <p className="pt-4 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
-                              {fanchantData.fanchantPoint}
-                            </p>
-                          </div>
-                          <div className="mx-16 h-2 bg-grayScaleBlack80"></div>
-                        </>
-                      )}
+                      <div>
+                        {fanchantData?.fanchantPoint && (
+                          <>
+                            <div className="mx-16 mb-20 pb-16">
+                              <p className="text-mainYellow30 text-Body4-sm font-semibold font-NotoSansKR">
+                                떼창 포인트
+                              </p>
+                              <p className="pt-4 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
+                                {fanchantData.fanchantPoint}
+                              </p>
+                            </div>
+                            <div className="mx-16 h-2 bg-grayScaleBlack80"></div>
+                          </>
+                        )}
 
-                      {hasAnyLyric ? (
                         <Lyric
                           songData={songData}
                           activeButtons={activeButtons}
                           fanchantData={fanchantData ?? null}
                         />
-                      ) : (
-                        <div className="pt-51">
-                          <EmptyConcertInfoTabPanel text="가사 정보" />
-                        </div>
-                      )}
-                    </div>
-                  </Sheet.Scroller>
-                </Sheet.Content>
-              </Sheet.Container>
-              <Sheet.Backdrop
-                style={{
-                  backgroundColor:
-                    currentSnap === -32
-                      ? "rgba(20, 23, 27, 0.9)"
-                      : "transparent",
-                }}
-              />
-            </Sheet>
-          </div>
+                      </div>
+                    </Sheet.Scroller>
+                  </Sheet.Content>
+                </Sheet.Container>
+                <Sheet.Backdrop
+                  style={{
+                    backgroundColor:
+                      currentSnap === -32
+                        ? "rgba(20, 23, 27, 0.9)"
+                        : "transparent",
+                  }}
+                />
+              </Sheet>
+            </div>
+          ) : (
+            <div className="pt-51">
+              <EmptyConcertInfoTabPanel text="가사 정보가 없어요" />
+            </div>
+          )}
         </>
       )}
 
