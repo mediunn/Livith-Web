@@ -99,13 +99,13 @@ function LyricPage() {
     (songData?.pronunciation?.length ?? 0) > 0 ||
     (songData?.translation?.length ?? 0) > 0;
 
-  const [isSheetOpen, setIsSheetOpen] = useState(hasAnyLyric);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   useEffect(() => {
-    if (!hasAnyLyric) {
-      setIsSheetOpen(false);
+    if (!isLyricLoading && songData && hasAnyLyric) {
+      setIsSheetOpen(true);
     }
-  }, [hasAnyLyric]);
+  }, [isLyricLoading, songData, hasAnyLyric]);
 
   // 응원법 존재 확인
   const hasFanchant = fanchantData?.fanchant?.some(
