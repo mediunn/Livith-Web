@@ -5,12 +5,6 @@ export function useHomeConcertList() {
   return useQuery({
     queryKey: ["homeConcertList"],
     queryFn: getHomeConcertList,
-    select: (data: HomeSection[]) => {
-      const popularSection = data.find((section) => section.id === 1);
-      return {
-        sectionTitle: popularSection?.sectionTitle || "",
-        concerts: popularSection?.concerts || [],
-      };
-    },
+    select: (data: HomeSection[]) => data,
   });
 }

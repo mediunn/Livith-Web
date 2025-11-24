@@ -8,12 +8,15 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../../../entities/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import SignUpTooltip from "./SignUpTooltip";
+import { useHomeConcertList } from "../model/useHomeConcertList";
 
 interface ConcertSettingEmptyProps {
   group: "A" | "B" | "C";
 }
 
 function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
+  const { data: sections, isLoading } = useHomeConcertList();
+
   const navigate = useNavigate();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   //로그인 되어있는지 확인
@@ -90,7 +93,16 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
         )}
       </div>
 
-      <PopularConcert />
+      <div className="pb-30">
+        {sections?.map((section) => (
+          <PopularConcert
+            key={section.id}
+            section={section}
+            isLoading={isLoading}
+          />
+        ))}
+      </div>
+
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
