@@ -7,7 +7,7 @@ export type SearchSection = {
   concerts: SectionConcert[];
 };
 
-export async function getSearchConcertList(): Promise<SearchSection[]> {
+export async function getSearchConcertListSection(): Promise<SearchSection[]> {
   const response = await axiosInstance.get("/api/v4/search/sections");
   return response.data.data;
 }
