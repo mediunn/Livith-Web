@@ -1,15 +1,21 @@
 import ConcertCardListSkeleton from "../features/concert/ui/ConcertCardListSkeleton";
 import SectionConcertSlide from "../entities/concert/ui/SectionConcertSlide";
-import { useHomeConcertList } from "../features/concert/model/useHomeConcertList";
+import type { HomeSection } from "../features/concert/api/getHomeConcertListSection";
 
-function PopularConcert() {
-  const { data, isLoading } = useHomeConcertList();
+interface HomeConcertListSectionProps {
+  section: HomeSection;
+  isLoading: boolean;
+}
 
+function HomeConcertListSection({
+  section,
+  isLoading,
+}: HomeConcertListSectionProps) {
   return (
     <div>
       <div className="flex item-center justify-between w-full">
         <p className="mt-30 mb-20 ml-16 text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
-          {data?.sectionTitle || ""}
+          {section.sectionTitle}
         </p>
       </div>
       {isLoading ? (
@@ -18,7 +24,7 @@ function PopularConcert() {
         </div>
       ) : (
         <SectionConcertSlide
-          concerts={data?.concerts || []}
+          concerts={section.concerts || []}
           onClick={() => {
             window.amplitude.track("click_concert_cell_main");
           }}
@@ -28,4 +34,4 @@ function PopularConcert() {
   );
 }
 
-export default PopularConcert;
+export default HomeConcertListSection;
