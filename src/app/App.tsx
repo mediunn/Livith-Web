@@ -70,7 +70,7 @@ const router = createBrowserRouter([
         element: <SetlistCollectionPage />,
       },
       {
-        path: "setlist/:setlistId/:concertId",
+        path: "setlist/:setlistId/:concertId/:setlistTitle",
         element: <SetlistDetailPage />,
       },
       {
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
         element: <SetInterestConcertPage />,
       },
       {
-        path: "md",
+        path: "md/:concertId",
         element: <MdPage />,
       },
       {

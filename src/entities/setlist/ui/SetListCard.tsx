@@ -25,9 +25,7 @@ function SetListCard({
     <div
       className="basis-0 flex-grow min-w-[108px] max-w-[132px] cursor-pointer"
       onClick={() => {
-        navigate(`/setlist/${setlistId}/${concertId}`, {
-          state: { setlistTitle: title },
-        });
+        navigate(`/setlist/${setlistId}/${concertId}/${title}`);
       }}
     >
       <div className="aspect-[108/158] relative">

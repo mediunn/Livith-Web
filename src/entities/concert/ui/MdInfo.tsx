@@ -32,7 +32,7 @@ function MdInfo({ mds, concertId, mdCount }: MdInfoProps) {
           {mds.length > 1 && (
             <button
               className="absolute bottom-20 right-16 w-24 h-24 bg-transparent border-none p-0 cursor-pointer"
-              onClick={() => navigate("/md", { state: { concertId } })}
+              onClick={() => navigate(`/md/${concertId}`)}
             >
               <img src={ConcertRightArrow} className="w-full h-full" />
             </button>

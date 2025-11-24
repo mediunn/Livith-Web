@@ -50,9 +50,7 @@ function BriefSetlistSongList({
       <div
         onClick={() => {
           window.amplitude.track("click_more_songs_main");
-          navigate(`/setlist/${setlistId}/${concertId}`, {
-            state: { setlistTitle },
-          });
+          navigate(`/setlist/${setlistId}/${concertId}/${setlistTitle}`);
         }}
         className="h-57 w-full flex flex-col justify-center bg-grayScaleBlack80 rounded-b-10 cursor-pointer"
       >
