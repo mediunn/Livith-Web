@@ -1,13 +1,16 @@
 import ConcertCardListSkeleton from "../features/concert/ui/ConcertCardListSkeleton";
 import SectionConcertSlide from "../entities/concert/ui/SectionConcertSlide";
-import type { HomeSection } from "../features/concert/api/getHomeConcertList";
+import type { HomeSection } from "../features/concert/api/getHomeConcertListSection";
 
-interface PopularConcertProps {
+interface HomeConcertListSectionProps {
   section: HomeSection;
   isLoading: boolean;
 }
 
-function PopularConcert({ section, isLoading }: PopularConcertProps) {
+function HomeConcertListSection({
+  section,
+  isLoading,
+}: HomeConcertListSectionProps) {
   return (
     <div>
       <div className="flex item-center justify-between w-full">
@@ -31,4 +34,4 @@ function PopularConcert({ section, isLoading }: PopularConcertProps) {
   );
 }
 
-export default PopularConcert;
+export default HomeConcertListSection;

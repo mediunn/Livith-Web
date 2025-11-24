@@ -7,7 +7,7 @@ export type HomeSection = {
   concerts: SectionConcert[];
 };
 
-export async function getHomeConcertList(): Promise<HomeSection[]> {
+export async function getHomeConcertListSection(): Promise<HomeSection[]> {
   const response = await axiosInstance.get("/api/v4/home/sections");
   return response.data.data;
 }

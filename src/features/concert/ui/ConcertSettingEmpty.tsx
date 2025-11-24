@@ -2,20 +2,20 @@ import Lottie from "lottie-react";
 import TopBar from "../../../shared/ui/TopBar";
 import ConcertAddMotion from "../../../shared/assets/ConcertAddIconMotion.json";
 import { useNavigate } from "react-router-dom";
-import PopularConcert from "../../../widgets/PopularConcert";
+import HomeConcertListSection from "../../../widgets/HomeConcertListSection";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../entities/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import SignUpTooltip from "./SignUpTooltip";
-import { useHomeConcertList } from "../model/useHomeConcertList";
+import { useHomeConcertListSection } from "../model/useHomeConcertListSection";
 
 interface ConcertSettingEmptyProps {
   group: "A" | "B" | "C";
 }
 
 function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
-  const { data: sections, isLoading } = useHomeConcertList();
+  const { data: sections, isLoading } = useHomeConcertListSection();
 
   const navigate = useNavigate();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -95,7 +95,7 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
 
       <div className="pb-30">
         {sections?.map((section) => (
-          <PopularConcert
+          <HomeConcertListSection
             key={section.id}
             section={section}
             isLoading={isLoading}
