@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ListHeader from "../shared/ui/ListHeader";
 import MdList from "../widgets/MdList";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 
 function MdPage() {
-  const location = useLocation();
-  const concertId = location.state?.concertId;
+  const { concertId } = useParams();
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -24,7 +23,7 @@ function MdPage() {
   return (
     <div className="pb-90">
       <ListHeader title={"MD 상세보기"} />
-      <MdList concertId={concertId} ticketUrl={concert.ticketUrl} />
+      <MdList concertId={Number(concertId)} ticketUrl={concert.ticketUrl} />
     </div>
   );
 }

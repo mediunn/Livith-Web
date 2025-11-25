@@ -39,9 +39,9 @@ function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
               className="cursor-pointer"
               onClick={() => {
                 window.amplitude.track("click_setlist_cell");
-                navigate(`/setlist/${setlistItem.id}/${concertId}`, {
-                  state: { setlistTitle: setlistItem.title },
-                });
+                navigate(
+                  `/setlist/${setlistItem.id}/${concertId}/${setlistItem.title}`
+                );
               }}
             >
               <div className="w-full aspect-[108/158] relative">
@@ -67,7 +67,7 @@ function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
                   </div>
                 )}
 
-                <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2">
+                <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2 break-words">
                   {setlistItem.title}
                 </p>
                 <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR mt-10 line-clamp-1">
