@@ -75,6 +75,7 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
 
       // 팝업 닫기
       popup?.close();
+      onClickLogin?.();
 
       // 이벤트 리스너 제거
       window.removeEventListener("message", listener);
