@@ -69,7 +69,9 @@ function CompleteSetConcert() {
       <div className="sticky bottom-60 bg-grayScaleBlack100 pt-24 z-50  px-16 w-full  max-w-md">
         {/* 버튼 */}
         <button
-          onClick={() => navigate("/")}
+          onClick={() => {
+            window.location.href = "/";
+          }}
           className="w-full py-15 rounded-6 text-Body2-sm text-grayScaleBlack font-semibold bg-mainYellow30 font-NotoSansKR"
         >
           확인
