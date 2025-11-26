@@ -1,26 +1,15 @@
-import { useNavigate } from "react-router-dom";
-import useConcertDetail from "../features/concert/model/useConcertDetail";
+import { useLocation, useNavigate } from "react-router-dom";
 import CompleteEffect from "../shared/assets/CompleteEffect.svg";
 import SetConcertCompleteMotion from "../shared/assets/SetConcertCompleteMotion.json";
 import Lottie from "lottie-react";
-import { useInterestConcert } from "../entities/concert/model/useInterestConcert";
 
 function CompleteSetConcert() {
-  const { data: interest, isLoading: isInterestLoading } = useInterestConcert();
-  const concertId = interest?.id ?? null;
-
-  const {
-    data: concert,
-    isLoading,
-    isError,
-  } = useConcertDetail({
-    concertId: concertId ?? 0,
-  });
-
+  const location = useLocation();
   const navigate = useNavigate();
 
-  if (isLoading) return null;
-  if (isError) return null;
+  const concert = location.state?.concert;
+
+  if (!concert) return null;
   return (
     <>
       <div className="relative w-full h-[calc(100vh-76px)] max-w-md mx-auto overflow-hidden flex flex-col items-center justify-center">
@@ -50,7 +39,7 @@ function CompleteSetConcert() {
               maskImage: "url('/ConcertTicketMask.svg')",
               maskRepeat: "no-repeat",
               maskSize: "cover",
-              backgroundImage: `url(${concert!.poster})`,
+              backgroundImage: `url(${concert.poster})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -69,7 +58,7 @@ function CompleteSetConcert() {
             }}
           />
           <div className="absolute top-[70%] w-full left-1/2 -translate-x-1/2 text-center text-white z-30 text-Head1-sm text-white font-semibold font-NotoSansKR">
-            <span className="text-mainYellow30">[{concert!.artist}]</span>{" "}
+            <span className="text-mainYellow30">[{concert.artist}]</span>{" "}
             콘서트가
             <br />
             관심 콘서트로 설정됐어요!

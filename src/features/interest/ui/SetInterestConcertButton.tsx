@@ -26,10 +26,19 @@ export const SetInterestConcertButton = ({
         accessToken,
       },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           if (group) window.amplitude.track(`${group}_set_interest_concert`);
 
-          navigate("/complete-set", { replace: true });
+          const concertData = {
+            id: data.id,
+            poster: data.poster,
+            artist: data.artist,
+          };
+
+          navigate("/complete-set", {
+            replace: true,
+            state: { concert: concertData },
+          });
         },
         onError: (err) => console.error(err),
       }
