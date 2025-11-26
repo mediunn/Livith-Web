@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
 import CompleteToast from "./CompleteToast";
-import { setInterestConcert } from "../../entities/concert/api/setInterestConcert";
+import { useSetInterestConcert } from "../../entities/concert/model/useSetInterestConcert";
 
 interface ConcertSettingSnackBarProps {
   id: string | number;
@@ -10,15 +10,25 @@ interface ConcertSettingSnackBarProps {
 }
 
 function ConcertSettingSnackBar({ id, onClose }: ConcertSettingSnackBarProps) {
-  const STORAGE_KEY = "InterestConcertId";
-  const handleChange = () => {
-    localStorage.setItem(STORAGE_KEY, String(id));
+  const mutation = useSetInterestConcert();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
-    toast(<CompleteToast message="관심 공연을 변경했어요" />, {
-      position: "top-center",
-      autoClose: 3000,
-      pauseOnFocusLoss: false,
-    });
+  const handleChange = () => {
+    mutation.mutate(
+      { concertId: Number(id), accessToken },
+      {
+        onSuccess: () => {
+          toast(<CompleteToast message="관심 공연을 변경했어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
+        },
+        onError: (err) => {
+          console.error(err);
+        },
+      }
+    );
   };
 
   useEffect(() => {

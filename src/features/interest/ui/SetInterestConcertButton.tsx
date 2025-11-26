@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { StateWithSetter } from "../../../shared/types/props";
 import { motion, AnimatePresence } from "framer-motion";
-import { setInterestConcert } from "../../../entities/concert/api/setInterestConcert";
+import { useSetInterestConcert } from "../../../entities/concert/model/useSetInterestConcert";
 
 type SetInterestConcertButtonProps = {
   selectedConcertState: StateWithSetter<string | null>;
@@ -9,29 +9,31 @@ type SetInterestConcertButtonProps = {
 };
 
 export const SetInterestConcertButton = ({
-  selectedConcertState: {
-    value: selectedConcert,
-    setValue: setSelectedConcert,
-  },
+  selectedConcertState: { value: selectedConcert },
   group,
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("accessToken") ?? "";
+  const mutation = useSetInterestConcert();
+
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleSetInterestConcert = async () => {
     if (!selectedConcert) return;
 
-    try {
-      await setInterestConcert(Number(selectedConcert), token);
+    mutation.mutate(
+      {
+        concertId: Number(selectedConcert),
+        accessToken,
+      },
+      {
+        onSuccess: () => {
+          if (group) window.amplitude.track(`${group}_set_interest_concert`);
 
-      if (group) {
-        window.amplitude.track(`${group}_set_interest_concert`);
+          navigate("/complete-set", { replace: true });
+        },
+        onError: (err) => console.error(err),
       }
-
-      navigate("/complete-set", { replace: true });
-    } catch (err) {
-      console.error(err);
-    }
+    );
   };
 
   return (
