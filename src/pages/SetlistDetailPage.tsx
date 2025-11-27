@@ -10,9 +10,7 @@ import { toast } from "react-toastify";
 import LoginPromptToast from "../shared/ui/LoginPromptToast";
 
 function SetlistDetailPage() {
-  const { setlistId, concertId } = useParams();
-  const location = useLocation();
-  const setlistTitle = location.state.setlistTitle;
+  const { setlistId, concertId, setlistTitle } = useParams();
   const [setlistType, setSetlistType] = useState<string | null>(null);
   const [user] = useRecoilState(userState);
   const effectRan = useRef(false); // 실행 여부 추적

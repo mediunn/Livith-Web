@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import TopBar from "../shared/ui/TopBar";
 import MainImageCarousel from "../widgets/MainImageCarousel";
-import SearchConcertList from "../widgets/SearchConcertList";
+import SearchConcertListSection from "../widgets/SearchConcertListSection.tsx";
 import TabBar from "../shared/ui/TabBar";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "../shared/assets/SearchIcon.tsx";
+import { useSearchConcertListSection } from "../features/concert/model/useSearchConcertListSection.ts";
 
 function CategoryPage() {
+  const { data: sections, isLoading } = useSearchConcertListSection();
+
   const navigate = useNavigate();
   const [bgActive, setBgActive] = useState(false);
 
@@ -49,14 +52,14 @@ function CategoryPage() {
       </div>
 
       <MainImageCarousel />
-      <SearchConcertList
-        id={1}
-        onClick={() => window.amplitude.track("click_first_concert_cell")}
-      />
-      <SearchConcertList
-        id={2}
-        onClick={() => window.amplitude.track("click_second_concert_cell")}
-      />
+
+      {sections?.map((section) => (
+        <SearchConcertListSection
+          key={section.id}
+          section={section}
+          isLoading={isLoading}
+        />
+      ))}
 
       <TabBar />
     </div>

@@ -1,8 +1,9 @@
 import { toast } from "react-toastify";
 import WarningIcon from "../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
-import { setInterestConcert } from "../entities/concert/api/setInterestConcert";
 import CompleteToast from "../shared/ui/CompleteToast";
+import { useSetInterestConcert } from "../entities/concert/model/useSetInterestConcert";
+
 interface ChangeConcertConfirmModalProps {
   id: string;
   isOpen: boolean;
@@ -16,24 +17,31 @@ function ChangeConcertConfirmModal({
   onClose,
   setIsToastActive,
 }: ChangeConcertConfirmModalProps) {
+  const mutation = useSetInterestConcert();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
+
   const handleChange = async () => {
     window.amplitude.track("confirm_change_interest");
 
-    try {
-      const token = localStorage.getItem("accessToken") ?? "";
-      await setInterestConcert(Number(id), token);
-
-      onClose();
-      setIsToastActive(true);
-      toast(<CompleteToast message="관심 공연을 변경했어요" />, {
-        position: "top-center",
-        autoClose: 3000,
-        pauseOnFocusLoss: false,
-        onClose: () => setIsToastActive(false),
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    mutation.mutate(
+      {
+        concertId: Number(id),
+        accessToken,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+          setIsToastActive(true);
+          toast(<CompleteToast message="관심 공연을 변경했어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+            onClose: () => setIsToastActive(false),
+          });
+        },
+        onError: (err) => console.error(err),
+      }
+    );
   };
 
   if (!isOpen) return null;

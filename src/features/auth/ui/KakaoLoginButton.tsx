@@ -3,6 +3,8 @@ import KakaoIcon from "../../../shared/assets/KakaoIcon.svg";
 import { useState } from "react";
 import AuthErrorModal from "./AuthErrorModal";
 import { useInitializeAuth } from "../../../shared/hooks/useInitializeAuth";
+import ErrorToast from "../../../shared/ui/ErrorToast";
+import { toast } from "react-toastify";
 interface KakaoLoginButtonProps {
   onClickLogin?: () => void;
   group?: "A" | "B" | "C";
@@ -33,9 +35,17 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
 
       // 탈퇴 후 7일 이내인 경우
       if (payload.error) {
-        setIsErrorModalOpen(true);
-        popup?.close();
-        window.removeEventListener("message", listener);
+        if (payload.error === "탈퇴 후 7일이 지나지 않았어요") {
+          setIsErrorModalOpen(true);
+          popup?.close();
+          window.removeEventListener("message", listener);
+        } else {
+          toast(<ErrorToast message="로그인에 실패했어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
+        }
         return;
       }
 
@@ -65,6 +75,7 @@ const KakaoLoginButton = ({ onClickLogin, group }: KakaoLoginButtonProps) => {
 
       // 팝업 닫기
       popup?.close();
+      onClickLogin?.();
 
       // 이벤트 리스너 제거
       window.removeEventListener("message", listener);

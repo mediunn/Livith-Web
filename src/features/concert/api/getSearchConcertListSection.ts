@@ -1,13 +1,13 @@
 import { SectionConcert } from "../../../entities/concert/types";
 import axiosInstance from "../../../shared/api/axiosInstance";
 
-export type HomeSection = {
+export type SearchSection = {
   id: number;
   sectionTitle: string;
   concerts: SectionConcert[];
 };
 
-export async function getHomeConcertList(): Promise<HomeSection[]> {
-  const response = await axiosInstance.get("/api/v4/home/sections");
+export async function getSearchConcertListSection(): Promise<SearchSection[]> {
+  const response = await axiosInstance.get("/api/v4/search/sections");
   return response.data.data;
 }

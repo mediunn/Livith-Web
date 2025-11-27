@@ -1,21 +1,24 @@
 import ConcertCardListSkeleton from "../features/concert/ui/ConcertCardListSkeleton";
 import SectionConcertSlide from "../entities/concert/ui/SectionConcertSlide";
-import { useSearchConcertList } from "../features/concert/model/useSearchConcertList";
+import { SearchSection } from "../features/concert/api/getSearchConcertListSection";
 
-type SearchConcertListProps = {
-  id: number;
+type SearchConcertListSectionProps = {
+  section: SearchSection;
+  isLoading: boolean;
   onClick?: () => void;
 };
 
-function SearchConcertList({ id }: SearchConcertListProps) {
-  const { data, isLoading } = useSearchConcertList(id);
-
-  if (isLoading || !data || !data.concerts.length) return null;
+function SearchConcertListSection({
+  section,
+  isLoading,
+  onClick,
+}: SearchConcertListSectionProps) {
+  if (isLoading || !section.concerts || !section.concerts.length) return null;
   return (
     <div>
       <div className="flex items-center justify-between w-full">
         <p className="mt-30 mb-20 ml-16 text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
-          {data.sectionTitle}
+          {section.sectionTitle}
         </p>
       </div>
       {isLoading ? (
@@ -23,10 +26,10 @@ function SearchConcertList({ id }: SearchConcertListProps) {
           <ConcertCardListSkeleton num={3} />
         </div>
       ) : (
-        <SectionConcertSlide concerts={data.concerts} />
+        <SectionConcertSlide concerts={section.concerts} onClick={onClick} />
       )}
     </div>
   );
 }
 
-export default SearchConcertList;
+export default SearchConcertListSection;
