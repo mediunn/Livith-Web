@@ -51,7 +51,7 @@ function EventModal({ isOpen, onClose }: EventModalProps) {
               <button
                 onClick={() => {
                   window.open(
-                    "https://drive.google.com/drive/folders/1D3jkTTCwgDSJqCTkMvHQgGO42zNf1bcg?usp=sharing",
+                    "https://drive.google.com/open?id=1D3jkTTCwgDSJqCTkMvHQgGO42zNf1bcg",
                     "_blank"
                   );
                   onClose();
