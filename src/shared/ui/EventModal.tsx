@@ -51,11 +51,13 @@ function EventModal({ isOpen, onClose }: EventModalProps) {
               <button
                 onClick={() => {
                   window.open(
-                    "https://drive.google.com/drive/u/0/folders/1D3jkTTCwgDSJqCTkMvHQgGO42zNf1bcg?usp=sharing",
-                    "_blank",
-                    "noopener,noreferrer"
+                    "https://drive.google.com/drive/folders/1D3jkTTCwgDSJqCTkMvHQgGO42zNf1bcg?usp=sharing",
+                    "_blank"
                   );
-                  onClose();
+
+                  setTimeout(() => {
+                    onClose();
+                  }, 500);
                 }}
                 className="mt-20 py-15 bg-mainYellow30 rounded-6 text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR w-full"
               >
