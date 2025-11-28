@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import EventModalCloseIcon from "../../shared/assets/EventModalCloseIcon.svg";
 
 interface EventModalProps {
   isOpen: boolean;
@@ -37,7 +38,16 @@ function EventModal({ isOpen, onClose }: EventModalProps) {
               transition: { duration: 0.15, ease: "easeOut" },
             }}
           >
-            <div className="w-[327px] max-w-[87%] h-fit flex flex-col items-center bg-grayScaleBlack90 rounded-11 px-16 py-24">
+            <div className="relative w-[327px] max-w-[87%] h-fit flex flex-col items-center bg-grayScaleBlack90 rounded-11 px-16 py-24">
+              <button
+                className="absolute top-10 right-10 w-20 h-20"
+                onClick={() => {
+                  onClose();
+                }}
+              >
+                <img src={EventModalCloseIcon} className="w-full h-full" />
+              </button>
+
               <p className="text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR text-center">
                 하단의 ‘다운로드’ 버튼을 누르면,
                 <br />
