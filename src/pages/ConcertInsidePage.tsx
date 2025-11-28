@@ -9,6 +9,7 @@ import LoginPromptToast from "../shared/ui/LoginPromptToast";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { useRecoilState } from "recoil";
 import { userState } from "../entities/recoil/atoms/userState";
+import EventModal from "../shared/ui/EventModal";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
@@ -21,6 +22,17 @@ function ConcertInsidePage() {
     const stored = sessionStorage.getItem("viewedConcerts");
     return stored ? JSON.parse(stored) : [];
   });
+
+  // 이벤트 팝업
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (concertId === "1549") {
+      setIsEventModalOpen(true);
+    } else {
+      setIsEventModalOpen(false);
+    }
+  }, [concertId]);
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -81,6 +93,12 @@ function ConcertInsidePage() {
         onClose={() => setIsLoginModalOpen(false)}
         type="concertInfo"
       />
+      {concertId === "1549" && (
+        <EventModal
+          isOpen={isEventModalOpen}
+          onClose={() => setIsEventModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
