@@ -1,4 +1,4 @@
-import WebSiteEarthIcon from "../assets/WebSiteEarthIcon.svg";
+import WebSiteEarthIcon from "../../../shared/assets/WebSiteEarthIcon.svg";
 
 interface TicketWebsiteBtnProps {
   ticketUrl: string;

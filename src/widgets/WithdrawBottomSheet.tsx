@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import ErrorToast from "../shared/ui/ErrorToast";
 import CompleteToast from "../shared/ui/CompleteToast";
 import { useSetRecoilState } from "recoil";
-import { userState } from "../entities/recoil/atoms/userState";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 
 interface WithdrawBottomSheetProps {
   isSheetOpen: boolean;

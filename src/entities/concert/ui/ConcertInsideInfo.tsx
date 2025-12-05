@@ -1,6 +1,6 @@
 import { Concert } from "../types";
-import DetailInfo from "../../../shared/ui/DetailInfo";
-import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
+import DetailInfo from "./DetailInfo";
+import { formatConcertDate } from "../utils/formatConcertDate";
 
 interface ConcertInsideInfoProps {
   concert: Concert;

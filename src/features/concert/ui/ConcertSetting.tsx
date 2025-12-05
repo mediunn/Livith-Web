@@ -12,7 +12,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
 import ScheduleInfo from "../../../entities/concert/ui/ScheduleInfo";
 import { Concert } from "../../../entities/concert/types";
-import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
+import { formatConcertDate } from "../../../entities/concert/utils/formatConcertDate";
 import { Schedule } from "../../../entities/concert/api/getSchedule";
 import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
 import dayjs from "../../../shared/lib/dayjs";

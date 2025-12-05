@@ -5,8 +5,8 @@ import MdInfo from "./MdInfo";
 import { Schedule } from "../api/getSchedule";
 import { ConcertRequired } from "../api/getConcertRequiredInfo";
 import { Md } from "../api/getMd";
-import TicketWebsiteBtn from "../../../shared/ui/TicketWebsiteBtn";
-import ConcertSettingSnackBar from "../../../shared/ui/ConcertSettingSnackBar";
+import TicketWebsiteBtn from "./TicketWebsiteBtn";
+import ConcertSettingSnackBar from "./ConcertSettingSnackBar";
 import { ConcertStatus } from "../../../entities/concert/types";
 
 interface ConcertTabPanelProps {

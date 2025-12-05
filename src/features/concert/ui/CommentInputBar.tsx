@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { useSetConcertComment } from "../model/useSetConcertComment";
+import { useSetConcertComment } from "../../../entities/concert/model/useSetConcertComment";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/CompleteToast";
 import ErrorToast from "../../../shared/ui/ErrorToast";
-import LoginModal from "../../../features/auth/ui/LoginModal";
+import LoginModal from "../../auth/ui/LoginModal";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
 
 interface CommentInputBarProps {
   concertId: number;

@@ -1,7 +1,7 @@
 import { SetlistDetailProps } from "../types";
 import useSetlistDetail from "../../../features/setlist/model/useSetlistDetail";
 import EmptySetlistImageIcon from "../../../shared/assets/EmptyConcertImageIcon.svg";
-import { formatSetlistDate } from "../../../shared/utils/formatSetlistDate";
+import { formatSetlistDate } from "../utils/formatSetlistDate";
 import { useEffect } from "react";
 function SetlistDetail({
   concertId,

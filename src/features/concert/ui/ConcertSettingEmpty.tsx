@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import HomeConcertListSection from "../../../widgets/HomeConcertListSection";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import SignUpTooltip from "./SignUpTooltip";
 import { useHomeConcertListSection } from "../model/useHomeConcertListSection";

@@ -8,7 +8,7 @@ import SectionConcertSlideCard from "./SectionConcertSlideCard";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
 import { SectionConcert } from "../types";
-import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
+import { formatConcertDate } from "../utils/formatConcertDate";
 
 type SectionConcertSlideProps = {
   concerts: SectionConcert[];

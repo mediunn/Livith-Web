@@ -1,7 +1,7 @@
 import { Song } from "../api/getSong";
 import LyricFanchant from "../ui/LyricFanchant";
 import { useRecoilValue } from "recoil";
-import { setlistIdState } from "../../recoil/atoms/setlistIdState";
+import { setlistIdState } from "../../../shared/lib/recoil/atoms/setlistIdState";
 import { Fanchant } from "../../../features/lyric/api/getFanchant";
 
 interface LyricProps {

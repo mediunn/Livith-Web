@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
-import WarningIcon from "../shared/assets/WarningIcon.svg";
+import WarningIcon from "../../../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
-import CompleteToast from "../shared/ui/CompleteToast";
-import { useSetInterestConcert } from "../entities/concert/model/useSetInterestConcert";
+import CompleteToast from "../../../shared/ui/CompleteToast";
+import { useSetInterestConcert } from "../../../entities/concert/model/useSetInterestConcert";
 
 interface ChangeConcertConfirmModalProps {
   id: string;

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
 
 function Nickname() {
   const navigate = useNavigate();
