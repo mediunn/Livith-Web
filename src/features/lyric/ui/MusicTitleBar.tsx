@@ -17,7 +17,7 @@ function MusicTitleBar({ songId }: MusicTitleBarProps) {
   const { data: song } = useSong(songId);
 
   return (
-    <div className="sticky top-0 z-50 bg-grayScaleBlack100 max-w-md w-full h-66">
+    <div className="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-grayScaleBlack100 max-w-md w-full h-66">
       <div className="pt-20 px-16 flex justify-between items-end items-center">
         <div className="flex items-center flex-1 min-w-0">
           <button

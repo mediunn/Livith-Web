@@ -231,6 +231,7 @@ function LyricPage() {
       ) : (
         <>
           <MusicTitleBar songId={Number(songId)} />
+          <div className="h-66"></div>
 
           {songData?.youtubeId ? (
             <YouTubePlayer youtubeId={songData.youtubeId} />
