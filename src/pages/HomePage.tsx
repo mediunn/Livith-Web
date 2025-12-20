@@ -4,7 +4,7 @@ import ConcertSetting from "../features/concert/ui/ConcertSetting";
 import TabBar from "../shared/ui/TabBar";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { useSchedule } from "../entities/concert/model/useSchedule";
-import { useInterestConcert } from "../entities/concert/model/useInterestConcert";
+import { useInterestConcert } from "../features/interest/model/useInterestConcert";
 import { useLocation } from "react-router-dom";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
 

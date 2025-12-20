@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useSetConcertComment } from "../../../entities/concert/model/useSetConcertComment";
+import { useSetConcertComment } from "../model/useSetConcertComment";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/CompleteToast";
 import ErrorToast from "../../../shared/ui/ErrorToast";
@@ -116,14 +116,23 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
     const textarea = textareaRef.current;
     if (!textarea) return;
 
-    textarea.style.height = "21px";
     const lineHeight = 21;
-    const maxHeight = lineHeight * 4; // 최대 4줄
+    const maxHeight = lineHeight * 4;
 
-    textarea.style.height =
-      textarea.scrollHeight > maxHeight
-        ? `${maxHeight}px`
-        : `${textarea.scrollHeight}px`;
+    if (value === "") {
+      textarea.style.height = `${lineHeight}px`;
+      textarea.style.overflowY = "hidden";
+      return;
+    }
+
+    textarea.style.height = `${lineHeight}px`;
+    textarea.style.overflowY = "hidden";
+
+    const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+    textarea.style.height = `${newHeight}px`;
+
+    textarea.style.overflowY =
+      textarea.scrollHeight > maxHeight ? "auto" : "hidden";
   }, [value]);
 
   const lineCount = value.split("\n").length;

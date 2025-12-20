@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import EditInterestConcertIcon from "../../../shared/assets/EditIcon.svg";
 import TrashCanIcon from "../../../shared/assets/TrashCanIcon.svg";
 import { useNavigate } from "react-router-dom";
-import DeleteConfirmModal from "../../../widgets/DeleteConfirmModal";
+import DeleteConfirmModal from "../../concert/ui/DeleteConfirmModal";
 import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 
 interface EditBottomSheetProps {

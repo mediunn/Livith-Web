@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteInterestConcert } from "../../../entities/concert/api/deleteInterestConcert";
+import { deleteInterestConcert } from "../api/deleteInterestConcert";
 
 export const useDeleteInterestConcert = () => {
   const queryClient = useQueryClient();
