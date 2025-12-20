@@ -1,7 +1,4 @@
-export const formatSetlistDate = (
-  startDate: string,
-  endDate: string
-): string => {
+export const formatDateRange = (startDate: string, endDate: string): string => {
   const [startY, startM, startD] = startDate.split(".");
   const [endY, endM, endD] = endDate.split(".");
 

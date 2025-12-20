@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useSetConcertComment } from "../../../entities/concert/model/useSetConcertComment";
+import { useSetConcertComment } from "../model/useSetConcertComment";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/CompleteToast";
 import ErrorToast from "../../../shared/ui/ErrorToast";

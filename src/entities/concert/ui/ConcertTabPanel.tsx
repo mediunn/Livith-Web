@@ -6,7 +6,7 @@ import { Schedule } from "../api/getSchedule";
 import { ConcertRequired } from "../api/getConcertRequiredInfo";
 import { Md } from "../api/getMd";
 import TicketWebsiteBtn from "./TicketWebsiteBtn";
-import ConcertSettingSnackBar from "./ConcertSettingSnackBar";
+import ConcertSettingSnackBar from "../../../features/interest/ui/ConcertSettingSnackBar";
 import { ConcertStatus } from "../../../entities/concert/types";
 
 interface ConcertTabPanelProps {
