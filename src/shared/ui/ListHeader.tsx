@@ -1,4 +1,4 @@
-import BackArrow from "../../widgets/BackArrow";
+import BackArrow from "./BackArrow";
 
 function ListHeader({ title }: { title?: string }) {
   return (

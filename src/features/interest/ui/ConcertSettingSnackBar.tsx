@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
-import CompleteToast from "./CompleteToast";
-import { useSetInterestConcert } from "../../entities/concert/model/useSetInterestConcert";
+import CompleteToast from "../../../shared/ui/CompleteToast";
+import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 interface ConcertSettingSnackBarProps {
   id: string | number;

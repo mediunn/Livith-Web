@@ -1,15 +1,15 @@
 import { useState } from "react";
 import ProfileIcon from "../../../shared/assets/ProfileIcon.svg";
-import DeleteCommentModal from "../../../widgets/DeleteCommentModal";
-import ReportCommentModal from "../../../widgets/ReportCommentModal";
+import DeleteCommentModal from "./DeleteCommentModal";
+import ReportCommentModal from "./ReportCommentModal";
 import { useDeleteConcertComment } from "../model/useDeleteConcertComment";
 import { useReportComment } from "../model/useReportComment";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/CompleteToast";
 import ErrorToast from "../../../shared/ui/ErrorToast";
 import { useRecoilState } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
-import LoginModal from "../../../features/auth/ui/LoginModal";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
+import LoginModal from "../../auth/ui/LoginModal";
 
 interface CommentProps {
   id: number;

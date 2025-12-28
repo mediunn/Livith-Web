@@ -4,7 +4,7 @@ import ListHeader from "../shared/ui/ListHeader";
 import SetlistSongList from "../entities/setlist/ui/SetlistSongList";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { userState } from "../entities/recoil/atoms/userState";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
 import LoginPromptToast from "../shared/ui/LoginPromptToast";

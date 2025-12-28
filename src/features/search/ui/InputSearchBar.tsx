@@ -1,5 +1,5 @@
 import SearchIcon from "../../../shared/assets/SearchIcon.tsx";
-import BackArrow from "../../../widgets/BackArrow.tsx";
+import BackArrow from "../../../shared/ui/BackArrow.tsx";
 import CloseRoundIcon from "../../../shared/assets/CloseRoundIcon.svg";
 import { useRef, useState } from "react";
 import { StateWithSetter } from "../../../shared/types/props.ts";

@@ -12,7 +12,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
 import ScheduleInfo from "../../../entities/concert/ui/ScheduleInfo";
 import { Concert } from "../../../entities/concert/types";
-import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
+import { formatDateRange } from "../../../shared/utils/formatDateRange";
 import { Schedule } from "../../../entities/concert/api/getSchedule";
 import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
 import dayjs from "../../../shared/lib/dayjs";
@@ -182,7 +182,7 @@ function ConcertSetting({
                 <div className="pt-14 flex items-center">
                   <img src={ConcertDateIcon} className="w-24 h-24" />
                   <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
-                    {formatConcertDate(concert.startDate, concert.endDate)}
+                    {formatDateRange(concert.startDate, concert.endDate)}
                   </p>
                 </div>
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Comment from "../../concert/ui/Comment";
+import Comment from "../../../features/concert/ui/Comment";
 import { useInView } from "react-intersection-observer";
 
 interface CommentTabPanelProps {

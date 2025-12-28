@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import WarningIcon from "../shared/assets/WarningIcon.svg";
+import WarningIcon from "../../../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "react-toastify";
-import ErrorToast from "../shared/ui/ErrorToast";
+import ErrorToast from "../../../shared/ui/ErrorToast";
 
 interface ReportCommentModalProps {
   isOpen: boolean;

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { getUserInfo } from "../../features/auth/api/getUserInfo";
-import { userState } from "../../entities/recoil/atoms/userState";
+import { userState } from "../lib/recoil/atoms/userState";
 
 export function useInitializeAuth() {
   const setUser = useSetRecoilState(userState);

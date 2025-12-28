@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import CompleteToast from "../../../shared/ui/CompleteToast";
 import { useLogout } from "../model/useLogout";
 import { useSetRecoilState } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import ErrorToast from "../../../shared/ui/ErrorToast";

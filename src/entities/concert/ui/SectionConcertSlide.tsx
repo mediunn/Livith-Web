@@ -8,7 +8,7 @@ import SectionConcertSlideCard from "./SectionConcertSlideCard";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
 import { SectionConcert } from "../types";
-import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
+import { formatDateRange } from "../../../shared/utils/formatDateRange";
 
 type SectionConcertSlideProps = {
   concerts: SectionConcert[];
@@ -105,7 +105,7 @@ function SectionConcertSlide({ concerts }: SectionConcertSlideProps) {
               imageUrl={concert.poster}
               title={concert.title}
               artist={concert.artist}
-              date={formatConcertDate(concert.startDate, concert.endDate)}
+              date={formatDateRange(concert.startDate, concert.endDate)}
               status={concert.status}
               daysLeft={concert.daysLeft}
               onClick={() => navigate(`/concert/${concert.id}`)}
