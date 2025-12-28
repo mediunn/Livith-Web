@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import WarningIcon from "../shared/assets/WarningIcon.svg";
+import WarningIcon from "../../../shared/assets/WarningIcon.svg";
 import { toast } from "react-toastify";
-import CompleteToast from "../shared/ui/CompleteToast";
+import CompleteToast from "../../../shared/ui/CompleteToast";
 import { useNavigate } from "react-router-dom";
-import { useDeleteInterestConcert } from "../features/concert/model/useDeleteInterestConcert";
+import { useDeleteInterestConcert } from "../../interest/model/useDeleteInterestConcert";
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;

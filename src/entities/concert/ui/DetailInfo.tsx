@@ -1,16 +1,16 @@
 import WebSiteEarthIcon from "../../shared/assets/WebSiteEarthIcon.svg";
 import WebSiteArrowIcon from "../../shared/assets/WebSiteArrowIcon.svg";
-import EmptyConcertImageIcon from "../../shared/assets/EmptyConcertImageIcon.svg";
-import ConcertDateIcon from "../../shared/assets/ConcertDateIcon.svg";
-import ConcertVenueIcon from "../../shared/assets/ConcertVenueIcon.svg";
-import HotConcertChipIcon from "../../shared/assets/HotConcertChipIcon.svg";
-import ConcertAddIcon from "../../shared/assets/ConcertAddIcon.svg";
+import EmptyConcertImageIcon from "../../../shared/assets/EmptyConcertImageIcon.svg";
+import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
+import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
+import HotConcertChipIcon from "../../../shared/assets/HotConcertChipIcon.svg";
+import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
 import { useState } from "react";
-import ChangeConcertConfirmModal from "../../widgets/ChangeConcertConfirmModal";
-import { ConcertStatus } from "../../entities/concert/types";
+import ChangeConcertConfirmModal from "../../../features/interest/ui/ChangeConcertConfirmModal";
+import { ConcertStatus } from "../types";
 import { useRecoilState } from "recoil";
-import { userState } from "../../entities/recoil/atoms/userState";
-import LoginModal from "../../features/auth/ui/LoginModal";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
+import LoginModal from "../../../features/auth/ui/LoginModal";
 
 interface DetailInfoProps {
   id: string;

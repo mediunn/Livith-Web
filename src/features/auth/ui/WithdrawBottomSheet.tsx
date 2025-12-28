@@ -1,16 +1,16 @@
 //src\widgets\WithdrawBottomSheet.tsx
 import { Sheet, SheetRef } from "react-modal-sheet";
 import { useRef, useState } from "react";
-import CheckboxIcon from "../shared/assets/CheckboxIcon.svg";
-import CheckboxIconActive from "../shared/assets/CheckboxIconActive.svg";
-import { useWithdraw } from "../features/auth/model/useWithdraw";
+import CheckboxIcon from "../../../shared/assets/CheckboxIcon.svg";
+import CheckboxIconActive from "../../../shared/assets/CheckboxIconActive.svg";
+import { useWithdraw } from "../model/useWithdraw";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import ErrorToast from "../shared/ui/ErrorToast";
-import CompleteToast from "../shared/ui/CompleteToast";
+import ErrorToast from "../../../shared/ui/ErrorToast";
+import CompleteToast from "../../../shared/ui/CompleteToast";
 import { useSetRecoilState } from "recoil";
-import { userState } from "../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
 
 interface WithdrawBottomSheetProps {
   isSheetOpen: boolean;

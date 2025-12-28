@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import LoginPromptToast from "../shared/ui/LoginPromptToast";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { useRecoilState } from "recoil";
-import { userState } from "../entities/recoil/atoms/userState";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();

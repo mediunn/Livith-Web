@@ -3,7 +3,7 @@ import CompleteEffect from "../shared/assets/CompleteEffect.svg";
 import SetConcertCompleteMotion from "../shared/assets/SetConcertCompleteMotion.json";
 import Lottie from "lottie-react";
 
-function CompleteSetConcert() {
+function CompleteSetConcertPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -80,4 +80,4 @@ function CompleteSetConcert() {
     </>
   );
 }
-export default CompleteSetConcert;
+export default CompleteSetConcertPage;

@@ -1,4 +1,4 @@
-import WarningIcon from "../shared/assets/WarningIcon.svg";
+import WarningIcon from "../../../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface DeleteCommentModalProps {
