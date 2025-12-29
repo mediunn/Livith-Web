@@ -2,6 +2,7 @@ import LoginCalloutChip from "../features/auth/ui/LoginCalloutChip";
 import KakaoLoginButton from "../features/auth/ui/KakaoLoginButton";
 import LogoIcon from "../shared/assets/LogoIcon.svg";
 import FeedbackIcon from "../shared/assets/FeedbackIcon.svg";
+import AppleLoginButton from "../features/auth/ui/AppleLoginButton";
 
 function LoggedOutMyPage() {
   const handleClick = () => {
@@ -23,6 +24,7 @@ function LoggedOutMyPage() {
       <img src={LogoIcon} className="h-52 my-115" />
       <LoginCalloutChip />
       <KakaoLoginButton />
+      <AppleLoginButton />
       {/* 정보 */}
       <div className="flex justify-center gap-18 text-grayScaleBlack30 text-Body4-re font-NotoSansKR font-regular mt-18 mb-27">
         <p>2.0.1</p>

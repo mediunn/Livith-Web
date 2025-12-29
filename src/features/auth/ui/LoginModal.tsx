@@ -2,6 +2,7 @@ import CloseIcon from "../../../shared/assets/CloseIcon.svg";
 import LoginGuideIcon from "../../../shared/assets/LoginGuideIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import KakaoLoginButton from "./KakaoLoginButton";
+import AppleLoginButton from "./AppleLoginButton";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -72,6 +73,7 @@ function LoginModal({ isOpen, onClose, type, group }: LoginModalProps) {
               </p>
               <img src={LoginGuideIcon} className="mx-auto mb-20" />
               <KakaoLoginButton onClickLogin={onClose} group={group} />
+              <AppleLoginButton onClickLogin={onClose} group={group} />
             </div>
           </motion.div>
         </>
