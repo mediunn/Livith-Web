@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { StateWithSetter } from "../../../shared/types/props";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSetInterestConcert } from "../../../entities/concert/model/useSetInterestConcert";
+import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 type SetInterestConcertButtonProps = {
   selectedConcertState: StateWithSetter<string | null>;

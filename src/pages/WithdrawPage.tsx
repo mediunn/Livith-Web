@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import NavPrev from "../shared/assets/NavPrevIcon.svg";
 import CheckboxIcon from "../shared/assets/CheckboxIcon.svg";
 import CheckboxIconActive from "../shared/assets/CheckboxIconActive.svg";
-import WithdrawBottomSheet from "../widgets/WithdrawBottomSheet";
+import WithdrawBottomSheet from "../features/auth/ui/WithdrawBottomSheet";
 
 function WithdrawPage() {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);

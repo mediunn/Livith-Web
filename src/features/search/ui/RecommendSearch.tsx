@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StateWithSetter } from "../../../shared/types/props";
 import useRecommendSearch from "../model/useRecommendSearch";
 import RecommendSearchItem from "./RecommendSearchItem";
-import useDebounce from "../model/useDebounce";
+import useDebounce from "../../../shared/hooks/useDebounce";
 
 type RecentSearchProps = {
   inputState: StateWithSetter<string>;

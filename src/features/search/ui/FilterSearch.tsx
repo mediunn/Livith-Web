@@ -6,7 +6,7 @@ import {
   StatusFilter,
 } from "../../../entities/concert/types";
 import { useFilterSearch } from "../model/useFilterSearch";
-import useDebounce from "../model/useDebounce";
+import useDebounce from "../../../shared/hooks/useDebounce";
 import { useState } from "react";
 import ConcertCardListSkeleton from "../../../features/concert/ui/ConcertCardListSkeleton";
 
