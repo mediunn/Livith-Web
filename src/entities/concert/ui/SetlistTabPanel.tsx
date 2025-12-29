@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Setlist } from "../api/getSetlistInfo";
 import SetListCard from "../../../entities/setlist/ui/SetListCard";
-import formatDate from "../../../features/setlist/utils/formatDate";
+import formatDate from "../../setlist/utils/formatDate";
 import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
 interface SetlistTabPanelProps {
   setlist: Setlist[] | null;

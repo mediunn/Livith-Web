@@ -14,11 +14,11 @@ import { useConcertRequiredInfo } from "../model/useConcertRequiredInfo";
 import { useMd } from "../model/useMd";
 import { useArtistInfo } from "../model/useArtistInfo";
 import { useSetlist } from "../model/useSetlist";
-import CommentInputBar from "./CommentInputBar";
+import CommentInputBar from "../../../features/concert/ui/CommentInputBar";
 import CommentTabPanel from "./CommentTabPanel";
 import { useConcertComment } from "../model/useConcertComment";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
 
 interface ConcertInfoTabProps {
   concertId: number;

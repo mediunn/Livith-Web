@@ -4,7 +4,7 @@ import Info from "../features/my/ui/Info";
 import { useEffect, useState } from "react";
 import LoggedOutMyPage from "./LoggedOutMyPage";
 import { useRecoilValue } from "recoil";
-import { userState } from "../entities/recoil/atoms/userState";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 
 function MyPage() {
   const user = useRecoilValue(userState); // 유저 정보 읽기

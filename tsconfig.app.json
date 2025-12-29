@@ -20,13 +20,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    // ✅ 아래 두 줄 추가
-    "baseUrl": ".",
-    "paths": {
-      "*": ["src/types/*"]
-    }
+    "noUncheckedSideEffectImports": true
   },
   "include": ["src"]
 }
