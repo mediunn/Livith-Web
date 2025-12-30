@@ -26,9 +26,15 @@ const meta: Meta<typeof LoginCalloutChip> = {
 export default meta;
 type Story = StoryObj<typeof LoginCalloutChip>;
 
-export const WithRecentLogin: Story = {
+export const WithKakaoLogin: Story = {
   parameters: {
     recentLogin: "카카오",
+  },
+};
+
+export const WithAppleLogin: Story = {
+  parameters: {
+    recentLogin: "Apple",
   },
 };
 
