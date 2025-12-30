@@ -66,7 +66,7 @@ const AppleLoginButton = ({ onClickLogin, group }: AppleLoginButtonProps) => {
       //기존 유저일 경우 액세스 토큰 저장 후 홈 화면으로 이동
       else {
         localStorage.setItem("accessToken", payload.accessToken);
-        localStorage.setItem("recentLogin", "애플");
+        localStorage.setItem("recentLogin", "Apple");
 
         // 로그인 직후 Recoil 상태 초기화
         await initialize();
