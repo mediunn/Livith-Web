@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
-import SignUpTooltip from "./SignUpTooltip";
+import SignUpTooltip from "./SignUpTooltip/SignUpTooltip";
 import { useHomeConcertListSection } from "../model/useHomeConcertListSection";
 
 interface ConcertSettingEmptyProps {
