@@ -1,13 +1,13 @@
-import ListHeader from "../shared/ui/ListHeader";
-import CloseRoundedIcon from "../shared/assets/CloseRoundIcon.svg";
 import { useEffect, useRef, useState } from "react";
-import SignupButton from "../features/auth/ui/SignupButton";
 import { useLocation, useNavigate } from "react-router-dom";
-import { validateNickname } from "../shared/utils/validateNickname";
 import { useCheckNickname } from "../features/auth/model/useCheckNickname";
-import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
 import { useSignup } from "../features/auth/model/useSignup";
+import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
+import CloseRoundedIcon from "../shared/assets/CloseRoundIcon.svg";
 import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
+import CommonButton from "../shared/ui/CommonButton/CommonButton";
+import ListHeader from "../shared/ui/ListHeader";
+import { validateNickname } from "../shared/utils/validateNickname";
 function SignupNicknamePage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -177,12 +177,13 @@ function SignupNicknamePage() {
       </div>
       {/* 가입 완료 버튼 */}
       <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
-        <SignupButton
+        <CommonButton
           isActive={isNicknameChecked}
           onClick={() => {
             handleSignup();
           }}
           title="가입 완료"
+          variant="primary"
         />
       </div>
       <AuthErrorModal

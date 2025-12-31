@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import WithdrawBottomSheet from "../features/auth/ui/WithdrawBottomSheet";
 import NavPrev from "../shared/assets/NavPrevIcon.svg";
 import Checkbox from "../shared/ui/Checkbox/Checkbox";
+import CommonButton from "../shared/ui/CommonButton/CommonButton";
 
 function WithdrawPage() {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
@@ -121,19 +122,14 @@ function WithdrawPage() {
         })}
       </div>
       <div className="absolute bottom-50 left-0 w-full px-16">
-        <button
+        <CommonButton
+          variant="primary"
+          isActive={isValid}
+          title="탈퇴하기"
           onClick={() => {
             openSheet();
           }}
-          disabled={!isValid}
-          className={`h-52 w-full flex items-center justify-center rounded-6 text-Body2-sm font-semibold font-NotoSansKR transition-colors ${
-            isValid
-              ? "bg-mainYellow30 text-grayScaleBlack100"
-              : "bg-grayScaleBlack50 text-grayScaleBlack30"
-          }`}
-        >
-          탈퇴하기
-        </button>
+        />
         <WithdrawBottomSheet
           isSheetOpen={isSheetOpen}
           onSheetClose={closeSheet}

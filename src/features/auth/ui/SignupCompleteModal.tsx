@@ -1,5 +1,6 @@
 import CongratsIcon from "../../../shared/assets/CongratsIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
+import CommonButton from "../../../shared/ui/CommonButton/CommonButton";
 
 interface SignupCompleteModalProps {
   isOpen: boolean;
@@ -55,17 +56,19 @@ function SignupCompleteModal({
                 <br />
                 라이빗에 어서오세요!
               </p>
-              <p className="text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR text-center mt-6">
+              <p className="text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR text-center mt-6 mb-20">
                 라이빗과 즐거운 내한 공연을 준비해 볼까요?
               </p>
-              <button
-                className="bg-mainYellow30 text-grayScaleBlack100 text-Body3-md font-medium font-NotoSansKR rounded-6 py-16 px-28 mx-16 mt-20"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                시작하기
-              </button>
+              <div className="px-16">
+                <CommonButton
+                  variant="primary"
+                  isActive={true}
+                  title="시작하기"
+                  onClick={() => {
+                    onClose();
+                  }}
+                />
+              </div>
             </div>
           </motion.div>
         </>

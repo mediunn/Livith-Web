@@ -1,5 +1,6 @@
 import WarningTriangleIcon from "../../../shared/assets/WarningTriangleIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
+import CommonButton from "../../../shared/ui/CommonButton/CommonButton";
 
 interface AuthErrorModalProps {
   isOpen: boolean;
@@ -58,14 +59,16 @@ function AuthErrorModal({
               <p className="text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR text-center mt-6">
                 {description}
               </p>
-              <button
-                className="bg-lyricsTranslation text-grayScaleBlack100 text-Body3-md font-medium font-NotoSansKR rounded-6 py-16 px-28 mx-16 mt-20"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                홈으로 돌아가기
-              </button>
+              <div className="px-16 mt-20">
+                <CommonButton
+                  variant="pink"
+                  isActive={true}
+                  title="홈으로 돌아가기"
+                  onClick={() => {
+                    onClose();
+                  }}
+                />
+              </div>
             </div>
           </motion.div>
         </>

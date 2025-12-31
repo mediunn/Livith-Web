@@ -7,6 +7,7 @@ import { useSchedule } from "../entities/concert/model/useSchedule";
 import { useInterestConcert } from "../features/interest/model/useInterestConcert";
 import { useLocation } from "react-router-dom";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
+import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
 
 // A/B 테스트 그룹 배정 유틸
 function getExperimentGroup(): "A" | "B" | "C" {
@@ -76,6 +77,12 @@ function HomePage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         nickname={nickname ?? ""}
+      />
+      <AuthErrorModal
+        isOpen={true}
+        onClose={() => {}}
+        title="인증 오류"
+        description="인증에 실패했습니다. 다시 시도해주세요."
       />
     </div>
   );

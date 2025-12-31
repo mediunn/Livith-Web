@@ -1,8 +1,8 @@
-import ListHeader from "../shared/ui/ListHeader";
-import Checkbox from "../shared/ui/Checkbox/Checkbox";
-import { use, useEffect, useState } from "react";
-import SignupButton from "../features/auth/ui/SignupButton";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Checkbox from "../shared/ui/Checkbox/Checkbox";
+import CommonButton from "../shared/ui/CommonButton/CommonButton";
+import ListHeader from "../shared/ui/ListHeader";
 function SignupAgreementPage() {
   const [isUseChecked, setIsUseChecked] = useState<boolean>(
     sessionStorage.getItem("isUseChecked") === "true" || false
@@ -94,7 +94,7 @@ function SignupAgreementPage() {
       </div>
       {/* 다음 버튼 */}
       <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
-        <SignupButton
+        <CommonButton
           isActive={isUseChecked}
           onClick={() => {
             sessionStorage.setItem("isUseChecked", String(isUseChecked));
@@ -104,6 +104,7 @@ function SignupAgreementPage() {
             });
           }}
           title="다음"
+          variant="primary"
         />
       </div>
     </div>
