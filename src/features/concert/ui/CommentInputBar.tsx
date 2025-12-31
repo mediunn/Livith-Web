@@ -157,6 +157,16 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
 >>>>>>> refs/rewritten/develop-2:src/entities/concert/ui/CommentInputBar.tsx
   }, [value]);
 
+  useEffect(() => {
+    if (value === "") {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          forceReflow();
+        });
+      });
+    }
+  }, [value]);
+
   const lineCount = value.split("\n").length;
   // 등록 버튼 활성화 조건
   const isActive = value.length > 0 && value.length <= 400 && lineCount <= 15;
