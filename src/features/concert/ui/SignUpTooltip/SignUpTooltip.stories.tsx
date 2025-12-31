@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import SignUpTooltip from "./SignUpTooltip";
 
 const meta: Meta<typeof SignUpTooltip> = {
-  title: "features/concert/SignUpTooltip",
+  title: "callout & tooltip/tooltip",
   component: SignUpTooltip,
   argTypes: {
     onClose: { action: "closed" },

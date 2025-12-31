@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import Checkbox from "./Checkbox";
 
 const meta: Meta<typeof Checkbox> = {
-  title: "shared/Checkbox",
+  title: "Checkbox/checkbox",
   component: Checkbox,
   argTypes: {
     variant: {
