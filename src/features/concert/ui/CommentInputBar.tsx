@@ -142,19 +142,6 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
 
     textarea.style.overflowY =
       textarea.scrollHeight > maxHeight ? "auto" : "hidden";
-<<<<<<< HEAD:src/features/concert/ui/CommentInputBar.tsx
-=======
-  }, [value]);
-
-  useEffect(() => {
-    if (value === "") {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          forceReflow();
-        });
-      });
-    }
->>>>>>> refs/rewritten/develop-2:src/entities/concert/ui/CommentInputBar.tsx
   }, [value]);
 
   useEffect(() => {
