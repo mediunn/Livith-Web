@@ -63,16 +63,19 @@ function SignupAgreementPage() {
           </div>
           {/* 이용약관 동의 */}
           <div className="flex items-center pl-12  mb-24">
-            <button onClick={() => setIsUseChecked(!isUseChecked)}>
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={() => setIsUseChecked(!isUseChecked)}
+            >
               {isUseChecked ? (
                 <Checkbox variant="line" isPressed={true} />
               ) : (
                 <Checkbox variant="line" isPressed={false} />
               )}
-            </button>
-            <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-4">
-              이용약관 동의
-            </p>
+              <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-4">
+                이용약관 동의
+              </p>
+            </div>
             <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR">
               필수
             </p>
@@ -85,16 +88,19 @@ function SignupAgreementPage() {
           </div>
           {/* 마케팅,광고 동의 */}
           <div className="flex items-center pl-12  mb-24">
-            <button onClick={() => setIsAdChecked(!isAdChecked)}>
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={() => setIsAdChecked(!isAdChecked)}
+            >
               {isAdChecked ? (
                 <Checkbox variant="line" isPressed={true} />
               ) : (
                 <Checkbox variant="line" isPressed={false} />
               )}
-            </button>
-            <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-2">
-              마케팅 활용 / 광고성 정보 수신 동의
-            </p>
+              <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-2">
+                마케팅 활용 / 광고성 정보 수신 동의
+              </p>
+            </div>
           </div>
         </div>
       </div>
