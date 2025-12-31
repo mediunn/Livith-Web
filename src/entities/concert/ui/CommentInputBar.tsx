@@ -111,6 +111,15 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
     });
   };
 
+  const forceReflow = () => {
+    const el = textareaRef.current;
+    if (!el) return;
+
+    el.style.display = "none";
+    el.offsetHeight;
+    el.style.display = "";
+  };
+
   // textarea 높이
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -133,6 +142,16 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
 
     textarea.style.overflowY =
       textarea.scrollHeight > maxHeight ? "auto" : "hidden";
+  }, [value]);
+
+  useEffect(() => {
+    if (value === "") {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          forceReflow();
+        });
+      });
+    }
   }, [value]);
 
   const lineCount = value.split("\n").length;
@@ -163,7 +182,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
                 }
               }}
               onChange={handleChange}
-              className="bg-transparent outline-none text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
+              className="bg-transparent outline-none text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-hidden"
               rows={1}
               style={{
                 lineHeight: "21px",
