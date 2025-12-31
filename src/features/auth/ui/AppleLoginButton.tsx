@@ -33,6 +33,8 @@ const AppleLoginButton = ({ onClickLogin, group }: AppleLoginButtonProps) => {
       // 서버에서 payload로 보낸 데이터
       const payload = event.data;
 
+      console.log("Apple Login Payload:", payload);
+
       // 탈퇴 후 7일 이내인 경우
       if (payload.error) {
         if (payload.error === "탈퇴 후 7일이 지나지 않았어요") {
