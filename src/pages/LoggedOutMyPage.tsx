@@ -1,8 +1,9 @@
-import LoginCalloutChip from "../features/auth/ui/LoginCalloutChip";
+import LoginCalloutChip from "../features/auth/ui/LoginCalloutChip/LoginCalloutChip";
 import KakaoLoginButton from "../features/auth/ui/KakaoLoginButton";
 import LogoIcon from "../shared/assets/LogoIcon.svg";
 import FeedbackIcon from "../shared/assets/FeedbackIcon.svg";
 import AppleLoginButton from "../features/auth/ui/AppleLoginButton";
+import TabBar from "../shared/ui/TabBar";
 
 function LoggedOutMyPage() {
   const handleClick = () => {
@@ -42,6 +43,7 @@ function LoggedOutMyPage() {
         src={FeedbackIcon}
         className="mx-16 my-30 cursor-pointer"
       />
+      <TabBar />
     </div>
   );
 }

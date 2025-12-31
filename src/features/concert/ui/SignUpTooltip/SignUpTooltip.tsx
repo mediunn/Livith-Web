@@ -1,5 +1,5 @@
-import TooltipCloseIcon from "../../../shared/assets/TooltipCloseIcon.svg";
-import TooltipArrowIcon from "../../../shared/assets/TooltipArrowIcon.svg";
+import TooltipCloseIcon from "../../../../shared/assets/TooltipCloseIcon.svg";
+import TooltipArrowIcon from "../../../../shared/assets/TooltipArrowIcon.svg";
 
 interface SignUpTooltipProps {
   group: "A" | "B" | "C";
