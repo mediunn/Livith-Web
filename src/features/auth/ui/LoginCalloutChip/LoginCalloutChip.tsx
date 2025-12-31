@@ -1,5 +1,4 @@
-import TabBar from "../../../shared/ui/TabBar";
-import CalloutChip from "../../../shared/assets/CalloutChip.svg";
+import CalloutChip from "../../../../shared/assets/CalloutChip.svg";
 function LoginCalloutChip() {
   const recentLogin = localStorage.getItem("recentLogin");
   return (
@@ -16,7 +15,6 @@ function LoginCalloutChip() {
           <span className="text-grayScaleWhite">모든 서비스 이용</span>해보세요!
         </p>
       )}
-      <TabBar />
     </div>
   );
 }
