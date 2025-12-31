@@ -51,11 +51,7 @@ function SignupAgreementPage() {
           {/* 모두 동의 */}
           <div className="flex items-center bg-grayScaleBlack90 rounded-10 px-12 py-20 gap-16 mb-24">
             <button onClick={handleAllCheck}>
-              {isAllChecked ? (
-                <Checkbox variant="fill" isPressed={true} />
-              ) : (
-                <Checkbox variant="fill" isPressed={false} />
-              )}
+              <Checkbox variant="fill" isPressed={isAllChecked} />
             </button>
             <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR">
               약관 모두 동의
@@ -67,11 +63,7 @@ function SignupAgreementPage() {
               className="flex items-center cursor-pointer"
               onClick={() => setIsUseChecked(!isUseChecked)}
             >
-              {isUseChecked ? (
-                <Checkbox variant="line" isPressed={true} />
-              ) : (
-                <Checkbox variant="line" isPressed={false} />
-              )}
+              <Checkbox variant="line" isPressed={isUseChecked} />
               <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-4">
                 이용약관 동의
               </p>
@@ -92,11 +84,7 @@ function SignupAgreementPage() {
               className="flex items-center cursor-pointer"
               onClick={() => setIsAdChecked(!isAdChecked)}
             >
-              {isAdChecked ? (
-                <Checkbox variant="line" isPressed={true} />
-              ) : (
-                <Checkbox variant="line" isPressed={false} />
-              )}
+              <Checkbox variant="line" isPressed={isAdChecked} />
               <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-2">
                 마케팅 활용 / 광고성 정보 수신 동의
               </p>

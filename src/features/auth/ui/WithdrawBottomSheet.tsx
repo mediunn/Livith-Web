@@ -105,11 +105,7 @@ function WithdrawBottomSheet({
                 onClick={handleCheckboxClick}
                 className="mr-16 cursor-pointer"
               >
-                {isChecked ? (
-                  <Checkbox variant="fill" isPressed={true} />
-                ) : (
-                  <Checkbox variant="fill" isPressed={false} />
-                )}
+                <Checkbox variant="fill" isPressed={isChecked} />
               </div>
               <p className="text-grayScaleBlack5 text-Body2-md font-medium font-NotoSansKR">
                 위 내용을 모두 확인했습니다.

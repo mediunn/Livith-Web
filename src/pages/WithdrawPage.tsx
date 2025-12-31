@@ -88,11 +88,7 @@ function WithdrawPage() {
                   onClick={() => handleSelect(index)}
                   className="mr-16 cursor-pointer"
                 >
-                  {isActive ? (
-                    <Checkbox variant="fill" isPressed={true} />
-                  ) : (
-                    <Checkbox variant="fill" isPressed={false} />
-                  )}
+                  <Checkbox variant="fill" isPressed={isActive} />
                 </div>
                 <p className="text-grayScaleBlack5 text-Body2-md font-medium font-NotoSansKR">
                   {reason}
