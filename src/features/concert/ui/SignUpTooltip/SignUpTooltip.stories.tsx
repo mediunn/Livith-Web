@@ -10,7 +10,7 @@ const meta: Meta<typeof SignUpTooltip> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof SignUpTooltip>;
 
 export const GroupA: Story = {
   args: {

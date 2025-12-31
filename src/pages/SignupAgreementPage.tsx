@@ -1,5 +1,5 @@
 import ListHeader from "../shared/ui/ListHeader";
-import Checkbox from "../shared/ui/Checkbox";
+import Checkbox from "../shared/ui/Checkbox/Checkbox";
 import { use, useEffect, useState } from "react";
 import SignupButton from "../features/auth/ui/SignupButton";
 import { useLocation, useNavigate } from "react-router-dom";
