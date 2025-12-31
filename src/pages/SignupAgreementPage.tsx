@@ -1,5 +1,5 @@
 import ListHeader from "../shared/ui/ListHeader";
-import CheckBox from "../shared/assets/CheckBox";
+import Checkbox from "../shared/ui/Checkbox";
 import { use, useEffect, useState } from "react";
 import SignupButton from "../features/auth/ui/SignupButton";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -52,9 +52,9 @@ function SignupAgreementPage() {
           <div className="flex items-center bg-grayScaleBlack90 rounded-10 px-12 py-20 gap-16 mb-24">
             <button onClick={handleAllCheck}>
               {isAllChecked ? (
-                <CheckBox boxColor="#FFEB56" checkColor="#2F3745" />
+                <Checkbox variant="fill" isPressed={true} />
               ) : (
-                <CheckBox boxColor="#DBDCDF" checkColor="#808794" />
+                <Checkbox variant="fill" isPressed={false} />
               )}
             </button>
             <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR">
@@ -65,9 +65,9 @@ function SignupAgreementPage() {
           <div className="flex items-center pl-12  mb-24">
             <button onClick={() => setIsUseChecked(!isUseChecked)}>
               {isUseChecked ? (
-                <CheckBox checkColor="#FFEB56" />
+                <Checkbox variant="line" isPressed={true} />
               ) : (
-                <CheckBox checkColor="#808794" />
+                <Checkbox variant="line" isPressed={false} />
               )}
             </button>
             <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-4">
@@ -87,9 +87,9 @@ function SignupAgreementPage() {
           <div className="flex items-center pl-12  mb-24">
             <button onClick={() => setIsAdChecked(!isAdChecked)}>
               {isAdChecked ? (
-                <CheckBox checkColor="#FFEB56" />
+                <Checkbox variant="line" isPressed={true} />
               ) : (
-                <CheckBox checkColor="#808794" />
+                <Checkbox variant="line" isPressed={false} />
               )}
             </button>
             <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-2">

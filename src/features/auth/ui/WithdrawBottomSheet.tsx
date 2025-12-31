@@ -1,16 +1,15 @@
 //src\widgets\WithdrawBottomSheet.tsx
-import { Sheet, SheetRef } from "react-modal-sheet";
-import { useRef, useState } from "react";
-import CheckboxIcon from "../../../shared/assets/CheckboxIcon.svg";
-import CheckboxIconActive from "../../../shared/assets/CheckboxIconActive.svg";
-import { useWithdraw } from "../model/useWithdraw";
-import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRef, useState } from "react";
+import { Sheet, SheetRef } from "react-modal-sheet";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import ErrorToast from "../../../shared/ui/ErrorToast";
-import CompleteToast from "../../../shared/ui/CompleteToast";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
+import Checkbox from "../../../shared/ui/Checkbox";
+import CompleteToast from "../../../shared/ui/CompleteToast";
+import ErrorToast from "../../../shared/ui/ErrorToast";
+import { useWithdraw } from "../model/useWithdraw";
 
 interface WithdrawBottomSheetProps {
   isSheetOpen: boolean;
@@ -102,18 +101,16 @@ function WithdrawBottomSheet({
             </div>
 
             <div className="flex items-center mt-20 mb-35 ">
-              <button
+              <div
                 onClick={handleCheckboxClick}
-                className={`flex items-center justify-center w-24 h-24 rounded-4 border-none mr-16 px-6 ${
-                  isChecked ? "bg-mainYellow60" : "bg-grayScaleBlack30"
-                }`}
+                className="mr-16 cursor-pointer"
               >
-                <img
-                  src={isChecked ? CheckboxIconActive : CheckboxIcon}
-                  className="w-full h-full"
-                  alt="checkbox"
-                />
-              </button>
+                {isChecked ? (
+                  <Checkbox variant="fill" isPressed={true} />
+                ) : (
+                  <Checkbox variant="fill" isPressed={false} />
+                )}
+              </div>
               <p className="text-grayScaleBlack5 text-Body2-md font-medium font-NotoSansKR">
                 위 내용을 모두 확인했습니다.
               </p>
