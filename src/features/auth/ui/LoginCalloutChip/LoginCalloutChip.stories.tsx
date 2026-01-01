@@ -7,7 +7,7 @@ const setRecentLogin = (value?: string) => {
 };
 
 const meta: Meta<typeof LoginCalloutChip> = {
-  title: "features/auth/LoginCalloutChip",
+  title: "callout & tooltip/callout_chip",
   component: LoginCalloutChip,
   parameters: {
     routerPath: "/my",

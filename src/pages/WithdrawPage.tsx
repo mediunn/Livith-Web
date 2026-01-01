@@ -1,10 +1,8 @@
-//src\pages\WithdrawPage.tsx
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavPrev from "../shared/assets/NavPrevIcon.svg";
-import CheckboxIcon from "../shared/assets/CheckboxIcon.svg";
-import CheckboxIconActive from "../shared/assets/CheckboxIconActive.svg";
 import WithdrawBottomSheet from "../features/auth/ui/WithdrawBottomSheet";
+import NavPrev from "../shared/assets/NavPrevIcon.svg";
+import Checkbox from "../shared/ui/Checkbox/Checkbox";
 
 function WithdrawPage() {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
@@ -54,7 +52,7 @@ function WithdrawPage() {
     : selectedReasons;
   return (
     <>
-      <div className="pt-20 px-16 pb-8 flex justify-between items-end items-center">
+      <div className="pt-20 px-16 pb-8 flex justify-between">
         <div className="flex items-center flex-1 min-w-0">
           <button
             className="w-38 h-38 p-0 bg-transparent border-none cursor-pointer"
@@ -86,19 +84,12 @@ function WithdrawPage() {
               className="bg-grayScaleBlack90 rounded-10 px-12 py-18 mb-10 flex flex-col"
             >
               <div className="flex items-center">
-                <button
+                <div
                   onClick={() => handleSelect(index)}
-                  className={`flex items-center justify-center w-24 h-24 rounded-4 border-none mr-16 px-6 ${
-                    isActive ? "bg-mainYellow60" : "bg-grayScaleBlack30"
-                  }`}
+                  className="mr-16 cursor-pointer"
                 >
-                  <img
-                    src={isActive ? CheckboxIconActive : CheckboxIcon}
-                    className="w-full h-full"
-                    alt="checkbox"
-                  />
-                </button>
-
+                  <Checkbox variant="fill" isPressed={isActive} />
+                </div>
                 <p className="text-grayScaleBlack5 text-Body2-md font-medium font-NotoSansKR">
                   {reason}
                 </p>
