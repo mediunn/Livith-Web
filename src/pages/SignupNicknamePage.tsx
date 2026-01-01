@@ -58,7 +58,6 @@ function SignupNicknamePage() {
       },
       {
         onSuccess: async (res) => {
-          console.log(res);
           const { accessToken } = res.data;
           if (accessToken) {
             localStorage.setItem("accessToken", accessToken);
