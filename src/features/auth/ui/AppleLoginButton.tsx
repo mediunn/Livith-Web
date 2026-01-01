@@ -1,112 +1,23 @@
-import { useNavigate } from "react-router-dom";
 import AppleIcon from "../../../shared/assets/AppleIcon.svg";
-import { useState } from "react";
-import AuthErrorModal from "./AuthErrorModal";
-import { useInitializeAuth } from "../../../shared/hooks/useInitializeAuth";
-import ErrorToast from "../../../shared/ui/ErrorToast";
-import { toast } from "react-toastify";
+import SocialLoginButton from "./SocialLoginButton/SocialLoginButton";
+
 interface AppleLoginButtonProps {
   onClickLogin?: () => void;
   group?: "A" | "B" | "C";
 }
-const AppleLoginButton = ({ onClickLogin, group }: AppleLoginButtonProps) => {
-  const navigate = useNavigate();
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-  const popupWidth = 400;
-  const popupHeight = 600;
-  const left = window.screenX + (window.innerWidth - popupWidth) / 2;
-  const top = window.screenY + (window.innerHeight - popupHeight) / 2;
 
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const { initialize } = useInitializeAuth(); // 로그인 직후 Recoil 초기화용
-
-  const handleAppleLogin = () => {
-    const popup = window.open(
-      `${SERVER_URL}/api/v4/auth/apple/web`, // 서버 로그인 엔드포인트
-      "appleLogin",
-      `width=${popupWidth},height=${popupHeight},left=${left},top=${top},scrollbars=no`
-    );
-
-    const listener = async (event: MessageEvent) => {
-      if (event.origin !== SERVER_URL) return;
-
-      // 서버에서 payload로 보낸 데이터
-      const payload = event.data;
-
-      // 탈퇴 후 7일 이내인 경우
-      if (payload.error) {
-        if (payload.error === "탈퇴 후 7일이 지나지 않았어요") {
-          setIsErrorModalOpen(true);
-          popup?.close();
-          window.removeEventListener("message", listener);
-        } else {
-          toast(<ErrorToast message="로그인에 실패했어요" />, {
-            position: "top-center",
-            autoClose: 3000,
-            pauseOnFocusLoss: false,
-          });
-        }
-        return;
-      }
-
-      //새 유저일 경우 회원가입 페이지로 이동
-      if (payload.isNewUser) {
-        if (group) {
-          window.amplitude.track(`${group}_signUp`);
-          localStorage.setItem("signedUpViaHomePage", "true");
-        }
-
-        sessionStorage.setItem("isAdChecked", "false");
-        sessionStorage.setItem("isUseChecked", "false");
-
-        navigate("/signup/agreement", {
-          state: { tempUserData: payload.tempUserData },
-        });
-      }
-      //기존 유저일 경우 액세스 토큰 저장 후 홈 화면으로 이동
-      else {
-        localStorage.setItem("accessToken", payload.accessToken);
-        localStorage.setItem("recentLogin", "Apple");
-
-        // 로그인 직후 Recoil 상태 초기화
-        await initialize();
-        navigate("/");
-      }
-
-      // 팝업 닫기
-      popup?.close();
-      onClickLogin?.();
-
-      // 이벤트 리스너 제거
-      window.removeEventListener("message", listener);
-    };
-
-    window.addEventListener("message", listener);
-  };
-
-  return (
-    <>
-      <button
-        onClick={handleAppleLogin}
-        className="relative flex items-center justify-center mx-16 bg-grayScaleBlack80 h-52 rounded-6 mb-12"
-      >
-        <img src={AppleIcon} className="absolute left-20" />
-        <p className="text-grayScaleBlack5 text-Body3-md font-NotoSansKR font-medium">
-          Apple로 계속하기
-        </p>
-      </button>
-      <AuthErrorModal
-        isOpen={isErrorModalOpen}
-        onClose={() => {
-          if (onClickLogin) onClickLogin();
-          navigate("/");
-          setIsErrorModalOpen(false);
-        }}
-        title="탈퇴 후 7일이 지나지 않았어요"
-        description="7일이 지난 후 다시 시도해주세요"
-      />
-    </>
-  );
-};
+const AppleLoginButton = (props: AppleLoginButtonProps) => (
+  <div className="mx-16 mb-12">
+    <SocialLoginButton
+      provider="apple"
+      icon={AppleIcon}
+      bgColor="bg-grayScaleBlack80"
+      textColor="text-grayScaleBlack5"
+      label="Apple로 계속하기"
+      recentLoginLabel="Apple"
+      {...props}
+    />
+  </div>
+);
 
 export default AppleLoginButton;
