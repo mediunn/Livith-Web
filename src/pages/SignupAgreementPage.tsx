@@ -1,5 +1,5 @@
 import ListHeader from "../shared/ui/ListHeader";
-import CheckBox from "../shared/assets/CheckBox";
+import Checkbox from "../shared/ui/Checkbox/Checkbox";
 import { use, useEffect, useState } from "react";
 import SignupButton from "../features/auth/ui/SignupButton";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -51,11 +51,7 @@ function SignupAgreementPage() {
           {/* 모두 동의 */}
           <div className="flex items-center bg-grayScaleBlack90 rounded-10 px-12 py-20 gap-16 mb-24">
             <button onClick={handleAllCheck}>
-              {isAllChecked ? (
-                <CheckBox boxColor="#FFEB56" checkColor="#2F3745" />
-              ) : (
-                <CheckBox boxColor="#DBDCDF" checkColor="#808794" />
-              )}
+              <Checkbox variant="fill" isPressed={isAllChecked} />
             </button>
             <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR">
               약관 모두 동의
@@ -63,16 +59,15 @@ function SignupAgreementPage() {
           </div>
           {/* 이용약관 동의 */}
           <div className="flex items-center pl-12  mb-24">
-            <button onClick={() => setIsUseChecked(!isUseChecked)}>
-              {isUseChecked ? (
-                <CheckBox checkColor="#FFEB56" />
-              ) : (
-                <CheckBox checkColor="#808794" />
-              )}
-            </button>
-            <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-4">
-              이용약관 동의
-            </p>
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={() => setIsUseChecked(!isUseChecked)}
+            >
+              <Checkbox variant="line" isPressed={isUseChecked} />
+              <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-4">
+                이용약관 동의
+              </p>
+            </div>
             <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR">
               필수
             </p>
@@ -85,16 +80,15 @@ function SignupAgreementPage() {
           </div>
           {/* 마케팅,광고 동의 */}
           <div className="flex items-center pl-12  mb-24">
-            <button onClick={() => setIsAdChecked(!isAdChecked)}>
-              {isAdChecked ? (
-                <CheckBox checkColor="#FFEB56" />
-              ) : (
-                <CheckBox checkColor="#808794" />
-              )}
-            </button>
-            <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-2">
-              마케팅 활용 / 광고성 정보 수신 동의
-            </p>
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={() => setIsAdChecked(!isAdChecked)}
+            >
+              <Checkbox variant="line" isPressed={isAdChecked} />
+              <p className="text-Body2-md text-grayScaleBlack5 font-medium font-NotoSansKR ml-16 mr-2">
+                마케팅 활용 / 광고성 정보 수신 동의
+              </p>
+            </div>
           </div>
         </div>
       </div>
