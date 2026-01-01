@@ -11,6 +11,7 @@ const meta: Meta<typeof LoginCalloutChip> = {
   component: LoginCalloutChip,
   parameters: {
     routerPath: "/my",
+    layout: "centered",
   },
   decorators: [
     (Story, context) => {

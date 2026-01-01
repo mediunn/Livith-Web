@@ -4,6 +4,9 @@ import Checkbox from "./Checkbox";
 const meta: Meta<typeof Checkbox> = {
   title: "Checkbox/checkbox",
   component: Checkbox,
+  parameters: {
+    layout: "centered",
+  },
   argTypes: {
     variant: {
       control: { type: "radio" },
