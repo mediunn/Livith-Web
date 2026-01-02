@@ -148,7 +148,7 @@ function NicknamePage() {
               label={isNicknameChecked ? "확인완료" : "중복확인"}
               onClick={() => refetch()}
               disabled={!isValidNickname || isNicknameChecked}
-              className={`bg-grayScaleBlack80 px-12 py-16 ${!isValidNickname || isNicknameChecked ? "text-grayScaleBlack50" : "text-grayScaleWhite "}`}
+              className={`bg-grayScaleBlack80 px-12 py-16 ${!isValidNickname || isNicknameChecked ? "text-grayScaleBlack50" : "text-grayScaleWhite hover:bg-grayScaleBlack90"}`}
             />
           </div>
           <p

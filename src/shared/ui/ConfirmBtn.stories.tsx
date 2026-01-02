@@ -31,7 +31,8 @@ export const RegisterButton: Story = {
     onClick: () => console.log("등록 버튼 클릭"),
     disabled: false,
     isLoading: false,
-    className: "px-16 py-14 bg-mainYellow30 text-grayScaleBlack100",
+    className:
+      "px-16 py-14 bg-mainYellow30 hover:bg-mainYellow60 text-grayScaleBlack100",
   },
 };
 
@@ -53,7 +54,8 @@ export const DuplicateCheckButton: Story = {
     onClick: () => console.log("중복확인 버튼 클릭"),
     disabled: false,
     isLoading: false,
-    className: "bg-grayScaleBlack80 px-12 py-16 text-grayScaleWhite",
+    className:
+      "bg-grayScaleBlack80 hover:bg-grayScaleBlack90 px-12 py-16 text-grayScaleWhite",
   },
 };
 
