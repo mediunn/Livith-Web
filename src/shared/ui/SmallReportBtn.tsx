@@ -16,8 +16,8 @@ function SmallReportBtn({
       type="button"
       onClick={onClick}
       className={`
-        bg-grayScaleBlack100 rounded-24 px-12 py-4 text-Caption1-Bold font-bold font-NotoSansKR cursor-pointer
-        ${variant === "my" ? "text-grayScaleBlack5 border border-grayScaleBlack80" : "text-grayScaleBlack80"}
+         rounded-24 px-12 py-4 text-Caption1-Bold font-bold font-NotoSansKR border border-grayScaleBlack80 cursor-pointer
+        ${variant === "my" ? "bg-grayScaleBlack100 text-grayScaleBlack5 " : "bg-grayScaleBlack100 text-grayScaleBlack80 hover:bg-grayScaleBlack80 hover:text-grayScaleBlack50"}
         ${className}
       `}
     >
