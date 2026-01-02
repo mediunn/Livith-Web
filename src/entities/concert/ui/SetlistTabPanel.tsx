@@ -3,6 +3,7 @@ import { Setlist } from "../api/getSetlistInfo";
 import SetListCard from "../../../entities/setlist/ui/SetListCard";
 import formatDate from "../../setlist/utils/formatDate";
 import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
+import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
 interface SetlistTabPanelProps {
   setlist: Setlist[] | null;
   concertId: number;
@@ -22,14 +23,11 @@ function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
           <br />
           확인해 보세요
         </p>
-        <div
+        <SmallReportBtn
           onClick={handleClick}
-          className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
-        >
-          <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
-            정보 제보
-          </p>
-        </div>
+          className="border border-solid border-grayScaleBlack80"
+          label="정보 제보"
+        />
       </div>
 
       <div className="grid grid-cols-3 gap-x-10 gap-y-24">
