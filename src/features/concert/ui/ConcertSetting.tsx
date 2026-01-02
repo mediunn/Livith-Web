@@ -5,9 +5,7 @@ import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import ConcertTicketArrowIcon from "../../../shared/assets/ConcertTicketArrowIcon.svg";
 import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
 import ScheduleInfo from "../../../entities/concert/ui/ScheduleInfo";
@@ -18,6 +16,7 @@ import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcert
 import dayjs from "../../../shared/lib/dayjs";
 import EditInterestConcertBottomSheet from "../../../features/interest/ui/EditInterestConcertBottomSheet";
 import { getFormatDday } from "../utils/formatScheduleDate";
+import ConcertTabList from "../../../shared/ui/ConcertTabList";
 
 interface ConcertSettingProps {
   concertId: number;
@@ -89,6 +88,19 @@ function ConcertSetting({
     return "";
   };
 
+  const tabs = [
+    {
+      label: "콘서트 일정",
+      value: "1",
+      onClick: () =>
+        window.amplitude.track("click_concert_schedule_segment_main"),
+    },
+    {
+      label: "셋리스트",
+      value: "2",
+      onClick: () => window.amplitude.track("click_setlist_segment_main"),
+    },
+  ];
   return (
     <>
       <TopBar bgColor="bg-grayScaleBlack100" />
@@ -204,50 +216,12 @@ function ConcertSetting({
 
         <Box sx={{ width: "100%" }}>
           <TabContext value={tabValue}>
-            <Box sx={{ borderBottom: 2, borderColor: "#222831" }}>
-              <TabList
-                onChange={handleChange}
-                aria-label="tab"
-                sx={{
-                  "& .MuiTab-root": {
-                    width: "50%",
-                    height: "64px",
-                    fontSize: "16px",
-                    fontWeight: 600,
-                    fontFamily: '"NotoSansKR", sans-serif',
-                    letterSpacing: "-0.05em",
-                    lineHeight: "1.4",
-                    textTransform: "none",
-                    color: "#808794",
-                  },
-                  "& .MuiTab-root.Mui-selected": {
-                    color: "#FFFFFF",
-                  },
-                  "& .MuiTabs-indicator": {
-                    backgroundColor: "#FFFFFF",
-                  },
-                }}
-              >
-                <Tab
-                  label="콘서트 일정"
-                  value="1"
-                  disableRipple
-                  onClick={() => {
-                    window.amplitude.track(
-                      "click_concert_schedule_segment_main"
-                    );
-                  }}
-                />
-                <Tab
-                  label="셋리스트"
-                  value="2"
-                  disableRipple
-                  onClick={() => {
-                    window.amplitude.track("click_setlist_segment_main");
-                  }}
-                />
-              </TabList>
-            </Box>
+            <ConcertTabList
+              tabs={tabs}
+              value={tabValue}
+              onChange={handleChange}
+              minWidth="50%"
+            />
             <TabPanel
               value="1"
               sx={{
