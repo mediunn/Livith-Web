@@ -9,6 +9,7 @@ const meta: Meta<typeof CommonModal> = {
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
   argTypes: {
     title: {
       control: { type: "text" },

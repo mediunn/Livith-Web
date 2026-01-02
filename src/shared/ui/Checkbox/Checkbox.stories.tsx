@@ -7,6 +7,7 @@ const meta: Meta<typeof Checkbox> = {
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
   argTypes: {
     variant: {
       control: { type: "radio" },
