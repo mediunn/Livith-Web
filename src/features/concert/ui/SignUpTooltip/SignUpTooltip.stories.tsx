@@ -7,6 +7,9 @@ const meta: Meta<typeof SignUpTooltip> = {
   argTypes: {
     onClose: { action: "closed" },
   },
+  parameters: {
+    layout: "centered",
+  },
 };
 
 export default meta;

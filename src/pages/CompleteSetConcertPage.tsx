@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CompleteEffect from "../shared/assets/CompleteEffect.svg";
 import SetConcertCompleteMotion from "../shared/assets/SetConcertCompleteMotion.json";
 import Lottie from "lottie-react";
+import CommonButton from "../shared/ui/CommonButton/CommonButton";
 
 function CompleteSetConcertPage() {
   const location = useLocation();
@@ -68,14 +69,14 @@ function CompleteSetConcertPage() {
       {/* <div className="fixed max-w-md bottom-60 w-full px-16"> */}
       <div className="sticky bottom-60 bg-grayScaleBlack100 pt-24 z-50  px-16 w-full  max-w-md">
         {/* 버튼 */}
-        <button
+        <CommonButton
+          variant="primary"
+          isActive={true}
+          title="확인"
           onClick={() => {
-            window.location.href = "/";
+            navigate("/", { replace: true });
           }}
-          className="w-full py-15 rounded-6 text-Body2-sm text-grayScaleBlack font-semibold bg-mainYellow30 font-NotoSansKR"
-        >
-          확인
-        </button>
+        />
       </div>
     </>
   );
