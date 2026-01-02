@@ -98,11 +98,10 @@ const SocialLoginButton = ({
         onClick={handleLogin}
         className={`relative flex items-center justify-center h-52 rounded-6 w-full ${bgColor}`}
       >
-        <img src={icon} className="absolute left-20" />{" "}
+        <img src={icon} className="absolute left-20" />
         <p className={`${textColor} text-Body3-md font-NotoSansKR font-medium`}>
-          {" "}
-          {label}{" "}
-        </p>{" "}
+          {label}
+        </p>
       </button>
 
       <AuthErrorModal
