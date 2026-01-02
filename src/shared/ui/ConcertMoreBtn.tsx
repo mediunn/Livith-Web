@@ -21,7 +21,7 @@ function ConcertMoreBtn({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`absolute top-${top} right-0 z-10  mt-16 mr-16 mr-${right} bg-grayScaleBlack100 rounded-8 backdrop-blur-sm
+      className={`absolute top-${top} right-0 z-10  mt-16 mr-16 mr-${right} bg-grayScaleBlack100 hover:bg-grayScaleBlack80 rounded-8 backdrop-blur-sm
         shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer`}
     >
       <div className="px-12 py-8 flex items-center">
