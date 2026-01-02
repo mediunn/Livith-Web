@@ -1,17 +1,29 @@
-import WarningIcon from "../../../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
+import WarningIcon from "../assets/WarningIcon.svg";
 
-interface DeleteCommentModalProps {
+interface DangerModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onDelete: () => void;
+  title: string | React.ReactNode;
+  children?: React.ReactNode;
+  primaryLabel: string;
+  secondaryLabel: string;
+  onPrimary: () => void;
+  onSecondary?: () => void;
+  primaryDisabled?: boolean;
 }
 
-function DeleteCommentModal({
+function DangerModal({
   isOpen,
   onClose,
-  onDelete,
-}: DeleteCommentModalProps) {
+  title,
+  children,
+  primaryLabel,
+  secondaryLabel,
+  onPrimary,
+  onSecondary,
+  primaryDisabled,
+}: DangerModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -39,7 +51,6 @@ function DeleteCommentModal({
                 type: "spring",
                 stiffness: 756,
                 damping: 48,
-                mass: 1,
               },
             }}
             // 팝업 닫힐 때
@@ -51,25 +62,30 @@ function DeleteCommentModal({
               },
             }}
           >
-            <div className="w-[327px] max-w-[87%] h-fit fixed flex flex-col bg-grayScaleWhite rounded-11 pb-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+              className="w-[327px] max-w-[87%] fixed flex flex-col bg-grayScaleWhite rounded-11 pb-12
+              top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            >
               <img src={WarningIcon} className="mx-auto mt-16" />
-              <p className="text-grayScaleBlack100 text-Body2-md font-medium font-NotoSansKR text-center mt-10">
-                댓글을 삭제하시겠어요?
+              <p className="text-grayScaleBlack100 text-Body2-md font-medium text-center mt-10">
+                {title}
               </p>
-              <div className="flex flex-row justify-center gap-9 mt-20 px-16 h-57">
+
+              {children}
+
+              <div className="flex gap-9 mt-20 px-16 h-57">
                 <button
+                  disabled={primaryDisabled}
+                  onClick={onPrimary}
                   className="flex-1 bg-grayScaleBlack5 text-caution100 text-Body3-md font-medium font-NotoSansKR rounded-8"
-                  onClick={onDelete}
                 >
-                  지금은 삭제할래요
+                  {primaryLabel}
                 </button>
                 <button
                   className="flex-1 bg-grayScaleBlack80 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR rounded-8"
-                  onClick={() => {
-                    onClose();
-                  }}
+                  onClick={onSecondary ?? onClose}
                 >
-                  잘못 눌렀어요
+                  {secondaryLabel}
                 </button>
               </div>
             </div>
@@ -79,4 +95,5 @@ function DeleteCommentModal({
     </AnimatePresence>
   );
 }
-export default DeleteCommentModal;
+
+export default DangerModal;
