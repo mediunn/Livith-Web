@@ -3,7 +3,7 @@ import { useState } from "react";
 import DangerModal from "./DangerModal";
 
 const meta: Meta<typeof DangerModal> = {
-  title: "shared/DangerModal",
+  title: "Modal/DangerModal",
   component: DangerModal,
   parameters: {
     layout: "centered",
