@@ -1,7 +1,5 @@
 import { useState } from "react";
 import ProfileIcon from "../../../shared/assets/ProfileIcon.svg";
-import DeleteCommentModal from "./DeleteCommentModal";
-import ReportCommentModal from "./ReportCommentModal";
 import { useDeleteConcertComment } from "../model/useDeleteConcertComment";
 import { useReportComment } from "../model/useReportComment";
 import { toast } from "react-toastify";
@@ -10,6 +8,8 @@ import ErrorToast from "../../../shared/ui/ErrorToast";
 import { useRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../auth/ui/LoginModal";
+import DangerModal from "../../../shared/ui/DangerModal";
+import { useReportReason } from "../model/useReportReason";
 
 interface CommentProps {
   id: number;
@@ -71,6 +71,8 @@ function Comment({
     }
   };
 
+  const reportReason = useReportReason();
+
   const handleReport = async (reason: string) => {
     if (!navigator.onLine) {
       toast(<ErrorToast message="다시 시도해 주세요" />, {
@@ -102,6 +104,7 @@ function Comment({
         }
       );
       setIsModalOpen(false);
+      reportReason.reset();
     } catch (error) {
       toast(<ErrorToast message="다시 시도해 주세요" />, {
         position: "top-center",
@@ -148,17 +151,55 @@ function Comment({
         </p>
       </div>
       {isMyComment ? (
-        <DeleteCommentModal
+        <DangerModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onDelete={handleDelete}
+          title="댓글을 삭제하시겠어요?"
+          primaryLabel="지금은 삭제할래요"
+          secondaryLabel="잘못 눌렀어요"
+          onPrimary={handleDelete}
         />
       ) : (
-        <ReportCommentModal
+        <DangerModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onSubmit={handleReport}
-        />
+          onClose={() => {
+            setIsModalOpen(false);
+            reportReason.reset();
+          }}
+          title="댓글을 신고하시겠어요?"
+          primaryLabel="신고할래요"
+          secondaryLabel="잘못 눌렀어요"
+          onPrimary={() => handleReport(reportReason.value)}
+          primaryDisabled={!reportReason.isActive}
+        >
+          <div className="relative mx-16 mt-20">
+            <textarea
+              ref={reportReason.textareaRef}
+              value={reportReason.value}
+              onChange={reportReason.handleChange}
+              placeholder="신고 사유를 작성해 주세요"
+              className="h-172 w-full px-14 pt-14 pb-30 resize-none rounded-6 bg-grayScaleBlack5 text-grayScaleBlack80 text-Body3-md font-medium font-NotoSansKR
+                  placeholder:text-grayScaleBlack50
+                  border border-transparent
+                  focus:border focus:border-grayScaleBlack30
+                  outline-none"
+            />
+
+            {/* 그라데이션 */}
+            {reportReason.isScrollable && reportReason.showTopGradient && (
+              <div className="pointer-events-none absolute top-0 left-0 h-30 w-[94%] bg-gradient-to-b from-grayScaleBlack5 to-transparent rounded-t-6" />
+            )}
+            {reportReason.isScrollable && reportReason.showBottomGradient && (
+              <div className="pointer-events-none absolute bottom-30 left-0 h-30 w-[94%] bg-gradient-to-t from-grayScaleBlack5 to-transparent rounded-b-6" />
+            )}
+
+            <div className="absolute bottom-5 left-1 h-30 w-[94%] rounded-6 bg-grayScaleBlack5">
+              <p className="absolute bottom-14 right-0 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
+                {reportReason.value.length}/200
+              </p>
+            </div>
+          </div>
+        </DangerModal>
       )}
       <LoginModal
         isOpen={isLoginModalOpen}
