@@ -10,6 +10,7 @@ const meta: Meta<typeof SignUpTooltip> = {
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;

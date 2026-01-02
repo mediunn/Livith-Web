@@ -13,6 +13,7 @@ const meta: Meta<typeof LoginCalloutChip> = {
     routerPath: "/my",
     layout: "centered",
   },
+  tags: ["autodocs"],
   decorators: [
     (Story, context) => {
       const recentLogin = context.parameters?.recentLogin as string | undefined;

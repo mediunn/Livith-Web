@@ -7,6 +7,7 @@ const meta: Meta<typeof CommonButton> = {
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
   argTypes: {
     title: {
       control: { type: "text" },

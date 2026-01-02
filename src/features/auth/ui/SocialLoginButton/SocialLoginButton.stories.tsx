@@ -9,6 +9,7 @@ const meta: Meta<typeof SocialLoginButton> = {
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
   argTypes: {
     provider: {
       control: { type: "radio" },
