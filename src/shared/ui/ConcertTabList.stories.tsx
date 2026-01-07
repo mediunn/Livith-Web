@@ -13,6 +13,13 @@ const meta: Meta = {
     },
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <div className="w-[375px]">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     totalCount: {
       control: { type: "number", min: 0, max: 999 },
