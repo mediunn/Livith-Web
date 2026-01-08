@@ -17,6 +17,7 @@ import dayjs from "../../../shared/lib/dayjs";
 import EditInterestConcertBottomSheet from "../../../features/interest/ui/EditInterestConcertBottomSheet";
 import { getFormatDday } from "../utils/formatScheduleDate";
 import ConcertTabList from "../../../shared/ui/ConcertTabList";
+import ConcertMoreBtn from "../../../shared/ui/ConcertMoreBtn";
 
 interface ConcertSettingProps {
   concertId: number;
@@ -129,20 +130,17 @@ function ConcertSetting({
         </div>
 
         <div className="w-full flex justify-center bg-grayScaleBlack90 ">
-          <button
-            className="absolute top-157 right-0 z-10 mt-16 mr-39 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
+          <ConcertMoreBtn
+            label="더 많은 정보 확인하기"
+            icon={ConcertTicketArrowIcon}
+            right={39}
+            top={157}
+            iconPosition="right"
             onClick={() => {
               window.amplitude.track("click_more_info_main");
               navigate(`/concert/${concert.id}`);
             }}
-          >
-            <div className="px-10 py-8 flex items-center">
-              <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
-                더 많은 정보 확인하기
-              </p>
-              <img src={ConcertTicketArrowIcon} className="w-24 h-24" />
-            </div>
-          </button>
+          />
 
           <div className=" w-full mx-24 mb-24">
             <div className="relative w-full aspect-[3/4] mt-24">

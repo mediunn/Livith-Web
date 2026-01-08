@@ -1,3 +1,4 @@
+import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
 import ConcertInfoCarousel from "../../../widgets/ConcertInfoCarousel";
 import { ConcertRequired } from "../api/getConcertRequiredInfo";
 
@@ -22,14 +23,11 @@ function RequiredInfo({ concertRequiredInfo, ticketUrl }: RequiredInfoProps) {
             빠르게 확인해요
           </p>
 
-          <div
+          <SmallReportBtn
             onClick={handleClick}
-            className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
-          >
-            <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
-              정보 제보
-            </p>
-          </div>
+            className="border border-solid border-grayScaleBlack80"
+            label="정보 제보"
+          />
         </div>
         {concertRequiredInfo && (
           <ConcertInfoCarousel

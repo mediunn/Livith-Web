@@ -10,6 +10,7 @@ import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../auth/ui/LoginModal";
 import DangerModal from "../../../shared/ui/DangerModal";
 import { useReportReason } from "../model/useReportReason";
+import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
 
 interface CommentProps {
   id: number;
@@ -134,17 +135,12 @@ function Comment({
               {nickname}
             </p>
           </div>
-          <button
+
+          <SmallReportBtn
             onClick={handleButtonClick}
-            className={`bg-grayScaleBlack100 rounded-24 px-12 py-4 text-Caption1-Bold font-bold font-NotoSansKR
-          ${
-            isMyComment
-              ? "text-grayScaleBlack5 border border-grayScaleBlack80"
-              : "text-grayScaleBlack80"
-          }`}
-          >
-            {isMyComment ? "삭제" : "신고"}
-          </button>
+            variant={isMyComment ? "my" : "not"}
+            label={isMyComment ? "삭제" : "신고"}
+          />
         </div>
         <p className="pt-12 text-grayScaleWhite text-Body2-re font-regular font-NotoSansKR break-words whitespace-pre-wrap">
           {content}
