@@ -1,6 +1,7 @@
 import InstagramIcon from "../../../shared/assets/InstagramIcon.svg";
 import { formatDebutDate } from "../utils/formatDebutDate";
 import EmptyArtistImageIcon from "../../../shared/assets/EmptyArtistImageIcon.svg";
+import ChipState from "../../../shared/ui/ChipState";
 
 interface ArtistInfoProps {
   concertId: number;
@@ -109,14 +110,12 @@ function ArtistInfo({
           {keywords.map(
             (keyword, index) =>
               keyword && (
-                <div
+                <ChipState
                   key={index}
-                  className="mr-4 mb-6 inline-flex items-center justify-center bg-grayScaleBlack80 rounded-24"
-                >
-                  <p className="px-13 py-8 text-grayScaleBlack30 text-Caption1-Bold font-bold font-NotoSansKR">
-                    {keyword}
-                  </p>
-                </div>
+                  label={keyword}
+                  variant="keyword"
+                  className="mr-4 mb-6"
+                />
               )
           )}
         </div>

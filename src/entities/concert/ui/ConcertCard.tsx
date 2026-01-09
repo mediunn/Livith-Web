@@ -1,6 +1,7 @@
 import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
 import { ConcertStatus } from "../types";
 import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
+import ChipState from "../../../shared/ui/ChipState";
 
 type ConcertCardProps = {
   title: string;
@@ -38,11 +39,11 @@ function ConcertCard({
             className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
           />
         )}
-        <div className="absolute top-10 left-10 px-13 py-8 inline-flex items-center justify-center h-32 bg-grayScaleBlack90 rounded-24">
-          <p className="text-grayScaleBlack30 text-Caption1-Bold font-bold font-NotoSansKR">
-            {setConcertStatus({ status, daysLeft })}
-          </p>
-        </div>
+
+        <ChipState
+          label={setConcertStatus({ status, daysLeft })}
+          className="absolute top-10 left-10"
+        />
       </div>
       <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2 break-words">
         {title}
