@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ChipBadge } from "./ChipBadge";
-import HotConcertChipIcon from "../assets/HotConcertChipIcon.svg";
+import HotConcertChipIcon from "../../assets/HotConcertChipIcon.svg";
 
 const meta: Meta<typeof ChipBadge> = {
   title: "Chip & dropdown & filter/chip_badge",
