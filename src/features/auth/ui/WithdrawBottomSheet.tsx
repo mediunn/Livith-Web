@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import Checkbox from "../../../shared/ui/Checkbox/Checkbox";
-import CompleteToast from "../../../shared/ui/CompleteToast";
-import ErrorToast from "../../../shared/ui/ErrorToast";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import { useWithdraw } from "../model/useWithdraw";
 
 interface WithdrawBottomSheetProps {

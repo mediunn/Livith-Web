@@ -12,6 +12,8 @@ import { useRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { ChipBadge } from "../../../shared/ui/ChipBadge/ChipBadge";
+import ConcertMoreBtn from "../../../shared/ui/ConcertMoreBtn";
+
 
 interface DetailInfoProps {
   id: string;
@@ -42,27 +44,24 @@ function DetailInfo({
 
   return (
     <div className="w-full h-337 relative">
-      <button
-        onClick={() => {
-          window.amplitude.track("click_interest_concert_detail");
-          if (user) {
-            setIsModalOpen(true);
-          } else {
-            setIsLoginModalOpen(true);
-          }
-        }}
-        disabled={isToastActive}
-        className="absolute top-0 right-0 z-10 mt-16 mr-16 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
-      >
-        {status !== ConcertStatus.CANCELED && (
-          <div className="px-10 py-8 flex items-center">
-            <img src={ConcertAddIcon} className="w-24 h-24" />
-            <p className="pl-4 text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
-              관심 콘서트 설정하기
-            </p>
-          </div>
-        )}
-      </button>
+      {status !== ConcertStatus.CANCELED && (
+        <ConcertMoreBtn
+          label="관심 콘서트 설정하기"
+          icon={ConcertAddIcon}
+          right={16}
+          top={0}
+          disabled={isToastActive}
+          iconPosition="left"
+          onClick={() => {
+            window.amplitude.track("click_interest_concert_detail");
+            if (user) {
+              setIsModalOpen(true);
+            } else {
+              setIsLoginModalOpen(true);
+            }
+          }}
+        />
+      )}
 
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {imageUrl ? (

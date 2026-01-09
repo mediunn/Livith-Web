@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
-import CompleteToast from "../../../shared/ui/CompleteToast";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 interface ConcertSettingSnackBarProps {

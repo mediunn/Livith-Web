@@ -6,10 +6,11 @@ import { useUpdateNickname } from "../features/auth/model/useUpdateNickname";
 import CloseRoundedIcon from "../shared/assets/CloseRoundIcon.svg";
 import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
-import CompleteToast from "../shared/ui/CompleteToast";
-import ErrorToast from "../shared/ui/ErrorToast";
+import CompleteToast from "../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import ListHeader from "../shared/ui/ListHeader";
 import { validateNickname } from "../shared/utils/validateNickname";
+import ConfirmBtn from "../shared/ui/ConfirmBtn";
 function NicknamePage() {
   const { initialize } = useInitializeAuth();
   const navigate = useNavigate();
@@ -142,14 +143,13 @@ function NicknamePage() {
                 />
               )}
             </div>
-            <button
-              // 버튼 눌렸을 때만 요청 실행
+
+            <ConfirmBtn
+              label={isNicknameChecked ? "확인완료" : "중복확인"}
               onClick={() => refetch()}
               disabled={!isValidNickname || isNicknameChecked}
-              className={`bg-grayScaleBlack80 text-Body3-md font-medium font-NotoSansKR px-12 py-16 rounded-10 ${!isValidNickname || isNicknameChecked ? "text-grayScaleBlack50" : "text-grayScaleBlack5 "}`}
-            >
-              {isNicknameChecked ? "확인완료" : "중복확인"}
-            </button>
+              className={`bg-grayScaleBlack80 px-12 py-16 ${!isValidNickname || isNicknameChecked ? "text-grayScaleBlack50" : "text-grayScaleWhite hover:bg-grayScaleBlack90"}`}
+            />
           </div>
           <p
             className={`${isNicknameChecked ? "text-mainYellow30" : (!isValidNickname || !isNicknameChecked) && input ? "text-lyricsTranslation" : "text-grayScaleBlack50"} text-Caption1-re font-regular font-NotoSansKR mb-10`}

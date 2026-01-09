@@ -17,7 +17,7 @@ import { useFanchant } from "../features/lyric/model/useFanchant";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { userState } from "../shared/lib/recoil/atoms/userState";
 import { toast } from "react-toastify";
-import LoginPromptToast from "../shared/ui/LoginPromptToast";
+import LoginPromptToast from "../shared/ui/Snackbar/LoginSnackbar";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();

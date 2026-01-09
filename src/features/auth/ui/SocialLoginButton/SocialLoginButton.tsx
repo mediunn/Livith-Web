@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import AuthErrorModal from "../AuthErrorModal";
 import { useInitializeAuth } from "../../../../shared/hooks/useInitializeAuth";
-import ErrorToast from "../../../../shared/ui/ErrorToast";
+import ErrorToast from "../../../../shared/ui/Toast/ErrorToast";
 
 interface SocialLoginButtonProps {
   provider: "apple" | "kakao";

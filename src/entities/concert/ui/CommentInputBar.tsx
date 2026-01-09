@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { useSetConcertComment } from "../../../features/concert/model/useSetConcertComment";
 import { toast } from "react-toastify";
-import CompleteToast from "../../../shared/ui/CompleteToast";
-import ErrorToast from "../../../shared/ui/ErrorToast";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
+import ConfirmBtn from "../../../shared/ui/ConfirmBtn";
 
 interface CommentInputBarProps {
   concertId: number;
@@ -190,15 +191,13 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
               }}
             />
           </div>
-          <button
+
+          <ConfirmBtn
+            label="등록"
             onClick={handleSubmit}
             disabled={!isActive}
-            className={`px-16 py-14 ml-12 max-h-49 rounded-10 font-medium text-Body2-md font-NotoSansKR 
-          ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}
-        `}
-          >
-            등록
-          </button>
+            className={`px-16 py-14 ml-12 max-h-49   ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}`}
+          />
         </div>
       </div>
       <LoginModal
