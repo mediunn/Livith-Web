@@ -17,7 +17,7 @@ import CommentTabPanel from "./CommentTabPanel";
 import { useConcertComment } from "../model/useConcertComment";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
-import ConcertTabList from "../../../shared/ui/ConcertTabList/ConcertTabList";
+import ConcertTabList from "../../../shared/ui/Tab/ConcertTabList";
 
 interface ConcertInfoTabProps {
   concertId: number;
