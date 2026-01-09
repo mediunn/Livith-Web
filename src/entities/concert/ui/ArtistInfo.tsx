@@ -1,8 +1,8 @@
 import InstagramIcon from "../../../shared/assets/InstagramIcon.svg";
 import { formatDebutDate } from "../utils/formatDebutDate";
 import EmptyArtistImageIcon from "../../../shared/assets/EmptyArtistImageIcon.svg";
-import ChipState from "../../../shared/ui/ChipState";
-import { ChipInfo } from "../../../shared/ui/ChipInfo";
+import ChipState from "../../../shared/ui/ChipState/ChipState";
+import { ChipInfo } from "../../../shared/ui/ChipInfo/ChipInfo";
 
 interface ArtistInfoProps {
   concertId: number;

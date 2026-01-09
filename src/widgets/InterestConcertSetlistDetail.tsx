@@ -1,6 +1,6 @@
 import { formatKoreanDate } from "../shared/utils/formatKoreanDate";
 import { Setlist } from "../entities/setlist/types";
-import { ChipInfo } from "../shared/ui/ChipInfo";
+import { ChipInfo } from "../shared/ui/ChipInfo/ChipInfo";
 
 function InterestConcertSetlistDetail({ setlist }: { setlist: Setlist }) {
   return (

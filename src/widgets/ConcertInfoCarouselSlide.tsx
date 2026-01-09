@@ -1,6 +1,6 @@
 import ConcertInfoCarouselArrow from "../shared/assets/ConcertInfoCarouselArrow.svg";
 import EmptyConcertInfoIcon from "../shared/assets/EmptyConcertInfoIcon.svg";
-import { ChipInfo } from "../shared/ui/ChipInfo";
+import { ChipInfo } from "../shared/ui/ChipInfo/ChipInfo";
 
 type MainImageCarouselSlideProps = {
   category: string;

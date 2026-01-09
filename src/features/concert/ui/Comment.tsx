@@ -8,7 +8,7 @@ import ErrorToast from "../../../shared/ui/ErrorToast";
 import { useRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../auth/ui/LoginModal";
-import DangerModal from "../../../shared/ui/DangerModal";
+import DangerModal from "../../../shared/ui/DangerModal/DangerModal";
 import { useReportReason } from "../model/useReportReason";
 
 interface CommentProps {

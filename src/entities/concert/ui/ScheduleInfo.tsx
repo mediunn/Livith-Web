@@ -4,7 +4,7 @@ import {
   getFormatDday,
   getFormatDateTime,
 } from "../../../features/concert/utils/formatScheduleDate.ts";
-import ChipState from "../../../shared/ui/ChipState.tsx";
+import ChipState from "../../../shared/ui/ChipState/ChipState.tsx";
 
 type ScheduleInfoProps = {
   schedules: Schedule[];

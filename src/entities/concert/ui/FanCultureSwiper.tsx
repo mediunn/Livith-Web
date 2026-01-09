@@ -7,7 +7,7 @@ import "swiper/css/free-mode";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
 import { ConcertCulture } from "../api/getConcertCulture";
-import { ChipInfo } from "../../../shared/ui/ChipInfo";
+import { ChipInfo } from "../../../shared/ui/ChipInfo/ChipInfo";
 
 interface FanCultureSwiperProps {
   concertCulture: ConcertCulture[];

@@ -8,7 +8,7 @@ import {
 } from "../../../entities/concert/types";
 import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
 import { StateWithSetter } from "../../../shared/types/props";
-import ChipState from "../../../shared/ui/ChipState";
+import ChipState from "../../../shared/ui/ChipState/ChipState";
 
 type SelectableInfiniteConcertListProps = {
   concerts: Concert[] | undefined;

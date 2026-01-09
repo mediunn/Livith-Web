@@ -1,7 +1,7 @@
 import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
 import { ConcertStatus } from "../types";
 import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
-import ChipState from "../../../shared/ui/ChipState";
+import ChipState from "../../../shared/ui/ChipState/ChipState";
 
 type ConcertCardProps = {
   title: string;
