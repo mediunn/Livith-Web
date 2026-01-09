@@ -1,5 +1,6 @@
 import ConcertInfoCarouselArrow from "../shared/assets/ConcertInfoCarouselArrow.svg";
 import EmptyConcertInfoIcon from "../shared/assets/EmptyConcertInfoIcon.svg";
+import { ChipInfo } from "../shared/ui/ChipInfo";
 
 type MainImageCarouselSlideProps = {
   category: string;
@@ -39,11 +40,8 @@ function ConcertInfoCarouselSlide({
       )}
 
       <div className="absolute bottom-53 px-26">
-        <div className="px-13 py-4 inline-flex items-center justify-cente bg-grayScaleBlack90 rounded-24">
-          <p className="text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
-            {category}
-          </p>
-        </div>
+        <ChipInfo label={category} textStyle="caption1Bold" />
+
         <p className="pt-10 text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR">
           {content}
         </p>

@@ -2,6 +2,7 @@ import InstagramIcon from "../../../shared/assets/InstagramIcon.svg";
 import { formatDebutDate } from "../utils/formatDebutDate";
 import EmptyArtistImageIcon from "../../../shared/assets/EmptyArtistImageIcon.svg";
 import ChipState from "../../../shared/ui/ChipState";
+import { ChipInfo } from "../../../shared/ui/ChipInfo";
 
 interface ArtistInfoProps {
   concertId: number;
@@ -65,11 +66,7 @@ function ArtistInfo({
             <div className="px-16 py-16 ">
               <div className="relative">
                 {category && (
-                  <div className="inline-flex items-center justify-center bg-grayScaleBlack100 rounded-24">
-                    <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
-                      {category}
-                    </p>
-                  </div>
+                  <ChipInfo label={category} textStyle="caption1Bold" />
                 )}
                 <p className="pt-8 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
                   {artist}

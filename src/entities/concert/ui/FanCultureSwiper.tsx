@@ -7,6 +7,7 @@ import "swiper/css/free-mode";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
 import { ConcertCulture } from "../api/getConcertCulture";
+import { ChipInfo } from "../../../shared/ui/ChipInfo";
 
 interface FanCultureSwiperProps {
   concertCulture: ConcertCulture[];
@@ -122,11 +123,11 @@ function FanCultureSwiper({ concertCulture }: FanCultureSwiperProps) {
             >
               <div className="px-12 py-20">
                 <div className="relative">
-                  <div className="inline-flex items-center justify-center bg-grayScaleBlack80 rounded-24">
-                    <p className="px-9 py-4 text-grayScaleBlack30 text-Caption1-Bold font-bold font-NotoSansKR">
-                      팬문화 {i + 1}
-                    </p>
-                  </div>
+                  <ChipInfo
+                    label={`팬문화 ${i + 1}`}
+                    textStyle="caption1Bold"
+                  />
+
                   <p className="pt-4 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
                     {culture.title}
                   </p>
