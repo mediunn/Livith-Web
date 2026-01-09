@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 import ErrorToastIcon from "../../assets/ErrorToastIcon.svg";
 
 const meta: Meta<typeof ToastBase> = {
-  title: "Toast/toast",
+  title: "Toast & Snackbar/toast",
   component: ToastBase,
   parameters: {
     layout: "centered",
