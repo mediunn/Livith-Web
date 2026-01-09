@@ -8,6 +8,8 @@ type RefreshTokensResponse = {
 export async function refreshTokens(): Promise<
   ApiResponse<RefreshTokensResponse>
 > {
-  const response = await axiosInstance.post(`/api/v4/auth/refresh?client=web`);
+  const response = await axiosInstance.post(`/api/v4/auth/refresh?client=web`, {
+    skipAuthRefresh: true,
+  });
   return response.data;
 }
