@@ -5,7 +5,7 @@ import TrashCanIcon from "../../../shared/assets/TrashCanIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 import { toast } from "react-toastify";
-import CompleteToast from "../../../shared/ui/CompleteToast";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import { useDeleteInterestConcert } from "../../interest/model/useDeleteInterestConcert";
 import DangerModal from "../../../shared/ui/DangerModal";
 

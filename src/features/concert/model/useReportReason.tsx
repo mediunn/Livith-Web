@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import ErrorToast from "../../../shared/ui/ErrorToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 
 export const useReportReason = () => {
   const [value, setValue] = useState("");
