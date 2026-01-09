@@ -11,6 +11,7 @@ import { ConcertStatus } from "../types";
 import { useRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
+import { ChipBadge } from "../../../shared/ui/ChipBadge";
 
 interface DetailInfoProps {
   id: string;
@@ -79,14 +80,7 @@ function DetailInfo({
         />
       )}
       <div className="absolute bottom-28 left-0 w-full px-16">
-        {label && (
-          <div className="inline-flex items-center px-8 py-2 bg-lyricsTranslation rounded-24">
-            <img src={HotConcertChipIcon} className="w-24 h-24" />
-            <p className="text-grayScaleBlack100 text-Caption2-sm font-semibold font-NotoSansKR">
-              {label}
-            </p>
-          </div>
-        )}
+        {label && <ChipBadge label={label} icon={HotConcertChipIcon} />}
         <p className="pt-10 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
           {title}
         </p>
