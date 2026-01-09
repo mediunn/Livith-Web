@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useSetConcertComment } from "../../../features/concert/model/useSetConcertComment";
 import { toast } from "react-toastify";
-import CompleteToast from "../../../shared/ui/CompleteToast";
-import ErrorToast from "../../../shared/ui/ErrorToast";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";

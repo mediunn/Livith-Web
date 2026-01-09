@@ -5,7 +5,7 @@ import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { toast } from "react-toastify";
-import LoginPromptToast from "../shared/ui/LoginPromptToast";
+import LoginPromptToast from "../shared/ui/Snackbar/LoginSnackbar";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { useRecoilState } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
