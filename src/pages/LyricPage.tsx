@@ -17,7 +17,7 @@ import { useFanchant } from "../features/lyric/model/useFanchant";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { userState } from "../shared/lib/recoil/atoms/userState";
 import { toast } from "react-toastify";
-import LoginPromptToast from "../shared/ui/Snackbar/LoginSnackbar";
+import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -58,7 +58,7 @@ function LyricPage() {
       // 3개 열람 시 토스트
       if (newViewed.length === 3) {
         toast(
-          <LoginPromptToast
+          <LoginSnackbar
             message="가사"
             onLoginClick={() => {
               setIsLoginModalOpen(true);

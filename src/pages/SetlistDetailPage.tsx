@@ -7,7 +7,6 @@ import { useRecoilState } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
-import LoginPromptToast from "../shared/ui/Snackbar/LoginSnackbar";
 import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
 
 function SetlistDetailPage() {
