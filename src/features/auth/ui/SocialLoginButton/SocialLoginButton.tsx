@@ -50,7 +50,7 @@ const SocialLoginButton = ({
       const payload = event.data;
 
       if (payload.error) {
-        if (payload.error === "탈퇴 후 7일이 지나지 않았어요") {
+        if (payload.error === "탈퇴 후 7일이 지나지 않았어요.") {
           setIsErrorModalOpen(true);
           popup?.close();
           window.removeEventListener("message", listener);
