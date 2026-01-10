@@ -7,7 +7,7 @@ import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import { useDeleteInterestConcert } from "../../interest/model/useDeleteInterestConcert";
-import DangerModal from "../../../shared/ui/DangerModal";
+import DangerModal from "../../../shared/ui/DangerModal/DangerModal";
 
 interface EditBottomSheetProps {
   isSheetOpen: boolean;

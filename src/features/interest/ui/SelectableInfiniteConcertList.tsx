@@ -8,6 +8,7 @@ import {
 } from "../../../entities/concert/types";
 import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
 import { StateWithSetter } from "../../../shared/types/props";
+import ChipState from "../../../shared/ui/ChipState/ChipState";
 
 type SelectableInfiniteConcertListProps = {
   concerts: Concert[] | undefined;
@@ -83,24 +84,15 @@ export function SelectableInfiniteConcertList({
                     }`}
                   />
                 )}
-                <div
-                  className={`absolute top-10 left-10 px-13 py-8 inline-flex items-center justify-center h-32 rounded-24 ${
-                    isSelected ? "bg-mainYellow30" : "bg-grayScaleBlack90"
-                  }`}
-                >
-                  <p
-                    className={`text-Caption1-Bold font-bold font-NotoSansKR ${
-                      isSelected
-                        ? "text-grayScaleBlack100"
-                        : "text-grayScaleBlack30"
-                    }`}
-                  >
-                    {setConcertStatus({
-                      status: concert.status,
-                      daysLeft: concert.daysLeft,
-                    })}
-                  </p>
-                </div>
+
+                <ChipState
+                  label={setConcertStatus({
+                    status: concert.status,
+                    daysLeft: concert.daysLeft,
+                  })}
+                  variant={isSelected ? "selected" : "default"}
+                  className="absolute top-10 left-10"
+                />
               </div>
               <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2 break-words">
                 {concert.title}

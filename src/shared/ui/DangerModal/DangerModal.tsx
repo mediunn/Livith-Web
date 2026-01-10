@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import WarningIcon from "../assets/WarningIcon.svg";
+import WarningIcon from "../../assets/WarningIcon.svg";
 
 interface DangerModalProps {
   isOpen: boolean;
