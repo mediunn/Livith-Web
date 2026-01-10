@@ -5,7 +5,7 @@ import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { toast } from "react-toastify";
-import LoginPromptToast from "../shared/ui/Snackbar/LoginSnackbar";
+import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { useRecoilState } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
@@ -51,7 +51,7 @@ function ConcertInsidePage() {
       // 3개 열람 시 토스트
       if (newViewed.length === 3) {
         toast(
-          <LoginPromptToast
+          <LoginSnackbar
             message="콘서트 정보"
             onLoginClick={() => {
               setIsLoginModalOpen(true);
