@@ -4,7 +4,7 @@ import WithdrawBottomSheet from "../features/auth/ui/WithdrawBottomSheet";
 import NavPrev from "../shared/assets/NavPrevIcon.svg";
 import Checkbox from "../shared/ui/Checkbox/Checkbox";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
-import TextBox from "../shared/ui/TextBox";
+import TextBox from "../shared/ui/TextBox/TextBox";
 
 function WithdrawPage() {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);

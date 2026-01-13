@@ -72,7 +72,7 @@ const TextBox = forwardRef<HTMLTextAreaElement, TextBoxProps>(
 
         {/* 글자수 카운터 */}
         <div
-          className={`absolute bottom-5 left-1 h-30 w-[94%] rounded-6 ${bgColor} z-20`}
+          className={`absolute bottom-6 left-1 h-30 w-[94%] rounded-6 ${bgColor} z-20`}
         >
           <p
             className={`absolute bottom-8 right-8 ${counterColor} text-Body4-re font-regular font-NotoSansKR`}
