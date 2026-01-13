@@ -10,7 +10,8 @@ import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../auth/ui/LoginModal";
 import DangerModal from "../../../shared/ui/DangerModal/DangerModal";
 import { useReportReason } from "../model/useReportReason";
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
+import TextBox from "../../../shared/ui/TextBox/TextBox";
 
 interface CommentProps {
   id: number;
@@ -168,32 +169,22 @@ function Comment({
           onPrimary={() => handleReport(reportReason.value)}
           primaryDisabled={!reportReason.isActive}
         >
-          <div className="relative mx-16 mt-20">
-            <textarea
+          <div className="mx-16 mt-20">
+            <TextBox
               ref={reportReason.textareaRef}
               value={reportReason.value}
               onChange={reportReason.handleChange}
               placeholder="신고 사유를 작성해 주세요"
-              className="h-172 w-full px-14 pt-14 pb-30 resize-none rounded-6 bg-grayScaleBlack5 text-grayScaleBlack80 text-Body3-md font-medium font-NotoSansKR
-                  placeholder:text-grayScaleBlack50
-                  border border-transparent
-                  focus:border focus:border-grayScaleBlack30
-                  outline-none"
+              maxLength={200}
+              enforceMaxLength={false}
+              height="h-172"
+              variant="light"
+              showGradients={{
+                isScrollable: reportReason.isScrollable,
+                showTopGradient: reportReason.showTopGradient,
+                showBottomGradient: reportReason.showBottomGradient,
+              }}
             />
-
-            {/* 그라데이션 */}
-            {reportReason.isScrollable && reportReason.showTopGradient && (
-              <div className="pointer-events-none absolute top-0 left-0 h-30 w-[94%] bg-gradient-to-b from-grayScaleBlack5 to-transparent rounded-t-6" />
-            )}
-            {reportReason.isScrollable && reportReason.showBottomGradient && (
-              <div className="pointer-events-none absolute bottom-30 left-0 h-30 w-[94%] bg-gradient-to-t from-grayScaleBlack5 to-transparent rounded-b-6" />
-            )}
-
-            <div className="absolute bottom-5 left-1 h-30 w-[94%] rounded-6 bg-grayScaleBlack5">
-              <p className="absolute bottom-14 right-0 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
-                {reportReason.value.length}/200
-              </p>
-            </div>
           </div>
         </DangerModal>
       )}

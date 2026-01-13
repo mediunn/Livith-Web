@@ -5,8 +5,7 @@ import {
   getFormatDateTime,
 } from "../../../features/concert/utils/formatScheduleDate.ts";
 import ChipState from "../../../shared/ui/ChipState/ChipState.tsx";
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn.tsx";
-
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton.tsx";
 
 type ScheduleInfoProps = {
   schedules: Schedule[];

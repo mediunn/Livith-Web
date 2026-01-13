@@ -6,7 +6,7 @@ import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
-import ConfirmBtn from "../../../shared/ui/ConfirmBtn";
+import ConfirmBtn from "../../../shared/ui/ConfirmButton/ConfirmButton";
 
 interface CommentInputBarProps {
   concertId: number;

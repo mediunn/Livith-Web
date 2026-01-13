@@ -1,6 +1,6 @@
 import FanCultureSwiper from "./FanCultureSwiper";
 import { ConcertCulture } from "../api/getConcertCulture";
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 
 interface FanCultureInfoProps {
   concertCulture: ConcertCulture[];

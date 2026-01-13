@@ -1,4 +1,4 @@
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 import ConcertInfoCarousel from "../../../widgets/ConcertInfoCarousel";
 import { ConcertRequired } from "../api/getConcertRequiredInfo";
 

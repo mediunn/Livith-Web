@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ConcertMoreBtn from "./ConcertMoreBtn";
-import ConcertAddIcon from "../assets/ConcertAddIcon.svg";
-import ConcertTicketArrowIcon from "../assets/ConcertTicketArrowIcon.svg";
+import ConcertMoreButton from "./ConcertMoreButton";
+import ConcertAddIcon from "../../assets/ConcertAddIcon.svg";
+import ConcertTicketArrowIcon from "../../assets/ConcertTicketArrowIcon.svg";
 
-const meta: Meta<typeof ConcertMoreBtn> = {
+const meta: Meta<typeof ConcertMoreButton> = {
   title: "btn/btn_concertmore",
-  component: ConcertMoreBtn,
+  component: ConcertMoreButton,
   parameters: {
     layout: "centered",
   },
@@ -24,7 +24,7 @@ const meta: Meta<typeof ConcertMoreBtn> = {
 
 export default meta;
 
-type Story = StoryObj<typeof ConcertMoreBtn>;
+type Story = StoryObj<typeof ConcertMoreButton>;
 
 export const InterestConcertSet: Story = {
   args: {

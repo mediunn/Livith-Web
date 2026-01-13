@@ -3,7 +3,7 @@ import { Setlist } from "../api/getSetlistInfo";
 import SetListCard from "../../../entities/setlist/ui/SetListCard";
 import formatDate from "../../setlist/utils/formatDate";
 import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 interface SetlistTabPanelProps {
   setlist: Setlist[] | null;
   concertId: number;

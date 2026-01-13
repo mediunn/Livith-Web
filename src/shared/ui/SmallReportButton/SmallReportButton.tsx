@@ -1,16 +1,16 @@
-interface SmallReportBtnProps {
+interface SmallReportButtonProps {
   label: string;
   onClick: () => void;
   variant?: "not" | "my";
   className?: string;
 }
 
-function SmallReportBtn({
+function SmallReportButton({
   label,
   onClick,
   variant = "not",
   className = "",
-}: SmallReportBtnProps) {
+}: SmallReportButtonProps) {
   return (
     <button
       type="button"
@@ -26,4 +26,4 @@ function SmallReportBtn({
   );
 }
 
-export default SmallReportBtn;
+export default SmallReportButton;

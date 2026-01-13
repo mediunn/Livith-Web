@@ -3,8 +3,7 @@ import { formatDebutDate } from "../utils/formatDebutDate";
 import EmptyArtistImageIcon from "../../../shared/assets/EmptyArtistImageIcon.svg";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
 import { ChipInfo } from "../../../shared/ui/ChipInfo/ChipInfo";
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
-
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 
 interface ArtistInfoProps {
   concertId: number;

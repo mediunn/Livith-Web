@@ -10,7 +10,7 @@ import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import ListHeader from "../shared/ui/ListHeader";
 import { validateNickname } from "../shared/utils/validateNickname";
-import ConfirmBtn from "../shared/ui/ConfirmBtn";
+import ConfirmBtn from "../shared/ui/ConfirmButton/ConfirmButton";
 function NicknamePage() {
   const { initialize } = useInitializeAuth();
   const navigate = useNavigate();

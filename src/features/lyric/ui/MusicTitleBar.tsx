@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import NavPrev from "../../../shared/assets/NavPrevIcon.svg";
 import { useSong } from "../../../entities/lyric/model/useSong";
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 
 interface MusicTitleBarProps {
   songId: number;
