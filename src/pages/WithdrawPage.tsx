@@ -4,6 +4,7 @@ import WithdrawBottomSheet from "../features/auth/ui/WithdrawBottomSheet";
 import NavPrev from "../shared/assets/NavPrevIcon.svg";
 import Checkbox from "../shared/ui/Checkbox/Checkbox";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
+import TextBox from "../shared/ui/TextBox";
 
 function WithdrawPage() {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
@@ -97,24 +98,16 @@ function WithdrawPage() {
               </div>
 
               {isEtc && isActive && (
-                <div className="relative mt-27">
-                  <textarea
+                <div className="mt-27">
+                  <TextBox
                     ref={textareaRef}
                     value={value}
                     onChange={handleChange}
                     placeholder="10자 이상의 사유를 작성해 주세요"
                     maxLength={200}
-                    className="relative z-10 h-206 w-full px-14 pt-14 pb-30 resize-none overflow-y-auto rounded-6 bg-grayScaleBlack80 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR
-                    placeholder:text-grayScaleBlack50
-                    border border-transparent
-                    focus:border focus:border-grayScaleBlack30
-                    outline-none"
+                    height="h-206"
+                    variant="dark"
                   />
-                  <div className="absolute bottom-6 left-1 h-30 w-[94%] rounded-6 bg-grayScaleBlack80">
-                    <p className="absolute bottom-14 right-0 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
-                      {value.length}/200
-                    </p>
-                  </div>
                 </div>
               )}
             </div>
