@@ -10,7 +10,7 @@ import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../auth/ui/LoginModal";
 import DangerModal from "../../../shared/ui/DangerModal/DangerModal";
 import { useReportReason } from "../model/useReportReason";
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 import TextBox from "../../../shared/ui/TextBox/TextBox";
 
 interface CommentProps {

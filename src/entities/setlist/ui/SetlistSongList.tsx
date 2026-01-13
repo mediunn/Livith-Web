@@ -5,7 +5,7 @@ import SetlistSongItem from "./SetlistSongItem";
 import { setlistIdState } from "../../../shared/lib/recoil/atoms/setlistIdState";
 import { useNavigate } from "react-router-dom";
 import { SetlistType } from "../types";
-import SmallReportBtn from "../../../shared/ui/SmallReportBtn";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 
 type SetlistSongListProps = {
   setlistId: number;

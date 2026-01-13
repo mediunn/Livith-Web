@@ -16,7 +16,7 @@ import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcert
 import dayjs from "../../../shared/lib/dayjs";
 import EditInterestConcertBottomSheet from "../../../features/interest/ui/EditInterestConcertBottomSheet";
 import { getFormatDday } from "../utils/formatScheduleDate";
-import ConcertMoreBtn from "../../../shared/ui/ConcertMoreBtn";
+import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
 import ConcertTabList from "../../../shared/ui/Tab/ConcertTabList";
 
 interface ConcertSettingProps {

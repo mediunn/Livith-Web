@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ConfirmBtn from "./ConfirmBtn";
+import ConfirmButton from "./ConfirmButton";
 
 const meta = {
   title: "btn/btn_confirm",
-  component: ConfirmBtn,
+  component: ConfirmButton,
   parameters: {
     layout: "centered",
   },
@@ -19,7 +19,7 @@ const meta = {
       description: "추가 CSS 클래스",
     },
   },
-} satisfies Meta<typeof ConfirmBtn>;
+} satisfies Meta<typeof ConfirmButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

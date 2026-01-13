@@ -1,4 +1,4 @@
-interface ConcertMoreBtnProps {
+interface ConcertMoreButtonProps {
   label: string;
   icon?: string;
   onClick: () => void;
@@ -8,7 +8,7 @@ interface ConcertMoreBtnProps {
   iconPosition: "left" | "right";
 }
 
-function ConcertMoreBtn({
+function ConcertMoreButton({
   label,
   icon,
   onClick,
@@ -16,7 +16,7 @@ function ConcertMoreBtn({
   right,
   top,
   iconPosition,
-}: ConcertMoreBtnProps) {
+}: ConcertMoreButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -39,4 +39,4 @@ function ConcertMoreBtn({
   );
 }
 
-export default ConcertMoreBtn;
+export default ConcertMoreButton;

@@ -1,4 +1,4 @@
-interface ConfirmBtnProps {
+interface ConfirmButtonProps {
   label: string;
   onClick: () => void;
   disabled?: boolean;
@@ -6,13 +6,13 @@ interface ConfirmBtnProps {
   className?: string;
 }
 
-function ConfirmBtn({
+function ConfirmButton({
   label,
   onClick,
   disabled = false,
   isLoading = false,
   className = "",
-}: ConfirmBtnProps) {
+}: ConfirmButtonProps) {
   const isDisabled = disabled || isLoading;
 
   return (
@@ -32,4 +32,4 @@ function ConfirmBtn({
   );
 }
 
-export default ConfirmBtn;
+export default ConfirmButton;

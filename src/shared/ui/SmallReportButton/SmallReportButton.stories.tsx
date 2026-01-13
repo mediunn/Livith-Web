@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import SmallReportBtn from "./SmallReportBtn";
+import SmallReportButton from "./SmallReportButton";
 
-const meta: Meta<typeof SmallReportBtn> = {
+const meta: Meta<typeof SmallReportButton> = {
   title: "btn/btn_small_report",
-  component: SmallReportBtn,
+  component: SmallReportButton,
   parameters: {
     layout: "centered",
   },
@@ -12,17 +12,17 @@ const meta: Meta<typeof SmallReportBtn> = {
 
 export default meta;
 
-type Story = StoryObj<typeof SmallReportBtn>;
+type Story = StoryObj<typeof SmallReportButton>;
 
 export const DeleteAndReport: Story = {
   render: () => (
     <div className="flex gap-12">
-      <SmallReportBtn
+      <SmallReportButton
         label="삭제"
         variant="my"
         onClick={() => alert("삭제 클릭")}
       />
-      <SmallReportBtn
+      <SmallReportButton
         label="신고"
         variant="not"
         onClick={() => alert("신고 클릭")}

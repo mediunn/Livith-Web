@@ -12,8 +12,7 @@ import { useRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { ChipBadge } from "../../../shared/ui/ChipBadge/ChipBadge";
-import ConcertMoreBtn from "../../../shared/ui/ConcertMoreBtn";
-
+import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
 
 interface DetailInfoProps {
   id: string;
