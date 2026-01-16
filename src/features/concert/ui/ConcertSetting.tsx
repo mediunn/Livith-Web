@@ -50,7 +50,7 @@ function ConcertSetting({
     .filter(
       (s) =>
         (s.type === "TICKETING" || s.type === "CONCERT") &&
-        dayjs(s.scheduledAt).isSameOrAfter(now, "day")
+        dayjs(s.scheduledAt).isSameOrAfter(now, "day"),
     )
     .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix());
 
