@@ -62,7 +62,7 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
 
         <div className="relative">
           <button
-            className="w-148 h-136 bg-grayScaleBlack80 hover:bg-grayScaleBlack100 rounded-10 border-none cursor-pointer"
+            className="w-148 h-136 bg-grayScaleBlack80 rounded-10 border-none cursor-pointer"
             onClick={handleSetInterestConcert}
           >
             <div className="flex flex-col items-center">
