@@ -1,16 +1,19 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Sheet, SheetRef } from "react-modal-sheet";
-import { GenreFilter, StatusFilter } from "../../../entities/concert/types";
-import { StateWithSetter } from "../../../shared/types/props";
-import { genreMap } from "../../../entities/concert/constants/filterMaps";
-import { statusMap } from "../../../entities/concert/constants/filterMaps";
-import { sortFilter } from "../../../features/concert/utils/sortFilter";
+import {
+  genreMap,
+  statusMap,
+} from "../../../entities/concert/constants/filterMaps";
 import {
   genreOrder,
   statusOrder,
 } from "../../../entities/concert/constants/filterOrders";
-import { motion, AnimatePresence } from "framer-motion";
+import { GenreFilter, StatusFilter } from "../../../entities/concert/types";
+import { sortFilter } from "../../../features/concert/utils/sortFilter";
 import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
+import { StateWithSetter } from "../../../shared/types/props";
+import ChipFilter from "./ChipFilter/ChipFilter";
 
 interface FilterBottomSheetProps {
   isSheetOpen: boolean;
@@ -117,12 +120,14 @@ function FilterBottomSheet({
               장르
             </div>
             <div className="pt-20 pb-30">
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-8">
                 {genres.map((genre, index) => {
                   const isSelected = localGenres.includes(genre);
                   return (
-                    <div
+                    <ChipFilter
                       key={genre}
+                      label={genreMap[genre]}
+                      variant={isSelected ? "on" : "off"}
                       onClick={() =>
                         toggleOption<GenreFilter>(
                           localGenres,
@@ -131,17 +136,7 @@ function FilterBottomSheet({
                           setLocalGenres
                         )
                       }
-                      className={`
-                        px-13 py-7 rounded-24 cursor-pointer font-bold font-NotoSansKR text-Caption1-Bold
-                        ${
-                          isSelected
-                            ? "border bg-mainYellow30 text-grayScaleBlack100"
-                            : "border border-grayScaleBlack50 text-grayScaleBlack50"
-                        }
-                      `}
-                    >
-                      {genreMap[genre]}
-                    </div>
+                    />
                   );
                 })}
               </div>
@@ -153,12 +148,14 @@ function FilterBottomSheet({
             <div className="pt-30 pb-20 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
               기간
             </div>
-            <div className="flex flex-wrap gap-2.5 mb-24">
+            <div className="flex flex-wrap gap-8 mb-24">
               {statuses.map((status) => {
                 const isSelected = localStatuses.includes(status);
                 return (
-                  <div
+                  <ChipFilter
                     key={status}
+                    label={statusMap[status]}
+                    variant={isSelected ? "on" : "off"}
                     onClick={() =>
                       toggleOption<StatusFilter>(
                         localStatuses,
@@ -167,17 +164,7 @@ function FilterBottomSheet({
                         setLocalStatuses
                       )
                     }
-                    className={`
-                      px-13 py-7 rounded-24 cursor-pointer font-bold font-NotoSansKR text-Caption1-Bold
-                      ${
-                        isSelected
-                          ? "border bg-mainYellow30 text-grayScaleBlack100"
-                          : "border border-grayScaleBlack50 text-grayScaleBlack50"
-                      }
-                    `}
-                  >
-                    {statusMap[status]}
-                  </div>
+                  />
                 );
               })}
             </div>
