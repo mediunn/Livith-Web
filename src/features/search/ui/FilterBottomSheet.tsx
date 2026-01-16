@@ -120,7 +120,7 @@ function FilterBottomSheet({
               장르
             </div>
             <div className="pt-20 pb-30">
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-8">
                 {genres.map((genre, index) => {
                   const isSelected = localGenres.includes(genre);
                   return (
@@ -148,7 +148,7 @@ function FilterBottomSheet({
             <div className="pt-30 pb-20 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
               기간
             </div>
-            <div className="flex flex-wrap gap-2.5 mb-24">
+            <div className="flex flex-wrap gap-8 mb-24">
               {statuses.map((status) => {
                 const isSelected = localStatuses.includes(status);
                 return (

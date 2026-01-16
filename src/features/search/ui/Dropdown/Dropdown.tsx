@@ -31,11 +31,11 @@ export default function Dropdown({
   return (
     <div
       onClick={onClick}
-      className={`flex flex-row border ${borderColor} ${backgroundColor} rounded-24 px-8 py-5 space-x-4 cursor-pointer`}
+      className={`flex flex-row items-center border ${borderColor} ${backgroundColor} rounded-24 px-8 py-5  cursor-pointer`}
     >
       {icon}
       <div
-        className={`text-Body4-sm font-semibold ${textColor} font-NotoSansKR `}
+        className={`text-Body4-sm font-semibold ${textColor} font-NotoSansKR ml-4`}
       >
         {label}
       </div>
