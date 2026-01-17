@@ -1,41 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCheckNickname } from "../features/auth/model/useCheckNickname";
 import { useUpdateNickname } from "../features/auth/model/useUpdateNickname";
-import CloseRoundedIcon from "../shared/assets/CloseRoundIcon.svg";
 import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import ListHeader from "../shared/ui/ListHeader";
-import { validateNickname } from "../shared/utils/validateNickname";
 import ConfirmBtn from "../shared/ui/ConfirmButton/ConfirmButton";
+import TextInputField from "../shared/ui/InputField/TextInputField";
 function NicknamePage() {
   const { initialize } = useInitializeAuth();
   const navigate = useNavigate();
-  const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState<string>("");
-  const [isValidNickname, setIsValidNickname] = useState(false); // 닉네임 형식 검사
-  const [isNicknameChecked, setIsNicknameChecked] = useState(false); // 중복확인 완료 여부
-  const [isFocused, setIsFocused] = useState(false); //input 포커스 여부
+  const [isValidNickname, setIsValidNickname] = useState(false);
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
   const [checkMessage, setCheckMessage] = useState(
     "10자리 이내, 문자/숫자로 입력 가능해요"
-  ); //검증 메시지
-  const [showClear, setShowClear] = useState(false);
-
-  // 한글 입력 시 Enter 키 이벤트가 두 번 발생하는 문제 해결
-  const [isComposing, setIsComposing] = useState(false);
-
-  useEffect(() => {
-    setShowClear(input.length > 0 && isFocused);
-  }, [input, isFocused]);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !isComposing && input.trim()) {
-      inputRef.current?.blur(); // Enter 입력 후 포커스 해제
-    }
-  };
+  );
   const { data, isError, refetch } = useCheckNickname(input);
   const { mutate: updateNicknameMutate } = useUpdateNickname();
 
@@ -88,61 +71,14 @@ function NicknamePage() {
           </div>
           {/* 닉네임 입력 */}
           <div className="flex gap-12 mb-10">
-            <div
-              className={`flex flex-1 items-center px-12 rounded-10 bg-grayScaleBlack90 ${isFocused ? "border border-grayScaleBlack50" : "border border-transparent"}`}
-            >
-              <input
-                value={input}
-                ref={inputRef}
-                onFocus={(e) => {
-                  setIsFocused(true);
-                  e.currentTarget.placeholder = ""; // 포커스 시 placeholder 숨김
-                }}
-                onBlur={(e) => {
-                  setIsFocused(false);
-                  if (!input) {
-                    e.currentTarget.placeholder = "예시 ) 홍길동";
-                    setCheckMessage("10자리 이내, 문자/숫자로 입력 가능해요");
-                  }
-                }}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setInput(value);
-                  setIsNicknameChecked(false);
-                  //입력값이 있을 때
-                  if (value) {
-                    const { isValid, message } = validateNickname(value);
-                    setIsValidNickname(isValid);
-                    setCheckMessage(message);
-                  } else {
-                    setIsValidNickname(false);
-                    setCheckMessage("10자리 이내, 문자/숫자로 입력 가능해요");
-                  }
-                }}
-                onKeyDown={handleKeyDown}
-                placeholder="예시 ) 홍길동"
-                onCompositionStart={() => setIsComposing(true)}
-                onCompositionEnd={() => setIsComposing(false)}
-                className=" my-15 w-full border-none outline-none bg-transparent placeholder-grayScaleBlack50 text-grayScaleWhite"
-              />
-              <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR ml-12">
-                {input.length}/10
-              </p>
-              {showClear && (
-                <img
-                  src={CloseRoundedIcon}
-                  className="ml-13 cursor-pointer"
-                  onMouseDown={(e) => {
-                    e.preventDefault(); // 포커스 유지
-                    setInput("");
-                    setIsValidNickname(false);
-                    setIsNicknameChecked(false);
-                    setCheckMessage("10자리 이내, 문자/숫자로 입력 가능해요");
-                    inputRef.current?.focus();
-                  }}
-                />
-              )}
-            </div>
+            <TextInputField
+              value={input}
+              onChange={setInput}
+              onValidationChange={setIsValidNickname}
+              onCheckStateChange={setIsNicknameChecked}
+              onMessageChange={setCheckMessage}
+              placeholder="예시 ) 홍길동"
+            />
 
             <ConfirmBtn
               label={isNicknameChecked ? "확인완료" : "중복확인"}
