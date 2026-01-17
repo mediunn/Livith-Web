@@ -1,7 +1,7 @@
 import { useConcertList } from "../../../features/concert/model/useConcertList";
 import { SelectableInfiniteConcertList } from "./SelectableInfiniteConcertList";
 import { StateWithSetter } from "../../../shared/types/props";
-import ConcertCardListSkeleton from "../../../features/concert/ui/ConcertCardListSkeleton";
+import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
 
 type SelectableConcertListProps = {
   selectedConcertState: StateWithSetter<string | null>;
@@ -23,7 +23,7 @@ export function SelectableConcertList({
   if (isLoading) {
     return (
       <div className="mx-16">
-        <ConcertCardListSkeleton num={9} />
+        <CardListSkeleton num={9} />
       </div>
     );
   }
