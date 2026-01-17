@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react-vite";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import CardSkeleton from "./CardSkeleton";
 
 const meta: Meta<typeof CardSkeleton> = {
@@ -19,6 +19,8 @@ const meta: Meta<typeof CardSkeleton> = {
 
 export default meta;
 
-type Story = typeof CardSkeleton;
+type Story = StoryObj<typeof CardSkeleton>;
 
-export const Default: Story = () => <CardSkeleton />;
+export const Default: Story = {
+  render: () => <CardSkeleton />,
+};
