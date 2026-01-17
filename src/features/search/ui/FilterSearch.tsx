@@ -8,7 +8,7 @@ import {
 import { useFilterSearch } from "../model/useFilterSearch";
 import useDebounce from "../../../shared/hooks/useDebounce";
 import { useState } from "react";
-import ConcertCardListSkeleton from "../../../features/concert/ui/ConcertCardListSkeleton";
+import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
 
 type FilterSearchProps = {
   keyword: string;
@@ -37,7 +37,7 @@ function FilterSearch({ keyword, sort, genre, status }: FilterSearchProps) {
   if (isLoading) {
     return (
       <div className="mx-16 pt-19">
-        <ConcertCardListSkeleton num={9} />
+        <CardListSkeleton num={9} />
       </div>
     );
   }

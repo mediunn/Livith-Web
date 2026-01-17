@@ -1,4 +1,4 @@
-function ConcertCardSkeleton() {
+function CardSkeleton() {
   return (
     <div className="w-full">
       <div className="h-158 rounded-6 mb-8 bg-grayScaleBlack80 animate-shimmer" />
@@ -8,4 +8,4 @@ function ConcertCardSkeleton() {
     </div>
   );
 }
-export default ConcertCardSkeleton;
+export default CardSkeleton;
