@@ -38,6 +38,7 @@ function SetInterestConcertPage() {
               value: showResults,
               setValue: setShowResults,
             }}
+            placeholder="찾고 있는 콘서트나 가수를 검색하세요"
           />
 
           {showResults && input && (
