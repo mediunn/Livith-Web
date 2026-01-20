@@ -1,5 +1,5 @@
 import useSetlistSongList from "../model/useSetlistSongList";
-import SetlistSongItem from "../../../entities/setlist/ui/SetlistSongItem";
+import SetlistSongItem from "../../../entities/setlist/ui/SetlistSongItem/SetlistSongItem";
 import EmptySongList from "./EmptySongList";
 import MoreIcon from "../../../shared/assets/More.svg";
 import MiniArrowIcon from "../../../shared/assets/MiniArrow.svg";

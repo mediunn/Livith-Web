@@ -1,4 +1,4 @@
-import SongPlayIcon from "../../../shared/assets/SongPlayIcon.svg";
+import SongPlayIcon from "../../../../shared/assets/SongPlayIcon.svg";
 
 interface SetlistSongItemProps {
   title: string;
@@ -20,7 +20,7 @@ function SetlistSongItem({
 
   return (
     <div
-      className={`rounded-6 hover:bg-grayScaleBlack100 bg-grayScaleBlack90 flex items-center w-full aspect-[331/62] ${onClick ? "cursor-pointer" : "cursor-default"}`}
+      className={`cursor-pointer rounded-6 hover:bg-grayScaleBlack100 bg-grayScaleBlack90 flex items-center w-full aspect-[331/62] ${onClick ? "cursor-pointer" : "cursor-default"}`}
       onClick={onClick}
     >
       {/* <img

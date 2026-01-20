@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import useSetlistSongList from "../../../features/setlist/model/useSetlistSongList";
 import EmptySongList from "../../../features/setlist/ui/EmptySongList";
-import SetlistSongItem from "./SetlistSongItem";
+import SetlistSongItem from "./SetlistSongItem/SetlistSongItem";
 import { setlistIdState } from "../../../shared/lib/recoil/atoms/setlistIdState";
 import { useNavigate } from "react-router-dom";
 import { SetlistType } from "../types";
