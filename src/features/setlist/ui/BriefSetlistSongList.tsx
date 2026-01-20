@@ -52,7 +52,7 @@ function BriefSetlistSongList({
           window.amplitude.track("click_more_songs_main");
           navigate(`/setlist/${setlistId}/${concertId}/${setlistTitle}`);
         }}
-        className="h-57 w-full flex flex-col justify-center bg-grayScaleBlack80 rounded-b-10 cursor-pointer"
+        className="h-57 w-full flex flex-col justify-center hover:bg-grayScaleBlack90 bg-grayScaleBlack80 rounded-b-10 cursor-pointer"
       >
         <div className="flex flex-row text-grayScaleBlack50 justify-center space-x-8">
           <p className="text-Body4-re font-regular font-NotoSansKR ">
