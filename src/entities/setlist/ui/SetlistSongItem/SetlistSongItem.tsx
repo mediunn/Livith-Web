@@ -1,4 +1,5 @@
-import SongPlayIcon from "../../../shared/assets/SongPlayIcon.svg";
+import { useState } from "react";
+import PlayIcon from "../../../../shared/assets/PlayIcon";
 
 interface SetlistSongItemProps {
   title: string;
@@ -17,11 +18,14 @@ function SetlistSongItem({
   onClick,
 }: SetlistSongItemProps) {
   const paddedIndex = orderIndex.toString().padStart(2, "0");
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className={`flex items-center w-full aspect-[331/62] ${onClick ? "cursor-pointer" : "cursor-default"}`}
+      className={`group cursor-pointer rounded-6 hover:bg-grayScaleBlack100 bg-grayScaleBlack90 flex items-center w-full aspect-[331/62] ${onClick ? "cursor-pointer" : "cursor-default"}`}
       onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* <img
         src={imageUrl}
@@ -35,9 +39,10 @@ function SetlistSongItem({
           {artist}
         </p>
       </div>
-      <img
-        src={SongPlayIcon}
-        className="w-[32px] h-[32px] my-15 object-cover ml-auto mr-3"
+      <PlayIcon
+        iconColor={isHovered ? "#FFEB56" : "#FFFF97"}
+        iconBackgroundColor={isHovered ? "#2F3745" : "#14171B"}
+        className="w-[32px] h-[32px] my-15 ml-auto mr-3 transition-all duration-200"
       />
     </div>
   );

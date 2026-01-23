@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import WarningIcon from "../../assets/WarningIcon.svg";
+import DangerModalButton from "../DangerModalButton/DangerModalButton";
 
 interface DangerModalProps {
   isOpen: boolean;
@@ -74,19 +75,18 @@ function DangerModal({
               {children}
 
               <div className="flex gap-9 mt-20 px-16 h-57">
-                <button
-                  disabled={primaryDisabled}
+                <DangerModalButton
+                  label={primaryLabel}
                   onClick={onPrimary}
-                  className="flex-1 bg-grayScaleBlack5 text-caution100 text-Body3-md font-medium font-NotoSansKR rounded-8"
-                >
-                  {primaryLabel}
-                </button>
-                <button
-                  className="flex-1 bg-grayScaleBlack80 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR rounded-8"
+                  variant="white"
+                  disabled={primaryDisabled}
+                />
+
+                <DangerModalButton
+                  label={secondaryLabel}
                   onClick={onSecondary ?? onClose}
-                >
-                  {secondaryLabel}
-                </button>
+                  variant="black"
+                />
               </div>
             </div>
           </motion.div>
