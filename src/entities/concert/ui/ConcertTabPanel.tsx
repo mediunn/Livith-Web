@@ -62,9 +62,7 @@ function ConcertTabPanel({
       )}
 
       <div className="mx-16 mt-10">
-        {!showSnackBar && (
-          <TicketWebsiteBtn ticketUrl={ticketUrl} onClick={handleTicketClick} />
-        )}
+        <TicketWebsiteBtn ticketUrl={ticketUrl} onClick={handleTicketClick} />
       </div>
 
       {showSnackBar && (
