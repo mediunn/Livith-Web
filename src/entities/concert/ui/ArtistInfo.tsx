@@ -50,7 +50,7 @@ function ArtistInfo({
         <div>
           <div className="bg-grayScaleBlack90 rounded-8">
             {imgUrl && (
-              <div className="relative w-full h-141">
+              <div className="relative w-full h-188">
                 <img
                   src={imgUrl}
                   className="w-full h-full object-cover rounded-t-8"
@@ -117,7 +117,7 @@ function ArtistInfo({
                     {keyword}
                   </p>
                 </div>
-              )
+              ),
           )}
         </div>
       </div>
