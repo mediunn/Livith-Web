@@ -8,7 +8,7 @@ interface DangerModalButtonProps {
 export default function DangerModalButton({
   label,
   onClick,
-  variant,
+  variant = "white",
   disabled,
 }: DangerModalButtonProps) {
   const styleClass =
