@@ -4,16 +4,20 @@ import { getConcertList } from "../api/getConcertList";
 type UseConcertListParams = {
   size: number;
 };
+type Cursor = { id: number | null; startDate: string | null };
+
 export const useConcertList = ({ size }: UseConcertListParams) => {
   return useInfiniteQuery({
     queryKey: ["concerts"],
     queryFn: ({ pageParam }) =>
       getConcertList({
         id: pageParam?.id,
-        cursor: pageParam?.startDate,
+        cursor: pageParam
+          ? JSON.stringify({ startDate: pageParam.startDate, id: pageParam.id })
+          : undefined,
         size,
       }),
-    initialPageParam: { id: null, startDate: null },
+    initialPageParam: undefined as Cursor | undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.data.cursor ?? undefined;
     },
