@@ -21,6 +21,7 @@ import SignupNicknamePage from "../pages/SignupNicknamePage";
 import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrapper";
 import CustomToastContainer from "../widgets/CustomToastContainer";
 import { useEffect } from "react";
+import SettingPage from "../pages/SettingPage";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "my",
         element: <MyPage />,
+      },
+      {
+        path: "setting",
+        element: <SettingPage />,
       },
       {
         path: "nickname",
