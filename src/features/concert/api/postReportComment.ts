@@ -12,7 +12,7 @@ export async function postReportComment({
   content,
 }: PostReportCommentParams) {
   const response = await axiosInstance.post(
-    `comments/${id}/report`,
+    `/comments/${id}/report`,
     { content },
     {
       headers: {

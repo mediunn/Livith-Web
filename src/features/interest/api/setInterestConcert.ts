@@ -10,7 +10,7 @@ export const setInterestConcert = async ({
   accessToken,
 }: SetInterestConcertProps) => {
   const response = await axiosInstance.post(
-    `users/interest-concert`,
+    `/users/interest-concert`,
     { concertId },
     {
       headers: {

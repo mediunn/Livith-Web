@@ -18,7 +18,7 @@ export async function getConcertComment({
   cursor,
   size,
 }: GetConcertCommentParams) {
-  const response = await axiosInstance.get(`concerts/${concertId}/comments`, {
+  const response = await axiosInstance.get(`/concerts/${concertId}/comments`, {
     params: {
       cursor: cursor ? JSON.stringify(cursor) : undefined,
       size,

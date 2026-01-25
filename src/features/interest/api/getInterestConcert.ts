@@ -8,7 +8,7 @@ export const getInterestConcert =
   async (): Promise<InterestConcertResponse | null> => {
     const token = localStorage.getItem("accessToken");
 
-    const response = await axiosInstance.get(`users/interest-concert`, {
+    const response = await axiosInstance.get(`/users/interest-concert`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
