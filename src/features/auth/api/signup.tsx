@@ -10,7 +10,7 @@ export async function signup(
   userData: SignupRequest
 ): Promise<ApiResponse<SignupResponse>> {
   const response = await axiosInstance.post(
-    `/api/v4/auth/signup?client=web`,
+    `/auth/signup?client=web`,
     userData
   );
   return response.data;

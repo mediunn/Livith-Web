@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import AuthErrorModal from "../AuthErrorModal";
 import { useInitializeAuth } from "../../../../shared/hooks/useInitializeAuth";
 import ErrorToast from "../../../../shared/ui/Toast/ErrorToast";
+import { API_BASE_URL } from "../../../../shared/api/constants";
 
 interface SocialLoginButtonProps {
   provider: "apple" | "kakao";
@@ -39,9 +40,9 @@ const SocialLoginButton = ({
 
   const handleLogin = () => {
     const popup = window.open(
-      `${SERVER_URL}/api/v4/auth/${provider}/web`,
+      `${API_BASE_URL}/auth/${provider}/web`,
       `${provider}Login`,
-      `width=${popupWidth},height=${popupHeight},left=${left},top=${top},scrollbars=no`
+      `width=${popupWidth},height=${popupHeight},left=${left},top=${top},scrollbars=no`,
     );
 
     const listener = async (event: MessageEvent) => {

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { refreshTokens } from "../../features/auth/api/refreshTokens";
+import { API_BASE_URL } from "./constants";
 
 let isRefreshing = false;
 let refreshSubscribers: ((token: string) => void)[] = [];
@@ -10,7 +11,7 @@ const onRefreshed = (token: string) => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
+  baseURL: API_BASE_URL,
   withCredentials: true,
   headers: { "Content-Type": "application/json" },
 });
@@ -63,7 +64,7 @@ axiosInstance.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;

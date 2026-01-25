@@ -10,7 +10,7 @@ export type Md = {
 
 export async function getMd(id: number): Promise<Md[]> {
   const response = await axiosInstance.get<ApiResponse<Md[]>>(
-    `/api/v4/concerts/${id}/mds`
+    `/concerts/${id}/mds`
   );
   return response.data.data;
 }

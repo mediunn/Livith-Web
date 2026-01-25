@@ -5,7 +5,7 @@ import { ApiResponse } from "../../../shared/types/response";
 export async function updateNickname(
   nickname: string
 ): Promise<ApiResponse<User>> {
-  const response = await axiosInstance.patch(`/api/v4/users/nickname`, {
+  const response = await axiosInstance.patch(`/users/nickname`, {
     nickname,
   });
   return response.data;

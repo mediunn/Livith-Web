@@ -16,7 +16,7 @@ export async function getSetlistCollection({
   concertId,
 }: GetSetlistCollectionProps): Promise<ApiResponse<SetlistResponse>> {
   const response = await axiosInstance.get(
-    `/api/v1/concerts/${concertId}/setlists`,
+    `/concerts/${concertId}/setlists`,
     {
       params: {
         type,

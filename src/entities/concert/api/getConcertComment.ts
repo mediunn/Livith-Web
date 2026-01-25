@@ -18,18 +18,15 @@ export async function getConcertComment({
   cursor,
   size,
 }: GetConcertCommentParams) {
-  const response = await axiosInstance.get(
-    `api/v4/concerts/${concertId}/comments`,
-    {
-      params: {
-        cursor: cursor ? JSON.stringify(cursor) : undefined,
-        size,
-      },
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
+  const response = await axiosInstance.get(`concerts/${concertId}/comments`, {
+    params: {
+      cursor: cursor ? JSON.stringify(cursor) : undefined,
+      size,
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
   return response.data.data;
 }
