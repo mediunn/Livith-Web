@@ -6,6 +6,7 @@ import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import LoginModal from "../../auth/ui/LoginModal";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
+import CommentInputField from "../../../shared/ui/InputField/CommentInputField";
 
 interface CommentInputBarProps {
   concertId: number;
@@ -14,11 +15,8 @@ interface CommentInputBarProps {
 function CommentInputBar({ concertId }: CommentInputBarProps) {
   const [value, setValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false); // 등록 버튼 중복 클릭 방지
-  const [hasShownToast, setHasShownToast] = useState(false); // 글자 수 초과 토스트 중복 방지
-  const [hasShownLineToast, setHasShownLineToast] = useState(false); // 줄 수 초과 토스트 중복 방지
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const toastIdRef = useRef<string | number | null>(null);
-  const lineToastIdRef = useRef<string | number | null>(null);
+
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken");
@@ -29,52 +27,6 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
     concertId,
     accessToken: accessToken || "",
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
-    const lines = newValue.split("\n").length;
-
-    if (lines > 15) {
-      if (!hasShownLineToast) {
-        const id = toast(
-          <ErrorToast message="댓글은 15줄 이상 작성할 수 없어요" />,
-          {
-            position: "top-center",
-            autoClose: false,
-            pauseOnFocusLoss: false,
-          }
-        );
-        lineToastIdRef.current = id;
-        setHasShownLineToast(true);
-      }
-    } else if (lines <= 15 && hasShownLineToast) {
-      // 15줄 이하로 줄어들면 토스트 닫기
-      if (lineToastIdRef.current) {
-        toast.dismiss(lineToastIdRef.current);
-        lineToastIdRef.current = null;
-      }
-      setHasShownLineToast(false);
-    }
-
-    setValue(newValue);
-
-    if (newValue.length > 400 && !hasShownToast) {
-      const id = toast(<ErrorToast message="400자를 초과했어요" />, {
-        position: "top-center",
-        autoClose: false,
-        pauseOnFocusLoss: false,
-      });
-      toastIdRef.current = id;
-      setHasShownToast(true);
-    } else if (newValue.length <= 400 && hasShownToast) {
-      // 글자 수가 줄어들면 토스트 닫기
-      if (toastIdRef.current) {
-        toast.dismiss(toastIdRef.current);
-        toastIdRef.current = null;
-      }
-      setHasShownToast(false);
-    }
-  };
 
   const handleSubmit = () => {
     if (!value || isSubmitting) return; // 이미 요청 중이면 중단
@@ -120,30 +72,6 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
     el.style.display = "";
   };
 
-  // textarea 높이
-  useEffect(() => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-
-    const lineHeight = 21;
-    const maxHeight = lineHeight * 4;
-
-    if (value === "") {
-      textarea.style.height = `${lineHeight}px`;
-      textarea.style.overflowY = "hidden";
-      return;
-    }
-
-    textarea.style.height = `${lineHeight}px`;
-    textarea.style.overflowY = "hidden";
-
-    const newHeight = Math.min(textarea.scrollHeight, maxHeight);
-    textarea.style.height = `${newHeight}px`;
-
-    textarea.style.overflowY =
-      textarea.scrollHeight > maxHeight ? "auto" : "hidden";
-  }, [value]);
-
   useEffect(() => {
     if (value === "") {
       requestAnimationFrame(() => {
@@ -166,28 +94,11 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
 
         <div className="px-16 pt-10 pb-10 flex justify-between items-end">
           <div className="flex items-center flex-1 px-16 py-14 bg-grayScaleBlack90 rounded-10">
-            <textarea
-              ref={textareaRef}
+            <CommentInputField
               value={value}
-              placeholder={
-                isLoggedIn
-                  ? "댓글은 400자까지 작성 가능해요"
-                  : "로그인 후 작성 가능해요"
-              }
-              readOnly={!isLoggedIn}
-              onFocus={() => {
-                if (!isLoggedIn) {
-                  // 로그인 안 되어 있으면 포커스 막고 모달 띄움
-                  setIsLoginModalOpen(true);
-                }
-              }}
-              onChange={handleChange}
-              className="bg-transparent outline-none text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-hidden"
-              rows={1}
-              style={{
-                lineHeight: "21px",
-                maxHeight: "84px",
-              }}
+              onChange={setValue}
+              isLoggedIn={isLoggedIn}
+              onRequireLogin={() => setIsLoginModalOpen(true)}
             />
           </div>
           <button
