@@ -104,8 +104,6 @@ function ConcertSetting({
   ];
   return (
     <>
-      <TopBar bgColor="bg-grayScaleBlack100" />
-
       <div>
         <div className="pt-24 pb-18 flex justify-between items-center">
           <p className="ml-27 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">

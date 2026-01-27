@@ -7,6 +7,7 @@ import ConcertSetting from "../features/concert/ui/ConcertSetting";
 import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
 import { useInterestConcert } from "../features/interest/model/useInterestConcert";
 import TabBar from "../shared/ui/TabBar";
+import TopBar from "../shared/ui/TopBar";
 
 // A/B 테스트 그룹 배정 유틸
 function getExperimentGroup(): "A" | "B" | "C" {
@@ -60,13 +61,17 @@ function HomePage() {
   return (
     <div className="pb-90">
       {concertId && concert && !isLoading ? (
-        <ConcertSetting
-          concertId={concertId}
-          concert={concert}
-          schedules={schedules}
-        />
+        <>
+          <TopBar bgColor="bg-grayScaleBlack100" />
+          <ConcertSetting
+            concertId={concertId}
+            concert={concert}
+            schedules={schedules}
+          />
+        </>
       ) : (
         <>
+          <TopBar bgColor="bg-grayScaleBlack90" />
           <ConcertSettingEmpty group={group} />
         </>
       )}
