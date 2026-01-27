@@ -12,13 +12,13 @@ export async function postReportComment({
   content,
 }: PostReportCommentParams) {
   const response = await axiosInstance.post(
-    `api/v4/comments/${id}/report`,
+    `/comments/${id}/report`,
     { content },
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    }
+    },
   );
 
   return response.data;

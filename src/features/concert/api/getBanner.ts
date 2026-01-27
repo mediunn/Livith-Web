@@ -11,7 +11,7 @@ type Banner = {
 
 export async function getBanner(): Promise<Banner[]> {
   const response = await axiosInstance.get<ApiResponse<Banner[]>>(
-    "/api/v4/search/banners"
+    "/search/banners"
   );
   return response.data.data;
 }

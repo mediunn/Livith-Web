@@ -8,6 +8,6 @@ export type HomeSection = {
 };
 
 export async function getHomeConcertListSection(): Promise<HomeSection[]> {
-  const response = await axiosInstance.get("/api/v4/home/sections");
+  const response = await axiosInstance.get("/home/sections");
   return response.data.data;
 }

@@ -13,7 +13,7 @@ export type Song = {
 
 export async function getSong(id: number): Promise<Song> {
   const response = await axiosInstance.get<ApiResponse<Song>>(
-    `/api/v4/songs/${id}`
+    `/songs/${id}`
   );
   return response.data.data;
 }

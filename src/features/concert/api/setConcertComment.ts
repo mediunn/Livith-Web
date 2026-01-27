@@ -12,7 +12,7 @@ export const setConcertComment = async ({
   accessToken,
 }: PostConcertCommentParams) => {
   const response = await axiosInstance.post(
-    `/api/v4/concerts/${concertId}/comments`,
+    `/concerts/${concertId}/comments`,
     { content },
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
