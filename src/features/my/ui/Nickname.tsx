@@ -7,7 +7,7 @@ function Nickname() {
   const user = useRecoilValue(userState);
   return (
     <>
-      <div className="flex justify-between h-210 inset-0 bg-gradient-to-b from-grayScaleBlack80 to-transparent opacity-100">
+      <div className="flex justify-between h-210 bg-transparent">
         <div className="mx-16 mt-126 mb-20 w-full flex justify-between items-end items-center">
           <div className="">
             <div className="flex items-center">
