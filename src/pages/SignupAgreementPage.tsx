@@ -3,12 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Checkbox from "../shared/ui/Checkbox/Checkbox";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import ListHeader from "../shared/ui/ListHeader";
+import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
 function SignupAgreementPage() {
   const [isUseChecked, setIsUseChecked] = useState<boolean>(
-    sessionStorage.getItem("isUseChecked") === "true" || false
+    sessionStorage.getItem("isUseChecked") === "true" || false,
   );
   const [isAdChecked, setIsAdChecked] = useState<boolean>(
-    sessionStorage.getItem("isAdChecked") === "true" || false
+    sessionStorage.getItem("isAdChecked") === "true" || false,
   );
 
   const [isAllChecked, setIsAllChecked] = useState(isUseChecked && isAdChecked);
@@ -32,7 +33,7 @@ function SignupAgreementPage() {
     window.open(
       "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4",
       "_blank", // 새 탭으로 열기
-      "noopener,noreferrer" // 보안 옵션 (부모 페이지 접근 차단)
+      "noopener,noreferrer", // 보안 옵션 (부모 페이지 접근 차단)
     );
   };
 
@@ -41,10 +42,7 @@ function SignupAgreementPage() {
       <div className="flex-1 overflow-y-auto">
         <ListHeader title="회원가입" />
         <div className="flex flex-col mx-16 ">
-          <div className="flex gap-5 mt-10 mb-30">
-            <div className="h-6 rounded-16 bg-mainYellow30 flex-1" />
-            <div className="h-6 rounded-16 bg-grayScaleBlack80 flex-1" />
-          </div>
+          <ProgressBar total={2} current={1} />
           <div className="text-Body1-sm text-grayScaleWhite font-semibold font-NotoSansKR mb-20">
             서비스 이용을 위해 <br /> 약관 동의가 필요해요
           </div>
