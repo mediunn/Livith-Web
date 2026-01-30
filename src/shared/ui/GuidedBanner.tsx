@@ -4,9 +4,15 @@ import GuidedBannerCloseIcon from "../assets/GuidedBannerCloseIcon.svg";
 
 interface GuidedBannerProps {
   content?: string;
+  compactTitle?: string;
+  compactContent?: string;
 }
 
-function GuidedBanner({ content }: GuidedBannerProps) {
+function GuidedBanner({
+  content,
+  compactTitle,
+  compactContent,
+}: GuidedBannerProps) {
   const [isCompact, setIsCompact] = useState(false);
 
   return (
@@ -16,10 +22,10 @@ function GuidedBanner({ content }: GuidedBannerProps) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-grayScaleBlack5 text-Body2-sm font-semibold font-NotoSansKR">
-                나의 취향이 담긴 콘서트 추천받기
+                {compactTitle}
               </p>
               <p className="pt-6 text-grayScaleBlack30 text-Caption1-re font-regular font-NotoSansKR">
-                회원가입하고 콘서트 정보를 빠르게 확인해요
+                {compactContent}
               </p>
             </div>
             <img src={GuidedBannerIcon} className="w-61 h-58" />

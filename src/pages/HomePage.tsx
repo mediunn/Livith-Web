@@ -73,7 +73,16 @@ function HomePage() {
       ) : (
         <>
           <TopBar bgColor="bg-grayScaleBlack90" />
-          <GuidedBanner content="회원가입하러 가기" />
+          {/* <GuidedBanner
+            content="회원가입하러 가기"
+            compactTitle="나의 취향이 담긴 콘서트 추천받기"
+            compactContent="회원가입하고 콘서트 정보를 빠르게 확인해요"
+          /> */}
+          <GuidedBanner
+            content="취향 선택하러 가기"
+            compactTitle="취향 선택하러 가기"
+            compactContent="나의 취향이 담긴 콘서트를 추천받을 수 있어요"
+          />
           <ConcertSettingEmpty group={group} />
         </>
       )}
