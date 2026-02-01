@@ -1,19 +1,16 @@
 import { InfiniteConcertList } from "../../../widgets/InfiniteConcertList";
 import EmptySearchResult from "./EmptySearchResult";
-import {
-  GenreFilter,
-  SortFilter,
-  StatusFilter,
-} from "../../../entities/concert/types";
+import { SortFilter, StatusFilter } from "../../../entities/concert/types";
 import { useFilterSearch } from "../model/useFilterSearch";
 import useDebounce from "../../../shared/hooks/useDebounce";
 import { useState } from "react";
 import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
+import { GenreEnum } from "../../../entities/genre/types";
 
 type FilterSearchProps = {
   keyword: string;
   sort?: SortFilter;
-  genre?: GenreFilter[];
+  genre?: GenreEnum[];
   status?: StatusFilter[];
 };
 function FilterSearch({ keyword, sort, genre, status }: FilterSearchProps) {

@@ -9,16 +9,17 @@ import {
   genreOrder,
   statusOrder,
 } from "../../../entities/concert/constants/filterOrders";
-import { GenreFilter, StatusFilter } from "../../../entities/concert/types";
+import { StatusFilter } from "../../../entities/concert/types";
 import { sortFilter } from "../../../features/concert/utils/sortFilter";
 import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipFilter from "./ChipFilter/ChipFilter";
+import { GenreEnum } from "../../../entities/genre/types";
 
 interface FilterBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
-  genreState: StateWithSetter<GenreFilter[]>;
+  genreState: StateWithSetter<GenreEnum[]>;
   statusState: StateWithSetter<StatusFilter[]>;
 }
 
@@ -30,10 +31,10 @@ function FilterBottomSheet({
 }: FilterBottomSheetProps) {
   const ref = useRef<SheetRef>(null);
 
-  const genres: GenreFilter[] = Object.values(GenreFilter);
+  const genres: GenreEnum[] = Object.values(GenreEnum);
   const statuses: StatusFilter[] = Object.values(StatusFilter);
 
-  const [localGenres, setLocalGenres] = useState<GenreFilter[]>(genreSelected);
+  const [localGenres, setLocalGenres] = useState<GenreEnum[]>(genreSelected);
   const [localStatuses, setLocalStatuses] =
     useState<StatusFilter[]>(statusSelected);
 
@@ -43,7 +44,7 @@ function FilterBottomSheet({
     localStatuses.sort().join() !== [statusSelected].sort().join();
   // 초기화 버튼 활성화 여부 (선택된 항목이 없으면 비활성)
   const isResetDisabled =
-    localGenres[0] === GenreFilter.ALL && localStatuses[0] === StatusFilter.ALL;
+    localGenres[0] === GenreEnum.ALL && localStatuses[0] === StatusFilter.ALL;
 
   const [resetAnimating, setResetAnimating] = useState(false);
   const [applyAnimating, setApplyAnimating] = useState(false);
@@ -63,7 +64,7 @@ function FilterBottomSheet({
     selected: T[],
     value: T,
     allValue: T,
-    setSelected: (newSelected: T[]) => void
+    setSelected: (newSelected: T[]) => void,
   ) {
     let newSelected = [...selected];
 
@@ -87,21 +88,21 @@ function FilterBottomSheet({
 
   // 초기화
   const handleReset = () => {
-    setLocalGenres([GenreFilter.ALL]);
+    setLocalGenres([GenreEnum.ALL]);
     setLocalStatuses([StatusFilter.ALL]);
   };
 
   // 적용
   const handleApply = () => {
     setGenreSelected(
-      localGenres.length === 0 || localGenres.includes(GenreFilter.ALL)
-        ? [GenreFilter.ALL]
-        : sortFilter(localGenres, genreOrder)
+      localGenres.length === 0 || localGenres.includes(GenreEnum.ALL)
+        ? [GenreEnum.ALL]
+        : sortFilter(localGenres, genreOrder),
     );
     setStatusSelected(
       localStatuses.length === 0 || localStatuses.includes(StatusFilter.ALL)
         ? [StatusFilter.ALL]
-        : sortFilter(localStatuses, statusOrder)
+        : sortFilter(localStatuses, statusOrder),
     );
     onSheetClose();
   };
@@ -129,11 +130,11 @@ function FilterBottomSheet({
                       label={genreMap[genre]}
                       variant={isSelected ? "on" : "off"}
                       onClick={() =>
-                        toggleOption<GenreFilter>(
+                        toggleOption<GenreEnum>(
                           localGenres,
                           genre,
-                          GenreFilter.ALL,
-                          setLocalGenres
+                          GenreEnum.ALL,
+                          setLocalGenres,
                         )
                       }
                     />
@@ -161,7 +162,7 @@ function FilterBottomSheet({
                         localStatuses,
                         status,
                         StatusFilter.ALL,
-                        setLocalStatuses
+                        setLocalStatuses,
                       )
                     }
                   />
@@ -222,12 +223,12 @@ function FilterBottomSheet({
                               window.amplitude.track("click_apply_filter");
                               localGenres.forEach((genre) => {
                                 window.amplitude.track(
-                                  `set_filter_${genre.toLowerCase()}`
+                                  `set_filter_${genre.toLowerCase()}`,
                                 );
                               });
                               localStatuses.forEach((status) => {
                                 window.amplitude.track(
-                                  `set_filter_${status.toLowerCase()}`
+                                  `set_filter_${status.toLowerCase()}`,
                                 );
                               });
                               setApplyAnimating(false);

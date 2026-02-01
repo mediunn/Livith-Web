@@ -1,9 +1,9 @@
 import {
   ConcertListResponse,
-  GenreFilter,
   SortFilter,
   StatusFilter,
 } from "../../../entities/concert/types";
+import { GenreEnum } from "../../../entities/genre/types";
 import axiosInstance from "../../../shared/api/axiosInstance";
 import { ApiResponse } from "../../../shared/types/response";
 
@@ -11,7 +11,7 @@ type GetSearchResultProps = {
   keyword: string;
   cursor?: string | null;
   size?: number | null;
-  genre?: GenreFilter[] | null;
+  genre?: GenreEnum[] | null;
   status?: StatusFilter[] | null;
   sort?: SortFilter | null;
 };
