@@ -22,6 +22,8 @@ import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrappe
 import CustomToastContainer from "../widgets/CustomToastContainer";
 import { useEffect } from "react";
 import SettingPage from "../pages/SettingPage";
+import SignupPreferGenrePage from "../pages/SignupPreferGenrePage";
+import SignupPreferArtistPage from "../pages/SignupPreferArtistPage";
 
 const queryClient = new QueryClient();
 
@@ -97,6 +99,14 @@ const router = createBrowserRouter([
       {
         path: "signup/nickname",
         element: <SignupNicknamePage />,
+      },
+      {
+        path: "signup/prefer-genre",
+        element: <SignupPreferGenrePage />,
+      },
+      {
+        path: "signup/prefer-artist",
+        element: <SignupPreferArtistPage />,
       },
     ],
   },
