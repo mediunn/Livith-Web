@@ -12,6 +12,7 @@ import InputSearchBar from "../features/search/ui/InputSearchBar";
 import useInfiniteSearchFeaturedArtist from "../entities/featured-artist/model/useInfiniteSearchFeaturedArtist";
 import InfiniteFeaturedArtistList from "../entities/featured-artist/ui/InfiniteFeaturedArtistList";
 import PreferredSection from "../features/preference/ui/PreferredSection";
+import DangerModal from "../shared/ui/DangerModal/DangerModal";
 
 function SignupPreferArtistPage() {
   // 키보드 오픈 상태 관리
@@ -29,15 +30,10 @@ function SignupPreferArtistPage() {
   );
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [isBackModalOpen, setIsBackModalOpen] = useState(false);
   const { mutate: signupMutate, isPending } = useSignup();
 
   const { initialize } = useInitializeAuth();
-
-  const {
-    data: artists,
-    isLoading,
-    error,
-  } = useInfiniteSearchFeaturedArtist({ keyword: input, size: 20 });
 
   const handleSignup = ({ skip = false }) => {
     sessionStorage.removeItem("isAdChecked");
@@ -85,6 +81,13 @@ function SignupPreferArtistPage() {
         <div className="flex">
           <ListHeader
             title="회원가입"
+            onBackClick={() => {
+              if (preferred.length > 0) {
+                setIsBackModalOpen(true);
+              } else {
+                navigate(-1);
+              }
+            }}
             rightElement={
               <span
                 onClick={() => handleSignup({ skip: true })}
@@ -176,6 +179,19 @@ function SignupPreferArtistPage() {
         }}
         title="오류가 발생했어요!"
         description="홈에서 다시 시도해주세요"
+      />
+      <DangerModal
+        isOpen={isBackModalOpen}
+        onClose={() => setIsBackModalOpen(false)}
+        title={
+          "선택된 아티스트나 장르가 해제돼요.\n이전 페이지로 돌아가시나요?" as string
+        }
+        primaryLabel="뒤로 갈게요"
+        secondaryLabel="잘못 눌렀어요"
+        onPrimary={() => {
+          navigate(-1);
+        }}
+        onSecondary={() => setIsBackModalOpen(false)}
       />
     </div>
   );
