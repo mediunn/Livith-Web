@@ -6,6 +6,12 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
 import FeedbackIcon from "../shared/assets/FeedbackIcon.svg";
 import SettingIcon from "../shared/assets/SettingIcon.svg";
+import PreferenceSection from "../shared/ui/PreferenceSection";
+
+interface PreferenceItem {
+  id: string | number;
+  name: string;
+}
 
 function MyPage() {
   const navigate = useNavigate();
@@ -17,6 +23,14 @@ function MyPage() {
     window.location.href =
       "https://docs.google.com/forms/d/e/1FAIpQLSe-d5MhQrwsRRrk9isYiYVw1afI7a60Xm0IHbxmmAHe8AUiMA/viewform";
   };
+
+  const genreItems: PreferenceItem[] = [];
+
+  const artistItems = [
+    { id: 1, name: "34" },
+    { id: 2, name: "Sunset Rollercoaster" },
+    { id: 3, name: "IU" },
+  ];
 
   return (
     <div className="pb-90">
@@ -31,8 +45,29 @@ function MyPage() {
           <img
             onClick={handleClick}
             src={FeedbackIcon}
-            className="w-full h-full px-16 py-20 cursor-pointer"
+            className="w-full h-full px-16 pt-20 cursor-pointer"
           />
+          <PreferenceSection
+            title="선호 장르"
+            items={genreItems}
+            emptyDescription={
+              <>
+                선호 장르를 기반으로 <br />
+                맞춤 콘서트를 알려드려요
+              </>
+            }
+          />
+          <PreferenceSection
+            title="선호 아티스트"
+            items={artistItems}
+            emptyDescription={
+              <>
+                선호 아티스트를 기반으로 <br />
+                맞춤 콘서트를 알려드려요
+              </>
+            }
+          />
+
           <TabBar />
         </>
       ) : (
