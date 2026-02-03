@@ -9,6 +9,8 @@ type InputSearchBarProps = {
   showAllState?: StateWithSetter<boolean>;
   showResultsState: StateWithSetter<boolean>;
   placeholder?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
 };
 
 function InputSearchBar({
@@ -17,6 +19,8 @@ function InputSearchBar({
   showAllState,
   showResultsState: { value: showResults, setValue: setShowResults },
   placeholder,
+  onBlur,
+  onFocus,
 }: InputSearchBarProps) {
   const recent = recentState?.value;
   const setRecent = recentState?.setValue;
@@ -40,10 +44,12 @@ function InputSearchBar({
   const handleFocus = () => {
     setShowResults(false);
     setShowAll?.(false);
+    onFocus?.();
   };
 
   const handleBlur = () => {
     setShowAll?.(true);
+    onBlur?.();
   };
 
   const handleChange = (value: string) => {
@@ -52,7 +58,7 @@ function InputSearchBar({
   };
 
   return (
-    <div className="bg-grayScaleBlack100 max-w-md w-full flex pt-13 pb-12 pl-16 pr-16 ">
+    <div className="bg-grayScaleBlack100 max-w-md w-full flex pt-12 pb-13">
       {recent && setRecent && <BackArrow />}
       <div className="ml-2 w-full">
         <SearchInputField

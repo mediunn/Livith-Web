@@ -1,11 +1,11 @@
-import { genreMap } from "../../../entities/concert/constants/filterMaps";
-import { Genre } from "../../../entities/genre/types";
+import { genreMap } from "../../concert/constants/filterMaps";
+import { Genre } from "../types";
 import { StateWithSetter } from "../../../shared/types/props";
-import PreferenceCard from "./PreferenceCard";
+import PreferenceCard from "../../../features/preference/ui/PreferenceCard";
 
 interface GenreListProps {
   genres: Genre[];
-  preferredState: StateWithSetter<number[]>;
+  preferredState: StateWithSetter<{ id: number; label: string }[]>;
 }
 
 function GenreList({ genres, preferredState }: GenreListProps) {

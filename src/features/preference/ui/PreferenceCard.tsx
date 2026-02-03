@@ -4,7 +4,7 @@ interface PreferenceCardProps {
   id: number;
   label: string;
   imgUrl: string;
-  preferredState: StateWithSetter<number[]>;
+  preferredState: StateWithSetter<{ id: number; label: string }[]>;
 }
 
 function PreferenceCard({
@@ -13,23 +13,24 @@ function PreferenceCard({
   imgUrl,
   preferredState,
 }: PreferenceCardProps) {
-  const { value: preferredIndex, setValue: setPreferredIndex } = preferredState;
+  const { value: preferred, setValue: setPreferred } = preferredState;
 
-  const isPreferred = (index: number) => {
-    return preferredIndex.includes(index);
+  const isPreferred = (id: number) => {
+    return preferred.some((item) => item.id === id);
   };
 
   const onClick = () => {
-    if (preferredIndex.length >= 3 && !isPreferred(id)) return;
+    if (preferred.length >= 3 && !isPreferred(id)) return;
     if (isPreferred(id)) {
-      setPreferredIndex(preferredIndex.filter((i) => i !== id));
+      setPreferred(preferred.filter((item) => item.id !== id));
     } else {
-      setPreferredIndex([...preferredIndex, id]);
+      setPreferred([...preferred, { id, label }]);
     }
   };
   return (
     <div
       onClick={onClick}
+      onMouseDown={(e) => e.preventDefault()}
       className={`w-full relative cursor-pointer aspect-square rounded-6 overflow-hidden border border-1 ${isPreferred(id) ? "border-mainYellow30" : "border-grayScaleBlack100"}`}
     >
       {/* 이미지 */}

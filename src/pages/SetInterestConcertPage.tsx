@@ -30,7 +30,7 @@ function SetInterestConcertPage() {
       {/* 상단 헤더 */}
       <div className="sticky top-0 z-50">
         <ListHeader title="공연 설정하기" />
-        <div className="sticky top-0 z-50 bg-grayScaleBlack100">
+        <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
           <InputSearchBar
             inputState={{ value: input, setValue: setInput }}
             showAllState={{ value: showAll, setValue: setShowAll }}

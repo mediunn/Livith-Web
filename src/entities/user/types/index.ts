@@ -14,4 +14,6 @@ export type SignupRequest = {
   providerId: string;
   email: string;
   marketingConsent: boolean;
+  preferredGenreIds: number[];
+  preferredArtistIds?: number[];
 };
