@@ -1,12 +1,29 @@
 import ListHeader from "../shared/ui/ListHeader";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import AgreeSheet from "../features/auth/ui/AgreeSheet";
 
 function AlarmSettingPage() {
+  const [benefitAlarmOn, setBenefitAlarmOn] = useState(false);
+  const [isAgreeSheetOpen, setIsAgreeSheetOpen] = useState(false);
+
+  const handleBenefitToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const nextChecked = event.target.checked;
+
+    if (nextChecked) {
+      // ON 하려는 경우 → 약관 시트 먼저
+      setIsAgreeSheetOpen(true);
+    } else {
+      // OFF는 바로 꺼도 됨
+      setBenefitAlarmOn(false);
+    }
+  };
+
   const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 58,
     height: 32,
@@ -67,7 +84,10 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={benefitAlarmOn}
+                onChange={handleBenefitToggle}
+              />
             </Stack>
           </FormGroup>
         </div>
@@ -121,6 +141,14 @@ function AlarmSettingPage() {
           </FormGroup>
         </div>
       </div>
+
+      <AgreeSheet
+        isSheetOpen={isAgreeSheetOpen}
+        onSheetClose={() => setIsAgreeSheetOpen(false)}
+        onAgree={() => {
+          setBenefitAlarmOn(true); // 여기서 진짜 ON
+        }}
+      />
     </div>
   );
 }
