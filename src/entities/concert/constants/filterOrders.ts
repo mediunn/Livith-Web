@@ -1,13 +1,14 @@
-import { GenreFilter, StatusFilter } from "../types";
+import { GenreEnum } from "../../genre/types";
+import { StatusFilter } from "../types";
 
-const genreOrder: GenreFilter[] = [
-  GenreFilter.ALL,
-  GenreFilter.JPOP,
-  GenreFilter.ROCK_METAL,
-  GenreFilter.RAP_HIPHOP,
-  GenreFilter.CLASSIC_JAZZ,
-  GenreFilter.ACOUSTIC,
-  GenreFilter.ELECTRONIC,
+const genreOrder: GenreEnum[] = [
+  GenreEnum.ALL,
+  GenreEnum.JPOP,
+  GenreEnum.ROCK_METAL,
+  GenreEnum.RAP_HIPHOP,
+  GenreEnum.CLASSIC_JAZZ,
+  GenreEnum.ACOUSTIC,
+  GenreEnum.ELECTRONIC,
 ];
 
 const statusOrder: StatusFilter[] = [

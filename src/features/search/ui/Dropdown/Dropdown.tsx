@@ -6,7 +6,7 @@ interface DropdownProps {
   icon?: React.ReactNode;
   label?: string;
   onRightIconClick?: (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
   ) => void;
 }
 
@@ -31,7 +31,7 @@ export default function Dropdown({
   return (
     <div
       onClick={onClick}
-      className={`flex flex-row items-center border ${borderColor} ${backgroundColor} rounded-24 px-8 py-5  cursor-pointer`}
+      className={`flex flex-row items-center border ${borderColor} ${backgroundColor} rounded-24 px-8 py-5 cursor-pointer w-fit`}
     >
       {icon}
       <div

@@ -7,7 +7,6 @@ import SearchResultCount from "../features/search/ui/SearchResultCount";
 
 import {
   ConcertStatus,
-  GenreFilter,
   SortFilter,
   StatusFilter,
 } from "../entities/concert/types";
@@ -16,6 +15,7 @@ import { FilterChips } from "../features/search/ui/FilterChips";
 import { InfiniteConcertList } from "../widgets/InfiniteConcertList";
 import ConcertList from "../widgets/ConcertList";
 import FilterSearch from "../features/search/ui/FilterSearch";
+import { GenreEnum } from "../entities/genre/types";
 function SearchPage() {
   const [input, setInput] = useState<string>("");
   const [recent, setRecent] = useState<string[]>([]);
@@ -23,7 +23,7 @@ function SearchPage() {
   const [showResults, setShowResults] = useState(false);
   const STORAGE_KEY = "recentSearches";
 
-  const [genre, setGenre] = useState<GenreFilter[]>([GenreFilter.ALL]);
+  const [genre, setGenre] = useState<GenreEnum[]>([GenreEnum.ALL]);
   const [status, setStatus] = useState<StatusFilter[]>([StatusFilter.ALL]);
   const [sort, setSort] = useState<SortFilter>(SortFilter.LATEST);
   const [isSortClicked, setIsSortClicked] = useState(false);
@@ -65,7 +65,7 @@ function SearchPage() {
 
   return (
     <div className="pb-90 ">
-      <div className="sticky top-0 z-50 bg-grayScaleBlack100">
+      <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
         <InputSearchBar
           inputState={{ value: input, setValue: setInput }}
           recentState={{ value: recent, setValue: setRecent }}

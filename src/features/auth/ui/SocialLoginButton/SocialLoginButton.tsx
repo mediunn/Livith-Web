@@ -73,6 +73,8 @@ const SocialLoginButton = ({
 
         sessionStorage.setItem("isAdChecked", "false");
         sessionStorage.setItem("isUseChecked", "false");
+        sessionStorage.setItem("isPersonalChecked", "false");
+        sessionStorage.setItem("signupPreferredGenres", "[]");
 
         navigate("/signup/agreement", {
           state: { tempUserData: payload.tempUserData },
