@@ -36,7 +36,7 @@ function PreferenceCard({
       {/* 이미지 */}
       <img
         src={imgUrl}
-        alt="Genre"
+        alt={label}
         className="bg-grayScaleBlack100 opacity-70 "
       />
       <span className="absolute left-0 right-0 bottom-[40%] text-center text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR select-none">

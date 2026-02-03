@@ -1,18 +1,16 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import ListHeader from "../shared/ui/ListHeader";
-import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
-import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
-import GenreList from "../entities/genre/ui/GenreList";
-import { useEffect, useState } from "react";
-import CommonButton from "../shared/ui/CommonButton/CommonButton";
-import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
+import InfiniteFeaturedArtistList from "../entities/featured-artist/ui/InfiniteFeaturedArtistList";
 import { useSignup } from "../features/auth/model/useSignup";
 import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
-import InputSearchBar from "../features/search/ui/InputSearchBar";
-import useInfiniteSearchFeaturedArtist from "../entities/featured-artist/model/useInfiniteSearchFeaturedArtist";
-import InfiniteFeaturedArtistList from "../entities/featured-artist/ui/InfiniteFeaturedArtistList";
+import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
 import PreferredSection from "../features/preference/ui/PreferredSection";
+import InputSearchBar from "../features/search/ui/InputSearchBar";
+import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
+import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
+import ListHeader from "../shared/ui/ListHeader";
+import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
 
 function SignupPreferArtistPage() {
   // 키보드 오픈 상태 관리
@@ -49,7 +47,7 @@ function SignupPreferArtistPage() {
         providerId: tempUserData.providerId,
         email: tempUserData.email,
         marketingConsent: isAdChecked,
-        preferredGenreIds: [...preferred.map((item) => item.id)],
+        preferredGenreIds: [tempUserData.preferredGenreIds ?? []],
         preferredArtistIds: skip ? [] : [...preferred.map((item) => item.id)],
       },
       {

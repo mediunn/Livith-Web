@@ -3,11 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useGenre } from "../entities/genre/model/useGenre";
 import GenreList from "../entities/genre/ui/GenreList";
 import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
+import PreferredSection from "../features/preference/ui/PreferredSection";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
+import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
-import PreferredSection from "../features/preference/ui/PreferredSection";
-import DangerModal from "../shared/ui/DangerModal/DangerModal";
 
 function SignupPreferGenrePage() {
   const navigate = useNavigate();
