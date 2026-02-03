@@ -35,9 +35,10 @@ function SignupAgreementPage() {
     setIsPersonalChecked(newState);
   };
 
-  const handleClickCondition = () => {
+  const handleClickCondition = (link: string) => {
     window.open(
-      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4",
+      link,
+      // "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4",
       "_blank", // 새 탭으로 열기
       "noopener,noreferrer", // 보안 옵션 (부모 페이지 접근 차단)
     );
@@ -78,7 +79,11 @@ function SignupAgreementPage() {
               필수
             </p>
             <p
-              onClick={handleClickCondition}
+              onClick={() =>
+                handleClickCondition(
+                  "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4",
+                )
+              }
               className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6"
             >
               더보기 &gt;
@@ -97,7 +102,14 @@ function SignupAgreementPage() {
             <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR">
               필수
             </p>
-            <p className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6">
+            <p
+              onClick={() =>
+                handleClickCondition(
+                  "https://youz2me.notion.site/v-26-02-03-2fb02dd0e5fc806ca182ecaf18099979?pvs=74",
+                )
+              }
+              className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6"
+            >
               더보기 &gt;
             </p>
           </div>
@@ -115,7 +127,14 @@ function SignupAgreementPage() {
             <p className="text-Caption1-re text-grayScaleBlack50 font-regular font-NotoSansKR">
               선택
             </p>
-            <p className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6">
+            <p
+              onClick={() =>
+                handleClickCondition(
+                  "https://youz2me.notion.site/v-26-02-03-2fb02dd0e5fc80af9708cf5e39f44f77",
+                )
+              }
+              className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6"
+            >
               더보기 &gt;
             </p>
           </div>
