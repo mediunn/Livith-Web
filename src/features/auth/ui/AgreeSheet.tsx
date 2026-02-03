@@ -1,16 +1,12 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { Sheet, SheetRef } from "react-modal-sheet";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useSetRecoilState } from "recoil";
-import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import Checkbox from "../../../shared/ui/Checkbox/Checkbox";
 
 interface AgreeSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
-  onAgree: () => void; // 추가
+  onAgree: () => void;
 }
 
 function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
@@ -42,17 +38,6 @@ function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
           </p>
 
           <div className="overflow-y-auto">
-            {/* <div className="flex items-center mb-30 ">
-              <div
-                onClick={handleCheckboxClick}
-                className="mr-16 cursor-pointer"
-              >
-                <Checkbox variant="fill" isPressed={isChecked} />
-              </div>
-              <p className="text-grayScaleBlack5 text-Body2-md font-medium font-NotoSansKR">
-                마케팅 활용 / 광고성 정보 수신 동의 (선택)
-              </p>
-            </div> */}
             <div className="flex items-center mb-30">
               <div
                 className="flex items-center cursor-pointer"
@@ -82,8 +67,8 @@ function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
             <button
               disabled={!isChecked}
               onClick={() => {
-                onAgree(); // 토글 ON 확정
-                onSheetClose(); // 시트 닫기
+                onAgree();
+                onSheetClose();
               }}
               className={`flex-1 py-15 rounded-6 text-Body3-sm font-semibold font-NotoSansKR transition-colors
                 ${

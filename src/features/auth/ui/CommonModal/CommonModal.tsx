@@ -6,7 +6,7 @@ interface CommonModalProps {
   onClose: () => void;
   title: string;
   description: string;
-  icon: string;
+  icon?: string;
   btnText: string;
   btnVariant: "primary" | "pink";
 }
@@ -61,7 +61,7 @@ function CommonModal({
               <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR text-center mt-8 whitespace-pre-line">
                 {title}
               </p>
-              <p className="text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR text-center mt-8">
+              <p className="text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR text-center mt-8 whitespace-pre-line">
                 {description}
               </p>
               <div className="px-16 mt-20">

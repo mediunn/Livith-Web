@@ -2,25 +2,26 @@ import ListHeader from "../shared/ui/ListHeader";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import AgreeSheet from "../features/auth/ui/AgreeSheet";
+import AgreeModal from "../shared/ui/AgreeModal";
 
 function AlarmSettingPage() {
   const [benefitAlarmOn, setBenefitAlarmOn] = useState(false);
   const [isAgreeSheetOpen, setIsAgreeSheetOpen] = useState(false);
+  const [isAgreeModalOpen, setIsAgreeModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"ON" | "OFF" | null>(null);
 
   const handleBenefitToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nextChecked = event.target.checked;
 
     if (nextChecked) {
-      // ON 하려는 경우 → 약관 시트 먼저
+      setPendingAction("ON");
       setIsAgreeSheetOpen(true);
     } else {
-      // OFF는 바로 꺼도 됨
-      setBenefitAlarmOn(false);
+      setPendingAction("OFF");
+      setIsAgreeModalOpen(true);
     }
   };
 
@@ -40,12 +41,12 @@ function AlarmSettingPage() {
         transform: "translateX(26px)",
 
         "& + .MuiSwitch-track": {
-          backgroundColor: "#FFFF97", // mainYellow30
+          backgroundColor: "#FFFF97",
           opacity: 1,
         },
 
         "& .MuiSwitch-thumb": {
-          backgroundColor: "#FFFFFF", // grayScaleWhite
+          backgroundColor: "#FFFFFF",
           boxShadow: "0 0 4px rgba(0, 0, 0, 0.25)",
         },
       },
@@ -56,13 +57,13 @@ function AlarmSettingPage() {
       height: 24,
       borderRadius: "50%",
       boxShadow: "none",
-      backgroundColor: "#808794", // grayScaleBlack50 (OFF 버튼색)
+      backgroundColor: "#808794",
     },
 
     "& .MuiSwitch-track": {
       borderRadius: 16,
       opacity: 1,
-      backgroundColor: "#222831", // grayScaleBlack90 (OFF 바탕)
+      backgroundColor: "#222831",
       boxSizing: "border-box",
     },
   }));
@@ -146,7 +147,24 @@ function AlarmSettingPage() {
         isSheetOpen={isAgreeSheetOpen}
         onSheetClose={() => setIsAgreeSheetOpen(false)}
         onAgree={() => {
-          setBenefitAlarmOn(true); // 여기서 진짜 ON
+          setIsAgreeSheetOpen(false);
+          setIsAgreeModalOpen(true);
+        }}
+      />
+
+      <AgreeModal
+        isOpen={isAgreeModalOpen}
+        type={pendingAction === "ON" ? "agree" : "reject"}
+        onClose={() => {
+          setIsAgreeModalOpen(false);
+
+          if (pendingAction === "ON") {
+            setBenefitAlarmOn(true);
+          } else if (pendingAction === "OFF") {
+            setBenefitAlarmOn(false);
+          }
+
+          setPendingAction(null);
         }}
       />
     </div>
