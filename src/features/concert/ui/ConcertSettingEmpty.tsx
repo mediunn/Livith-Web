@@ -35,8 +35,6 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
 
   return (
     <>
-      <TopBar bgColor="bg-grayScaleBlack90" />
-
       <div className="flex justify-between items-end bg-grayScaleBlack90 rounded-bl-20 px-16 pt-24 pb-30 relative">
         <div>
           <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
