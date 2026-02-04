@@ -1,13 +1,14 @@
-import { GenreFilter, StatusFilter } from "../types";
+import { GenreEnum } from "../../genre/types";
+import { StatusFilter } from "../types";
 
-const genreMap: Record<GenreFilter, string> = {
-  [GenreFilter.ALL]: "전체",
-  [GenreFilter.JPOP]: "J-POP",
-  [GenreFilter.ROCK_METAL]: "락/메탈",
-  [GenreFilter.RAP_HIPHOP]: "랩/힙합",
-  [GenreFilter.CLASSIC_JAZZ]: "클래식/재즈",
-  [GenreFilter.ACOUSTIC]: "어쿠스틱",
-  [GenreFilter.ELECTRONIC]: "일렉트로닉",
+const genreMap: Record<GenreEnum, string> = {
+  [GenreEnum.ALL]: "전체",
+  [GenreEnum.JPOP]: "J-POP",
+  [GenreEnum.ROCK_METAL]: "락/메탈",
+  [GenreEnum.RAP_HIPHOP]: "랩/힙합",
+  [GenreEnum.CLASSIC_JAZZ]: "클래식/재즈",
+  [GenreEnum.ACOUSTIC]: "어쿠스틱",
+  [GenreEnum.ELECTRONIC]: "일렉트로닉",
 };
 
 const statusMap: Record<StatusFilter, string> = {

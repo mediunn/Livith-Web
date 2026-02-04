@@ -65,10 +65,10 @@ function DangerModal({
           >
             <div
               className="w-[327px] max-w-[87%] fixed flex flex-col bg-grayScaleWhite rounded-11 pb-12
-              top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
             >
               <img src={WarningIcon} className="mx-auto mt-16" />
-              <p className="text-grayScaleBlack100 text-Body2-md font-medium text-center mt-10">
+              <p className="text-grayScaleBlack100 text-Body2-md font-medium text-center mt-10 whitespace-pre-line ">
                 {title}
               </p>
 

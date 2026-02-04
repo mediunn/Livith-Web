@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import BackArrowIcon from "../../shared/assets/BackArrow.svg";
 
-function BackArrow() {
+interface BackArrowProps {
+  onClick?: () => void;
+}
+
+function BackArrow({ onClick }: BackArrowProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -14,7 +18,11 @@ function BackArrow() {
   };
 
   return (
-    <img src={BackArrowIcon} className="cursor-pointer" onClick={handleClick} />
+    <img
+      src={BackArrowIcon}
+      className="cursor-pointer"
+      onClick={onClick || handleClick}
+    />
   );
 }
 

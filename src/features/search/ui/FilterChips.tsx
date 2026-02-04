@@ -3,11 +3,7 @@ import {
   genreMap,
   statusMap,
 } from "../../../entities/concert/constants/filterMaps";
-import {
-  GenreFilter,
-  SortFilter,
-  StatusFilter,
-} from "../../../entities/concert/types";
+import { SortFilter, StatusFilter } from "../../../entities/concert/types";
 import CalendarIcon from "../../../shared/assets/CalendarIcon";
 import MicIcon from "../../../shared/assets/MicIcon";
 import SortDownIcon from "../../../shared/assets/SortDown.svg";
@@ -16,10 +12,11 @@ import { StateWithSetter } from "../../../shared/types/props";
 import Dropdown from "./Dropdown/Dropdown";
 import Filter from "./Filter/Filter";
 import SortMenu from "./SortMenu";
+import { GenreEnum } from "../../../entities/genre/types";
 
 interface FilterChipsProps {
   openSheet: () => void;
-  genreState: StateWithSetter<GenreFilter[]>;
+  genreState: StateWithSetter<GenreEnum[]>;
   statusState: StateWithSetter<StatusFilter[]>;
   sortState: StateWithSetter<SortFilter>;
   isSortClickedState: StateWithSetter<boolean>;
@@ -38,7 +35,7 @@ export function FilterChips({
     // {/* 필터 영역 */}
     <div className="flex flex-row m-16 justify-between items-center">
       <div className="flex flex-row space-x-8">
-        {genreSelected[0] === GenreFilter.ALL ? (
+        {genreSelected[0] === GenreEnum.ALL ? (
           <Dropdown
             onClick={openSheet}
             variant="off"
@@ -52,7 +49,7 @@ export function FilterChips({
             icon={<MicIcon color="black" />}
             onRightIconClick={(e) => {
               e.stopPropagation(); // 부모 div의 onClick 실행 안 되게 막음
-              setGenreSelected([GenreFilter.ALL]);
+              setGenreSelected([GenreEnum.ALL]);
             }}
             label={
               genreSelected.length > 1

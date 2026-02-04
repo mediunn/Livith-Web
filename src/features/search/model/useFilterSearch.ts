@@ -1,14 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getSearchResult } from "../api/getSearchResult";
 import { SortFilter } from "../../../entities/concert/types";
-import { GenreFilter } from "../../../entities/concert/types";
 import { StatusFilter } from "../../../entities/concert/types";
+import { GenreEnum } from "../../../entities/genre/types";
 
 type UseFilterSearchParams = {
   keyword: string;
   size?: number;
   sort?: SortFilter;
-  genre?: GenreFilter[];
+  genre?: GenreEnum[];
   status?: StatusFilter[];
 };
 
