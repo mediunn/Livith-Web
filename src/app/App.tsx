@@ -22,6 +22,7 @@ import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrappe
 import CustomToastContainer from "../widgets/CustomToastContainer";
 import { useEffect } from "react";
 import SettingPage from "../pages/SettingPage";
+import AlarmSettingPage from "../pages/AlarmSettingPage";
 import SignupPreferGenrePage from "../pages/SignupPreferGenrePage";
 import SignupPreferArtistPage from "../pages/SignupPreferArtistPage";
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "setting",
         element: <SettingPage />,
+      },
+      {
+        path: "alarm-setting",
+        element: <AlarmSettingPage />,
       },
       {
         path: "nickname",
