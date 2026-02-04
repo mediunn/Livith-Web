@@ -36,6 +36,7 @@ function SignupPreferArtistPage() {
   const handleSignup = ({ skip = false }) => {
     sessionStorage.removeItem("isAdChecked");
     sessionStorage.removeItem("isUseChecked");
+    sessionStorage.removeItem("signupPreferredGenres");
     if (!tempUserData) {
       setIsErrorModalOpen(true);
       return;
@@ -47,7 +48,7 @@ function SignupPreferArtistPage() {
         providerId: tempUserData.providerId,
         email: tempUserData.email,
         marketingConsent: isAdChecked,
-        preferredGenreIds: [tempUserData.preferredGenreIds ?? []],
+        preferredGenreIds: tempUserData.preferredGenreIds ?? [],
         preferredArtistIds: skip ? [] : [...preferred.map((item) => item.id)],
       },
       {
