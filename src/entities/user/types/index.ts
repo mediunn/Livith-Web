@@ -6,6 +6,8 @@ export type User = {
   provider: string;
   providerId: string;
   marketingConsent: boolean;
+  preferredGenreIds: number[];
+  preferredArtistIds?: number[];
 };
 
 export type SignupRequest = {
