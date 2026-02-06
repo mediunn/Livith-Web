@@ -57,7 +57,7 @@ function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
           <div className="flex gap-10 mb-50">
             <button
               onClick={() => {
-                onSheetClose;
+                onSheetClose();
                 navigate("/my", { replace: true });
               }}
               className="flex-1 py-15 rounded-6 bg-grayScaleBlack80 text-grayScaleBlack30 text-Body3-sm font-semibold font-NotoSansKR"

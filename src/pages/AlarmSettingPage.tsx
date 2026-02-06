@@ -1,16 +1,25 @@
 import ListHeader from "../shared/ui/ListHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import AgreeSheet from "../features/auth/ui/AgreeSheet";
 import AgreeModal from "../shared/ui/AgreeModal";
+import { useAlarmSetting } from "../entities/notification/model/useAlarmSetting";
 
 function AlarmSettingPage() {
+  const { data, isLoading } = useAlarmSetting();
+
   const [benefitAlarmOn, setBenefitAlarmOn] = useState(false);
+  const [ticketAlarmOn, setTicketAlarmOn] = useState(false);
+  const [infoAlarmOn, setInfoAlarmOn] = useState(false);
+  const [interestAlarmOn, setInterestAlarmOn] = useState(false);
+  const [recommendAlarmOn, setRecommendAlarmOn] = useState(false);
+
   const [isAgreeSheetOpen, setIsAgreeSheetOpen] = useState(false);
   const [isAgreeModalOpen, setIsAgreeModalOpen] = useState(false);
+
   const [pendingAction, setPendingAction] = useState<"ON" | "OFF" | null>(null);
 
   const handleBenefitToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +77,16 @@ function AlarmSettingPage() {
     },
   }));
 
+  useEffect(() => {
+    if (data) {
+      setBenefitAlarmOn(data.benefitAlert);
+      setTicketAlarmOn(data.ticketAlert);
+      setInfoAlarmOn(data.infoAlert);
+      setInterestAlarmOn(data.interestAlert);
+      setRecommendAlarmOn(data.recommendAlert);
+    }
+  }, [data]);
+
   return (
     <div className="pb-90">
       <ListHeader title={"알림 설정"} />
@@ -107,7 +126,10 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={ticketAlarmOn}
+                onChange={(e) => setTicketAlarmOn(e.target.checked)}
+              />
             </Stack>
           </FormGroup>
         </div>
@@ -117,7 +139,10 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={infoAlarmOn}
+                onChange={(e) => setInfoAlarmOn(e.target.checked)}
+              />
             </Stack>
           </FormGroup>
         </div>
@@ -127,7 +152,10 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={interestAlarmOn}
+                onChange={(e) => setInterestAlarmOn(e.target.checked)}
+              />
             </Stack>
           </FormGroup>
         </div>
@@ -137,7 +165,10 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={recommendAlarmOn}
+                onChange={(e) => setRecommendAlarmOn(e.target.checked)}
+              />
             </Stack>
           </FormGroup>
         </div>
