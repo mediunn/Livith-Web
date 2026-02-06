@@ -9,6 +9,8 @@ import { useInterestConcert } from "../features/interest/model/useInterestConcer
 import TabBar from "../shared/ui/TabBar";
 import TopBar from "../shared/ui/TopBar";
 import GuidedBanner from "../shared/ui/GuidedBanner";
+import { useRecoilValue } from "recoil";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 
 // A/B 테스트 그룹 배정 유틸
 function getExperimentGroup(): "A" | "B" | "C" {
@@ -51,6 +53,10 @@ function HomePage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const user = useRecoilValue(userState);
+  const isLoggedIn = !!user;
+  const hasPrefer = (user?.preferredGenreIds?.length ?? 0) > 0;
+
   useEffect(() => {
     if (showSignupComplete) {
       setIsModalOpen(true);
@@ -73,17 +79,21 @@ function HomePage() {
       ) : (
         <>
           <TopBar bgColor="bg-grayScaleBlack90" />
-          {/* <GuidedBanner
-            content="회원가입하러 가기"
-            compactTitle="나의 취향이 담긴 콘서트 추천받기"
-            compactContent="회원가입하고 콘서트 정보를 빠르게 확인해요"
-          /> */}
-          <GuidedBanner
-            content="취향 선택하러 가기"
-            compactTitle="취향 선택하러 가기"
-            compactContent="나의 취향이 담긴 콘서트를 추천받을 수 있어요"
-          />
-          <ConcertSettingEmpty group={group} />
+          {!isLoggedIn && (
+            <GuidedBanner
+              content="회원가입하러 가기"
+              compactTitle="나의 취향이 담긴 콘서트 추천받기"
+              compactContent="회원가입하고 콘서트 정보를 빠르게 확인해요"
+            />
+          )}
+          {isLoggedIn && !hasPrefer && (
+            <GuidedBanner
+              content="취향 선택하러 가기"
+              compactTitle="취향 선택하러 가기"
+              compactContent="나의 취향이 담긴 콘서트를 추천받을 수 있어요"
+            />
+          )}
+          <ConcertSettingEmpty group={group} hasPrefer={hasPrefer} />
         </>
       )}
 

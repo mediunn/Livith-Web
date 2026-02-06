@@ -20,7 +20,10 @@ function Info() {
   return (
     <div>
       <div className="px-16">
-        <div className="mt-30 cursor-pointer ">
+        <div
+          className="mt-30 cursor-pointer"
+          onClick={() => navigate("/alarm-setting")}
+        >
           <p className="m-0 text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             알림 설정
           </p>
