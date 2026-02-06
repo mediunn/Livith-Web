@@ -9,6 +9,8 @@ import AgreeModal from "../shared/ui/AgreeModal";
 import { useAlarmSetting } from "../entities/notification/model/useAlarmSetting";
 import { MarketingConsent } from "../entities/notification/api/postMarketingConsent";
 import { useMarketingConsent } from "../entities/notification/model/useMarketingConsent";
+import { useAlarmConsent } from "../entities/notification/model/useAlarmConsent";
+import { NotificationField } from "../entities/notification/types";
 
 function AlarmSettingPage() {
   const { data, isLoading } = useAlarmSetting();
@@ -24,7 +26,6 @@ function AlarmSettingPage() {
 
   const { mutate: marketingConsent } = useMarketingConsent();
   const [consentInfo, setConsentInfo] = useState<MarketingConsent | null>(null);
-
   const [pendingAction, setPendingAction] = useState<"ON" | "OFF" | null>(null);
 
   const handleBenefitToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +48,27 @@ function AlarmSettingPage() {
       );
     }
   };
+
+  const { mutate: updateAlarmConsent } = useAlarmConsent();
+
+  const handleAlarmToggle =
+    (
+      field: NotificationField,
+      setter: React.Dispatch<React.SetStateAction<boolean>>,
+    ) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const nextChecked = event.target.checked;
+
+      updateAlarmConsent(
+        { field, isAgreed: nextChecked },
+        {
+          onSuccess: () => {
+            setter(nextChecked);
+          },
+          onError: () => {},
+        },
+      );
+    };
 
   const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 58,
@@ -142,7 +164,7 @@ function AlarmSettingPage() {
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
               <AntSwitch
                 checked={ticketAlarmOn}
-                onChange={(e) => setTicketAlarmOn(e.target.checked)}
+                onChange={handleAlarmToggle("ticketAlert", setTicketAlarmOn)}
               />
             </Stack>
           </FormGroup>
@@ -155,7 +177,7 @@ function AlarmSettingPage() {
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
               <AntSwitch
                 checked={infoAlarmOn}
-                onChange={(e) => setInfoAlarmOn(e.target.checked)}
+                onChange={handleAlarmToggle("infoAlert", setInfoAlarmOn)}
               />
             </Stack>
           </FormGroup>
@@ -168,7 +190,10 @@ function AlarmSettingPage() {
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
               <AntSwitch
                 checked={interestAlarmOn}
-                onChange={(e) => setInterestAlarmOn(e.target.checked)}
+                onChange={handleAlarmToggle(
+                  "interestAlert",
+                  setInterestAlarmOn,
+                )}
               />
             </Stack>
           </FormGroup>
@@ -181,7 +206,10 @@ function AlarmSettingPage() {
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
               <AntSwitch
                 checked={recommendAlarmOn}
-                onChange={(e) => setRecommendAlarmOn(e.target.checked)}
+                onChange={handleAlarmToggle(
+                  "recommendAlert",
+                  setRecommendAlarmOn,
+                )}
               />
             </Stack>
           </FormGroup>

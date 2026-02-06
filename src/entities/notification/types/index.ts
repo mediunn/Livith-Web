@@ -5,3 +5,10 @@ export type AlarmSetting = {
   interestAlert: boolean;
   recommendAlert: boolean;
 };
+
+export type NotificationField =
+  | "benefitAlert"
+  | "ticketAlert"
+  | "infoAlert"
+  | "interestAlert"
+  | "recommendAlert";
