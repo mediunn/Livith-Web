@@ -13,6 +13,7 @@ import useSetPreferredGenres from "../features/preference/model/useSetPreferredG
 import useSetPreferredArtists from "../features/preference/model/useSetPreferredArtists";
 import { toast } from "react-toastify";
 import CompleteToast from "../shared/ui/Toast/CompleteToast";
+import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
 
 function SetPreferArtistPage() {
   // 키보드 오픈 상태 관리
@@ -36,7 +37,10 @@ function SetPreferArtistPage() {
     useSetPreferredGenres();
   const { mutate: setPreferredArtistsMutate } = useSetPreferredArtists();
 
-  const onSuccess = () => {
+  const { initialize } = useInitializeAuth();
+
+  const onSuccess = async () => {
+    await initialize();
     navigate("/");
     toast(<CompleteToast message="선호하는 음악 취향을 반영했어요" />, {
       position: "top-center",
@@ -54,28 +58,21 @@ function SetPreferArtistPage() {
 
     setPreferredGenresMutate(preferredGenreIds, {
       onSuccess: () => {
-        if (skip) {
-          setPreferredArtistsMutate([], {
-            onSuccess: () => {
-              onSuccess();
+        setPreferredArtistsMutate(
+          skip ? [] : preferred.map((item) => item.id),
+          {
+            onSuccess: async () => {
+              try {
+                await onSuccess();
+              } catch (error) {
+                setIsErrorModalOpen(true);
+              }
             },
             onError: () => {
               setIsErrorModalOpen(true);
             },
-          });
-        } else {
-          setPreferredArtistsMutate(
-            preferred.map((item) => item.id),
-            {
-              onSuccess: () => {
-                onSuccess();
-              },
-              onError: () => {
-                setIsErrorModalOpen(true);
-              },
-            },
-          );
-        }
+          },
+        );
       },
       onError: () => {
         setIsErrorModalOpen(true);
