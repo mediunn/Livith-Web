@@ -7,18 +7,25 @@ interface GuidedBannerProps {
   content?: string;
   compactTitle?: string;
   compactContent?: string;
+  isLoggedIn?: boolean;
 }
 
 function GuidedBanner({
   content,
   compactTitle,
   compactContent,
+  isLoggedIn,
 }: GuidedBannerProps) {
   const [isCompact, setIsCompact] = useState(false);
   const navigate = useNavigate();
   const handleOnClick = () => {
-    sessionStorage.removeItem("preferredGenres");
-    navigate("/set-prefer-genre");
+    if (isLoggedIn) {
+      sessionStorage.removeItem("preferredGenres");
+      navigate("/set-prefer-genre");
+      return;
+    } else {
+      navigate("/my");
+    }
   };
 
   return (
