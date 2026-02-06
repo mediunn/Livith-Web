@@ -42,7 +42,15 @@ function AlarmSettingPage() {
         {
           onSuccess: (res) => {
             setConsentInfo(res.data);
-            setIsAgreeModalOpen(true);
+
+            updateAlarmConsent(
+              { field: "benefitAlert", isAgreed: false },
+              {
+                onSuccess: () => {
+                  setIsAgreeModalOpen(true);
+                },
+              },
+            );
           },
         },
       );
