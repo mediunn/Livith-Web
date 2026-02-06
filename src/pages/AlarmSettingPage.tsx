@@ -7,6 +7,8 @@ import Stack from "@mui/material/Stack";
 import AgreeSheet from "../features/auth/ui/AgreeSheet";
 import AgreeModal from "../shared/ui/AgreeModal";
 import { useAlarmSetting } from "../entities/notification/model/useAlarmSetting";
+import { MarketingConsent } from "../entities/notification/api/postMarketingConsent";
+import { useMarketingConsent } from "../entities/notification/model/useMarketingConsent";
 
 function AlarmSettingPage() {
   const { data, isLoading } = useAlarmSetting();
@@ -20,6 +22,9 @@ function AlarmSettingPage() {
   const [isAgreeSheetOpen, setIsAgreeSheetOpen] = useState(false);
   const [isAgreeModalOpen, setIsAgreeModalOpen] = useState(false);
 
+  const { mutate: marketingConsent } = useMarketingConsent();
+  const [consentInfo, setConsentInfo] = useState<MarketingConsent | null>(null);
+
   const [pendingAction, setPendingAction] = useState<"ON" | "OFF" | null>(null);
 
   const handleBenefitToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +35,16 @@ function AlarmSettingPage() {
       setIsAgreeSheetOpen(true);
     } else {
       setPendingAction("OFF");
-      setIsAgreeModalOpen(true);
+
+      marketingConsent(
+        { isAgreed: false },
+        {
+          onSuccess: (res) => {
+            setConsentInfo(res.data);
+            setIsAgreeModalOpen(true);
+          },
+        },
+      );
     }
   };
 
@@ -177,27 +191,31 @@ function AlarmSettingPage() {
       <AgreeSheet
         isSheetOpen={isAgreeSheetOpen}
         onSheetClose={() => setIsAgreeSheetOpen(false)}
-        onAgree={() => {
+        onAgree={(data) => {
+          setConsentInfo(data);
           setIsAgreeSheetOpen(false);
           setIsAgreeModalOpen(true);
         }}
       />
 
-      <AgreeModal
-        isOpen={isAgreeModalOpen}
-        type={pendingAction === "ON" ? "agree" : "reject"}
-        onClose={() => {
-          setIsAgreeModalOpen(false);
+      {isAgreeModalOpen && (
+        <AgreeModal
+          isOpen={isAgreeModalOpen}
+          type={pendingAction === "ON" ? "agree" : "reject"}
+          consentInfo={consentInfo}
+          onClose={() => {
+            setIsAgreeModalOpen(false);
 
-          if (pendingAction === "ON") {
-            setBenefitAlarmOn(true);
-          } else if (pendingAction === "OFF") {
-            setBenefitAlarmOn(false);
-          }
+            if (pendingAction === "ON") {
+              setBenefitAlarmOn(true);
+            } else if (pendingAction === "OFF") {
+              setBenefitAlarmOn(false);
+            }
 
-          setPendingAction(null);
-        }}
-      />
+            setPendingAction(null);
+          }}
+        />
+      )}
     </div>
   );
 }

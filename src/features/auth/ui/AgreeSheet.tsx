@@ -2,20 +2,34 @@ import { useRef, useState } from "react";
 import { Sheet, SheetRef } from "react-modal-sheet";
 import { useNavigate } from "react-router-dom";
 import Checkbox from "../../../shared/ui/Checkbox/Checkbox";
+import { useMarketingConsent } from "../../../entities/notification/model/useMarketingConsent";
+import { MarketingConsent } from "../../../entities/notification/api/postMarketingConsent";
 
 interface AgreeSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
-  onAgree: () => void;
+  onAgree: (data: MarketingConsent) => void;
 }
 
 function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
   const ref = useRef<SheetRef>(null);
+  const { mutate: agreeMarketing } = useMarketingConsent();
   const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
 
   const handleCheckboxClick = () => {
     setIsChecked((prev) => !prev);
+  };
+
+  const handleAgreeClick = () => {
+    agreeMarketing(
+      { isAgreed: true },
+      {
+        onSuccess: (response) => {
+          onAgree(response.data);
+        },
+      },
+    );
   };
 
   return (
@@ -66,10 +80,7 @@ function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
             </button>
             <button
               disabled={!isChecked}
-              onClick={() => {
-                onAgree();
-                onSheetClose();
-              }}
+              onClick={handleAgreeClick}
               className={`flex-1 py-15 rounded-6 text-Body3-sm font-semibold font-NotoSansKR transition-colors
                 ${
                   isChecked
