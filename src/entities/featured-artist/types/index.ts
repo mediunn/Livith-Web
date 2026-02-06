@@ -1,3 +1,5 @@
+import { userEvent } from "storybook/test";
+
 export type FeaturedArtist = {
   id: number;
   name: string;
@@ -7,4 +9,8 @@ export type FeaturedArtistListResponse = {
   data: FeaturedArtist[];
   cursor: number | null | undefined;
   totalCount?: number;
+};
+
+export type UserFeaturedArtist = FeaturedArtist & {
+  userId: number;
 };

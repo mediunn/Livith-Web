@@ -1,23 +1,26 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import InfiniteFeaturedArtistList from "../entities/featured-artist/ui/InfiniteFeaturedArtistList";
-import { useSignup } from "../features/auth/model/useSignup";
 import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
 import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
 import PreferredSection from "../features/preference/ui/PreferredSection";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
-import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
+import useSetPreferredGenres from "../features/preference/model/useSetPreferredGenres";
+import useSetPreferredArtists from "../features/preference/model/useSetPreferredArtists";
+import { toast } from "react-toastify";
+import CompleteToast from "../shared/ui/Toast/CompleteToast";
+import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
 
-function SignupPreferArtistPage() {
+function SetPreferArtistPage() {
   // 키보드 오픈 상태 관리
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAdChecked = false, tempUserData } = location.state || {};
+  const { preferredGenreIds } = location.state || {};
   const [input, setInput] = useState<string>("");
   const [showAll, setShowAll] = useState<boolean>(true);
   // 검색 결과를 보여줄지 여부
@@ -29,57 +32,59 @@ function SignupPreferArtistPage() {
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isBackModalOpen, setIsBackModalOpen] = useState(false);
-  const { mutate: signupMutate, isPending } = useSignup();
+
+  const { mutate: setPreferredGenresMutate, isPending } =
+    useSetPreferredGenres();
+  const { mutate: setPreferredArtistsMutate } = useSetPreferredArtists();
 
   const { initialize } = useInitializeAuth();
 
-  const handleSignup = ({ skip = false }) => {
-    sessionStorage.removeItem("isAdChecked");
-    sessionStorage.removeItem("isUseChecked");
-    sessionStorage.removeItem("signupPreferredGenres");
-    if (!tempUserData) {
+  const onSuccess = async () => {
+    await initialize();
+    navigate("/");
+    toast(<CompleteToast message="선호하는 음악 취향을 반영했어요" />, {
+      position: "top-center",
+      autoClose: 3000,
+      pauseOnFocusLoss: false,
+    });
+  };
+
+  const handleSetPreference = ({ skip = false }) => {
+    sessionStorage.removeItem("preferredGenres");
+    if (!preferredGenreIds) {
       setIsErrorModalOpen(true);
       return;
     }
-    signupMutate(
-      {
-        nickname: tempUserData.nickname,
-        provider: tempUserData.provider,
-        providerId: tempUserData.providerId,
-        email: tempUserData.email,
-        marketingConsent: isAdChecked,
-        preferredGenreIds: tempUserData.preferredGenreIds ?? [],
-        preferredArtistIds: skip ? [] : [...preferred.map((item) => item.id)],
-      },
-      {
-        onSuccess: async (res) => {
-          const { accessToken } = res.data;
-          if (accessToken) {
-            localStorage.setItem("accessToken", accessToken);
-            localStorage.setItem("recentLogin", "카카오");
 
-            await initialize(); // 회원가입 후 바로 로그인
-          }
-          navigate("/", {
-            state: {
-              showSignupComplete: true,
-              nickname: tempUserData.nickname,
+    setPreferredGenresMutate(preferredGenreIds, {
+      onSuccess: () => {
+        setPreferredArtistsMutate(
+          skip ? [] : preferred.map((item) => item.id),
+          {
+            onSuccess: async () => {
+              try {
+                await onSuccess();
+              } catch (error) {
+                setIsErrorModalOpen(true);
+              }
             },
-          });
-        },
-        onError: (error) => {
-          setIsErrorModalOpen(true);
-        },
+            onError: () => {
+              setIsErrorModalOpen(true);
+            },
+          },
+        );
       },
-    );
+      onError: () => {
+        setIsErrorModalOpen(true);
+      },
+    });
   };
-
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex-1 overflow-y-auto">
         <div className="flex">
           <ListHeader
-            title="회원가입"
+            title="취향 설정"
             onBackClick={() => {
               if (preferred.length > 0) {
                 setIsBackModalOpen(true);
@@ -89,7 +94,7 @@ function SignupPreferArtistPage() {
             }}
             rightElement={
               <span
-                onClick={() => handleSignup({ skip: true })}
+                onClick={() => handleSetPreference({ skip: true })}
                 className="text-Body4-re font-regular text-grayScaleBlack50 justify-end m-8 cursor-pointer"
               >
                 건너뛰기
@@ -99,7 +104,7 @@ function SignupPreferArtistPage() {
         </div>
         <div className="flex flex-col mx-16 ">
           <div className="mt-10 mb-10">
-            <ProgressBar total={4} current={4} />
+            <ProgressBar total={2} current={2} />
           </div>
           {showAll && (
             <div className="py-20">
@@ -163,9 +168,9 @@ function SignupPreferArtistPage() {
           <CommonButton
             isActive={true}
             onClick={() => {
-              handleSignup({ skip: false });
+              handleSetPreference({ skip: false });
             }}
-            title="가입 완료"
+            title="취향 선택 완료"
             variant="primary"
           />
         </div>
@@ -195,5 +200,4 @@ function SignupPreferArtistPage() {
     </div>
   );
 }
-
-export default SignupPreferArtistPage;
+export default SetPreferArtistPage;

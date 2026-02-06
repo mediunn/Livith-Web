@@ -25,6 +25,8 @@ import SettingPage from "../pages/SettingPage";
 import AlarmSettingPage from "../pages/AlarmSettingPage";
 import SignupPreferGenrePage from "../pages/SignupPreferGenrePage";
 import SignupPreferArtistPage from "../pages/SignupPreferArtistPage";
+import SetPreferGenrePage from "../pages/SetPreferGenrePage";
+import SetPreferArtistPage from "../pages/SetPreferArtistPage";
 
 const queryClient = new QueryClient();
 
@@ -112,6 +114,14 @@ const router = createBrowserRouter([
       {
         path: "signup/prefer-artist",
         element: <SignupPreferArtistPage />,
+      },
+      {
+        path: "set-prefer-genre",
+        element: <SetPreferGenrePage />,
+      },
+      {
+        path: "set-prefer-artist",
+        element: <SetPreferArtistPage />,
       },
     ],
   },

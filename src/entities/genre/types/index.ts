@@ -13,3 +13,7 @@ export enum GenreEnum {
   ACOUSTIC = "ACOUSTIC",
   ELECTRONIC = "ELECTRONIC",
 }
+
+export type UserGenre = Genre & {
+  userId: number;
+};

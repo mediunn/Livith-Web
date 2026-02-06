@@ -1,25 +1,41 @@
 import { useState } from "react";
 import GuidedBannerIcon from "../assets/GuidedBannerIcon.svg";
 import GuidedBannerCloseIcon from "../assets/GuidedBannerCloseIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 interface GuidedBannerProps {
   content?: string;
   compactTitle?: string;
   compactContent?: string;
+  isLoggedIn?: boolean;
 }
 
 function GuidedBanner({
   content,
   compactTitle,
   compactContent,
+  isLoggedIn,
 }: GuidedBannerProps) {
   const [isCompact, setIsCompact] = useState(false);
+  const navigate = useNavigate();
+  const handleOnClick = () => {
+    if (isLoggedIn) {
+      sessionStorage.removeItem("preferredGenres");
+      navigate("/set-prefer-genre");
+      return;
+    } else {
+      navigate("/my");
+    }
+  };
 
   return (
     <div className="w-full h-full bg-grayScaleBlack90 p-16">
       <div className="relative bg-grayScaleBlack100 rounded-10 p-16">
         {isCompact ? (
-          <div className="flex items-center justify-between">
+          <div
+            className="flex items-center justify-between cursor-pointer "
+            onClick={handleOnClick}
+          >
             <div>
               <p className="text-grayScaleBlack5 text-Body2-sm font-semibold font-NotoSansKR">
                 {compactTitle}
@@ -45,7 +61,10 @@ function GuidedBanner({
 
             <div className="flex flex-col items-center justify-center">
               <img src={GuidedBannerIcon} className="w-91 h-86 my-16"></img>
-              <button className="w-full bg-lyricsOriginal rounded-6 cursor-pointer">
+              <button
+                className="w-full bg-lyricsOriginal rounded-6 cursor-pointer"
+                onClick={handleOnClick}
+              >
                 <p
                   className={`py-15 text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR`}
                 >

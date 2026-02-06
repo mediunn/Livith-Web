@@ -1,4 +1,6 @@
+import { toast } from "react-toastify";
 import { StateWithSetter } from "../../../shared/types/props";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 
 interface PreferenceCardProps {
   id: number;
@@ -20,7 +22,14 @@ function PreferenceCard({
   };
 
   const onClick = () => {
-    if (preferred.length >= 3 && !isPreferred(id)) return;
+    if (preferred.length >= 3 && !isPreferred(id)) {
+      toast(<ErrorToast message="해제 후 선택해 주세요" />, {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
+      return;
+    }
     if (isPreferred(id)) {
       setPreferred(preferred.filter((item) => item.id !== id));
     } else {
