@@ -1,5 +1,4 @@
 import Lottie from "lottie-react";
-import TopBar from "../../../shared/ui/TopBar";
 import ConcertAddMotion from "../../../shared/assets/ConcertAddIconMotion.json";
 import { useNavigate } from "react-router-dom";
 import HomeConcertListSection from "../../../widgets/HomeConcertListSection";
@@ -9,12 +8,14 @@ import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import SignUpTooltip from "./SignUpTooltip/SignUpTooltip";
 import { useHomeConcertListSection } from "../model/useHomeConcertListSection";
+import RecommedConcertListSection from "../../../widgets/RecommedConcertListSection";
 
 interface ConcertSettingEmptyProps {
   group: "A" | "B" | "C";
+  hasPrefer: boolean;
 }
 
-function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
+function ConcertSettingEmpty({ group, hasPrefer }: ConcertSettingEmptyProps) {
   const { data: sections, isLoading } = useHomeConcertListSection();
 
   const navigate = useNavigate();
@@ -90,6 +91,10 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
           />
         )}
       </div>
+
+      {hasPrefer && user && (
+        <RecommedConcertListSection nickname={user.nickname} />
+      )}
 
       <div className="pb-30">
         {sections?.map((section) => (

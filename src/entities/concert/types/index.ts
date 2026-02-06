@@ -55,6 +55,23 @@ export type SectionConcert = {
   sortedIndex: number;
 };
 
+export type RecommendConcert = {
+  id: number;
+  code?: string;
+  title: string;
+  startDate: string;
+  endDate: string;
+  status: ConcertStatus;
+  poster: string;
+  artist: string;
+  daysLeft: number;
+  ticketSite?: string;
+  ticketUrl?: string;
+  venue: string;
+  introduction: string;
+  label?: string;
+};
+
 export enum StatusFilter {
   ALL = "ALL",
   ONGOING = "ONGOING",

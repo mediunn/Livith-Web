@@ -93,7 +93,7 @@ function HomePage() {
               compactContent="나의 취향이 담긴 콘서트를 추천받을 수 있어요"
             />
           )}
-          <ConcertSettingEmpty group={group} />
+          <ConcertSettingEmpty group={group} hasPrefer={hasPrefer} />
         </>
       )}
 
