@@ -7,6 +7,8 @@ import { userState } from "../shared/lib/recoil/atoms/userState";
 import FeedbackIcon from "../shared/assets/FeedbackIcon.svg";
 import SettingIcon from "../shared/assets/SettingIcon.svg";
 import PreferenceSection from "../shared/ui/PreferenceSection";
+import useGetUserPreferredArtists from "../features/preference/model/useGetUserPreferredArtists";
+import useGetUserPreferredGenres from "../features/preference/model/useGetUserPreferredGenres";
 
 interface PreferenceItem {
   id: string | number;
@@ -24,13 +26,15 @@ function MyPage() {
       "https://docs.google.com/forms/d/e/1FAIpQLSe-d5MhQrwsRRrk9isYiYVw1afI7a60Xm0IHbxmmAHe8AUiMA/viewform";
   };
 
-  const genreItems: PreferenceItem[] = [];
+  const { data: preferredGenres, isLoading: isPreferredGenresLoading } =
+    useGetUserPreferredGenres(isLoggedIn);
 
-  const artistItems = [
-    { id: 1, name: "34" },
-    { id: 2, name: "Sunset Rollercoaster" },
-    { id: 3, name: "IU" },
-  ];
+  const { data: preferredArtists, isLoading: isPreferredArtistsLoading } =
+    useGetUserPreferredArtists(isLoggedIn);
+
+  if (isPreferredGenresLoading || isPreferredArtistsLoading) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <div className="pb-90">
@@ -49,7 +53,7 @@ function MyPage() {
           />
           <PreferenceSection
             title="선호 장르"
-            items={genreItems}
+            items={preferredGenres || []}
             emptyDescription={
               <>
                 선호 장르를 기반으로 <br />
@@ -59,7 +63,7 @@ function MyPage() {
           />
           <PreferenceSection
             title="선호 아티스트"
-            items={artistItems}
+            items={preferredArtists || []}
             emptyDescription={
               <>
                 선호 아티스트를 기반으로 <br />

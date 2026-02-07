@@ -6,7 +6,7 @@ interface PreferenceCardProps {
   id: number;
   label: string;
   imgUrl: string;
-  preferredState: StateWithSetter<{ id: number; label: string }[]>;
+  preferredState?: StateWithSetter<{ id: number; label: string }[]>;
 }
 
 function PreferenceCard({
@@ -15,7 +15,10 @@ function PreferenceCard({
   imgUrl,
   preferredState,
 }: PreferenceCardProps) {
-  const { value: preferred, setValue: setPreferred } = preferredState;
+  const { value: preferred, setValue: setPreferred } = preferredState ?? {
+    value: [],
+    setValue: () => {},
+  };
 
   const isPreferred = (id: number) => {
     return preferred.some((item) => item.id === id);
@@ -40,7 +43,7 @@ function PreferenceCard({
     <div
       onClick={onClick}
       onMouseDown={(e) => e.preventDefault()}
-      className={`w-full relative cursor-pointer aspect-square rounded-6 overflow-hidden border border-1 ${isPreferred(id) ? "border-mainYellow30" : "border-grayScaleBlack100"}`}
+      className={`w-full relative ${preferredState ? "cursor-pointer" : ""} aspect-square rounded-6 overflow-hidden border border-1 ${isPreferred(id) ? "border-mainYellow30" : "border-grayScaleBlack100"}`}
     >
       {/* 이미지 */}
       <img
