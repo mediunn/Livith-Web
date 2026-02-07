@@ -1,13 +1,14 @@
-interface PreferenceItem {
-  id: string | number;
-  name: string;
-}
+import { genreMap } from "../../entities/concert/constants/filterMaps";
+import { UserFeaturedArtist } from "../../entities/featured-artist/types";
+import { GenreEnum, UserGenre } from "../../entities/genre/types";
+import PreferenceCard from "../../features/preference/ui/PreferenceCard";
 
 interface PreferenceSectionProps {
   title: string;
-  items: PreferenceItem[];
+  items: UserFeaturedArtist[] | UserGenre[];
   emptyDescription: React.ReactNode;
   onClickSetting?: () => void;
+  type?: "genre" | "artist";
 }
 
 function PreferenceSection({
@@ -15,6 +16,7 @@ function PreferenceSection({
   items,
   emptyDescription,
   onClickSetting,
+  type,
 }: PreferenceSectionProps) {
   const isEmpty = items.length === 0;
 
@@ -41,14 +43,16 @@ function PreferenceSection({
         ) : (
           <div className="grid grid-cols-3 gap-10">
             {items.map((item) => (
-              <div
+              <PreferenceCard
+                id={item.id}
                 key={item.id}
-                className="bg-grayScaleBlack80 rounded-6 flex items-center justify-center aspect-square"
-              >
-                <p className="text-center text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR px-4 break-words">
-                  {item.name}
-                </p>
-              </div>
+                label={
+                  type === "genre"
+                    ? genreMap[item.name as GenreEnum]
+                    : item.name
+                }
+                imgUrl={item.imgUrl}
+              />
             ))}
           </div>
         )}
