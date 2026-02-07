@@ -1,16 +1,31 @@
 import ListHeader from "../shared/ui/ListHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import AgreeSheet from "../features/auth/ui/AgreeSheet";
 import AgreeModal from "../shared/ui/AgreeModal";
+import { useAlarmSetting } from "../entities/notification/model/useAlarmSetting";
+import { MarketingConsent } from "../entities/notification/api/postMarketingConsent";
+import { useMarketingConsent } from "../entities/notification/model/useMarketingConsent";
+import { useAlarmConsent } from "../entities/notification/model/useAlarmConsent";
+import { NotificationField } from "../entities/notification/types";
 
 function AlarmSettingPage() {
+  const { data, isLoading } = useAlarmSetting();
+
   const [benefitAlarmOn, setBenefitAlarmOn] = useState(false);
+  const [ticketAlarmOn, setTicketAlarmOn] = useState(false);
+  const [infoAlarmOn, setInfoAlarmOn] = useState(false);
+  const [interestAlarmOn, setInterestAlarmOn] = useState(false);
+  const [recommendAlarmOn, setRecommendAlarmOn] = useState(false);
+
   const [isAgreeSheetOpen, setIsAgreeSheetOpen] = useState(false);
   const [isAgreeModalOpen, setIsAgreeModalOpen] = useState(false);
+
+  const { mutate: marketingConsent } = useMarketingConsent();
+  const [consentInfo, setConsentInfo] = useState<MarketingConsent | null>(null);
   const [pendingAction, setPendingAction] = useState<"ON" | "OFF" | null>(null);
 
   const handleBenefitToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,9 +36,47 @@ function AlarmSettingPage() {
       setIsAgreeSheetOpen(true);
     } else {
       setPendingAction("OFF");
-      setIsAgreeModalOpen(true);
+
+      marketingConsent(
+        { isAgreed: false },
+        {
+          onSuccess: (res) => {
+            setConsentInfo(res.data);
+
+            updateAlarmConsent(
+              { field: "benefitAlert", isAgreed: false },
+              {
+                onSuccess: () => {
+                  setIsAgreeModalOpen(true);
+                },
+              },
+            );
+          },
+        },
+      );
     }
   };
+
+  const { mutate: updateAlarmConsent } = useAlarmConsent();
+
+  const handleAlarmToggle =
+    (
+      field: NotificationField,
+      setter: React.Dispatch<React.SetStateAction<boolean>>,
+    ) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const nextChecked = event.target.checked;
+
+      updateAlarmConsent(
+        { field, isAgreed: nextChecked },
+        {
+          onSuccess: () => {
+            setter(nextChecked);
+          },
+          onError: () => {},
+        },
+      );
+    };
 
   const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 58,
@@ -68,6 +121,16 @@ function AlarmSettingPage() {
     },
   }));
 
+  useEffect(() => {
+    if (data) {
+      setBenefitAlarmOn(data.benefitAlert);
+      setTicketAlarmOn(data.ticketAlert);
+      setInfoAlarmOn(data.infoAlert);
+      setInterestAlarmOn(data.interestAlert);
+      setRecommendAlarmOn(data.recommendAlert);
+    }
+  }, [data]);
+
   return (
     <div className="pb-90">
       <ListHeader title={"알림 설정"} />
@@ -107,7 +170,10 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={ticketAlarmOn}
+                onChange={handleAlarmToggle("ticketAlert", setTicketAlarmOn)}
+              />
             </Stack>
           </FormGroup>
         </div>
@@ -117,7 +183,10 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={infoAlarmOn}
+                onChange={handleAlarmToggle("infoAlert", setInfoAlarmOn)}
+              />
             </Stack>
           </FormGroup>
         </div>
@@ -127,7 +196,13 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={interestAlarmOn}
+                onChange={handleAlarmToggle(
+                  "interestAlert",
+                  setInterestAlarmOn,
+                )}
+              />
             </Stack>
           </FormGroup>
         </div>
@@ -137,7 +212,13 @@ function AlarmSettingPage() {
           </p>
           <FormGroup>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch defaultChecked />
+              <AntSwitch
+                checked={recommendAlarmOn}
+                onChange={handleAlarmToggle(
+                  "recommendAlert",
+                  setRecommendAlarmOn,
+                )}
+              />
             </Stack>
           </FormGroup>
         </div>
@@ -146,27 +227,31 @@ function AlarmSettingPage() {
       <AgreeSheet
         isSheetOpen={isAgreeSheetOpen}
         onSheetClose={() => setIsAgreeSheetOpen(false)}
-        onAgree={() => {
+        onAgree={(data) => {
+          setConsentInfo(data);
           setIsAgreeSheetOpen(false);
           setIsAgreeModalOpen(true);
         }}
       />
 
-      <AgreeModal
-        isOpen={isAgreeModalOpen}
-        type={pendingAction === "ON" ? "agree" : "reject"}
-        onClose={() => {
-          setIsAgreeModalOpen(false);
+      {isAgreeModalOpen && (
+        <AgreeModal
+          isOpen={isAgreeModalOpen}
+          type={pendingAction === "ON" ? "agree" : "reject"}
+          consentInfo={consentInfo}
+          onClose={() => {
+            setIsAgreeModalOpen(false);
 
-          if (pendingAction === "ON") {
-            setBenefitAlarmOn(true);
-          } else if (pendingAction === "OFF") {
-            setBenefitAlarmOn(false);
-          }
+            if (pendingAction === "ON") {
+              setBenefitAlarmOn(true);
+            } else if (pendingAction === "OFF") {
+              setBenefitAlarmOn(false);
+            }
 
-          setPendingAction(null);
-        }}
-      />
+            setPendingAction(null);
+          }}
+        />
+      )}
     </div>
   );
 }
