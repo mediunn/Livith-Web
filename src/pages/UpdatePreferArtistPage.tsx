@@ -91,6 +91,7 @@ function UpdatePreferArtistPage() {
               <PreferenceSelectHeader
                 type="아티스트"
                 count={preferred.length}
+                isMyPage={true}
               />
             </div>
           )}
@@ -150,7 +151,7 @@ function UpdatePreferArtistPage() {
             onClick={() => {
               handleSetPreference();
             }}
-            title="취향 선택 완료"
+            title={`${label}하기`}
             variant="primary"
           />
         </div>

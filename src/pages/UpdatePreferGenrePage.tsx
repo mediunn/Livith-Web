@@ -56,7 +56,11 @@ function UpdatePreferGenrePage() {
         />
         <div className="flex flex-col mx-16 ">
           <div className="py-20">
-            <PreferenceSelectHeader type="장르" count={preferred.length} />
+            <PreferenceSelectHeader
+              type="장르"
+              count={preferred.length}
+              isMyPage={true}
+            />
           </div>
           <div className="flex justify-center">
             <GenreList
@@ -104,7 +108,7 @@ function UpdatePreferGenrePage() {
               },
             );
           }}
-          title={label}
+          title={`${label}하기`}
           variant="primary"
         />
       </div>
