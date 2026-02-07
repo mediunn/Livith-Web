@@ -1,0 +1,116 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGenre } from "../entities/genre/model/useGenre";
+import GenreList from "../entities/genre/ui/GenreList";
+import useGetUserPreferredGenres from "../features/preference/model/useGetUserPreferredGenres";
+import useUpdateUserPreferredGenres from "../features/preference/model/useUpdateUserPreferredGenres";
+import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
+import PreferredSection from "../features/preference/ui/PreferredSection";
+import CommonButton from "../shared/ui/CommonButton/CommonButton";
+import DangerModal from "../shared/ui/DangerModal/DangerModal";
+import ListHeader from "../shared/ui/ListHeader";
+import Snackbar from "../shared/ui/Snackbar/Snackbar";
+import UpdatePreferenceSnackbar from "../features/preference/ui/UpdatePreferenceSnackbar";
+import { toast } from "react-toastify";
+
+function UpdatePreferGenrePage() {
+  const navigate = useNavigate();
+
+  const { data: existingPreferredGenres } = useGetUserPreferredGenres();
+  const { data: genres, isLoading, error } = useGenre();
+  const { mutate: updatePreferredGenres } = useUpdateUserPreferredGenres();
+
+  const [preferred, setPreferred] = useState<{ id: number; label: string }[]>(
+    existingPreferredGenres?.map((genre) => ({
+      id: genre.id,
+      label: genre.name,
+    })) || [],
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading genres</div>;
+  }
+
+  const hasExistingGenres =
+    existingPreferredGenres && existingPreferredGenres.length > 0;
+
+  const label = hasExistingGenres ? "변경" : "설정";
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-1 overflow-y-auto">
+        <ListHeader
+          title={`장르 ${label}`}
+          onBackClick={() => {
+            if (hasExistingGenres) {
+              setIsModalOpen(true);
+            } else {
+              navigate(-1);
+            }
+          }}
+        />
+        <div className="flex flex-col mx-16 ">
+          <div className="py-20">
+            <PreferenceSelectHeader type="장르" count={preferred.length} />
+          </div>
+          <div className="flex justify-center">
+            <GenreList
+              genres={genres || []}
+              preferredState={{
+                value: preferred,
+                setValue: setPreferred,
+              }}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
+        <div className="pb-10">
+          <PreferredSection
+            preferredState={{
+              value: preferred,
+              setValue: setPreferred,
+            }}
+          />
+        </div>
+        <CommonButton
+          isActive={preferred.length >= 1}
+          onClick={() => {
+            updatePreferredGenres(preferred.map((genre) => genre.id));
+            navigate("/my", {
+              replace: true,
+            });
+            toast(<UpdatePreferenceSnackbar type="장르" />, {
+              position: "top-center",
+              autoClose: 3000,
+              pauseOnFocusLoss: false,
+            });
+          }}
+          title={label}
+          variant="primary"
+        />
+      </div>
+      <DangerModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={
+          "선택된 아티스트나 장르가 해제돼요.\n이전 페이지로 돌아가시나요?" as string
+        }
+        primaryLabel="뒤로 갈게요"
+        secondaryLabel="잘못 눌렀어요"
+        onPrimary={() => {
+          sessionStorage.removeItem("signupPreferredGenres");
+          navigate(-1);
+        }}
+        onSecondary={() => setIsModalOpen(false)}
+      />
+    </div>
+  );
+}
+
+export default UpdatePreferGenrePage;

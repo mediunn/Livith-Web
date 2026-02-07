@@ -27,6 +27,7 @@ import SignupPreferGenrePage from "../pages/SignupPreferGenrePage";
 import SignupPreferArtistPage from "../pages/SignupPreferArtistPage";
 import SetPreferGenrePage from "../pages/SetPreferGenrePage";
 import SetPreferArtistPage from "../pages/SetPreferArtistPage";
+import UpdatePreferGenrePage from "../pages/UpdatePreferGenrePage";
 
 const queryClient = new QueryClient();
 
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
       {
         path: "set-prefer-artist",
         element: <SetPreferArtistPage />,
+      },
+      {
+        path: "update-prefer-genre",
+        element: <UpdatePreferGenrePage />,
       },
     ],
   },

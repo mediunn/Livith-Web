@@ -60,6 +60,8 @@ function MyPage() {
                 맞춤 콘서트를 알려드려요
               </>
             }
+            type="genre"
+            onClickSetting={() => navigate("/update-prefer-genre")}
           />
           <PreferenceSection
             title="선호 아티스트"
@@ -70,6 +72,7 @@ function MyPage() {
                 맞춤 콘서트를 알려드려요
               </>
             }
+            type="artist"
           />
 
           <TabBar />
