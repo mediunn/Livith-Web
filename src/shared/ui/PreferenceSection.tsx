@@ -15,7 +15,7 @@ function PreferenceSection({
   emptyDescription,
   onClickSetting,
 }: PreferenceSectionProps) {
-  const isEmpty = (items.length ?? 0) === 0;
+  const isEmpty = items.length === 0;
 
   return (
     <div className="mt-20 mx-16">

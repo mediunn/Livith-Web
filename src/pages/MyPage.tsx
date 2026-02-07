@@ -27,12 +27,14 @@ function MyPage() {
   };
 
   const { data: preferredGenres, isLoading: isPreferredGenresLoading } =
-    useGetUserPreferredGenres();
+    useGetUserPreferredGenres(isLoggedIn);
 
   const { data: preferredArtists, isLoading: isPreferredArtistsLoading } =
-    useGetUserPreferredArtists();
+    useGetUserPreferredArtists(isLoggedIn);
 
-  const genreItems: PreferenceItem[] = [];
+  if (isPreferredGenresLoading || isPreferredArtistsLoading) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <div className="pb-90">

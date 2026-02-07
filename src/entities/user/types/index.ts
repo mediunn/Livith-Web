@@ -1,5 +1,3 @@
-import { UserGenre } from "../../genre/types";
-
 export type UserPreference = {
   id: number;
   name: string;
