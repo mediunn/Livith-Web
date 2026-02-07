@@ -32,6 +32,15 @@ function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
     );
   };
 
+  const handleMoreClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.open(
+      "https://www.notion.so/youz2me/v-26-02-03-2fb02dd0e5fc806ca182ecaf18099979",
+      "_blank",
+      "noopener,noreferrer",
+    );
+  };
+
   return (
     <Sheet isOpen={isSheetOpen} onClose={onSheetClose} ref={ref}>
       <Sheet.Container
@@ -61,7 +70,10 @@ function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
                 <p className="text-grayScaleBlack5 text-Body2-md font-medium font-NotoSansKR">
                   마케팅 활용 / 광고성 정보 수신 동의 (선택)
                 </p>
-                <p className="ml-10 text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR cursor-pointer">
+                <p
+                  onClick={handleMoreClick}
+                  className="ml-10 text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR cursor-pointer"
+                >
                   더보기 &gt;
                 </p>
               </div>
