@@ -1,8 +1,13 @@
 interface PreferenceSelectHeaderProps {
   type?: "장르" | "아티스트";
   count: number;
+  isMyPage?: boolean;
 }
-function PreferenceSelectHeader({ type, count }: PreferenceSelectHeaderProps) {
+function PreferenceSelectHeader({
+  type,
+  count,
+  isMyPage = false,
+}: PreferenceSelectHeaderProps) {
   return (
     <div className="flex flex-col">
       <div className="flex">
@@ -15,9 +20,11 @@ function PreferenceSelectHeader({ type, count }: PreferenceSelectHeaderProps) {
           </span>
         </div>
       </div>
-      <span className="text-Body4-sm text-grayScaleBlack50 font-semibold font-NotoSansKR">
-        마이페이지에서 언제든 바꿀 수 있어요
-      </span>
+      {!isMyPage && (
+        <span className="text-Body4-sm text-grayScaleBlack50 font-semibold font-NotoSansKR">
+          마이페이지에서 언제든 바꿀 수 있어요
+        </span>
+      )}
     </div>
   );
 }

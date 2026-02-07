@@ -1,90 +1,81 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import InfiniteFeaturedArtistList from "../entities/featured-artist/ui/InfiniteFeaturedArtistList";
-import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
+import useGetUserPreferredArtists from "../features/preference/model/useGetUserPreferredArtists";
+import useSetUserPreferredArtists from "../features/preference/model/useSetUserPreferredArtists";
 import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
 import PreferredSection from "../features/preference/ui/PreferredSection";
+import UpdatePreferenceSnackbar from "../features/preference/ui/UpdatePreferenceSnackbar";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
-import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
-import useSetPreferredGenres from "../features/preference/model/useSetUserPreferredGenres";
-import useSetPreferredArtists from "../features/preference/model/useSetUserPreferredArtists";
-import { toast } from "react-toastify";
-import CompleteToast from "../shared/ui/Toast/CompleteToast";
-import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
+import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
-function SetPreferArtistPage() {
+function UpdatePreferArtistPage() {
   // 키보드 오픈 상태 관리
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const { preferredGenreIds } = location.state || {};
   const [input, setInput] = useState<string>("");
   const [showAll, setShowAll] = useState<boolean>(true);
   // 검색 결과를 보여줄지 여부
   const [showResults, setShowResults] = useState(false);
 
-  const [preferred, setPreferred] = useState<{ id: number; label: string }[]>(
-    [],
-  );
-
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isBackModalOpen, setIsBackModalOpen] = useState(false);
 
-  const { mutate: setPreferredGenresMutate, isPending } =
-    useSetPreferredGenres();
-  const { mutate: setPreferredArtistsMutate } = useSetPreferredArtists();
+  const { data: existingPreferredArtists } = useGetUserPreferredArtists();
+  const { mutate: setPreferredArtistsMutate } = useSetUserPreferredArtists();
 
-  const { initialize } = useInitializeAuth();
+  const [preferred, setPreferred] = useState<{ id: number; label: string }[]>(
+    existingPreferredArtists?.map((artist) => ({
+      id: artist.id,
+      label: artist.name,
+    })) || [],
+  );
+  const hasExistingArtists =
+    existingPreferredArtists && existingPreferredArtists.length > 0;
+
+  const label = hasExistingArtists ? "변경" : "설정";
 
   const onSuccess = async () => {
-    await initialize();
-    navigate("/");
-    toast(<CompleteToast message="선호하는 음악 취향을 반영했어요" />, {
+    navigate("/my");
+    toast(<UpdatePreferenceSnackbar type="아티스트" />, {
       position: "top-center",
       autoClose: 3000,
       pauseOnFocusLoss: false,
     });
   };
 
-  const handleSetPreference = ({ skip = false }) => {
-    sessionStorage.removeItem("preferredGenres");
-    if (!preferredGenreIds) {
-      setIsErrorModalOpen(true);
-      return;
-    }
-
-    setPreferredGenresMutate(preferredGenreIds, {
-      onSuccess: () => {
-        setPreferredArtistsMutate(
-          skip ? [] : preferred.map((item) => item.id),
-          {
-            onSuccess: async () => {
-              try {
-                await onSuccess();
-              } catch (error) {
-                setIsErrorModalOpen(true);
-              }
-            },
-            onError: () => {
-              setIsErrorModalOpen(true);
-            },
-          },
-        );
+  const handleSetPreference = () => {
+    setPreferredArtistsMutate(
+      preferred.map((item) => item.id),
+      {
+        onSuccess: async () => {
+          try {
+            await onSuccess();
+          } catch (error) {
+            setIsErrorModalOpen(true);
+          }
+        },
+        onError: () => {
+          setIsErrorModalOpen(true);
+          toast(<ErrorToast message={`아티스트 ${label}에 실패했어요`} />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
+        },
       },
-      onError: () => {
-        setIsErrorModalOpen(true);
-      },
-    });
+    );
   };
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex-1 overflow-y-auto">
         <div className="flex">
           <ListHeader
-            title="취향 설정"
+            title={`아티스트 ${label}`}
             onBackClick={() => {
               if (preferred.length > 0) {
                 setIsBackModalOpen(true);
@@ -92,25 +83,15 @@ function SetPreferArtistPage() {
                 navigate(-1);
               }
             }}
-            rightElement={
-              <span
-                onClick={() => handleSetPreference({ skip: true })}
-                className="text-Body4-re font-regular text-grayScaleBlack50 justify-end m-8 cursor-pointer"
-              >
-                건너뛰기
-              </span>
-            }
           />
         </div>
         <div className="flex flex-col mx-16 ">
-          <div className="mt-10 mb-10">
-            <ProgressBar total={2} current={2} />
-          </div>
           {showAll && (
             <div className="py-20">
               <PreferenceSelectHeader
                 type="아티스트"
                 count={preferred.length}
+                isMyPage={true}
               />
             </div>
           )}
@@ -168,27 +149,18 @@ function SetPreferArtistPage() {
           <CommonButton
             isActive={true}
             onClick={() => {
-              handleSetPreference({ skip: false });
+              handleSetPreference();
             }}
-            title="취향 선택 완료"
+            title={`${label}하기`}
             variant="primary"
           />
         </div>
       )}
-      <AuthErrorModal
-        isOpen={isErrorModalOpen}
-        onClose={() => {
-          navigate("/");
-          setIsErrorModalOpen(false);
-        }}
-        title="오류가 발생했어요!"
-        description="홈에서 다시 시도해주세요"
-      />
       <DangerModal
         isOpen={isBackModalOpen}
         onClose={() => setIsBackModalOpen(false)}
         title={
-          "선택된 아티스트나 장르가 해제돼요.\n이전 페이지로 돌아가시나요?" as string
+          "선택된 아티스트가 저장되지 않아요.\n이전 페이지로 돌아가시나요?" as string
         }
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"
@@ -200,4 +172,5 @@ function SetPreferArtistPage() {
     </div>
   );
 }
-export default SetPreferArtistPage;
+
+export default UpdatePreferArtistPage;
