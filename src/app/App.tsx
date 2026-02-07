@@ -27,6 +27,7 @@ import SignupPreferGenrePage from "../pages/SignupPreferGenrePage";
 import SignupPreferArtistPage from "../pages/SignupPreferArtistPage";
 import SetPreferGenrePage from "../pages/SetPreferGenrePage";
 import SetPreferArtistPage from "../pages/SetPreferArtistPage";
+import AlarmListPage from "../pages/AlarmListPage";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
       {
         path: "alarm-setting",
         element: <AlarmSettingPage />,
+      },
+
+      {
+        path: "alarm-list",
+        element: <AlarmListPage />,
       },
       {
         path: "nickname",
