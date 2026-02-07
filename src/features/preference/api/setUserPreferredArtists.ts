@@ -2,10 +2,10 @@ import { UserFeaturedArtist } from "../../../entities/featured-artist/types";
 import axiosInstance from "../../../shared/api/axiosInstance";
 import { ApiResponse } from "../../../shared/types/response";
 
-export async function setPreferredArtists(
+export async function setUserPreferredArtists(
   artistIds: number[],
-): Promise<UserFeaturedArtist> {
-  const response = await axiosInstance.put<ApiResponse<UserFeaturedArtist>>(
+): Promise<UserFeaturedArtist[]> {
+  const response = await axiosInstance.put<ApiResponse<UserFeaturedArtist[]>>(
     "/users/artist-preferences",
     {
       artistIds,
