@@ -6,12 +6,13 @@ import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
 import useSetUserPreferredArtists from "../features/preference/model/useSetUserPreferredArtists";
 import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
 import PreferredSection from "../features/preference/ui/PreferredSection";
+import UpdatePreferenceSnackbar from "../features/preference/ui/UpdatePreferenceSnackbar";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
-import CompleteToast from "../shared/ui/Toast/CompleteToast";
-import UpdatePreferenceSnackbar from "../features/preference/ui/UpdatePreferenceSnackbar";
+import useGetUserPreferredArtists from "../features/preference/model/useGetUserPreferredArtists";
+import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
 function UpdatePreferArtistPage() {
   // 키보드 오픈 상태 관리
@@ -25,7 +26,7 @@ function UpdatePreferArtistPage() {
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isBackModalOpen, setIsBackModalOpen] = useState(false);
 
-  const { data: existingPreferredArtists } = useSetUserPreferredArtists();
+  const { data: existingPreferredArtists } = useGetUserPreferredArtists();
   const { mutate: setPreferredArtistsMutate } = useSetUserPreferredArtists();
 
   const [preferred, setPreferred] = useState<{ id: number; label: string }[]>(
@@ -57,6 +58,11 @@ function UpdatePreferArtistPage() {
         },
         onError: () => {
           setIsErrorModalOpen(true);
+          toast(<ErrorToast message="아티스트 변경에 실패했어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
         },
       },
     );
@@ -146,20 +152,11 @@ function UpdatePreferArtistPage() {
           />
         </div>
       )}
-      <AuthErrorModal
-        isOpen={isErrorModalOpen}
-        onClose={() => {
-          navigate("/");
-          setIsErrorModalOpen(false);
-        }}
-        title="오류가 발생했어요!"
-        description="홈에서 다시 시도해주세요"
-      />
       <DangerModal
         isOpen={isBackModalOpen}
         onClose={() => setIsBackModalOpen(false)}
         title={
-          "선택된 아티스트나 장르가 해제돼요.\n이전 페이지로 돌아가시나요?" as string
+          "선택된 아티스트가 저장되지 않아요.\n이전 페이지로 돌아가시나요?" as string
         }
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"

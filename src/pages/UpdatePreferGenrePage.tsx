@@ -4,13 +4,14 @@ import { toast } from "react-toastify";
 import { useGenre } from "../entities/genre/model/useGenre";
 import GenreList from "../entities/genre/ui/GenreList";
 import useGetUserPreferredGenres from "../features/preference/model/useGetUserPreferredGenres";
+import useSetUserPreferredGenres from "../features/preference/model/useSetUserPreferredGenres";
 import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
 import PreferredSection from "../features/preference/ui/PreferredSection";
 import UpdatePreferenceSnackbar from "../features/preference/ui/UpdatePreferenceSnackbar";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
-import useSetUserPreferredGenres from "../features/preference/model/useSetUserPreferredGenres";
+import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
 function UpdatePreferGenrePage() {
   const navigate = useNavigate();
@@ -80,15 +81,28 @@ function UpdatePreferGenrePage() {
         <CommonButton
           isActive={preferred.length >= 1}
           onClick={() => {
-            updatePreferredGenres(preferred.map((genre) => genre.id));
-            navigate("/my", {
-              replace: true,
-            });
-            toast(<UpdatePreferenceSnackbar type="장르" />, {
-              position: "top-center",
-              autoClose: 3000,
-              pauseOnFocusLoss: false,
-            });
+            updatePreferredGenres(
+              preferred.map((genre) => genre.id),
+              {
+                onSuccess: () => {
+                  navigate("/my", {
+                    replace: true,
+                  });
+                  toast(<UpdatePreferenceSnackbar type="장르" />, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    pauseOnFocusLoss: false,
+                  });
+                },
+                onError: () => {
+                  toast(<ErrorToast message={`장르 ${label}에 실패했어요`} />, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    pauseOnFocusLoss: false,
+                  });
+                },
+              },
+            );
           }}
           title={label}
           variant="primary"
@@ -97,7 +111,9 @@ function UpdatePreferGenrePage() {
       <DangerModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={"선택된 장르가 해제돼요.\n이전 페이지로 돌아가시나요?" as string}
+        title={
+          "선택된 장르가 저장되지 않아요.\n이전 페이지로 돌아가시나요?" as string
+        }
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"
         onPrimary={() => {
