@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import InfiniteFeaturedArtistList from "../entities/featured-artist/ui/InfiniteFeaturedArtistList";
-import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
+import useGetUserPreferredArtists from "../features/preference/model/useGetUserPreferredArtists";
 import useSetUserPreferredArtists from "../features/preference/model/useSetUserPreferredArtists";
 import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
 import PreferredSection from "../features/preference/ui/PreferredSection";
@@ -11,7 +11,6 @@ import InputSearchBar from "../features/search/ui/InputSearchBar";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
-import useGetUserPreferredArtists from "../features/preference/model/useGetUserPreferredArtists";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
 function UpdatePreferArtistPage() {
@@ -35,6 +34,10 @@ function UpdatePreferArtistPage() {
       label: artist.name,
     })) || [],
   );
+  const hasExistingArtists =
+    existingPreferredArtists && existingPreferredArtists.length > 0;
+
+  const label = hasExistingArtists ? "변경" : "설정";
 
   const onSuccess = async () => {
     navigate("/my");
@@ -58,7 +61,7 @@ function UpdatePreferArtistPage() {
         },
         onError: () => {
           setIsErrorModalOpen(true);
-          toast(<ErrorToast message="아티스트 변경에 실패했어요" />, {
+          toast(<ErrorToast message={`아티스트 ${label}에 실패했어요`} />, {
             position: "top-center",
             autoClose: 3000,
             pauseOnFocusLoss: false,
@@ -72,7 +75,7 @@ function UpdatePreferArtistPage() {
       <div className="flex-1 overflow-y-auto">
         <div className="flex">
           <ListHeader
-            title="취향 설정"
+            title={`아티스트 ${label}`}
             onBackClick={() => {
               if (preferred.length > 0) {
                 setIsBackModalOpen(true);
