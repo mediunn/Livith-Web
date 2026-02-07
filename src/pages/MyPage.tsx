@@ -7,6 +7,7 @@ import { userState } from "../shared/lib/recoil/atoms/userState";
 import FeedbackIcon from "../shared/assets/FeedbackIcon.svg";
 import SettingIcon from "../shared/assets/SettingIcon.svg";
 import PreferenceSection from "../shared/ui/PreferenceSection";
+import useGetUserPreferredArtists from "../features/preference/model/useGetUserPreferredArtists";
 
 interface PreferenceItem {
   id: string | number;
@@ -23,6 +24,9 @@ function MyPage() {
     window.location.href =
       "https://docs.google.com/forms/d/e/1FAIpQLSe-d5MhQrwsRRrk9isYiYVw1afI7a60Xm0IHbxmmAHe8AUiMA/viewform";
   };
+
+  const { data: preferredArtists, isLoading: isPreferredArtistsLoading } =
+    useGetUserPreferredArtists();
 
   const genreItems: PreferenceItem[] = [];
 
@@ -59,7 +63,7 @@ function MyPage() {
           />
           <PreferenceSection
             title="선호 아티스트"
-            items={artistItems}
+            items={preferredArtists || []}
             emptyDescription={
               <>
                 선호 아티스트를 기반으로 <br />

@@ -1,5 +1,3 @@
-import { userEvent } from "storybook/test";
-
 export type FeaturedArtist = {
   id: number;
   name: string;

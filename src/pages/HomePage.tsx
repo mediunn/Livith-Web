@@ -55,7 +55,7 @@ function HomePage() {
 
   const user = useRecoilValue(userState);
   const isLoggedIn = !!user;
-  const hasPrefer = (user?.preferredGenreIds?.length ?? 0) > 0;
+  const hasPrefer = (user?.preferredGenres?.length ?? 0) > 0;
 
   useEffect(() => {
     if (showSignupComplete) {
