@@ -73,6 +73,7 @@ function MyPage() {
               </>
             }
             type="artist"
+            onClickSetting={() => navigate("/update-prefer-artist")}
           />
 
           <TabBar />

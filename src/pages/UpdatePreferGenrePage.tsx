@@ -1,24 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useGenre } from "../entities/genre/model/useGenre";
 import GenreList from "../entities/genre/ui/GenreList";
 import useGetUserPreferredGenres from "../features/preference/model/useGetUserPreferredGenres";
-import useUpdateUserPreferredGenres from "../features/preference/model/useUpdateUserPreferredGenres";
 import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
 import PreferredSection from "../features/preference/ui/PreferredSection";
+import UpdatePreferenceSnackbar from "../features/preference/ui/UpdatePreferenceSnackbar";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
-import Snackbar from "../shared/ui/Snackbar/Snackbar";
-import UpdatePreferenceSnackbar from "../features/preference/ui/UpdatePreferenceSnackbar";
-import { toast } from "react-toastify";
+import useSetUserPreferredGenres from "../features/preference/model/useSetUserPreferredGenres";
 
 function UpdatePreferGenrePage() {
   const navigate = useNavigate();
 
   const { data: existingPreferredGenres } = useGetUserPreferredGenres();
   const { data: genres, isLoading, error } = useGenre();
-  const { mutate: updatePreferredGenres } = useUpdateUserPreferredGenres();
+  const { mutate: updatePreferredGenres } = useSetUserPreferredGenres();
 
   const [preferred, setPreferred] = useState<{ id: number; label: string }[]>(
     existingPreferredGenres?.map((genre) => ({
@@ -98,13 +97,10 @@ function UpdatePreferGenrePage() {
       <DangerModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={
-          "선택된 아티스트나 장르가 해제돼요.\n이전 페이지로 돌아가시나요?" as string
-        }
+        title={"선택된 장르가 해제돼요.\n이전 페이지로 돌아가시나요?" as string}
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"
         onPrimary={() => {
-          sessionStorage.removeItem("signupPreferredGenres");
           navigate(-1);
         }}
         onSecondary={() => setIsModalOpen(false)}
