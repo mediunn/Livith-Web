@@ -161,7 +161,7 @@ function SignupPreferArtistPage() {
             }}
           />
           <CommonButton
-            isActive={true}
+            isActive={preferred.length >= 1}
             onClick={() => {
               handleSignup({ skip: false });
             }}

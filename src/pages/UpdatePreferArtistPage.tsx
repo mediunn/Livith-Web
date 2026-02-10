@@ -153,7 +153,7 @@ function UpdatePreferArtistPage() {
             }}
           />
           <CommonButton
-            isActive={true}
+            isActive={preferred.length >= 1}
             onClick={() => {
               handleSetPreference();
             }}
