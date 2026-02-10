@@ -8,6 +8,8 @@ import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
+import { genreMap } from "../entities/concert/constants/filterMaps";
+import { GenreEnum } from "../entities/genre/types";
 
 function SignupPreferGenrePage() {
   const navigate = useNavigate();
@@ -65,7 +67,10 @@ function SignupPreferGenrePage() {
         <div className="pb-10">
           <PreferredSection
             preferredState={{
-              value: preferred,
+              value: preferred.map((item) => ({
+                id: item.id,
+                label: genreMap[item.label as GenreEnum] ?? item.label,
+              })),
               setValue: setPreferred,
             }}
           />

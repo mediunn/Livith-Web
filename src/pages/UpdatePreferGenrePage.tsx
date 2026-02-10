@@ -13,6 +13,8 @@ import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import { preferredIdsEqual } from "../features/preference/utils/preferredIdsEqual";
+import { genreMap } from "../entities/concert/constants/filterMaps";
+import { GenreEnum } from "../entities/genre/types";
 
 function UpdatePreferGenrePage() {
   const navigate = useNavigate();
@@ -83,7 +85,10 @@ function UpdatePreferGenrePage() {
         <div className="pb-10">
           <PreferredSection
             preferredState={{
-              value: preferred,
+              value: preferred.map((item) => ({
+                id: item.id,
+                label: genreMap[item.label as GenreEnum] ?? item.label,
+              })),
               setValue: setPreferred,
             }}
           />
