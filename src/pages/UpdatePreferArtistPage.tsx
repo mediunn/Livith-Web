@@ -12,6 +12,7 @@ import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
+import { preferredIdsEqual } from "../features/preference/utils/preferredIdsEqual";
 
 function UpdatePreferArtistPage() {
   // 키보드 오픈 상태 관리
@@ -36,6 +37,8 @@ function UpdatePreferArtistPage() {
   );
   const hasExistingArtists =
     existingPreferredArtists && existingPreferredArtists.length > 0;
+  const preferredIds = preferred.map((item) => item.id);
+  const existingIds = existingPreferredArtists?.map((item) => item.id) || [];
 
   const label = hasExistingArtists ? "변경" : "설정";
 
@@ -77,7 +80,10 @@ function UpdatePreferArtistPage() {
           <ListHeader
             title={`아티스트 ${label}`}
             onBackClick={() => {
-              if (preferred.length > 0) {
+              if (
+                preferred.length > 0 &&
+                !preferredIdsEqual(preferredIds, existingIds)
+              ) {
                 setIsBackModalOpen(true);
               } else {
                 navigate(-1);
