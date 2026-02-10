@@ -4,6 +4,7 @@ import { useUpdateRead } from "../entities/notification/model/useUpdateRead";
 import AlarmItem from "../entities/notification/ui/AlarmItem";
 import { useAlarm } from "../entities/notification/model/useAlarm";
 import { useEffect, useRef } from "react";
+import EmptyAlarm from "../entities/notification/ui/EmptyAlarm";
 
 function AlarmListPage() {
   const navigate = useNavigate();
@@ -14,11 +15,12 @@ function AlarmListPage() {
     data,
     isLoading,
     isError,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useAlarm({ size });
+
+  const alarms = data?.pages?.flatMap((page) => page) ?? [];
 
   const updateReadMutation = useUpdateRead();
 
@@ -42,11 +44,8 @@ function AlarmListPage() {
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  const shouldShowError =
-    isError && (!data || !data.pages || data.pages.length === 0);
-
   return (
-    <div className="pb-90">
+    <div className="flex flex-col min-h-screen">
       <ListHeader
         title={"알림"}
         rightElement={
@@ -63,37 +62,37 @@ function AlarmListPage() {
         알림은 90일 이후 순차적으로 삭제돼요.
       </p>
 
-      {!isLoading &&
-        !shouldShowError &&
-        data &&
-        data.pages &&
-        data.pages.length > 0 && (
-          <div className="flex flex-col px-4 gap-12">
-            {data.pages.map((alarm) => (
-              <AlarmItem
-                key={alarm.id}
-                id={alarm.id}
-                type={alarm.type}
-                title={alarm.title}
-                content={alarm.content}
-                targetId={alarm.targetId}
-                isRead={alarm.isRead}
-                createdAt={alarm.createdAt}
-                updateRead={handleUpdateRead}
-              />
-            ))}
+      <div className="flex-1 relative">
+        {!isLoading && !isError && alarms.length === 0 && <EmptyAlarm />}
+      </div>
 
-            {hasNextPage && !isError && (
-              <div ref={observerRef} className="py-20 text-center">
-                {isFetchingNextPage && (
-                  <p className="text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
-                    더 불러오는 중...
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-        )}
+      {!isLoading && alarms.length > 0 && (
+        <div className="flex flex-col px-4 gap-12">
+          {alarms.map((alarm) => (
+            <AlarmItem
+              key={alarm.id}
+              id={alarm.id}
+              type={alarm.type}
+              title={alarm.title}
+              content={alarm.content}
+              targetId={alarm.targetId}
+              isRead={alarm.isRead}
+              createdAt={alarm.createdAt}
+              updateRead={handleUpdateRead}
+            />
+          ))}
+
+          {hasNextPage && !isError && (
+            <div ref={observerRef} className="py-20 text-center">
+              {isFetchingNextPage && (
+                <p className="text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
+                  더 불러오는 중...
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
