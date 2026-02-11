@@ -65,7 +65,7 @@ function SignupAgreementPage() {
             </p>
           </div>
           {/* 이용약관 동의 */}
-          <div className="flex items-center pl-12  mb-24">
+          <div className="flex items-center mb-24">
             <div
               className="flex items-center cursor-pointer"
               onClick={() => setIsUseChecked(!isUseChecked)}
@@ -89,7 +89,7 @@ function SignupAgreementPage() {
               더보기 &gt;
             </p>
           </div>
-          <div className="flex items-center pl-12  mb-24">
+          <div className="flex items-center  mb-24">
             <div
               className="flex items-center cursor-pointer"
               onClick={() => setIsPersonalChecked(!isPersonalChecked)}
@@ -114,7 +114,7 @@ function SignupAgreementPage() {
             </p>
           </div>
           {/* 마케팅,광고 동의 */}
-          <div className="flex items-center pl-12  mb-24">
+          <div className="flex items-center  mb-24">
             <div
               className="flex items-center cursor-pointer"
               onClick={() => setIsAdChecked(!isAdChecked)}
