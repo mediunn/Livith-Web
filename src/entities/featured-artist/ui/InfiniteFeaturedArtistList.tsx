@@ -79,7 +79,7 @@ function InfiniteFeaturedArtistList({
           <EmptySearchResult />
         </div>
       ) : (
-        <div className="py-18 mx-16 grid grid-cols-3 gap-x-10 gap-y-24">
+        <div className="grid grid-cols-3 gap-x-10 gap-y-10">
           {(sortedArtists ?? []).map((artist: FeaturedArtist) => (
             <div key={artist.id}>
               <PreferenceCard
