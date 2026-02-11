@@ -52,7 +52,7 @@ function PreferenceCard({
         alt={label}
         className="bg-grayScaleBlack100 opacity-70 "
       />
-      <span className="absolute left-0 right-0 bottom-[40%] text-center text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR select-none">
+      <span className="absolute left-0 right-0 top-1/2 -translate-y-1/2 w-full flex flex-col items-center justify-center text-center text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR select-none">
         {label}
       </span>
     </div>
