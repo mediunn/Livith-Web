@@ -111,6 +111,7 @@ function UpdatePreferGenrePage() {
                 },
                 onError: () => {
                   toast(<ErrorToast message={`장르 ${label}에 실패했어요`} />, {
+                    toastId: "update-preference-error",
                     position: "top-center",
                     autoClose: 3000,
                     pauseOnFocusLoss: false,
