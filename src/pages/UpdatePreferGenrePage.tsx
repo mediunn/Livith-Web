@@ -128,7 +128,7 @@ function UpdatePreferGenrePage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={
-          "선택된 장르가 저장되지 않아요.\n이전 페이지로 돌아가시나요?" as string
+          "선택된 장르가 저장되지 않아요.\n이전 상태로 돌아가시나요?" as string
         }
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"
