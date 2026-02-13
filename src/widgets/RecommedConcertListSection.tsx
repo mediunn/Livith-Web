@@ -3,6 +3,7 @@ import { useRecommendConcertListSection } from "../features/concert/model/useRec
 import CardListSkeleton from "../shared/ui/CardSkeleton/CardListSkeleton";
 import RecommedConcertSlide from "../entities/concert/ui/RecommedConcertSlide";
 import ConcertListSectionArrowIcon from "../shared/assets/ConcertListSectionArrowIcon.svg";
+import EmptyRecommedConcertSlide from "../features/concert/ui/EmptyRecommedConcertSlide";
 
 interface Props {
   nickname: string;
@@ -35,6 +36,8 @@ function RecommedConcertListSection({ nickname }: Props) {
         <div className="mx-16">
           <CardListSkeleton num={3} />
         </div>
+      ) : concerts.length === 0 ? (
+        <EmptyRecommedConcertSlide />
       ) : (
         <RecommedConcertSlide concerts={concerts} />
       )}
