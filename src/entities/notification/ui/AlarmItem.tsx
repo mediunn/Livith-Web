@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatAlarmDate } from "../utils/formatAlarmDate";
 
 interface AlarmItemProps {
   id: number;
@@ -61,7 +62,7 @@ function AlarmItem({
           isRead ? "text-grayScaleBlack50" : "text-grayScaleBlack30"
         }`}
       >
-        {createdAt}
+        {formatAlarmDate(createdAt)}
       </p>
     </div>
   );
