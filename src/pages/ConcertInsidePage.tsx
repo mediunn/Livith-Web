@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import ListHeader from "../shared/ui/ListHeader";
 import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
@@ -21,6 +21,9 @@ function ConcertInsidePage() {
     const stored = sessionStorage.getItem("viewedConcerts");
     return stored ? JSON.parse(stored) : [];
   });
+
+  const location = useLocation();
+  const focusTarget = location.state?.focusTarget;
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -58,7 +61,7 @@ function ConcertInsidePage() {
               toast.dismiss();
             }}
           />,
-          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false }
+          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false },
         );
         sessionStorage.setItem("loginToastShown", "true");
       }
@@ -75,6 +78,7 @@ function ConcertInsidePage() {
         concertId={Number(concertId)}
         ticketUrl={concert.ticketUrl}
         status={concert.status}
+        focusTarget={focusTarget}
       ></ConcertInfoTab>
       <LoginModal
         isOpen={isLoginModalOpen}

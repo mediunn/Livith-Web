@@ -61,22 +61,22 @@ function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
           </p>
 
           <div className="overflow-y-auto">
-            <div className="flex items-center mb-30">
+            <div className="flex items-center justify-between mb-30">
               <div
-                className="flex items-center cursor-pointer"
+                className="flex items-center cursor-pointer "
                 onClick={handleCheckboxClick}
               >
                 <Checkbox variant="line" isPressed={isChecked} />
                 <p className="text-grayScaleBlack5 text-Body2-md font-medium font-NotoSansKR">
                   마케팅 활용 / 광고성 정보 수신 동의 (선택)
                 </p>
-                <p
-                  onClick={handleMoreClick}
-                  className="ml-10 text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR cursor-pointer"
-                >
-                  더보기 &gt;
-                </p>
               </div>
+              <p
+                onClick={handleMoreClick}
+                className="ml-10 text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR cursor-pointer"
+              >
+                더보기 &gt;
+              </p>
             </div>
           </div>
 

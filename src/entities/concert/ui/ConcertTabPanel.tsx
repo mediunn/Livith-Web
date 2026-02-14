@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ScheduleInfo from "./ScheduleInfo";
 import RequiredInfo from "./RequiredInfo";
 import MdInfo from "./MdInfo";
@@ -16,6 +16,13 @@ interface ConcertTabPanelProps {
   concertRequiredInfo: ConcertRequired[] | null;
   mds: Md[] | null;
   status: string;
+  focusTarget?:
+    | "schedule"
+    | "ticket"
+    | "md"
+    | "setlist"
+    | "concertDetail"
+    | null;
 }
 
 function ConcertTabPanel({
@@ -25,8 +32,31 @@ function ConcertTabPanel({
   concertRequiredInfo,
   mds,
   status,
+  focusTarget,
 }: ConcertTabPanelProps) {
   const [showSnackBar, setShowSnackBar] = useState(false);
+
+  const scheduleRef = useRef<HTMLDivElement>(null);
+  const ticketRef = useRef<HTMLDivElement>(null);
+  const mdRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!focusTarget) return;
+
+    setTimeout(() => {
+      if (focusTarget === "schedule") {
+        scheduleRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
+
+      if (focusTarget === "ticket") {
+        ticketRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
+
+      if (focusTarget === "md") {
+        mdRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  }, [focusTarget]);
 
   // visibilitychange 기반 복귀 감지
   useEffect(() => {
@@ -58,12 +88,19 @@ function ConcertTabPanel({
   return (
     <>
       {schedules && schedules.length > 0 && (
-        <ScheduleInfo schedules={schedules} showReportButton={true} />
+        <div ref={scheduleRef}>
+          <ScheduleInfo schedules={schedules} showReportButton={true} />
+        </div>
       )}
 
       <div className="mx-16 mt-10">
         {!showSnackBar && (
-          <TicketWebsiteBtn ticketUrl={ticketUrl} onClick={handleTicketClick} />
+          <div ref={ticketRef}>
+            <TicketWebsiteBtn
+              ticketUrl={ticketUrl}
+              onClick={handleTicketClick}
+            />
+          </div>
         )}
       </div>
 
@@ -84,7 +121,9 @@ function ConcertTabPanel({
       )}
 
       {mds && mds.length > 0 && (
-        <MdInfo mds={mds} concertId={concertId} mdCount={mds.length} />
+        <div ref={mdRef}>
+          <MdInfo mds={mds} concertId={concertId} mdCount={mds.length} />
+        </div>
       )}
     </>
   );
