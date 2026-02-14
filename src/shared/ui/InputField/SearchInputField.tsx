@@ -21,9 +21,10 @@ function SearchInputField({
 }: SearchInputFieldProps) {
   const [isComposing, setIsComposing] = useState(false);
   const [currentPlaceholder, setCurrentPlaceholder] = useState(
-    placeholder || ""
+    placeholder || "",
   );
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isActive, setIsActive] = useState(false); // hover 또는 focus 상태
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !isComposing && value.trim() && onEnter) {
@@ -38,7 +39,9 @@ function SearchInputField({
   };
 
   return (
-    <div className="flex items-center relative w-full py-7 pl-16 bg-grayScaleBlack90 rounded-10">
+    <div
+      className={`flex items-center relative w-full py-7 pl-16 bg-grayScaleBlack90 rounded-10 transition-all duration-150 ${isActive ? "outline outline-1 outline-grayScaleBlack50" : "outline-none"}`}
+    >
       <input
         ref={inputRef}
         type="text"
@@ -46,10 +49,12 @@ function SearchInputField({
         onFocus={(e) => {
           onFocus?.();
           setCurrentPlaceholder(""); // 포커스 시 placeholder 숨김
+          setIsActive(true);
         }}
         onBlur={() => {
           onBlur?.();
           setCurrentPlaceholder(placeholder || ""); // blur 시 원래 placeholder로 복원
+          setIsActive(false);
         }}
         onChange={(e) => {
           onChange(e.target.value);
