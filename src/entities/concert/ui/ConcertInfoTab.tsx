@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import SetlistTabPanel from "./SetlistTabPanel";
@@ -24,6 +24,13 @@ interface ConcertInfoTabProps {
   ticketUrl: string;
   introduction: string;
   status: string;
+  focusTarget?:
+    | "schedule"
+    | "ticket"
+    | "md"
+    | "setlist"
+    | "concertDetail"
+    | null;
 }
 
 const TAB_KEY = `selectedTab`;
@@ -33,6 +40,7 @@ function ConcertInfoTab({
   ticketUrl,
   introduction,
   status,
+  focusTarget,
 }: ConcertInfoTabProps) {
   const user = useRecoilValue(userState);
 
@@ -100,6 +108,19 @@ function ConcertInfoTab({
       value: "4",
     },
   ];
+
+  useEffect(() => {
+    if (!focusTarget) return;
+
+    if (focusTarget === "setlist") {
+      setTabValue("3");
+      return;
+    }
+
+    // schedule / ticket/ md / concertDetail
+    setTabValue("2");
+  }, [focusTarget]);
+
   return (
     <>
       <Box
@@ -156,6 +177,7 @@ function ConcertInfoTab({
                 concertRequiredInfo={concertRequiredInfo}
                 mds={mds}
                 status={status}
+                focusTarget={focusTarget}
               />
             )}
           </TabPanel>
