@@ -12,6 +12,7 @@ import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
+import { preferredIdsEqual } from "../features/preference/utils/preferredIdsEqual";
 
 function UpdatePreferArtistPage() {
   // 키보드 오픈 상태 관리
@@ -36,6 +37,8 @@ function UpdatePreferArtistPage() {
   );
   const hasExistingArtists =
     existingPreferredArtists && existingPreferredArtists.length > 0;
+  const preferredIds = preferred.map((item) => item.id);
+  const existingIds = existingPreferredArtists?.map((item) => item.id) || [];
 
   const label = hasExistingArtists ? "변경" : "설정";
 
@@ -77,7 +80,10 @@ function UpdatePreferArtistPage() {
           <ListHeader
             title={`아티스트 ${label}`}
             onBackClick={() => {
-              if (preferred.length > 0) {
+              if (
+                preferred.length > 0 &&
+                !preferredIdsEqual(preferredIds, existingIds)
+              ) {
                 setIsBackModalOpen(true);
               } else {
                 navigate(-1);
@@ -147,7 +153,7 @@ function UpdatePreferArtistPage() {
             }}
           />
           <CommonButton
-            isActive={true}
+            isActive={preferred.length >= 1}
             onClick={() => {
               handleSetPreference();
             }}
@@ -160,7 +166,7 @@ function UpdatePreferArtistPage() {
         isOpen={isBackModalOpen}
         onClose={() => setIsBackModalOpen(false)}
         title={
-          "선택된 아티스트가 저장되지 않아요.\n이전 페이지로 돌아가시나요?" as string
+          "선택된 아티스트가 저장되지 않아요.\n이전 상태로 돌아가시나요?" as string
         }
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"

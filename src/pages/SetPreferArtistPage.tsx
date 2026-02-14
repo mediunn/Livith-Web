@@ -166,7 +166,7 @@ function SetPreferArtistPage() {
             }}
           />
           <CommonButton
-            isActive={true}
+            isActive={preferred.length >= 1}
             onClick={() => {
               handleSetPreference({ skip: false });
             }}

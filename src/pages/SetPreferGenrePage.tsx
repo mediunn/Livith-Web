@@ -8,6 +8,8 @@ import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHe
 import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
 import ListHeader from "../shared/ui/ListHeader";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
+import { GenreEnum } from "../entities/genre/types";
+import { genreMap } from "../entities/concert/constants/filterMaps";
 
 function SetPreferGenrePage() {
   const navigate = useNavigate();
@@ -63,7 +65,10 @@ function SetPreferGenrePage() {
         <div className="pb-10">
           <PreferredSection
             preferredState={{
-              value: preferred,
+              value: preferred.map((item) => ({
+                id: item.id,
+                label: genreMap[item.label as GenreEnum] ?? item.label,
+              })),
               setValue: setPreferred,
             }}
           />
@@ -94,7 +99,7 @@ function SetPreferGenrePage() {
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"
         onPrimary={() => {
-          sessionStorage.removeItem("signupPreferredGenres");
+          sessionStorage.removeItem("preferredGenres");
           navigate(-1);
         }}
         onSecondary={() => setIsModalOpen(false)}

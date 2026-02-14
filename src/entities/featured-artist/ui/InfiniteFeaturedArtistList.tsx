@@ -47,21 +47,6 @@ function InfiniteFeaturedArtistList({
     },
   });
 
-  const [sortedArtists, setSortedArtists] = useState<FeaturedArtist[]>([]);
-  // 선택된 아티스트를 맨 위로 정렬
-  useEffect(() => {
-    const preferredIds = preferredState.value.map((item) => item.id);
-    const sorted = artists?.pages
-      ? [
-          ...artists.pages.filter((artist) => preferredIds.includes(artist.id)),
-          ...artists.pages.filter(
-            (artist) => !preferredIds.includes(artist.id),
-          ),
-        ]
-      : [];
-    setSortedArtists(sorted);
-  }, [artists, isFocused]);
-
   if (isLoading) {
     return (
       <div className="mx-16">
@@ -79,8 +64,8 @@ function InfiniteFeaturedArtistList({
           <EmptySearchResult />
         </div>
       ) : (
-        <div className="py-18 mx-16 grid grid-cols-3 gap-x-10 gap-y-24">
-          {(sortedArtists ?? []).map((artist: FeaturedArtist) => (
+        <div className="grid grid-cols-3 gap-x-10 gap-y-10">
+          {(artists?.pages ?? []).map((artist: FeaturedArtist) => (
             <div key={artist.id}>
               <PreferenceCard
                 id={artist.id}

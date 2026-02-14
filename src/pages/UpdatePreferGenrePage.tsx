@@ -12,6 +12,9 @@ import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
+import { preferredIdsEqual } from "../features/preference/utils/preferredIdsEqual";
+import { genreMap } from "../entities/concert/constants/filterMaps";
+import { GenreEnum } from "../entities/genre/types";
 
 function UpdatePreferGenrePage() {
   const navigate = useNavigate();
@@ -40,6 +43,8 @@ function UpdatePreferGenrePage() {
     existingPreferredGenres && existingPreferredGenres.length > 0;
 
   const label = hasExistingGenres ? "변경" : "설정";
+  const preferredIds = preferred.map((item) => item.id);
+  const existingIds = existingPreferredGenres?.map((item) => item.id) || [];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -47,7 +52,10 @@ function UpdatePreferGenrePage() {
         <ListHeader
           title={`장르 ${label}`}
           onBackClick={() => {
-            if (hasExistingGenres) {
+            if (
+              preferred.length > 0 &&
+              !preferredIdsEqual(preferredIds, existingIds)
+            ) {
               setIsModalOpen(true);
             } else {
               navigate(-1);
@@ -77,7 +85,10 @@ function UpdatePreferGenrePage() {
         <div className="pb-10">
           <PreferredSection
             preferredState={{
-              value: preferred,
+              value: preferred.map((item) => ({
+                id: item.id,
+                label: genreMap[item.label as GenreEnum] ?? item.label,
+              })),
               setValue: setPreferred,
             }}
           />
@@ -100,6 +111,7 @@ function UpdatePreferGenrePage() {
                 },
                 onError: () => {
                   toast(<ErrorToast message={`장르 ${label}에 실패했어요`} />, {
+                    toastId: "update-preference-error",
                     position: "top-center",
                     autoClose: 3000,
                     pauseOnFocusLoss: false,
@@ -116,7 +128,7 @@ function UpdatePreferGenrePage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={
-          "선택된 장르가 저장되지 않아요.\n이전 페이지로 돌아가시나요?" as string
+          "선택된 장르가 저장되지 않아요.\n이전 상태로 돌아가시나요?" as string
         }
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"

@@ -102,7 +102,7 @@ function SignupPreferArtistPage() {
             <ProgressBar total={4} current={4} />
           </div>
           {showAll && (
-            <div className="py-20">
+            <div className="pt-20 pb-10">
               <PreferenceSelectHeader
                 type="아티스트"
                 count={preferred.length}
@@ -161,7 +161,7 @@ function SignupPreferArtistPage() {
             }}
           />
           <CommonButton
-            isActive={true}
+            isActive={preferred.length >= 1}
             onClick={() => {
               handleSignup({ skip: false });
             }}
