@@ -50,7 +50,7 @@ function SetInterestConcertPage() {
       </div>
 
       {/* 리스트 영역: 스크롤 가능 */}
-      <div className="flex-1 overflow-auto px-16 mt-12">
+      <div className="flex-1 overflow-auto mt-12">
         {showResults && input ? (
           <SearchResult
             keyword={input}
