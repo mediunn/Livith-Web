@@ -63,7 +63,7 @@ function SearchInputField({
         placeholder={currentPlaceholder}
         onCompositionStart={() => setIsComposing(true)}
         onCompositionEnd={() => setIsComposing(false)}
-        className="w-full my-9 text-grayScaleWhite text-Body3-md font-medium font-NotoSansKR border-none outline-none bg-transparent placeholder-grayScaleBlack50"
+        className="w-full my-9 text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR border-none outline-none bg-transparent placeholder-grayScaleBlack50"
       />
       {value ? (
         <img
