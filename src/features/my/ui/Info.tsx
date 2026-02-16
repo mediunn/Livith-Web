@@ -10,7 +10,7 @@ function Info() {
   };
   const handleClickCondition = () => {
     window.location.href =
-      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4";
+      "https://www.notion.so/youz2me/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0";
   };
 
   const navigate = useNavigate();
