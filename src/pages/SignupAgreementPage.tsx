@@ -52,9 +52,12 @@ function SignupAgreementPage() {
           <div className="mt-10 mb-30">
             <ProgressBar total={4} current={1} />
           </div>
-          <div className="text-Body1-sm text-grayScaleWhite font-semibold font-NotoSansKR mb-20">
+          <div className="text-Body1-sm text-grayScaleWhite font-semibold font-NotoSansKR mb-12">
             서비스 이용을 위해 <br /> 약관 동의가 필요해요
           </div>
+          <p className="text-Body4-sm text-grayScaleBlack50 font-semibold font-NotoSansKR mb-20">
+            서비스 이용에 필요한 알림이 발송될 예정이에요
+          </p>
           {/* 모두 동의 */}
           <div className="flex items-center bg-grayScaleBlack90 rounded-10 px-12 py-20 gap-16 mb-24">
             <button onClick={handleAllCheck}>
