@@ -35,7 +35,7 @@ function AgreeSheet({ isSheetOpen, onSheetClose, onAgree }: AgreeSheetProps) {
   const handleMoreClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     window.open(
-      "https://www.notion.so/youz2me/v-26-02-03-2fb02dd0e5fc806ca182ecaf18099979",
+      "https://www.notion.so/youz2me/v-26-02-03-2fb02dd0e5fc80af9708cf5e39f44f77",
       "_blank",
       "noopener,noreferrer",
     );

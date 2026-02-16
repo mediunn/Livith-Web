@@ -129,7 +129,7 @@ function SignupAgreementPage() {
             <p
               onClick={() =>
                 handleClickCondition(
-                  "https://youz2me.notion.site/v-26-02-03-2fb02dd0e5fc80af9708cf5e39f44f77",
+                  "https://www.notion.so/youz2me/v-26-02-03-2fb02dd0e5fc80af9708cf5e39f44f77",
                 )
               }
               className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6"
