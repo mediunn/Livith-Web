@@ -4,10 +4,18 @@ import { API_BASE_URL } from "./constants";
 
 let isRefreshing = false;
 let refreshSubscribers: ((token: string) => void)[] = [];
+let refreshRejecters: ((error: unknown) => void)[] = [];
 
 const onRefreshed = (token: string) => {
   refreshSubscribers.forEach((callback) => callback(token));
   refreshSubscribers = [];
+  refreshRejecters = [];
+};
+
+const onRefreshFailed = (error: unknown) => {
+  refreshRejecters.forEach((reject) => reject(error));
+  refreshSubscribers = [];
+  refreshRejecters = [];
 };
 
 const axiosInstance = axios.create({
@@ -35,11 +43,12 @@ axiosInstance.interceptors.response.use(
     ) {
       if (isRefreshing) {
         // 다른 요청이 이미 refresh 중이라면 기다리기
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
           refreshSubscribers.push((token) => {
             originalRequest.headers.Authorization = `Bearer ${token}`;
             resolve(axiosInstance(originalRequest));
           });
+          refreshRejecters.push(reject);
         });
       }
 
@@ -59,6 +68,7 @@ axiosInstance.interceptors.response.use(
       } catch (refreshError) {
         isRefreshing = false;
         localStorage.removeItem("accessToken");
+        onRefreshFailed(refreshError); // 대기 중인 요청 모두 reject
         return Promise.reject(refreshError);
       }
     }

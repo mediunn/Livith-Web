@@ -11,6 +11,8 @@ import { MarketingConsent } from "../entities/notification/api/postMarketingCons
 import { useMarketingConsent } from "../entities/notification/model/useMarketingConsent";
 import { useAlarmConsent } from "../entities/notification/model/useAlarmConsent";
 import { NotificationField } from "../entities/notification/types";
+import { useRecoilValue } from "recoil";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 
 function AlarmSettingPage() {
   const { data, isLoading } = useAlarmSetting();
@@ -28,33 +30,56 @@ function AlarmSettingPage() {
   const [consentInfo, setConsentInfo] = useState<MarketingConsent | null>(null);
   const [pendingAction, setPendingAction] = useState<"ON" | "OFF" | null>(null);
 
+  const user = useRecoilValue(userState);
+
   const handleBenefitToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nextChecked = event.target.checked;
 
+    // ON 하는 경우
     if (nextChecked) {
       setPendingAction("ON");
-      setIsAgreeSheetOpen(true);
-    } else {
-      setPendingAction("OFF");
-
-      marketingConsent(
-        { isAgreed: false },
-        {
-          onSuccess: (res) => {
-            setConsentInfo(res.data);
-
-            updateAlarmConsent(
-              { field: "benefitAlert", isAgreed: false },
-              {
-                onSuccess: () => {
-                  setIsAgreeModalOpen(true);
-                },
-              },
-            );
+      // 마케팅 동의 유저
+      if (user?.marketingConsent) {
+        updateAlarmConsent(
+          { field: "benefitAlert", isAgreed: true },
+          {
+            onSuccess: (res) => {
+              setBenefitAlarmOn(true);
+              setConsentInfo(res.data);
+              setIsAgreeModalOpen(true);
+            },
           },
-        },
-      );
+        );
+
+        return;
+      }
+
+      // 마케팅 미동의 유저
+      setIsAgreeSheetOpen(true);
+
+      return;
     }
+
+    // OFF 하는 경우
+    setPendingAction("OFF");
+
+    marketingConsent(
+      { isAgreed: false },
+      {
+        onSuccess: (res) => {
+          setConsentInfo(res.data);
+
+          updateAlarmConsent(
+            { field: "benefitAlert", isAgreed: false },
+            {
+              onSuccess: () => {
+                setIsAgreeModalOpen(true);
+              },
+            },
+          );
+        },
+      },
+    );
   };
 
   const { mutate: updateAlarmConsent } = useAlarmConsent();
@@ -230,7 +255,16 @@ function AlarmSettingPage() {
         onAgree={(data) => {
           setConsentInfo(data);
           setIsAgreeSheetOpen(false);
-          setIsAgreeModalOpen(true);
+
+          updateAlarmConsent(
+            { field: "benefitAlert", isAgreed: true },
+            {
+              onSuccess: () => {
+                setBenefitAlarmOn(true);
+                setIsAgreeModalOpen(true);
+              },
+            },
+          );
         }}
       />
 

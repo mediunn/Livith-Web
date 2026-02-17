@@ -17,6 +17,8 @@ function RecommedConcertListSection({ nickname }: Props) {
 
   if (!concerts.length) return null;
 
+  const visibleConcerts = concerts.slice(0, 10);
+
   return (
     <div className="mt-30">
       <div className="flex justify-between items-end pb-20 px-16">
@@ -24,7 +26,7 @@ function RecommedConcertListSection({ nickname }: Props) {
           {nickname}님의 <br />
           취향이 담긴 콘서트
         </p>
-        {concerts.length >= 10 && (
+        {concerts.length > 10 && (
           <img
             src={ConcertListSectionArrowIcon}
             className="w-24 h-24 cursor-pointer"
@@ -39,7 +41,7 @@ function RecommedConcertListSection({ nickname }: Props) {
       ) : concerts.length === 0 ? (
         <EmptyRecommedConcertSlide />
       ) : (
-        <RecommedConcertSlide concerts={concerts} />
+        <RecommedConcertSlide concerts={visibleConcerts} />
       )}
     </div>
   );

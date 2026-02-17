@@ -38,7 +38,6 @@ function SignupAgreementPage() {
   const handleClickCondition = (link: string) => {
     window.open(
       link,
-      // "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4",
       "_blank", // 새 탭으로 열기
       "noopener,noreferrer", // 보안 옵션 (부모 페이지 접근 차단)
     );
@@ -84,7 +83,7 @@ function SignupAgreementPage() {
             <p
               onClick={() =>
                 handleClickCondition(
-                  "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4",
+                  "https://www.notion.so/youz2me/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0",
                 )
               }
               className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6"
@@ -108,7 +107,7 @@ function SignupAgreementPage() {
             <p
               onClick={() =>
                 handleClickCondition(
-                  "https://youz2me.notion.site/v-26-02-03-2fb02dd0e5fc806ca182ecaf18099979?pvs=74",
+                  "https://www.notion.so/youz2me/v-26-02-03-2fb02dd0e5fc806ca182ecaf18099979",
                 )
               }
               className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6"
@@ -133,7 +132,7 @@ function SignupAgreementPage() {
             <p
               onClick={() =>
                 handleClickCondition(
-                  "https://youz2me.notion.site/v-26-02-03-2fb02dd0e5fc80af9708cf5e39f44f77",
+                  "https://www.notion.so/youz2me/v-26-02-03-2fb02dd0e5fc80af9708cf5e39f44f77",
                 )
               }
               className="cursor-pointer text-Caption2-sm text-grayScaleBlack30 font-semibold font-NotoSansKR ml-auto mr-6"

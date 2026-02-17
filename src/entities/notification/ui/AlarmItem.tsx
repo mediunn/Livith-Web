@@ -28,6 +28,12 @@ function AlarmItem({
 
   const handleClick = () => {
     if (!isRead) updateRead(id);
+
+    if (type === "INTEREST_CONCERT") {
+      navigate("/set-concert");
+      return;
+    }
+
     if (!targetId) return;
 
     let focusTarget:
