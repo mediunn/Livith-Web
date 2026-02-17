@@ -5,12 +5,14 @@ export const formatAlarmDate = (createdAt: string) => {
   const now = new Date();
 
   const diffMs = now.getTime() - date.getTime();
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const rawDiffHours = diffMs / (1000 * 60 * 60);
+  const diffHours = Math.floor(rawDiffHours);
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
   // 24시간 미만
   if (diffHours < 24) {
-    return `${diffHours}시간 전`;
+    const displayHours = diffHours === 0 ? 1 : diffHours;
+    return `${displayHours}시간 전`;
   }
 
   // 24시간 초과 ~ 6일
