@@ -11,6 +11,7 @@ import TopBar from "../shared/ui/TopBar";
 import GuidedBanner from "../shared/ui/GuidedBanner";
 import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
+import { authReadyState } from "../shared/lib/recoil/atoms/authReadyState";
 
 // A/B 테스트 그룹 배정 유틸
 function getExperimentGroup(): "A" | "B" | "C" {
@@ -54,6 +55,7 @@ function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const user = useRecoilValue(userState);
+  const isAuthReady = useRecoilValue(authReadyState);
   const isLoggedIn = !!user;
   const hasPrefer = (user?.preferredGenres?.length ?? 0) > 0;
 
@@ -79,7 +81,7 @@ function HomePage() {
       ) : (
         <>
           <TopBar bgColor="bg-grayScaleBlack90" />
-          {!isLoggedIn && (
+          {isAuthReady && !isLoggedIn && (
             <GuidedBanner
               content="회원가입하러 가기"
               compactTitle="나의 취향이 담긴 콘서트 추천받기"
@@ -87,7 +89,7 @@ function HomePage() {
               isLoggedIn={isLoggedIn}
             />
           )}
-          {isLoggedIn && !hasPrefer && (
+          {isAuthReady && isLoggedIn && !hasPrefer && (
             <GuidedBanner
               content="취향 선택하러 가기"
               compactTitle="취향 선택하러 가기"
