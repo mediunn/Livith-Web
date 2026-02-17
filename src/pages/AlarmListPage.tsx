@@ -5,6 +5,8 @@ import AlarmItem from "../entities/notification/ui/AlarmItem";
 import { useAlarm } from "../entities/notification/model/useAlarm";
 import { useEffect, useRef } from "react";
 import EmptyAlarm from "../entities/notification/ui/EmptyAlarm";
+import { useRecoilValue } from "recoil";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 
 function AlarmListPage() {
   const navigate = useNavigate();
@@ -28,6 +30,9 @@ function AlarmListPage() {
     updateReadMutation.mutate(id);
   };
 
+  const user = useRecoilValue(userState);
+  const isLoggedIn = !!user;
+
   useEffect(() => {
     if (!observerRef.current || !hasNextPage || isFetchingNextPage) return;
 
@@ -49,12 +54,14 @@ function AlarmListPage() {
       <ListHeader
         title={"알림"}
         rightElement={
-          <button
-            onClick={() => navigate("/alarm-setting")}
-            className="p-8 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR"
-          >
-            알림 설정
-          </button>
+          isLoggedIn ? (
+            <button
+              onClick={() => navigate("/alarm-setting")}
+              className="p-8 text-grayScaleWhite text-Body4-re font-regular font-NotoSansKR"
+            >
+              알림 설정
+            </button>
+          ) : null
         }
       />
 
@@ -63,7 +70,23 @@ function AlarmListPage() {
       </p>
 
       <div className="flex-1 relative">
-        {!isLoading && !isError && alarms.length === 0 && <EmptyAlarm />}
+        {isLoggedIn ? (
+          !isLoading &&
+          !isError &&
+          alarms.length === 0 && (
+            <EmptyAlarm
+              isLoggedIn={isLoggedIn}
+              text={" 아직 공연 소식이 없어요 : ("}
+            />
+          )
+        ) : (
+          <EmptyAlarm
+            isLoggedIn={isLoggedIn}
+            text={
+              "회원가입 시 콘서트 소식을 놓치지 않도록\n알림으로 제공해 드려요!"
+            }
+          />
+        )}
       </div>
 
       {!isLoading && alarms.length > 0 && (
