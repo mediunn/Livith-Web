@@ -39,10 +39,6 @@ function UpdatePreferGenrePage() {
     return <div>Error loading genres</div>;
   }
 
-  const hasExistingGenres =
-    existingPreferredGenres && existingPreferredGenres.length > 0;
-
-  const label = hasExistingGenres ? "변경" : "설정";
   const preferredIds = preferred.map((item) => item.id);
   const existingIds = existingPreferredGenres?.map((item) => item.id) || [];
 
@@ -50,7 +46,7 @@ function UpdatePreferGenrePage() {
     <div className="flex flex-col min-h-screen">
       <div className="flex-1 overflow-y-auto">
         <ListHeader
-          title={`장르 ${label}`}
+          title="장르 설정"
           onBackClick={() => {
             if (
               preferred.length > 0 &&
@@ -110,7 +106,7 @@ function UpdatePreferGenrePage() {
                   });
                 },
                 onError: () => {
-                  toast(<ErrorToast message={`장르 ${label}에 실패했어요`} />, {
+                  toast(<ErrorToast message={`장르 설정에 실패했어요`} />, {
                     toastId: "update-preference-error",
                     position: "top-center",
                     autoClose: 3000,
@@ -120,7 +116,7 @@ function UpdatePreferGenrePage() {
               },
             );
           }}
-          title={`${label}하기`}
+          title="설정하기"
           variant="primary"
         />
       </div>

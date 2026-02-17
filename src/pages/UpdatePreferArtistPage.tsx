@@ -35,12 +35,9 @@ function UpdatePreferArtistPage() {
       label: artist.name,
     })) || [],
   );
-  const hasExistingArtists =
-    existingPreferredArtists && existingPreferredArtists.length > 0;
+
   const preferredIds = preferred.map((item) => item.id);
   const existingIds = existingPreferredArtists?.map((item) => item.id) || [];
-
-  const label = hasExistingArtists ? "변경" : "설정";
 
   const onSuccess = async () => {
     navigate("/my");
@@ -64,7 +61,7 @@ function UpdatePreferArtistPage() {
         },
         onError: () => {
           setIsErrorModalOpen(true);
-          toast(<ErrorToast message={`아티스트 ${label}에 실패했어요`} />, {
+          toast(<ErrorToast message="아티스트 설정에 실패했어요" />, {
             position: "top-center",
             autoClose: 3000,
             pauseOnFocusLoss: false,
@@ -78,7 +75,7 @@ function UpdatePreferArtistPage() {
       <div className="flex-1 overflow-y-auto">
         <div className="flex">
           <ListHeader
-            title={`아티스트 ${label}`}
+            title="아티스트 설정"
             onBackClick={() => {
               if (
                 preferred.length > 0 &&
@@ -157,7 +154,7 @@ function UpdatePreferArtistPage() {
             onClick={() => {
               handleSetPreference();
             }}
-            title={`${label}하기`}
+            title="설정하기"
             variant="primary"
           />
         </div>
