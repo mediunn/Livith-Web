@@ -20,6 +20,5 @@ export async function getConcertList({
       size,
     },
   });
-
   return response.data;
 }

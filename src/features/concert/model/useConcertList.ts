@@ -4,6 +4,7 @@ import { getConcertList } from "../api/getConcertList";
 type UseConcertListParams = {
   size: number;
 };
+
 type Cursor = { id: number | null; startDate: string | null };
 
 export const useConcertList = ({ size }: UseConcertListParams) => {

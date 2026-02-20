@@ -14,11 +14,11 @@ type ScheduleInfoProps = {
 
 function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
   const upcomingSchedules = schedules
-    .filter((s) => dayjs(s.scheduledAt).isSameOrAfter(dayjs(), "day"))
+    .filter((s) => dayjs(s.scheduledAt).isSameOrAfter(dayjs()))
     .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix());
 
   const pastSchedules = schedules
-    .filter((s) => dayjs(s.scheduledAt).isBefore(dayjs(), "day"))
+    .filter((s) => dayjs(s.scheduledAt).isBefore(dayjs()))
     .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix());
 
   const sortedSchedules = [...upcomingSchedules, ...pastSchedules];
@@ -47,7 +47,7 @@ function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
       </div>
       <div className="flex flex-col">
         {sortedSchedules.map((schedule) => {
-          const isPast = dayjs(schedule.scheduledAt).isBefore(dayjs(), "day");
+          const isPast = dayjs(schedule.scheduledAt).isBefore(dayjs());
           const dday = getFormatDday(schedule.scheduledAt);
           const date = getFormatDateTime(schedule.scheduledAt);
 
