@@ -5,7 +5,7 @@ import LyricTypeButton from "../features/lyric/ui/LyricTypeButton";
 import Lyric from "../entities/lyric/ui/Lyric";
 import LyricModal from "../features/lyric/ui/LyricModal";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { setlistIdState } from "../entities/recoil/atoms/setlistIdState";
+import { setlistIdState } from "../shared/lib/recoil/atoms/setlistIdState";
 import { BeatLoader } from "react-spinners";
 import YouTubePlayer from "../entities/lyric/ui/YouTubePlayer";
 import EmptyYouTubePlayer from "../entities/lyric/ui/EmptyYouTubePlayer";
@@ -15,9 +15,9 @@ import { useBodyScrollLock } from "../shared/model/useBodyScrollLock";
 import { useSong } from "../entities/lyric/model/useSong";
 import { useFanchant } from "../features/lyric/model/useFanchant";
 import LoginModal from "../features/auth/ui/LoginModal";
-import { userState } from "../entities/recoil/atoms/userState";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 import { toast } from "react-toastify";
-import LoginPromptToast from "../shared/ui/LoginPromptToast";
+import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
@@ -58,7 +58,7 @@ function LyricPage() {
       // 3개 열람 시 토스트
       if (newViewed.length === 3) {
         toast(
-          <LoginPromptToast
+          <LoginSnackbar
             message="가사"
             onLoginClick={() => {
               setIsLoginModalOpen(true);

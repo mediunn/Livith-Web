@@ -1,5 +1,6 @@
 import { formatKoreanDate } from "../shared/utils/formatKoreanDate";
 import { Setlist } from "../entities/setlist/types";
+import { ChipInfo } from "../shared/ui/ChipInfo/ChipInfo";
 
 function InterestConcertSetlistDetail({ setlist }: { setlist: Setlist }) {
   return (
@@ -16,16 +17,11 @@ function InterestConcertSetlistDetail({ setlist }: { setlist: Setlist }) {
             {setlist.artist}
           </p>
           <div className="flex flex-row space-x-6 items-center mt-10">
-            <div className="bg-grayScaleBlack90 rounded-24 py-4 px-13 w-fit">
-              <p className="text-grayScaleBlack30 text-Caption2-re font-regular font-NotoSansKR line-clamp-1">
-                {setlist.venue}
-              </p>
-            </div>
-            <div className="bg-grayScaleBlack90 rounded-24 py-4 px-13 w-fit">
-              <p className="text-grayScaleBlack30 text-Caption2-re font-regular font-NotoSansKR line-clamp-1">
-                {formatKoreanDate({ dateStr: setlist.startDate })}
-              </p>
-            </div>
+            <ChipInfo label={setlist.venue} textStyle="caption2Regular" />
+            <ChipInfo
+              label={formatKoreanDate({ dateStr: setlist.startDate })}
+              textStyle="caption2Regular"
+            />
           </div>
         </div>
       </div>

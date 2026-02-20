@@ -4,6 +4,8 @@ import {
   getFormatDday,
   getFormatDateTime,
 } from "../../../features/concert/utils/formatScheduleDate.ts";
+import ChipState from "../../../shared/ui/ChipState/ChipState.tsx";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton.tsx";
 
 type ScheduleInfoProps = {
   schedules: Schedule[];
@@ -36,14 +38,11 @@ function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
         </p>
 
         {showReportButton && (
-          <div
+          <SmallReportBtn
             onClick={handleClick}
-            className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
-          >
-            <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
-              정보 제보
-            </p>
-          </div>
+            className="border border-solid border-grayScaleBlack80"
+            label="정보 제보"
+          />
         )}
       </div>
       <div className="flex flex-col">
@@ -60,9 +59,8 @@ function ScheduleInfo({ schedules, showReportButton }: ScheduleInfoProps) {
               }`}
             >
               <div className="flex items-center">
-                <div className="h-30 px-13 py-8 bg-mainYellow30 rounded-24 text-grayScaleBlack100 text-Caption1-Bold font-bold font-NotoSansKR shrink-0">
-                  {dday}
-                </div>
+                <ChipState label={dday} variant="dday" />
+
                 <p className="pl-8 text-grayScaleBlack30 text-Body3-md font-medium font-NotoSansKR">
                   {schedule.category}
                 </p>

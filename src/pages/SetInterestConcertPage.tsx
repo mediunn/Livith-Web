@@ -30,7 +30,7 @@ function SetInterestConcertPage() {
       {/* 상단 헤더 */}
       <div className="sticky top-0 z-50">
         <ListHeader title="공연 설정하기" />
-        <div className="sticky top-0 z-50 bg-grayScaleBlack100">
+        <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
           <InputSearchBar
             inputState={{ value: input, setValue: setInput }}
             showAllState={{ value: showAll, setValue: setShowAll }}
@@ -38,6 +38,7 @@ function SetInterestConcertPage() {
               value: showResults,
               setValue: setShowResults,
             }}
+            placeholder="찾고 있는 콘서트나 가수를 검색하세요"
           />
 
           {showResults && input && (
@@ -49,7 +50,7 @@ function SetInterestConcertPage() {
       </div>
 
       {/* 리스트 영역: 스크롤 가능 */}
-      <div className="flex-1 overflow-auto px-16 mt-12">
+      <div className="flex-1 overflow-auto mt-12">
         {showResults && input ? (
           <SearchResult
             keyword={input}

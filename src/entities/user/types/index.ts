@@ -1,3 +1,8 @@
+export type UserPreference = {
+  id: number;
+  name: string;
+};
+
 export type User = {
   id: number;
   interestConcertId: number;
@@ -6,6 +11,8 @@ export type User = {
   provider: string;
   providerId: string;
   marketingConsent: boolean;
+  preferredGenres: UserPreference[];
+  preferredArtists?: UserPreference[];
 };
 
 export type SignupRequest = {
@@ -14,4 +21,6 @@ export type SignupRequest = {
   providerId: string;
   email: string;
   marketingConsent: boolean;
+  preferredGenreIds: number[];
+  preferredArtistIds?: number[];
 };

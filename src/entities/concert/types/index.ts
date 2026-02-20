@@ -55,15 +55,22 @@ export type SectionConcert = {
   sortedIndex: number;
 };
 
-export enum GenreFilter {
-  ALL = "ALL",
-  JPOP = "JPOP",
-  ROCK_METAL = "ROCK_METAL",
-  RAP_HIPHOP = "RAP_HIPHOP",
-  CLASSIC_JAZZ = "CLASSIC_JAZZ",
-  ACOUSTIC = "ACOUSTIC",
-  ELECTRONIC = "ELECTRONIC",
-}
+export type RecommendConcert = {
+  id: number;
+  code?: string;
+  title: string;
+  startDate: string;
+  endDate: string;
+  status: ConcertStatus;
+  poster: string;
+  artist: string;
+  daysLeft: number;
+  ticketSite?: string;
+  ticketUrl?: string;
+  venue: string;
+  introduction: string;
+  label?: string;
+};
 
 export enum StatusFilter {
   ALL = "ALL",

@@ -1,4 +1,4 @@
-import ConcertCardListSkeleton from "../features/concert/ui/ConcertCardListSkeleton";
+import CardListSkeleton from "../shared/ui/CardSkeleton/CardListSkeleton";
 import SectionConcertSlide from "../entities/concert/ui/SectionConcertSlide";
 import { SearchSection } from "../features/concert/api/getSearchConcertListSection";
 
@@ -23,7 +23,7 @@ function SearchConcertListSection({
       </div>
       {isLoading ? (
         <div className="mx-16">
-          <ConcertCardListSkeleton num={3} />
+          <CardListSkeleton num={3} />
         </div>
       ) : (
         <SectionConcertSlide concerts={section.concerts} onClick={onClick} />

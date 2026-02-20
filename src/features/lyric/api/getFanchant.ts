@@ -14,7 +14,7 @@ export async function getFanchant(
   songId: number
 ): Promise<Fanchant> {
   const response = await axiosInstance.get<ApiResponse<Fanchant>>(
-    `/api/v4/setlists/${setlistId}/songs/${songId}/fanchant`
+    `/setlists/${setlistId}/songs/${songId}/fanchant`
   );
   return response.data.data;
 }

@@ -1,21 +1,25 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Sheet, SheetRef } from "react-modal-sheet";
-import { GenreFilter, StatusFilter } from "../../../entities/concert/types";
-import { StateWithSetter } from "../../../shared/types/props";
-import { genreMap } from "../../../entities/concert/constants/filterMaps";
-import { statusMap } from "../../../entities/concert/constants/filterMaps";
-import { sortFilter } from "../../../features/concert/utils/sortFilter";
+import {
+  genreMap,
+  statusMap,
+} from "../../../entities/concert/constants/filterMaps";
 import {
   genreOrder,
   statusOrder,
 } from "../../../entities/concert/constants/filterOrders";
-import { motion, AnimatePresence } from "framer-motion";
+import { StatusFilter } from "../../../entities/concert/types";
+import { sortFilter } from "../../../features/concert/utils/sortFilter";
 import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
+import { StateWithSetter } from "../../../shared/types/props";
+import ChipFilter from "./ChipFilter/ChipFilter";
+import { GenreEnum } from "../../../entities/genre/types";
 
 interface FilterBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
-  genreState: StateWithSetter<GenreFilter[]>;
+  genreState: StateWithSetter<GenreEnum[]>;
   statusState: StateWithSetter<StatusFilter[]>;
 }
 
@@ -27,10 +31,10 @@ function FilterBottomSheet({
 }: FilterBottomSheetProps) {
   const ref = useRef<SheetRef>(null);
 
-  const genres: GenreFilter[] = Object.values(GenreFilter);
+  const genres: GenreEnum[] = Object.values(GenreEnum);
   const statuses: StatusFilter[] = Object.values(StatusFilter);
 
-  const [localGenres, setLocalGenres] = useState<GenreFilter[]>(genreSelected);
+  const [localGenres, setLocalGenres] = useState<GenreEnum[]>(genreSelected);
   const [localStatuses, setLocalStatuses] =
     useState<StatusFilter[]>(statusSelected);
 
@@ -40,7 +44,7 @@ function FilterBottomSheet({
     localStatuses.sort().join() !== [statusSelected].sort().join();
   // 초기화 버튼 활성화 여부 (선택된 항목이 없으면 비활성)
   const isResetDisabled =
-    localGenres[0] === GenreFilter.ALL && localStatuses[0] === StatusFilter.ALL;
+    localGenres[0] === GenreEnum.ALL && localStatuses[0] === StatusFilter.ALL;
 
   const [resetAnimating, setResetAnimating] = useState(false);
   const [applyAnimating, setApplyAnimating] = useState(false);
@@ -60,7 +64,7 @@ function FilterBottomSheet({
     selected: T[],
     value: T,
     allValue: T,
-    setSelected: (newSelected: T[]) => void
+    setSelected: (newSelected: T[]) => void,
   ) {
     let newSelected = [...selected];
 
@@ -84,21 +88,21 @@ function FilterBottomSheet({
 
   // 초기화
   const handleReset = () => {
-    setLocalGenres([GenreFilter.ALL]);
+    setLocalGenres([GenreEnum.ALL]);
     setLocalStatuses([StatusFilter.ALL]);
   };
 
   // 적용
   const handleApply = () => {
     setGenreSelected(
-      localGenres.length === 0 || localGenres.includes(GenreFilter.ALL)
-        ? [GenreFilter.ALL]
-        : sortFilter(localGenres, genreOrder)
+      localGenres.length === 0 || localGenres.includes(GenreEnum.ALL)
+        ? [GenreEnum.ALL]
+        : sortFilter(localGenres, genreOrder),
     );
     setStatusSelected(
       localStatuses.length === 0 || localStatuses.includes(StatusFilter.ALL)
         ? [StatusFilter.ALL]
-        : sortFilter(localStatuses, statusOrder)
+        : sortFilter(localStatuses, statusOrder),
     );
     onSheetClose();
   };
@@ -117,31 +121,23 @@ function FilterBottomSheet({
               장르
             </div>
             <div className="pt-20 pb-30">
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-8">
                 {genres.map((genre, index) => {
                   const isSelected = localGenres.includes(genre);
                   return (
-                    <div
+                    <ChipFilter
                       key={genre}
+                      label={genreMap[genre]}
+                      variant={isSelected ? "on" : "off"}
                       onClick={() =>
-                        toggleOption<GenreFilter>(
+                        toggleOption<GenreEnum>(
                           localGenres,
                           genre,
-                          GenreFilter.ALL,
-                          setLocalGenres
+                          GenreEnum.ALL,
+                          setLocalGenres,
                         )
                       }
-                      className={`
-                        px-13 py-7 rounded-24 cursor-pointer font-bold font-NotoSansKR text-Caption1-Bold
-                        ${
-                          isSelected
-                            ? "border bg-mainYellow30 text-grayScaleBlack100"
-                            : "border border-grayScaleBlack50 text-grayScaleBlack50"
-                        }
-                      `}
-                    >
-                      {genreMap[genre]}
-                    </div>
+                    />
                   );
                 })}
               </div>
@@ -153,31 +149,23 @@ function FilterBottomSheet({
             <div className="pt-30 pb-20 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
               기간
             </div>
-            <div className="flex flex-wrap gap-2.5 mb-24">
+            <div className="flex flex-wrap gap-8 mb-24">
               {statuses.map((status) => {
                 const isSelected = localStatuses.includes(status);
                 return (
-                  <div
+                  <ChipFilter
                     key={status}
+                    label={statusMap[status]}
+                    variant={isSelected ? "on" : "off"}
                     onClick={() =>
                       toggleOption<StatusFilter>(
                         localStatuses,
                         status,
                         StatusFilter.ALL,
-                        setLocalStatuses
+                        setLocalStatuses,
                       )
                     }
-                    className={`
-                      px-13 py-7 rounded-24 cursor-pointer font-bold font-NotoSansKR text-Caption1-Bold
-                      ${
-                        isSelected
-                          ? "border bg-mainYellow30 text-grayScaleBlack100"
-                          : "border border-grayScaleBlack50 text-grayScaleBlack50"
-                      }
-                    `}
-                  >
-                    {statusMap[status]}
-                  </div>
+                  />
                 );
               })}
             </div>
@@ -235,12 +223,12 @@ function FilterBottomSheet({
                               window.amplitude.track("click_apply_filter");
                               localGenres.forEach((genre) => {
                                 window.amplitude.track(
-                                  `set_filter_${genre.toLowerCase()}`
+                                  `set_filter_${genre.toLowerCase()}`,
                                 );
                               });
                               localStatuses.forEach((status) => {
                                 window.amplitude.track(
-                                  `set_filter_${status.toLowerCase()}`
+                                  `set_filter_${status.toLowerCase()}`,
                                 );
                               });
                               setApplyAnimating(false);

@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
 import WarningIcon from "../../../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
-import CompleteToast from "../../../shared/ui/CompleteToast";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import { useLogout } from "../model/useLogout";
 import { useSetRecoilState } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import ErrorToast from "../../../shared/ui/ErrorToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import { AxiosError } from "axios";
 
 interface LogoutModalProps {

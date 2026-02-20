@@ -1,10 +1,11 @@
 import { useSetRecoilState } from "recoil";
 import useSetlistSongList from "../../../features/setlist/model/useSetlistSongList";
 import EmptySongList from "../../../features/setlist/ui/EmptySongList";
-import SetlistSongItem from "./SetlistSongItem";
-import { setlistIdState } from "../../../entities/recoil/atoms/setlistIdState";
+import SetlistSongItem from "./SetlistSongItem/SetlistSongItem";
+import { setlistIdState } from "../../../shared/lib/recoil/atoms/setlistIdState";
 import { useNavigate } from "react-router-dom";
 import { SetlistType } from "../types";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 
 type SetlistSongListProps = {
   setlistId: number;
@@ -20,27 +21,17 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
   };
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (isError) {
-  //   return <div>Error...</div>;
-  // }
-
   return (
     <div className="mx-16 mt-30 pb-30">
       <div className="flex flex-row justify-between items-end">
         <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
           {setlistType === SetlistType.EXPECTED ? "예상" : ""} 셋리스트
         </p>
-        <div
+        <SmallReportBtn
           onClick={handleClick}
-          className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
-        >
-          <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
-            정보 제보
-          </p>
-        </div>
+          className="border border-solid border-grayScaleBlack80"
+          label="정보 제보"
+        />
       </div>
       {songs?.length === 0 ? (
         <EmptySongList />

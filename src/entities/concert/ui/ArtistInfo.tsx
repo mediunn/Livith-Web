@@ -1,6 +1,9 @@
 import InstagramIcon from "../../../shared/assets/InstagramIcon.svg";
 import { formatDebutDate } from "../utils/formatDebutDate";
 import EmptyArtistImageIcon from "../../../shared/assets/EmptyArtistImageIcon.svg";
+import ChipState from "../../../shared/ui/ChipState/ChipState";
+import { ChipInfo } from "../../../shared/ui/ChipInfo/ChipInfo";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
 
 interface ArtistInfoProps {
   concertId: number;
@@ -37,14 +40,11 @@ function ArtistInfo({
             함께 알아볼까요?
           </p>
 
-          <div
+          <SmallReportBtn
             onClick={handleClick}
-            className="bg-grayScaleBlack100 rounded-24 border border-solid border-grayScaleBlack80 cursor-pointer"
-          >
-            <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
-              정보 제보
-            </p>
-          </div>
+            className="border border-solid border-grayScaleBlack80"
+            label="정보 제보"
+          />
         </div>
 
         <div>
@@ -64,11 +64,7 @@ function ArtistInfo({
             <div className="px-16 py-16 ">
               <div className="relative">
                 {category && (
-                  <div className="inline-flex items-center justify-center bg-grayScaleBlack100 rounded-24">
-                    <p className="px-13 py-4 text-grayScaleBlack50 text-Caption1-Bold font-bold font-NotoSansKR">
-                      {category}
-                    </p>
-                  </div>
+                  <ChipInfo label={category} textStyle="caption1Bold" />
                 )}
                 <p className="pt-8 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
                   {artist}
@@ -109,15 +105,14 @@ function ArtistInfo({
           {keywords.map(
             (keyword, index) =>
               keyword && (
-                <div
+                <ChipState
                   key={index}
-                  className="mr-4 mb-6 inline-flex items-center justify-center bg-grayScaleBlack80 rounded-24"
-                >
-                  <p className="px-13 py-8 text-grayScaleBlack30 text-Caption1-Bold font-bold font-NotoSansKR">
-                    {keyword}
-                  </p>
-                </div>
-              ),
+                  label={keyword}
+                  variant="keyword"
+                  className="mr-4 mb-6"
+                />
+              )
+
           )}
         </div>
       </div>

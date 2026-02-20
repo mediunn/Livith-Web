@@ -4,10 +4,10 @@ import ListHeader from "../shared/ui/ListHeader";
 import SetlistSongList from "../entities/setlist/ui/SetlistSongList";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { userState } from "../entities/recoil/atoms/userState";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
-import LoginPromptToast from "../shared/ui/LoginPromptToast";
+import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
 
 function SetlistDetailPage() {
   const { setlistId, concertId, setlistTitle } = useParams();
@@ -48,7 +48,7 @@ function SetlistDetailPage() {
       // 3개 열람 시 토스트
       if (newViewed.length === 3) {
         toast(
-          <LoginPromptToast
+          <LoginSnackbar
             message="셋리스트"
             onLoginClick={() => {
               setIsLoginModalOpen(true);

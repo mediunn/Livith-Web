@@ -12,7 +12,7 @@ export async function getSetlistSongList({
   setlistId,
 }: GetSetlistSongListParams): Promise<ApiResponse<SetListSong[]>> {
   const response = await axiosInstance.get(
-    `/api/v4/setlists/${setlistId}/songs`
+    `/setlists/${setlistId}/songs`
   );
   return response.data;
 }

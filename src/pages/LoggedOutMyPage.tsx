@@ -1,7 +1,9 @@
-import LoginCalloutChip from "../features/auth/ui/LoginCalloutChip";
+import LoginCalloutChip from "../features/auth/ui/LoginCalloutChip/LoginCalloutChip";
 import KakaoLoginButton from "../features/auth/ui/KakaoLoginButton";
 import LogoIcon from "../shared/assets/LogoIcon.svg";
 import FeedbackIcon from "../shared/assets/FeedbackIcon.svg";
+import AppleLoginButton from "../features/auth/ui/AppleLoginButton";
+import TabBar from "../shared/ui/TabBar";
 
 function LoggedOutMyPage() {
   const handleClick = () => {
@@ -11,11 +13,11 @@ function LoggedOutMyPage() {
 
   const handleClickUpdate = () => {
     window.location.href =
-      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc800dab7fc177f325eade?pvs=4";
+      "https://www.notion.so/youz2me/Livith-v-25-11-18-1d402dd0e5fc800dab7fc177f325eade";
   };
   const handleClickCondition = () => {
     window.location.href =
-      "https://youz2me.notion.site/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0?pvs=4";
+      "https://www.notion.so/youz2me/Livith-v-25-04-13-1d402dd0e5fc80eaacd9d3dfdc7d0aa0";
   };
 
   return (
@@ -23,9 +25,10 @@ function LoggedOutMyPage() {
       <img src={LogoIcon} className="h-52 my-115" />
       <LoginCalloutChip />
       <KakaoLoginButton />
+      <AppleLoginButton />
       {/* 정보 */}
       <div className="flex justify-center gap-18 text-grayScaleBlack30 text-Body4-re font-NotoSansKR font-regular mt-18 mb-27">
-        <p>2.0.1</p>
+        <p>2.1.0</p>
         <p className="underline cursor-pointer" onClick={handleClickUpdate}>
           업데이트 노트
         </p>
@@ -40,6 +43,7 @@ function LoggedOutMyPage() {
         src={FeedbackIcon}
         className="mx-16 my-30 cursor-pointer"
       />
+      <TabBar />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { SetlistDetailProps } from "../types";
 import useSetlistDetail from "../../../features/setlist/model/useSetlistDetail";
 import EmptySetlistImageIcon from "../../../shared/assets/EmptyConcertImageIcon.svg";
-import { formatSetlistDate } from "../../../shared/utils/formatSetlistDate";
+import { formatDateRange } from "../../../shared/utils/formatDateRange";
 import { useEffect } from "react";
 function SetlistDetail({
   concertId,
@@ -47,7 +47,7 @@ function SetlistDetail({
         </p>
 
         <p className="pt-6 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
-          {formatSetlistDate(setlist?.startDate!, setlist?.endDate!)}
+          {formatDateRange(setlist?.startDate!, setlist?.endDate!)}
         </p>
         <p className="mt-2 text-grayScaleWhite text-Caption1-re font-regular font-NotoSansKR break-words whitespace-normal max-w-[57%]">
           {setlist?.artist}

@@ -8,6 +8,6 @@ export type SearchSection = {
 };
 
 export async function getSearchConcertListSection(): Promise<SearchSection[]> {
-  const response = await axiosInstance.get("/api/v4/search/sections");
+  const response = await axiosInstance.get("/search/sections");
   return response.data.data;
 }

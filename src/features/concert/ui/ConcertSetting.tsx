@@ -5,19 +5,19 @@ import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import ConcertTicketArrowIcon from "../../../shared/assets/ConcertTicketArrowIcon.svg";
 import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import EmptyConcertSchedulePanel from "./EmptyConcertSchedulePanel";
 import ScheduleInfo from "../../../entities/concert/ui/ScheduleInfo";
 import { Concert } from "../../../entities/concert/types";
-import { formatConcertDate } from "../../../shared/utils/formatConcertDate";
+import { formatDateRange } from "../../../shared/utils/formatDateRange";
 import { Schedule } from "../../../entities/concert/api/getSchedule";
 import InterestConcertSetlist from "../../../features/setlist/ui/InterestConcertSetlist";
 import dayjs from "../../../shared/lib/dayjs";
 import EditInterestConcertBottomSheet from "../../../features/interest/ui/EditInterestConcertBottomSheet";
 import { getFormatDday } from "../utils/formatScheduleDate";
+import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
+import ConcertTabList from "../../../shared/ui/Tab/ConcertTabList";
 
 interface ConcertSettingProps {
   concertId: number;
@@ -50,7 +50,7 @@ function ConcertSetting({
     .filter(
       (s) =>
         (s.type === "TICKETING" || s.type === "CONCERT") &&
-        dayjs(s.scheduledAt).isSameOrAfter(now, "day")
+        dayjs(s.scheduledAt).isSameOrAfter(now, "day"),
     )
     .sort((a, b) => dayjs(a.scheduledAt).unix() - dayjs(b.scheduledAt).unix());
 
@@ -89,10 +89,21 @@ function ConcertSetting({
     return "";
   };
 
+  const tabs = [
+    {
+      label: "콘서트 일정",
+      value: "1",
+      onClick: () =>
+        window.amplitude.track("click_concert_schedule_segment_main"),
+    },
+    {
+      label: "셋리스트",
+      value: "2",
+      onClick: () => window.amplitude.track("click_setlist_segment_main"),
+    },
+  ];
   return (
     <>
-      <TopBar bgColor="bg-grayScaleBlack100" />
-
       <div>
         <div className="pt-24 pb-18 flex justify-between items-center">
           <p className="ml-27 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
@@ -104,7 +115,7 @@ function ConcertSetting({
                 openSheet();
                 window.amplitude.track("click_change_concert_main");
               }}
-              className="mr-24 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR bg-transparent border-none cursor-pointer"
+              className="mr-24 text-grayScaleBlack50 bg-grayScaleBlack100 hover:bg-grayScaleBlack80 rounded-30 p-8 text-Body4-re font-regular font-NotoSansKR border-none cursor-pointer"
             >
               수정하기
             </button>
@@ -117,20 +128,17 @@ function ConcertSetting({
         </div>
 
         <div className="w-full flex justify-center bg-grayScaleBlack90 ">
-          <button
-            className="absolute top-157 right-0 z-10 mt-16 mr-39 bg-grayScaleBlack100 rounded-8 backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-none cursor-pointer"
+          <ConcertMoreBtn
+            label="더 많은 정보 확인하기"
+            icon={ConcertTicketArrowIcon}
+            right={39}
+            top={157}
+            iconPosition="right"
             onClick={() => {
               window.amplitude.track("click_more_info_main");
               navigate(`/concert/${concert.id}`);
             }}
-          >
-            <div className="px-10 py-8 flex items-center">
-              <p className="text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
-                더 많은 정보 확인하기
-              </p>
-              <img src={ConcertTicketArrowIcon} className="w-24 h-24" />
-            </div>
-          </button>
+          />
 
           <div className=" w-full mx-24 mb-24">
             <div className="relative w-full aspect-[3/4] mt-24">
@@ -182,7 +190,7 @@ function ConcertSetting({
                 <div className="pt-14 flex items-center">
                   <img src={ConcertDateIcon} className="w-24 h-24" />
                   <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
-                    {formatConcertDate(concert.startDate, concert.endDate)}
+                    {formatDateRange(concert.startDate, concert.endDate)}
                   </p>
                 </div>
 
@@ -204,50 +212,12 @@ function ConcertSetting({
 
         <Box sx={{ width: "100%" }}>
           <TabContext value={tabValue}>
-            <Box sx={{ borderBottom: 2, borderColor: "#222831" }}>
-              <TabList
-                onChange={handleChange}
-                aria-label="tab"
-                sx={{
-                  "& .MuiTab-root": {
-                    width: "50%",
-                    height: "64px",
-                    fontSize: "16px",
-                    fontWeight: 600,
-                    fontFamily: '"NotoSansKR", sans-serif',
-                    letterSpacing: "-0.05em",
-                    lineHeight: "1.4",
-                    textTransform: "none",
-                    color: "#808794",
-                  },
-                  "& .MuiTab-root.Mui-selected": {
-                    color: "#FFFFFF",
-                  },
-                  "& .MuiTabs-indicator": {
-                    backgroundColor: "#FFFFFF",
-                  },
-                }}
-              >
-                <Tab
-                  label="콘서트 일정"
-                  value="1"
-                  disableRipple
-                  onClick={() => {
-                    window.amplitude.track(
-                      "click_concert_schedule_segment_main"
-                    );
-                  }}
-                />
-                <Tab
-                  label="셋리스트"
-                  value="2"
-                  disableRipple
-                  onClick={() => {
-                    window.amplitude.track("click_setlist_segment_main");
-                  }}
-                />
-              </TabList>
-            </Box>
+            <ConcertTabList
+              tabs={tabs}
+              value={tabValue}
+              onChange={handleChange}
+              minWidth="50%"
+            />
             <TabPanel
               value="1"
               sx={{

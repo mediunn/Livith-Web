@@ -1,20 +1,21 @@
 import Lottie from "lottie-react";
-import TopBar from "../../../shared/ui/TopBar";
 import ConcertAddMotion from "../../../shared/assets/ConcertAddIconMotion.json";
 import { useNavigate } from "react-router-dom";
 import HomeConcertListSection from "../../../widgets/HomeConcertListSection";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
-import SignUpTooltip from "./SignUpTooltip";
+import SignUpTooltip from "./SignUpTooltip/SignUpTooltip";
 import { useHomeConcertListSection } from "../model/useHomeConcertListSection";
+import RecommedConcertListSection from "../../../widgets/RecommedConcertListSection";
 
 interface ConcertSettingEmptyProps {
   group: "A" | "B" | "C";
+  hasPrefer: boolean;
 }
 
-function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
+function ConcertSettingEmpty({ group, hasPrefer }: ConcertSettingEmptyProps) {
   const { data: sections, isLoading } = useHomeConcertListSection();
 
   const navigate = useNavigate();
@@ -35,9 +36,7 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
 
   return (
     <>
-      <TopBar bgColor="bg-grayScaleBlack90" />
-
-      <div className="flex justify-between items-end bg-grayScaleBlack90 rounded-bl-20 px-16 pt-24 pb-30 relative">
+      <div className="flex justify-between items-end bg-grayScaleBlack90 rounded-bl-20 px-16 pt-4 pb-30 relative">
         <div>
           <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
             {user ? (
@@ -62,7 +61,7 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
 
         <div className="relative">
           <button
-            className="w-148 h-136 bg-grayScaleBlack80 rounded-10 border-none cursor-pointer"
+            className="w-148 h-136 bg-grayScaleBlack80 hover:bg-grayScaleBlack100 rounded-10 border-none cursor-pointer"
             onClick={handleSetInterestConcert}
           >
             <div className="flex flex-col items-center">
@@ -92,6 +91,10 @@ function ConcertSettingEmpty({ group }: ConcertSettingEmptyProps) {
           />
         )}
       </div>
+
+      {hasPrefer && user && (
+        <RecommedConcertListSection nickname={user.nickname} />
+      )}
 
       <div className="pb-30">
         {sections?.map((section) => (

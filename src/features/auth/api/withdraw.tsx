@@ -8,7 +8,7 @@ type WithdrawResponse = {
 export async function withdraw(
   reason: string
 ): Promise<ApiResponse<WithdrawResponse>> {
-  const response = await axiosInstance.post(`/api/v4/auth/withdraw`, {
+  const response = await axiosInstance.post(`/auth/withdraw`, {
     reason,
   });
   return response.data;

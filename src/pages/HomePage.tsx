@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
-import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
-import ConcertSetting from "../features/concert/ui/ConcertSetting";
-import TabBar from "../shared/ui/TabBar";
+import { useLocation } from "react-router-dom";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { useSchedule } from "../entities/concert/model/useSchedule";
-import { useInterestConcert } from "../entities/concert/model/useInterestConcert";
-import { useLocation } from "react-router-dom";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
+import ConcertSetting from "../features/concert/ui/ConcertSetting";
+import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
+import { useInterestConcert } from "../features/interest/model/useInterestConcert";
+import TabBar from "../shared/ui/TabBar";
+import TopBar from "../shared/ui/TopBar";
+import GuidedBanner from "../shared/ui/GuidedBanner";
+import { useRecoilValue } from "recoil";
+import { userState } from "../shared/lib/recoil/atoms/userState";
+import { authReadyState } from "../shared/lib/recoil/atoms/authReadyState";
 
 // A/B 테스트 그룹 배정 유틸
 function getExperimentGroup(): "A" | "B" | "C" {
@@ -49,6 +54,11 @@ function HomePage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const user = useRecoilValue(userState);
+  const isAuthReady = useRecoilValue(authReadyState);
+  const isLoggedIn = !!user;
+  const hasPrefer = (user?.preferredGenres?.length ?? 0) > 0;
+
   useEffect(() => {
     if (showSignupComplete) {
       setIsModalOpen(true);
@@ -60,14 +70,34 @@ function HomePage() {
   return (
     <div className="pb-90">
       {concertId && concert && !isLoading ? (
-        <ConcertSetting
-          concertId={concertId}
-          concert={concert}
-          schedules={schedules}
-        />
+        <>
+          <TopBar bgColor="bg-grayScaleBlack100" />
+          <ConcertSetting
+            concertId={concertId}
+            concert={concert}
+            schedules={schedules}
+          />
+        </>
       ) : (
         <>
-          <ConcertSettingEmpty group={group} />
+          <TopBar bgColor="bg-grayScaleBlack90" />
+          {isAuthReady && !isLoggedIn && (
+            <GuidedBanner
+              content="회원가입하러 가기"
+              compactTitle="나의 취향이 담긴 콘서트 추천받기"
+              compactContent="회원가입하고 콘서트 정보를 빠르게 확인해요"
+              isLoggedIn={isLoggedIn}
+            />
+          )}
+          {isAuthReady && isLoggedIn && !hasPrefer && (
+            <GuidedBanner
+              content="취향 선택하러 가기"
+              compactTitle="취향 선택하러 가기"
+              compactContent="나의 취향이 담긴 콘서트를 추천받을 수 있어요"
+              isLoggedIn={isLoggedIn}
+            />
+          )}
+          <ConcertSettingEmpty group={group} hasPrefer={hasPrefer} />
         </>
       )}
 

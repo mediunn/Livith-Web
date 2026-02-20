@@ -1,19 +1,16 @@
 import { InfiniteConcertList } from "../../../widgets/InfiniteConcertList";
 import EmptySearchResult from "./EmptySearchResult";
-import {
-  GenreFilter,
-  SortFilter,
-  StatusFilter,
-} from "../../../entities/concert/types";
+import { SortFilter, StatusFilter } from "../../../entities/concert/types";
 import { useFilterSearch } from "../model/useFilterSearch";
-import useDebounce from "../model/useDebounce";
+import useDebounce from "../../../shared/hooks/useDebounce";
 import { useState } from "react";
-import ConcertCardListSkeleton from "../../../features/concert/ui/ConcertCardListSkeleton";
+import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
+import { GenreEnum } from "../../../entities/genre/types";
 
 type FilterSearchProps = {
   keyword: string;
   sort?: SortFilter;
-  genre?: GenreFilter[];
+  genre?: GenreEnum[];
   status?: StatusFilter[];
 };
 function FilterSearch({ keyword, sort, genre, status }: FilterSearchProps) {
@@ -37,7 +34,7 @@ function FilterSearch({ keyword, sort, genre, status }: FilterSearchProps) {
   if (isLoading) {
     return (
       <div className="mx-16 pt-19">
-        <ConcertCardListSkeleton num={9} />
+        <CardListSkeleton num={9} />
       </div>
     );
   }

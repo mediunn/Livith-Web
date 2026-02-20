@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArtistTabPanel from "./ArtistTabPanel";
 import ConcertTabPanel from "./ConcertTabPanel";
 import SetlistTabPanel from "./SetlistTabPanel";
 import EmptyConcertInfoTabPanel from "./EmptyConcertInfoTabPanel";
 import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useSchedule } from "../model/useSchedule";
 import { useConcertCulture } from "../model/useConcertCulture";
@@ -14,17 +12,25 @@ import { useConcertRequiredInfo } from "../model/useConcertRequiredInfo";
 import { useMd } from "../model/useMd";
 import { useArtistInfo } from "../model/useArtistInfo";
 import { useSetlist } from "../model/useSetlist";
-import CommentInputBar from "./CommentInputBar";
+import CommentInputBar from "../../../features/concert/ui/CommentInputBar";
 import CommentTabPanel from "./CommentTabPanel";
 import { useConcertComment } from "../model/useConcertComment";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
+import ConcertTabList from "../../../shared/ui/Tab/ConcertTabList";
 
 interface ConcertInfoTabProps {
   concertId: number;
   ticketUrl: string;
   introduction: string;
   status: string;
+  focusTarget?:
+    | "schedule"
+    | "ticket"
+    | "md"
+    | "setlist"
+    | "concertDetail"
+    | null;
 }
 
 const TAB_KEY = `selectedTab`;
@@ -34,6 +40,7 @@ function ConcertInfoTab({
   ticketUrl,
   introduction,
   status,
+  focusTarget,
 }: ConcertInfoTabProps) {
   const user = useRecoilValue(userState);
 
@@ -72,6 +79,48 @@ function ConcertInfoTab({
   const { data: mds = [] } = useMd(concertId);
 
   const { data: setlist = [] } = useSetlist(concertId);
+
+  const tabs = [
+    {
+      label: "아티스트 상세",
+      value: "1",
+      onClick: () => window.amplitude.track("click_artist_detail_segment"),
+    },
+    {
+      label: "콘서트 상세",
+      value: "2",
+      onClick: () => window.amplitude.track("click_concert_detail_segment"),
+    },
+    {
+      label: "셋리스트",
+      value: "3",
+      onClick: () => window.amplitude.track("click_setlist_segment_detail"),
+    },
+    {
+      label: (
+        <div className="flex">
+          <p>소통·댓글</p>
+          <p className="pl-2 text-mainYellow30 text-Body2-sm font-semibold">
+            {data?.totalCount ?? 0}
+          </p>
+        </div>
+      ),
+      value: "4",
+    },
+  ];
+
+  useEffect(() => {
+    if (!focusTarget) return;
+
+    if (focusTarget === "setlist") {
+      setTabValue("3");
+      return;
+    }
+
+    // schedule / ticket/ md / concertDetail
+    setTabValue("2");
+  }, [focusTarget]);
+
   return (
     <>
       <Box
@@ -80,80 +129,13 @@ function ConcertInfoTab({
         }}
       >
         <TabContext value={tabValue}>
-          <Box
-            sx={{
-              position: "sticky",
-              top: 66, // ListHeader 높이
-              zIndex: 60,
-              backgroundColor: "#14171B",
-              borderBottom: 2,
-              borderColor: "#222831",
-            }}
-          >
-            <TabList
-              onChange={handleChange}
-              aria-label="tab"
-              variant="scrollable"
-              scrollButtons={false}
-              sx={{
-                "& .MuiTab-root": {
-                  height: "64px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  fontFamily: '"NotoSansKR", sans-serif',
-                  letterSpacing: "-0.05em",
-                  lineHeight: "1.4",
-                  textTransform: "none",
-                  color: "#808794",
-                  flexShrink: 0,
-                  minWidth: "106px",
-                },
-                "& .MuiTab-root.Mui-selected": {
-                  color: "#FFFFFF",
-                },
-                "& .MuiTabs-indicator": {
-                  backgroundColor: "#FFFFFF",
-                },
-              }}
-            >
-              <Tab
-                label="아티스트 상세"
-                value="1"
-                disableRipple
-                onClick={() => {
-                  window.amplitude.track("click_artist_detail_segment");
-                }}
-              />
-              <Tab
-                label="콘서트 상세"
-                value="2"
-                disableRipple
-                onClick={() => {
-                  window.amplitude.track("click_concert_detail_segment");
-                }}
-              />
-              <Tab
-                label="셋리스트"
-                value="3"
-                disableRipple
-                onClick={() => {
-                  window.amplitude.track("click_setlist_segment_detail");
-                }}
-              />
-              <Tab
-                label={
-                  <div className="flex">
-                    <p>소통·댓글</p>
-                    <p className="pl-2 text-mainYellow30 text-Body2-sm font-semibold font-NotoSansKR">
-                      {data?.totalCount ?? 0}
-                    </p>
-                  </div>
-                }
-                value="4"
-                disableRipple
-              />
-            </TabList>
-          </Box>
+          <ConcertTabList
+            tabs={tabs}
+            value={tabValue}
+            onChange={handleChange}
+            stickyTop={66}
+            scrollable
+          />
           <TabPanel
             value="1"
             sx={{
@@ -195,6 +177,7 @@ function ConcertInfoTab({
                 concertRequiredInfo={concertRequiredInfo}
                 mds={mds}
                 status={status}
+                focusTarget={focusTarget}
               />
             )}
           </TabPanel>

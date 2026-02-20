@@ -7,7 +7,7 @@ type LogoutResponse = {
 
 export async function logout(): Promise<ApiResponse<LogoutResponse>> {
   const response = await axiosInstance.post(
-    "/api/v4/auth/logout?client=web",
+    "/auth/logout?client=web",
     {},
     { skipAuthRefresh: true } as any
   );

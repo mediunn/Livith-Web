@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import ListHeader from "../shared/ui/ListHeader";
 import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
 import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { toast } from "react-toastify";
-import LoginPromptToast from "../shared/ui/LoginPromptToast";
+import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { useRecoilState } from "recoil";
-import { userState } from "../entities/recoil/atoms/userState";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
@@ -21,6 +21,9 @@ function ConcertInsidePage() {
     const stored = sessionStorage.getItem("viewedConcerts");
     return stored ? JSON.parse(stored) : [];
   });
+
+  const location = useLocation();
+  const focusTarget = location.state?.focusTarget;
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -51,14 +54,14 @@ function ConcertInsidePage() {
       // 3개 열람 시 토스트
       if (newViewed.length === 3) {
         toast(
-          <LoginPromptToast
+          <LoginSnackbar
             message="콘서트 정보"
             onLoginClick={() => {
               setIsLoginModalOpen(true);
               toast.dismiss();
             }}
           />,
-          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false }
+          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false },
         );
         sessionStorage.setItem("loginToastShown", "true");
       }
@@ -75,6 +78,7 @@ function ConcertInsidePage() {
         concertId={Number(concertId)}
         ticketUrl={concert.ticketUrl}
         status={concert.status}
+        focusTarget={focusTarget}
       ></ConcertInfoTab>
       <LoginModal
         isOpen={isLoginModalOpen}

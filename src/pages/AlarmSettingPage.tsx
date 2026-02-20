@@ -1,0 +1,293 @@
+import ListHeader from "../shared/ui/ListHeader";
+import { useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+import FormGroup from "@mui/material/FormGroup";
+import Switch, { SwitchProps } from "@mui/material/Switch";
+import Stack from "@mui/material/Stack";
+import AgreeSheet from "../features/auth/ui/AgreeSheet";
+import AgreeModal from "../shared/ui/AgreeModal";
+import { useAlarmSetting } from "../entities/notification/model/useAlarmSetting";
+import { MarketingConsent } from "../entities/notification/api/postMarketingConsent";
+import { useMarketingConsent } from "../entities/notification/model/useMarketingConsent";
+import { useAlarmConsent } from "../entities/notification/model/useAlarmConsent";
+import { NotificationField } from "../entities/notification/types";
+import { useRecoilValue } from "recoil";
+import { userState } from "../shared/lib/recoil/atoms/userState";
+
+function AlarmSettingPage() {
+  const { data, isLoading } = useAlarmSetting();
+
+  const [benefitAlarmOn, setBenefitAlarmOn] = useState(false);
+  const [ticketAlarmOn, setTicketAlarmOn] = useState(false);
+  const [infoAlarmOn, setInfoAlarmOn] = useState(false);
+  const [interestAlarmOn, setInterestAlarmOn] = useState(false);
+  const [recommendAlarmOn, setRecommendAlarmOn] = useState(false);
+
+  const [isAgreeSheetOpen, setIsAgreeSheetOpen] = useState(false);
+  const [isAgreeModalOpen, setIsAgreeModalOpen] = useState(false);
+
+  const { mutate: marketingConsent } = useMarketingConsent();
+  const [consentInfo, setConsentInfo] = useState<MarketingConsent | null>(null);
+  const [pendingAction, setPendingAction] = useState<"ON" | "OFF" | null>(null);
+
+  const user = useRecoilValue(userState);
+
+  const handleBenefitToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const nextChecked = event.target.checked;
+
+    // ON 하는 경우
+    if (nextChecked) {
+      setPendingAction("ON");
+      // 마케팅 동의 유저
+      if (user?.marketingConsent) {
+        updateAlarmConsent(
+          { field: "benefitAlert", isAgreed: true },
+          {
+            onSuccess: (res) => {
+              setBenefitAlarmOn(true);
+              setConsentInfo(res.data);
+              setIsAgreeModalOpen(true);
+            },
+          },
+        );
+
+        return;
+      }
+
+      // 마케팅 미동의 유저
+      setIsAgreeSheetOpen(true);
+
+      return;
+    }
+
+    // OFF 하는 경우
+    setPendingAction("OFF");
+
+    marketingConsent(
+      { isAgreed: false },
+      {
+        onSuccess: (res) => {
+          setConsentInfo(res.data);
+
+          updateAlarmConsent(
+            { field: "benefitAlert", isAgreed: false },
+            {
+              onSuccess: () => {
+                setIsAgreeModalOpen(true);
+              },
+            },
+          );
+        },
+      },
+    );
+  };
+
+  const { mutate: updateAlarmConsent } = useAlarmConsent();
+
+  const handleAlarmToggle =
+    (
+      field: NotificationField,
+      setter: React.Dispatch<React.SetStateAction<boolean>>,
+    ) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const nextChecked = event.target.checked;
+
+      updateAlarmConsent(
+        { field, isAgreed: nextChecked },
+        {
+          onSuccess: () => {
+            setter(nextChecked);
+          },
+          onError: () => {},
+        },
+      );
+    };
+
+  const AntSwitch = styled(Switch)(({ theme }) => ({
+    width: 58,
+    height: 32,
+    padding: 0,
+    display: "flex",
+
+    "& .MuiSwitch-switchBase": {
+      padding: 4,
+      transition: theme.transitions.create(["transform"], {
+        duration: 200,
+      }),
+
+      "&.Mui-checked": {
+        transform: "translateX(26px)",
+
+        "& + .MuiSwitch-track": {
+          backgroundColor: "#FFFF97",
+          opacity: 1,
+        },
+
+        "& .MuiSwitch-thumb": {
+          backgroundColor: "#FFFFFF",
+          boxShadow: "0 0 4px rgba(0, 0, 0, 0.25)",
+        },
+      },
+    },
+
+    "& .MuiSwitch-thumb": {
+      width: 24,
+      height: 24,
+      borderRadius: "50%",
+      boxShadow: "none",
+      backgroundColor: "#808794",
+    },
+
+    "& .MuiSwitch-track": {
+      borderRadius: 16,
+      opacity: 1,
+      backgroundColor: "#222831",
+      boxSizing: "border-box",
+    },
+  }));
+
+  useEffect(() => {
+    if (data) {
+      setBenefitAlarmOn(data.benefitAlert);
+      setTicketAlarmOn(data.ticketAlert);
+      setInfoAlarmOn(data.infoAlert);
+      setInterestAlarmOn(data.interestAlert);
+      setRecommendAlarmOn(data.recommendAlert);
+    }
+  }, [data]);
+
+  return (
+    <div className="pb-90">
+      <ListHeader title={"알림 설정"} />
+
+      <div className="mx-16 mt-20">
+        <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+          혜택 및 이벤트 알림
+        </p>
+        <p className="mt-10 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
+          혜택 등 이벤트 알림을 보내드려요
+        </p>
+        <div className="mt-20 flex justify-between items-center">
+          <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
+            유저를 위한 혜택 알림
+          </p>
+          <FormGroup>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+              <AntSwitch
+                checked={benefitAlarmOn}
+                onChange={handleBenefitToggle}
+              />
+            </Stack>
+          </FormGroup>
+        </div>
+      </div>
+
+      <div className="mx-16 mt-30">
+        <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+          관심 콘서트 알림
+        </p>
+        <p className="mt-10 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
+          알림 신청한 소식을 가장 먼저 알려드려요
+        </p>
+        <div className="mt-20 flex justify-between items-center">
+          <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
+            예매 일정
+          </p>
+          <FormGroup>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+              <AntSwitch
+                checked={ticketAlarmOn}
+                onChange={handleAlarmToggle("ticketAlert", setTicketAlarmOn)}
+              />
+            </Stack>
+          </FormGroup>
+        </div>
+        <div className="mt-14 flex justify-between items-center">
+          <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
+            콘서트 정보 업데이트
+          </p>
+          <FormGroup>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+              <AntSwitch
+                checked={infoAlarmOn}
+                onChange={handleAlarmToggle("infoAlert", setInfoAlarmOn)}
+              />
+            </Stack>
+          </FormGroup>
+        </div>
+        <div className="mt-14 flex justify-between items-center">
+          <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
+            선호 아티스트의 콘서트 오픈
+          </p>
+          <FormGroup>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+              <AntSwitch
+                checked={interestAlarmOn}
+                onChange={handleAlarmToggle(
+                  "interestAlert",
+                  setInterestAlarmOn,
+                )}
+              />
+            </Stack>
+          </FormGroup>
+        </div>
+        <div className="mt-14 flex justify-between items-center">
+          <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
+            취향 기반 콘서트 알림
+          </p>
+          <FormGroup>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+              <AntSwitch
+                checked={recommendAlarmOn}
+                onChange={handleAlarmToggle(
+                  "recommendAlert",
+                  setRecommendAlarmOn,
+                )}
+              />
+            </Stack>
+          </FormGroup>
+        </div>
+      </div>
+
+      <AgreeSheet
+        isSheetOpen={isAgreeSheetOpen}
+        onSheetClose={() => setIsAgreeSheetOpen(false)}
+        onAgree={(data) => {
+          setConsentInfo(data);
+          setIsAgreeSheetOpen(false);
+
+          updateAlarmConsent(
+            { field: "benefitAlert", isAgreed: true },
+            {
+              onSuccess: () => {
+                setBenefitAlarmOn(true);
+                setIsAgreeModalOpen(true);
+              },
+            },
+          );
+        }}
+      />
+
+      {isAgreeModalOpen && (
+        <AgreeModal
+          isOpen={isAgreeModalOpen}
+          type={pendingAction === "ON" ? "agree" : "reject"}
+          consentInfo={consentInfo}
+          onClose={() => {
+            setIsAgreeModalOpen(false);
+
+            if (pendingAction === "ON") {
+              setBenefitAlarmOn(true);
+            } else if (pendingAction === "OFF") {
+              setBenefitAlarmOn(false);
+            }
+
+            setPendingAction(null);
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+export default AlarmSettingPage;

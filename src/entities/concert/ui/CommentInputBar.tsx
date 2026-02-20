@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { useSetConcertComment } from "../model/useSetConcertComment";
+import { useSetConcertComment } from "../../../features/concert/model/useSetConcertComment";
 import { toast } from "react-toastify";
-import CompleteToast from "../../../shared/ui/CompleteToast";
-import ErrorToast from "../../../shared/ui/ErrorToast";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../../entities/recoil/atoms/userState";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
+import ConfirmBtn from "../../../shared/ui/ConfirmButton/ConfirmButton";
 
 interface CommentInputBarProps {
   concertId: number;
@@ -111,19 +112,47 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
     });
   };
 
+  const forceReflow = () => {
+    const el = textareaRef.current;
+    if (!el) return;
+
+    el.style.display = "none";
+    el.offsetHeight;
+    el.style.display = "";
+  };
+
   // textarea 높이
   useEffect(() => {
     const textarea = textareaRef.current;
     if (!textarea) return;
 
-    textarea.style.height = "21px";
     const lineHeight = 21;
-    const maxHeight = lineHeight * 4; // 최대 4줄
+    const maxHeight = lineHeight * 4;
 
-    textarea.style.height =
-      textarea.scrollHeight > maxHeight
-        ? `${maxHeight}px`
-        : `${textarea.scrollHeight}px`;
+    if (value === "") {
+      textarea.style.height = `${lineHeight}px`;
+      textarea.style.overflowY = "hidden";
+      return;
+    }
+
+    textarea.style.height = `${lineHeight}px`;
+    textarea.style.overflowY = "hidden";
+
+    const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+    textarea.style.height = `${newHeight}px`;
+
+    textarea.style.overflowY =
+      textarea.scrollHeight > maxHeight ? "auto" : "hidden";
+  }, [value]);
+
+  useEffect(() => {
+    if (value === "") {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          forceReflow();
+        });
+      });
+    }
   }, [value]);
 
   const lineCount = value.split("\n").length;
@@ -154,7 +183,7 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
                 }
               }}
               onChange={handleChange}
-              className="bg-transparent outline-none text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-auto"
+              className="bg-transparent outline-none text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR placeholder-grayScaleBlack50 w-full resize-none overflow-y-hidden"
               rows={1}
               style={{
                 lineHeight: "21px",
@@ -162,15 +191,13 @@ function CommentInputBar({ concertId }: CommentInputBarProps) {
               }}
             />
           </div>
-          <button
+
+          <ConfirmBtn
+            label="등록"
             onClick={handleSubmit}
             disabled={!isActive}
-            className={`px-16 py-14 ml-12 max-h-49 rounded-10 font-medium text-Body2-md font-NotoSansKR 
-          ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}
-        `}
-          >
-            등록
-          </button>
+            className={`px-16 py-14 ml-12 max-h-49   ${isActive ? "bg-mainYellow30 text-grayScaleBlack100" : "bg-grayScaleBlack80 text-grayScaleBlack50"}`}
+          />
         </div>
       </div>
       <LoginModal

@@ -3,7 +3,7 @@ import { InfiniteConcertList } from "../../../widgets/InfiniteConcertList";
 import EmptySearchResult from "./EmptySearchResult";
 import { StateWithSetter } from "../../../shared/types/props";
 import { SelectableInfiniteConcertList } from "../../../features/interest/ui/SelectableInfiniteConcertList";
-import ConcertCardListSkeleton from "../../../features/concert/ui/ConcertCardListSkeleton";
+import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
 
 type SearchResultProps = {
   keyword: string;
@@ -25,7 +25,7 @@ function SearchResult({ keyword, selectedConcertState }: SearchResultProps) {
   if (isLoading) {
     return (
       <div className="mx-16">
-        <ConcertCardListSkeleton num={9} />
+        <CardListSkeleton num={9} />
       </div>
     );
   }
