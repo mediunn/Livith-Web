@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import InfiniteFeaturedArtistList from "../entities/featured-artist/ui/InfiniteFeaturedArtistList";
 import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
@@ -79,6 +79,13 @@ function SetPreferArtistPage() {
       },
     });
   };
+
+  useEffect(() => {
+    if (showResults && input.trim().length > 0) {
+      window.amplitude.track("click_search_complete_artist_preference");
+    }
+  }, [showResults]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex-1 overflow-y-auto">
@@ -86,6 +93,7 @@ function SetPreferArtistPage() {
           <ListHeader
             title="취향 설정"
             onBackClick={() => {
+              window.amplitude.track("click_back_preference");
               if (preferred.length > 0) {
                 setIsBackModalOpen(true);
               } else {
@@ -94,7 +102,10 @@ function SetPreferArtistPage() {
             }}
             rightElement={
               <span
-                onClick={() => handleSetPreference({ skip: true })}
+                onClick={() => {
+                  window.amplitude.track("click_skip_artist_preference");
+                  handleSetPreference({ skip: true });
+                }}
                 className="text-Body4-re font-regular text-grayScaleBlack50 justify-end m-8 cursor-pointer"
               >
                 건너뛰기
@@ -122,7 +133,10 @@ function SetPreferArtistPage() {
               setValue: setShowResults,
             }}
             placeholder="아티스트를 검색하세요"
-            onFocus={() => setIsKeyboardOpen(true)}
+            onFocus={() => {
+              window.amplitude.track("click_search_bar_artist_preference");
+              setIsKeyboardOpen(true);
+            }}
             onBlur={() => setIsKeyboardOpen(false)}
           />
           <div className="flex justify-center">
@@ -168,6 +182,7 @@ function SetPreferArtistPage() {
           <CommonButton
             isActive={preferred.length >= 1}
             onClick={() => {
+              window.amplitude.track("confirm_artist_preference");
               handleSetPreference({ skip: false });
             }}
             title="취향 선택 완료"
@@ -193,9 +208,13 @@ function SetPreferArtistPage() {
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"
         onPrimary={() => {
+          window.amplitude.track("confirm_back_preference");
           navigate(-1);
         }}
-        onSecondary={() => setIsBackModalOpen(false)}
+        onSecondary={() => {
+          window.amplitude.track("click_cancel_preference");
+          setIsBackModalOpen(false);
+        }}
       />
     </div>
   );

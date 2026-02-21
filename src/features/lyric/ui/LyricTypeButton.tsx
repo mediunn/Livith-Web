@@ -37,6 +37,21 @@ function LyricTypeButton({
               window.amplitude.track("toggle_original_on");
             } else if (label === "발음") {
               window.amplitude.track("toggle_pronunciation_on");
+            } else if (label === "해석") {
+              window.amplitude.track("toggle_translation_on");
+            } else if (label === "응원법") {
+              window.amplitude.track("toggle_cheer_on");
+            }
+          }
+          if (isActive) {
+            if (label === "원어") {
+              window.amplitude.track("toggle_original_off");
+            } else if (label === "발음") {
+              window.amplitude.track("toggle_pronunciation_off");
+            } else if (label === "해석") {
+              window.amplitude.track("toggle_translation_off");
+            } else if (label === "응원법") {
+              window.amplitude.track("toggle_cheer_off");
             }
           }
         };

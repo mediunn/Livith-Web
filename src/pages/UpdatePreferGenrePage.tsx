@@ -48,6 +48,7 @@ function UpdatePreferGenrePage() {
         <ListHeader
           title="장르 설정"
           onBackClick={() => {
+            window.amplitude.track("click_back_preference");
             if (
               preferred.length > 0 &&
               !preferredIdsEqual(preferredIds, existingIds)
@@ -96,6 +97,7 @@ function UpdatePreferGenrePage() {
               preferred.map((genre) => genre.id),
               {
                 onSuccess: () => {
+                  window.amplitude.track("confirm_change_genre_preference");
                   navigate("/my", {
                     replace: true,
                   });
