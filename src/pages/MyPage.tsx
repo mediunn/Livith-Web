@@ -61,7 +61,15 @@ function MyPage() {
               </>
             }
             type="genre"
-            onClickSetting={() => navigate("/update-prefer-genre")}
+            onClickSetting={() => {
+              if (!preferredGenres || preferredGenres.length === 0) {
+                window.amplitude.track("click_set_genre_preference");
+              } else {
+                window.amplitude.track("click_change_genre_preference");
+              }
+
+              navigate("/update-prefer-genre");
+            }}
           />
           <PreferenceSection
             title="선호 아티스트"
@@ -73,7 +81,15 @@ function MyPage() {
               </>
             }
             type="artist"
-            onClickSetting={() => navigate("/update-prefer-artist")}
+            onClickSetting={() => {
+              if (!preferredArtists || preferredArtists.length === 0) {
+                window.amplitude.track("click_set_artist_preference");
+              } else {
+                window.amplitude.track("click_change_artist_preference");
+              }
+
+              navigate("/update-prefer-artist");
+            }}
           />
 
           <TabBar />

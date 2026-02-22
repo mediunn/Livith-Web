@@ -21,9 +21,11 @@ function GuidedBanner({
   const handleOnClick = () => {
     if (isLoggedIn) {
       sessionStorage.removeItem("preferredGenres");
+      window.amplitude.track("click_set_preference_banner_main");
       navigate("/set-prefer-genre");
       return;
     } else {
+      window.amplitude.track("click_signup_banner_main");
       navigate("/my");
     }
   };

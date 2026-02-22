@@ -77,6 +77,7 @@ function UpdatePreferArtistPage() {
           <ListHeader
             title="아티스트 설정"
             onBackClick={() => {
+              window.amplitude.track("click_back_preference");
               if (
                 preferred.length > 0 &&
                 !preferredIdsEqual(preferredIds, existingIds)
@@ -152,6 +153,7 @@ function UpdatePreferArtistPage() {
           <CommonButton
             isActive={preferred.length >= 1}
             onClick={() => {
+              window.amplitude.track("confirm_change_artist_preference");
               handleSetPreference();
             }}
             title="설정하기"

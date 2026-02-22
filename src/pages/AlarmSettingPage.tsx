@@ -47,6 +47,8 @@ function AlarmSettingPage() {
               setBenefitAlarmOn(true);
               setConsentInfo(res.data);
               setIsAgreeModalOpen(true);
+
+              window.amplitude.track("toggle_benefit_notification_on");
             },
           },
         );
@@ -74,6 +76,8 @@ function AlarmSettingPage() {
             {
               onSuccess: () => {
                 setIsAgreeModalOpen(true);
+
+                window.amplitude.track("toggle_benefit_notification_off");
               },
             },
           );
@@ -97,6 +101,49 @@ function AlarmSettingPage() {
         {
           onSuccess: () => {
             setter(nextChecked);
+
+            if (field === "ticketAlert") {
+              if (nextChecked) {
+                window.amplitude.track(
+                  "toggle_booking_schedule_notification_on",
+                );
+              } else {
+                window.amplitude.track(
+                  "toggle_booking_schedule_notification_off",
+                );
+              }
+            }
+            if (field === "infoAlert") {
+              if (nextChecked) {
+                window.amplitude.track("toggle_concert_update_notification_on");
+              } else {
+                window.amplitude.track(
+                  "toggle_concert_update_notification_off",
+                );
+              }
+            }
+            if (field === "interestAlert") {
+              if (nextChecked) {
+                window.amplitude.track(
+                  "toggle_favorite_artist_concert_open_notification_on",
+                );
+              } else {
+                window.amplitude.track(
+                  "toggle_favorite_artist_concert_open_notification_off",
+                );
+              }
+            }
+            if (field === "recommendAlert") {
+              if (nextChecked) {
+                window.amplitude.track(
+                  "toggle_recommended_concert_notification_on",
+                );
+              } else {
+                window.amplitude.track(
+                  "toggle_recommended_concert_notification_off",
+                );
+              }
+            }
           },
           onError: () => {},
         },

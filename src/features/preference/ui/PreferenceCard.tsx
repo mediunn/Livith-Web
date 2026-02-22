@@ -25,6 +25,7 @@ function PreferenceCard({
   };
 
   const onClick = () => {
+    window.amplitude.track("click_search_cell_artist_preference");
     if (preferred.length >= 3 && !isPreferred(id)) {
       toast(<ErrorToast message="해제 후 선택해 주세요" />, {
         toastId: "preference-card-error",

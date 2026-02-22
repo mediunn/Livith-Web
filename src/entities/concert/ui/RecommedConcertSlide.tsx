@@ -108,7 +108,10 @@ function RecommedConcertSlide({ concerts }: RecommedConcertSlideProps) {
               date={formatDateRange(concert.startDate, concert.endDate)}
               status={concert.status}
               daysLeft={concert.daysLeft}
-              onClick={() => navigate(`/concert/${concert.id}`)}
+              onClick={() => {
+                window.amplitude.track("click_recommended_concert_cell");
+                navigate(`/concert/${concert.id}`);
+              }}
             />
           </SwiperSlide>
         ))}

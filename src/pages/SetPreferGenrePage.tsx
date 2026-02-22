@@ -36,6 +36,7 @@ function SetPreferGenrePage() {
         <ListHeader
           title="취향 설정"
           onBackClick={() => {
+            window.amplitude.track("click_back_preference");
             if (preferred.length > 0) {
               setIsModalOpen(true);
             } else {
@@ -80,6 +81,7 @@ function SetPreferGenrePage() {
               "preferredGenres",
               JSON.stringify(preferred),
             );
+            window.amplitude.track("confirm_genre_preference");
             navigate("/set-prefer-artist", {
               state: {
                 preferredGenreIds: preferred.map((genre) => genre.id),
@@ -99,10 +101,14 @@ function SetPreferGenrePage() {
         primaryLabel="뒤로 갈게요"
         secondaryLabel="잘못 눌렀어요"
         onPrimary={() => {
+          window.amplitude.track("confirm_back_preference");
           sessionStorage.removeItem("preferredGenres");
           navigate(-1);
         }}
-        onSecondary={() => setIsModalOpen(false)}
+        onSecondary={() => {
+          window.amplitude.track("click_cancel_preference");
+          setIsModalOpen(false);
+        }}
       />
     </div>
   );

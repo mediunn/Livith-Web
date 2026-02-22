@@ -30,6 +30,7 @@ function AlarmItem({
     if (!isRead) updateRead(id);
 
     if (type === "INTEREST_CONCERT") {
+      window.amplitude.track("click_interest_concert_notification");
       navigate("/set-concert");
       return;
     }
@@ -46,24 +47,43 @@ function AlarmItem({
 
     switch (type) {
       case "CONCERT_INFO_UPDATE_SCHEDULE":
+        window.amplitude.track("click_concert_update_schedule_notification");
         focusTarget = "schedule";
         break;
 
       case "CONCERT_INFO_UPDATE_MD":
+        window.amplitude.track("click_concert_update_md_notification");
         focusTarget = "md";
         break;
 
       case "CONCERT_INFO_UPDATE_SETLIST":
+        window.amplitude.track("click_concert_update_setlist_notification");
         focusTarget = "setlist";
         break;
 
       case "CONCERT_INFO_UPDATE_TICKET":
+        window.amplitude.track("click_concert_update_ticket_notification");
         focusTarget = "ticket";
+        break;
+
+      case "CONCERT_INFO_UPDATE_DETAIL":
+        window.amplitude.track("click_concert_update_detail_notification");
+        break;
+
+      case "ARTIST_CONCERT_OPEN":
+        window.amplitude.track(
+          "click_favorite_artist_concert_open_notification",
+        );
+        break;
+
+      case "RECOMMEND":
+        window.amplitude.track("click_recommended_concert_notification");
         break;
 
       case "TICKET_1D":
       case "TICKET_7D":
       case "TICKET_TODAY":
+        window.amplitude.track("click_booking_schedule_notification");
         focusTarget = "concertDetail";
         break;
 
