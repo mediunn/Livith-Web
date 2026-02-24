@@ -69,25 +69,27 @@ function AlarmListPage() {
         알림은 90일 이후 순차적으로 삭제돼요.
       </p>
 
-      <div className="flex-1 relative">
-        {isLoggedIn ? (
-          !isLoading &&
-          !isError &&
-          alarms.length === 0 && (
+      {isLoggedIn ? (
+        !isLoading &&
+        !isError &&
+        alarms.length === 0 && (
+          <div className="flex-1 relative">
             <EmptyAlarm
               isLoggedIn={isLoggedIn}
               text={" 아직 공연 소식이 없어요 : ("}
             />
-          )
-        ) : (
+          </div>
+        )
+      ) : (
+        <div className="flex-1 relative">
           <EmptyAlarm
             isLoggedIn={isLoggedIn}
             text={
               "회원가입 시 콘서트 소식을 놓치지 않도록\n알림으로 제공해 드려요!"
             }
           />
-        )}
-      </div>
+        </div>
+      )}
 
       {!isLoading && alarms.length > 0 && (
         <div className="flex flex-col px-4 gap-12">
