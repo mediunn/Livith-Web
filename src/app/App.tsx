@@ -6,7 +6,7 @@ import ConcertInsidePage from "../pages/ConcertInsidePage";
 import CategoryPage from "../pages/CategoryPage";
 import MyPage from "../pages/MyPage";
 import NicknamePage from "../pages/NicknamePage";
-import ConcertListPage from "../pages/ConcertListPage";
+// import ConcertListPage from "../pages/ConcertListPage";
 import RootLayout from "./RootLayout";
 import SearchPage from "../pages/SearchPage";
 import LyricPage from "../pages/LyricPage";
@@ -76,10 +76,10 @@ const router = createBrowserRouter([
         path: "withdraw",
         element: <WithdrawPage />,
       },
-      {
-        path: "concerts/:status",
-        element: <ConcertListPage />,
-      },
+      // {
+      //   path: "concerts/:status",
+      //   element: <ConcertListPage />,
+      // },
       {
         path: "concerts/recommed",
         element: <RecommedConcertListPage />,
