@@ -9,7 +9,7 @@ import { useAlarmConsent } from "../entities/notification/model/useAlarmConsent"
 import { NotificationField } from "../entities/notification/types";
 import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
-import Toggle from "../shared/ui/Toggle";
+import Toggle from "../shared/ui/Toggle/Toggle";
 
 function AlarmSettingPage() {
   const { data, isLoading } = useAlarmSetting();
