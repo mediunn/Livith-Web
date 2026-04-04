@@ -1,9 +1,5 @@
 import ListHeader from "../shared/ui/ListHeader";
 import { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import FormGroup from "@mui/material/FormGroup";
-import Switch, { SwitchProps } from "@mui/material/Switch";
-import Stack from "@mui/material/Stack";
 import AgreeSheet from "../features/auth/ui/AgreeSheet";
 import AgreeModal from "../shared/ui/AgreeModal";
 import { useAlarmSetting } from "../entities/notification/model/useAlarmSetting";
@@ -13,6 +9,7 @@ import { useAlarmConsent } from "../entities/notification/model/useAlarmConsent"
 import { NotificationField } from "../entities/notification/types";
 import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
+import Toggle from "../shared/ui/Toggle";
 
 function AlarmSettingPage() {
   const { data, isLoading } = useAlarmSetting();
@@ -150,49 +147,6 @@ function AlarmSettingPage() {
       );
     };
 
-  const AntSwitch = styled(Switch)(({ theme }) => ({
-    width: 58,
-    height: 32,
-    padding: 0,
-    display: "flex",
-
-    "& .MuiSwitch-switchBase": {
-      padding: 4,
-      transition: theme.transitions.create(["transform"], {
-        duration: 200,
-      }),
-
-      "&.Mui-checked": {
-        transform: "translateX(26px)",
-
-        "& + .MuiSwitch-track": {
-          backgroundColor: "#FFFF97",
-          opacity: 1,
-        },
-
-        "& .MuiSwitch-thumb": {
-          backgroundColor: "#FFFFFF",
-          boxShadow: "0 0 4px rgba(0, 0, 0, 0.25)",
-        },
-      },
-    },
-
-    "& .MuiSwitch-thumb": {
-      width: 24,
-      height: 24,
-      borderRadius: "50%",
-      boxShadow: "none",
-      backgroundColor: "#808794",
-    },
-
-    "& .MuiSwitch-track": {
-      borderRadius: 16,
-      opacity: 1,
-      backgroundColor: "#222831",
-      boxSizing: "border-box",
-    },
-  }));
-
   useEffect(() => {
     if (data) {
       setBenefitAlarmOn(data.benefitAlert);
@@ -218,14 +172,8 @@ function AlarmSettingPage() {
           <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             유저를 위한 혜택 알림
           </p>
-          <FormGroup>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch
-                checked={benefitAlarmOn}
-                onChange={handleBenefitToggle}
-              />
-            </Stack>
-          </FormGroup>
+
+          <Toggle checked={benefitAlarmOn} onChange={handleBenefitToggle} />
         </div>
       </div>
 
@@ -240,59 +188,41 @@ function AlarmSettingPage() {
           <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             예매 일정
           </p>
-          <FormGroup>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch
-                checked={ticketAlarmOn}
-                onChange={handleAlarmToggle("ticketAlert", setTicketAlarmOn)}
-              />
-            </Stack>
-          </FormGroup>
+
+          <Toggle
+            checked={ticketAlarmOn}
+            onChange={handleAlarmToggle("ticketAlert", setTicketAlarmOn)}
+          />
         </div>
         <div className="mt-14 flex justify-between items-center">
           <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             콘서트 정보 업데이트
           </p>
-          <FormGroup>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch
-                checked={infoAlarmOn}
-                onChange={handleAlarmToggle("infoAlert", setInfoAlarmOn)}
-              />
-            </Stack>
-          </FormGroup>
+
+          <Toggle
+            checked={infoAlarmOn}
+            onChange={handleAlarmToggle("infoAlert", setInfoAlarmOn)}
+          />
         </div>
         <div className="mt-14 flex justify-between items-center">
           <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             선호 아티스트의 콘서트 오픈
           </p>
-          <FormGroup>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch
-                checked={interestAlarmOn}
-                onChange={handleAlarmToggle(
-                  "interestAlert",
-                  setInterestAlarmOn,
-                )}
-              />
-            </Stack>
-          </FormGroup>
+
+          <Toggle
+            checked={interestAlarmOn}
+            onChange={handleAlarmToggle("interestAlert", setInterestAlarmOn)}
+          />
         </div>
         <div className="mt-14 flex justify-between items-center">
           <p className="text-grayScaleBlack30 text-Body2-md font-medium font-NotoSansKR">
             취향 기반 콘서트 알림
           </p>
-          <FormGroup>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <AntSwitch
-                checked={recommendAlarmOn}
-                onChange={handleAlarmToggle(
-                  "recommendAlert",
-                  setRecommendAlarmOn,
-                )}
-              />
-            </Stack>
-          </FormGroup>
+
+          <Toggle
+            checked={recommendAlarmOn}
+            onChange={handleAlarmToggle("recommendAlert", setRecommendAlarmOn)}
+          />
         </div>
       </div>
 
