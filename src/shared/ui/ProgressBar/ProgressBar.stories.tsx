@@ -9,7 +9,6 @@ const meta: Meta<typeof ProgressBar> = {
     layout: "centered",
   },
   argTypes: {
-    //0부터 5까지의 숫자 중에서 선택할 수 있도록 설정
     total: {
       control: { type: "number", min: 2, max: 4, step: 1 },
     },
