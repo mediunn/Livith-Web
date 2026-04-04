@@ -5,22 +5,25 @@ type UseConcertListParams = {
   size: number;
 };
 
-type Cursor = { id: number | null; startDate: string | null };
+type ConcertListPageParam = {
+  cursor?: number;
+};
 
 export const useConcertList = ({ size }: UseConcertListParams) => {
   return useInfiniteQuery({
     queryKey: ["concerts"],
     queryFn: ({ pageParam }) =>
       getConcertList({
-        id: pageParam?.id,
-        cursor: pageParam
-          ? JSON.stringify({ startDate: pageParam.startDate, id: pageParam.id })
-          : undefined,
+        cursor: pageParam.cursor ?? undefined,
         size,
       }),
-    initialPageParam: undefined as Cursor | undefined,
+    initialPageParam: {
+      cursor: undefined,
+    } as ConcertListPageParam,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.cursor ?? undefined;
+      return {
+        cursor: lastPage.data.cursor ?? undefined,
+      } as ConcertListPageParam;
     },
     select: (data) => {
       return {
