@@ -30,7 +30,7 @@ export type Concert = {
 
 export type ConcertListResponse = {
   data: Concert[];
-  cursor?: number | null;
+  cursor: null | undefined;
   totalCount?: number;
 };
 
