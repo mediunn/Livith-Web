@@ -20,7 +20,7 @@ function TopBar({ bgColor = "bg-transparent" }: TopBarProps) {
       <img
         src={unreadCount && unreadCount > 0 ? NewAlarmIcon : AlarmIcon}
         onClick={() => navigate("/alarm-list")}
-        className={"w-38 h-38"}
+        className={"w-38 h-38 cursor-pointer"}
       />
     </div>
   );
