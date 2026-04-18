@@ -1,21 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
-import RecentSearch from "../features/search/ui/RecentSearch";
-import RecommendSearch from "../features/search/ui/RecommendSearch";
-import SearchResult from "../features/search/ui/SearchResult";
-import SearchResultCount from "../features/search/ui/SearchResultCount";
 
-import {
-  ConcertStatus,
-  SortFilter,
-  StatusFilter,
-} from "../entities/concert/types";
+import { SortFilter, StatusFilter } from "../entities/concert/types";
+import { GenreEnum } from "../entities/genre/types";
 import FilterBottomSheet from "../features/search/ui/FilterBottomSheet";
 import { FilterChips } from "../features/search/ui/FilterChips";
-import { InfiniteConcertList } from "../widgets/InfiniteConcertList";
-import ConcertList from "../widgets/ConcertList";
 import FilterSearch from "../features/search/ui/FilterSearch";
-import { GenreEnum } from "../entities/genre/types";
 function SearchPage() {
   const [input, setInput] = useState<string>("");
   const [recent, setRecent] = useState<string[]>([]);
