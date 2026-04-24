@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
-import SignUpTooltip from "./SignUpTooltip/SignUpTooltip";
+import ConcertSettingTooltip from "./ConcertSettingTooltip/ConcertSettingTooltip";
 import { useHomeConcertListSection } from "../model/useHomeConcertListSection";
 import RecommedConcertListSection from "../../../widgets/RecommedConcertListSection";
 
@@ -57,7 +57,6 @@ function ConcertSettingEmpty({ hasPrefer }: ConcertSettingEmptyProps) {
             )}
           </p>
         </div>
-
         <div className="relative">
           <button
             className="w-148 h-136 bg-grayScaleBlack80 hover:bg-grayScaleBlack100 rounded-10 border-none cursor-pointer"
@@ -79,12 +78,7 @@ function ConcertSettingEmpty({ hasPrefer }: ConcertSettingEmptyProps) {
             </div>
           </button>
         </div>
-        {!user && (
-          <SignUpTooltip
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
-        )}
+        <ConcertSettingTooltip isOpen={isModalOpen} />
       </div>
 
       {hasPrefer && user && (
