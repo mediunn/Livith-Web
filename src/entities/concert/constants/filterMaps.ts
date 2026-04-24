@@ -4,11 +4,10 @@ import { StatusFilter } from "../types";
 const genreMap: Record<GenreEnum, string> = {
   [GenreEnum.ALL]: "전체",
   [GenreEnum.JPOP]: "J-POP",
-  [GenreEnum.ROCK_METAL]: "락/메탈",
-  [GenreEnum.RAP_HIPHOP]: "랩/힙합",
-  [GenreEnum.CLASSIC_JAZZ]: "클래식/재즈",
-  [GenreEnum.ACOUSTIC]: "어쿠스틱",
-  [GenreEnum.ELECTRONIC]: "일렉트로닉",
+  [GenreEnum.ROCK_METAL]: "ROCK / METAL",
+  [GenreEnum.RAP_HIPHOP]: "RAP / HIPHOP",
+  [GenreEnum.INDIE]: "INDIE",
+  [GenreEnum.POP]: "POP",
 };
 
 const statusMap: Record<StatusFilter, string> = {

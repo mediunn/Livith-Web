@@ -7,7 +7,6 @@ const config: StorybookConfig = {
     "@storybook/addon-vitest",
     "@storybook/addon-docs",
     "@storybook/addon-onboarding",
-    "@storybook/addon-postcss",
   ],
   framework: "@storybook/react-vite",
 };

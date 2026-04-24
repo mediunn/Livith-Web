@@ -6,9 +6,8 @@ const genreOrder: GenreEnum[] = [
   GenreEnum.JPOP,
   GenreEnum.ROCK_METAL,
   GenreEnum.RAP_HIPHOP,
-  GenreEnum.CLASSIC_JAZZ,
-  GenreEnum.ACOUSTIC,
-  GenreEnum.ELECTRONIC,
+  GenreEnum.POP,
+  GenreEnum.INDIE,
 ];
 
 const statusOrder: StatusFilter[] = [
