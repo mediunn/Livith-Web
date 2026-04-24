@@ -8,10 +8,9 @@ interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
   type: "concertInfo" | "interestConcert";
-  group?: "A" | "B" | "C";
 }
 
-function LoginModal({ isOpen, onClose, type, group }: LoginModalProps) {
+function LoginModal({ isOpen, onClose, type }: LoginModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -72,8 +71,8 @@ function LoginModal({ isOpen, onClose, type, group }: LoginModalProps) {
                 하고 빠르게 이용해요
               </p>
               <img src={LoginGuideIcon} className="mx-auto mb-20" />
-              <KakaoLoginButton onClickLogin={onClose} group={group} />
-              <AppleLoginButton onClickLogin={onClose} group={group} />
+              <KakaoLoginButton onClickLogin={onClose} />
+              <AppleLoginButton onClickLogin={onClose} />
             </div>
           </motion.div>
         </>

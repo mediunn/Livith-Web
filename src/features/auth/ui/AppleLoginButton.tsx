@@ -3,7 +3,6 @@ import SocialLoginButton from "./SocialLoginButton/SocialLoginButton";
 
 interface AppleLoginButtonProps {
   onClickLogin?: () => void;
-  group?: "A" | "B" | "C";
 }
 
 const AppleLoginButton = (props: AppleLoginButtonProps) => (

@@ -5,12 +5,10 @@ import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 type SetInterestConcertButtonProps = {
   selectedConcertState: StateWithSetter<string | null>;
-  group?: "A" | "B" | "C";
 };
 
 export const SetInterestConcertButton = ({
   selectedConcertState: { value: selectedConcert },
-  group,
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
   const mutation = useSetInterestConcert();
@@ -27,8 +25,6 @@ export const SetInterestConcertButton = ({
       },
       {
         onSuccess: (data) => {
-          if (group) window.amplitude.track(`${group}_set_interest_concert`);
-
           const concertData = {
             id: data.id,
             poster: data.poster,
@@ -41,7 +37,7 @@ export const SetInterestConcertButton = ({
           });
         },
         onError: (err) => console.error(err),
-      }
+      },
     );
   };
 

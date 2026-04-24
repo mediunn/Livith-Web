@@ -11,11 +11,10 @@ import { useHomeConcertListSection } from "../model/useHomeConcertListSection";
 import RecommedConcertListSection from "../../../widgets/RecommedConcertListSection";
 
 interface ConcertSettingEmptyProps {
-  group: "A" | "B" | "C";
   hasPrefer: boolean;
 }
 
-function ConcertSettingEmpty({ group, hasPrefer }: ConcertSettingEmptyProps) {
+function ConcertSettingEmpty({ hasPrefer }: ConcertSettingEmptyProps) {
   const { data: sections, isLoading } = useHomeConcertListSection();
 
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ function ConcertSettingEmpty({ group, hasPrefer }: ConcertSettingEmptyProps) {
       return;
     }
     window.amplitude.track("click_interest_concert_main");
-    navigate("/set-concert", { state: { group } });
+    navigate("/set-concert");
   };
 
   return (
@@ -70,18 +69,18 @@ function ConcertSettingEmpty({ group, hasPrefer }: ConcertSettingEmptyProps) {
                 loop={true}
                 className="w-40 h-40"
               />
-
-              <p className="mt-7 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-                관심 콘서트
-                <br />
-                알림 · 소식 설정
-              </p>
+              {!user && (
+                <p className="mt-7 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
+                  관심 콘서트
+                  <br />
+                  알림 · 소식 설정
+                </p>
+              )}
             </div>
           </button>
         </div>
         {!user && (
           <SignUpTooltip
-            group={group}
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />
@@ -106,7 +105,6 @@ function ConcertSettingEmpty({ group, hasPrefer }: ConcertSettingEmptyProps) {
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
         type="interestConcert"
-        group={group}
       />
     </>
   );
