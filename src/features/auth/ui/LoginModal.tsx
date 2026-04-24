@@ -57,7 +57,7 @@ function LoginModal({ isOpen, onClose, type }: LoginModalProps) {
                 <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR text-center mt-30">
                   관심 콘서트 설정으로
                   <br />
-                  필요한 정보를 한눈에 👀
+                  공연 일정 • 셋리스트 정보를 한눈에 👀
                 </p>
               ) : (
                 <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR text-center mt-30">
