@@ -9,9 +9,8 @@ export enum GenreEnum {
   JPOP = "JPOP",
   ROCK_METAL = "ROCK_METAL",
   RAP_HIPHOP = "RAP_HIPHOP",
-  CLASSIC_JAZZ = "CLASSIC_JAZZ",
-  ACOUSTIC = "ACOUSTIC",
-  ELECTRONIC = "ELECTRONIC",
+  INDIE = "INDIE",
+  POP = "POP",
 }
 
 export type UserGenre = Genre & {
