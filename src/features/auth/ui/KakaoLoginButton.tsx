@@ -3,7 +3,6 @@ import SocialLoginButton from "./SocialLoginButton/SocialLoginButton";
 
 interface KakaoLoginButtonProps {
   onClickLogin?: () => void;
-  group?: "A" | "B" | "C";
 }
 const KakaoLoginButton = (props: KakaoLoginButtonProps) => (
   <div className="mx-16 mb-12">
