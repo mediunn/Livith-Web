@@ -1,10 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Sheet, SheetRef } from "react-modal-sheet";
-import {
-  genreMap,
-  statusMap,
-} from "../../../entities/concert/constants/filterMaps";
+import { statusMap } from "../../../entities/concert/constants/filterMaps";
+import { genreMap } from "../../../entities/genre/constants/filterMaps";
 import {
   genreOrder,
   statusOrder,

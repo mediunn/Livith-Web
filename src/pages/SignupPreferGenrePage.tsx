@@ -8,7 +8,7 @@ import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
-import { genreMap } from "../entities/concert/constants/filterMaps";
+import { genreMap } from "../entities/genre/constants/filterMaps";
 import { GenreEnum } from "../entities/genre/types";
 
 function SignupPreferGenrePage() {

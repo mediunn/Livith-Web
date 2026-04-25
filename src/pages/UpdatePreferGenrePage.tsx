@@ -13,7 +13,7 @@ import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import { preferredIdsEqual } from "../features/preference/utils/preferredIdsEqual";
-import { genreMap } from "../entities/concert/constants/filterMaps";
+import { genreMap } from "../entities/genre/constants/filterMaps";
 import { GenreEnum } from "../entities/genre/types";
 
 function UpdatePreferGenrePage() {

@@ -9,7 +9,7 @@ import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
 import ListHeader from "../shared/ui/ListHeader";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import { GenreEnum } from "../entities/genre/types";
-import { genreMap } from "../entities/concert/constants/filterMaps";
+import { genreMap } from "../entities/genre/constants/filterMaps";
 
 function SetPreferGenrePage() {
   const navigate = useNavigate();

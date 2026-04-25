@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  genreMap,
-  statusMap,
-} from "../../../entities/concert/constants/filterMaps";
+import { statusMap } from "../../../entities/concert/constants/filterMaps";
+import { genreMap } from "../../../entities/genre/constants/filterMaps";
 import { SortFilter, StatusFilter } from "../../../entities/concert/types";
 import CalendarIcon from "../../../shared/assets/CalendarIcon";
 import MicIcon from "../../../shared/assets/MicIcon";
