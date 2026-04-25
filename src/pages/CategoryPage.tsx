@@ -6,6 +6,7 @@ import TabBar from "../shared/ui/TabBar";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "../shared/assets/SearchIcon.tsx";
 import { useSearchConcertListSection } from "../features/concert/model/useSearchConcertListSection.ts";
+import GenreTabs from "../entities/genre/ui/GenreTabs.tsx";
 
 function CategoryPage() {
   const { data: sections, isLoading } = useSearchConcertListSection();
@@ -52,6 +53,7 @@ function CategoryPage() {
       </div>
 
       <MainImageCarousel />
+      <GenreTabs />
 
       {sections?.map((section) => (
         <SearchConcertListSection
