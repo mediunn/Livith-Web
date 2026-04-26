@@ -8,25 +8,25 @@ import {
   statusOrder,
 } from "../../../entities/concert/constants/filterOrders";
 import { StatusFilter } from "../../../entities/concert/types";
-import { sortFilter } from "../../../features/concert/utils/sortFilter";
+import { sortFilter } from "../../concert/utils/sortFilter";
 import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipFilter from "./ChipFilter/ChipFilter";
 import { GenreEnum } from "../../../entities/genre/types";
 
-interface FilterBottomSheetProps {
+interface SearchFilterBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
   genreState: StateWithSetter<GenreEnum[]>;
   statusState: StateWithSetter<StatusFilter[]>;
 }
 
-function FilterBottomSheet({
+function SearchFilterBottomSheet({
   isSheetOpen,
   onSheetClose,
   genreState: { value: genreSelected, setValue: setGenreSelected },
   statusState: { value: statusSelected, setValue: setStatusSelected },
-}: FilterBottomSheetProps) {
+}: SearchFilterBottomSheetProps) {
   const ref = useRef<SheetRef>(null);
 
   const genres: GenreEnum[] = Object.values(GenreEnum);
@@ -253,4 +253,4 @@ function FilterBottomSheet({
   );
 }
 
-export default FilterBottomSheet;
+export default SearchFilterBottomSheet;
