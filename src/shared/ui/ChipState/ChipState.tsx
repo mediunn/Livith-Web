@@ -18,8 +18,8 @@ const VARIANT_STYLE = {
     text: "text-grayScaleBlack30",
   },
   dday: {
-    wrapper: "bg-mainYellow30",
-    text: "text-grayScaleBlack100",
+    wrapper: "bg-grayScaleBlack80",
+    text: "text-grayScaleBlack30",
   },
 };
 
