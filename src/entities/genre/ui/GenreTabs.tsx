@@ -1,15 +1,17 @@
-import { useState } from "react";
 import TabContext from "@mui/lab/TabContext";
 import { motion } from "framer-motion";
 import { genreMap } from "../constants/filterMaps";
 import styles from "./GenreTabs.module.css";
+import { StateWithSetter } from "../../../shared/types/props";
+import { GenreEnum } from "../types";
 
-function GenreTabs() {
-  const [selectedTab, setSelectedTab] = useState("ALL");
-
+function GenreTabs({
+  value: selectedTab,
+  setValue: setSelectedTab,
+}: StateWithSetter<GenreEnum>) {
   const tabs = Object.entries(genreMap).map(([value, label]) => ({
     label,
-    value,
+    value: value as GenreEnum,
   }));
 
   return (

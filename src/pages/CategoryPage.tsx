@@ -1,18 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SortFilter, StatusFilter } from "../entities/concert/types/index.ts";
+import { GenreEnum } from "../entities/genre/types/index.ts";
+import GenreTabs from "../entities/genre/ui/GenreTabs.tsx";
+import FilteredConcertList from "../features/concert/ui/FilteredConcertList.tsx";
+import FilterBottomSheet from "../features/search/ui/FilterBottomSheet.tsx";
+import { FilterChips } from "../features/search/ui/FilterChips.tsx";
+import SearchIcon from "../shared/assets/SearchIcon.tsx";
+import TabBar from "../shared/ui/TabBar";
 import TopBar from "../shared/ui/TopBar";
 import MainImageCarousel from "../widgets/MainImageCarousel";
-import SearchConcertListSection from "../widgets/SearchConcertListSection.tsx";
-import TabBar from "../shared/ui/TabBar";
-import { useNavigate } from "react-router-dom";
-import SearchIcon from "../shared/assets/SearchIcon.tsx";
-import { useSearchConcertListSection } from "../features/concert/model/useSearchConcertListSection.ts";
-import GenreTabs from "../entities/genre/ui/GenreTabs.tsx";
 
 function CategoryPage() {
-  const { data: sections, isLoading } = useSearchConcertListSection();
-
   const navigate = useNavigate();
   const [bgActive, setBgActive] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<GenreEnum>(GenreEnum.ALL);
+
+  const [status, setStatus] = useState<StatusFilter[]>([StatusFilter.ALL]);
+  const [sort, setSort] = useState<SortFilter>(SortFilter.LATEST);
+  const [isSortClicked, setIsSortClicked] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+
+  const openSheet = () => setIsSheetOpen(true);
+  const closeSheet = () => setIsSheetOpen(false);
+
+  // 메뉴 wrapper ref
+  const sortRef = useRef<HTMLDivElement>(null);
+
+  // 메뉴 외부 클릭 감지
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
+        setIsSortClicked(false);
+      }
+    }
+
+    if (isSortClicked) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    // cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSortClicked]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,16 +86,28 @@ function CategoryPage() {
       </div>
 
       <MainImageCarousel />
-      <GenreTabs />
-
-      {sections?.map((section) => (
-        <SearchConcertListSection
-          key={section.id}
-          section={section}
-          isLoading={isLoading}
+      <GenreTabs value={selectedTab} setValue={setSelectedTab} />
+      {/* 필터 */}
+      <FilterChips
+        openSheet={openSheet}
+        statusState={{ value: status, setValue: setStatus }}
+        sortState={{ value: sort, setValue: setSort }}
+        isSortClickedState={{
+          value: isSortClicked,
+          setValue: setIsSortClicked,
+        }}
+        sortRef={sortRef}
+      />
+      {isSheetOpen && (
+        <FilterBottomSheet
+          statusState={{ value: status, setValue: setStatus }}
+          isSheetOpen={isSheetOpen}
+          onSheetClose={closeSheet}
         />
-      ))}
-
+      )}
+      <div className="pt-12">
+        <FilteredConcertList genre={selectedTab} status={status} sort={sort} />
+      </div>
       <TabBar />
     </div>
   );
