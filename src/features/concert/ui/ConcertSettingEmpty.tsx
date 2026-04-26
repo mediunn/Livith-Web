@@ -68,13 +68,12 @@ function ConcertSettingEmpty({ hasPrefer }: ConcertSettingEmptyProps) {
                 loop={true}
                 className="w-40 h-40"
               />
-              {!user && (
-                <p className="mt-7 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
-                  관심 콘서트
-                  <br />
-                  알림 · 소식 설정
-                </p>
-              )}
+
+              <p className="mt-7 text-grayScaleWhite text-Body4-sm font-semibold font-NotoSansKR">
+                관심 콘서트
+                <br />
+                알림 · 소식 설정
+              </p>
             </div>
           </button>
         </div>
