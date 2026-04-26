@@ -69,29 +69,31 @@ function ArtistInfo({
                 {category && (
                   <ChipInfo label={category} textStyle="caption1Bold" />
                 )}
-                <p className="pt-8 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
-                  {artist}
-                </p>
-                <div className="flex absolute right-0 bottom-0">
-                  {instagramUrl && (
-                    <a
-                      href={instagramUrl}
-                      target="_blank"
-                      className="border-none cursor-pointer"
-                    >
-                      <img src={InstagramIcon} className="w-30 h-30" />
-                    </a>
-                  )}
+                <div className="flex justify-between items-end gap-10">
+                  <p className="pt-8 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
+                    {artist}
+                  </p>
+                  <div className="flex shrink-0">
+                    {instagramUrl && (
+                      <a
+                        href={instagramUrl}
+                        target="_blank"
+                        className="border-none cursor-pointer"
+                      >
+                        <img src={InstagramIcon} className="w-30 h-30" />
+                      </a>
+                    )}
 
-                  {twitterUrl && (
-                    <a
-                      href={twitterUrl}
-                      target="_blank"
-                      className="ml-10 border-none cursor-pointer"
-                    >
-                      <img src={TwitterIcon} className="w-30 h-30" />
-                    </a>
-                  )}
+                    {twitterUrl && (
+                      <a
+                        href={twitterUrl}
+                        target="_blank"
+                        className="ml-10 border-none cursor-pointer"
+                      >
+                        <img src={TwitterIcon} className="w-30 h-30" />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
 
