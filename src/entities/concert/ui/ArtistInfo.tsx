@@ -13,6 +13,7 @@ interface ArtistInfoProps {
   category: string;
   detail: string;
   instagramUrl: string;
+  twitterUrl: string;
   keywords: string[];
   imgUrl: string;
 }
@@ -23,6 +24,7 @@ function ArtistInfo({
   category,
   detail,
   instagramUrl,
+  twitterUrl,
   keywords,
   imgUrl,
 }: ArtistInfoProps) {
@@ -81,9 +83,9 @@ function ArtistInfo({
                     </a>
                   )}
 
-                  {TwitterUrl && (
+                  {twitterUrl && (
                     <a
-                      href={TwitterUrl}
+                      href={twitterUrl}
                       target="_blank"
                       className="ml-10 border-none cursor-pointer"
                     >

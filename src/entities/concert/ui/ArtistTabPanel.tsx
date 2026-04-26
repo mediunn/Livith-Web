@@ -11,6 +11,7 @@ interface ArtistTabPanelProps {
   category: string;
   detail: string;
   instagramUrl: string;
+  twitterUrl: string;
   keywords: string[];
   imgUrl: string;
   concertCulture: ConcertCulture[];
@@ -24,6 +25,7 @@ function ArtistTabPanel({
   category,
   detail,
   instagramUrl,
+  twitterUrl,
   keywords,
   imgUrl,
   concertCulture,
@@ -39,6 +41,7 @@ function ArtistTabPanel({
           category={category}
           detail={detail}
           instagramUrl={instagramUrl}
+          twitterUrl={twitterUrl}
           keywords={keywords}
           imgUrl={imgUrl}
         />
