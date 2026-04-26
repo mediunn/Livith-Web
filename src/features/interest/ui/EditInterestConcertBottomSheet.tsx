@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import { useDeleteInterestConcert } from "../../interest/model/useDeleteInterestConcert";
 import DangerModal from "../../../shared/ui/DangerModal/DangerModal";
 import BtnPopupIn from "./BtnPopupIn/BtnPopupIn";
@@ -33,7 +34,7 @@ function EditInterestConcertBottomSheet({
 
     deleteConcert(undefined, {
       onSuccess: () => {
-        toast(<CompleteToast message="관심 콘서트가 삭제되었어요" />, {
+        toast(<CompleteToast message="소식을 받을 공연이 해제되었어요" />, {
           position: "top-center",
           autoClose: 3000,
           pauseOnFocusLoss: false,
@@ -42,8 +43,12 @@ function EditInterestConcertBottomSheet({
         setIsModalOpen(false);
         onSheetClose();
       },
-      onError: (err) => {
-        console.error(err);
+      onError: () => {
+        toast(<ErrorToast message="소식을 받을 공연 해제에 실패했어요" />, {
+          position: "top-center",
+          autoClose: 3000,
+          pauseOnFocusLoss: false,
+        });
       },
     });
   };

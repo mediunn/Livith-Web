@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import WarningIcon from "../../../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 interface ChangeConcertConfirmModalProps {
@@ -32,15 +33,21 @@ function ChangeConcertConfirmModal({
         onSuccess: () => {
           onClose();
           setIsToastActive(true);
-          toast(<CompleteToast message="관심 공연을 변경했어요" />, {
+          toast(<CompleteToast message="소식을 받을 공연이 추가되었어요" />, {
             position: "top-center",
             autoClose: 3000,
             pauseOnFocusLoss: false,
             onClose: () => setIsToastActive(false),
           });
         },
-        onError: (err) => console.error(err),
-      }
+        onError: () => {
+          toast(<ErrorToast message="소식을 받을 공연 추가에 실패했어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
+        },
+      },
     );
   };
 

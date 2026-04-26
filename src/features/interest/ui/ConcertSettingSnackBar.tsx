@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 interface ConcertSettingSnackBarProps {
@@ -18,16 +19,20 @@ function ConcertSettingSnackBar({ id, onClose }: ConcertSettingSnackBarProps) {
       { concertId: Number(id), accessToken },
       {
         onSuccess: () => {
-          toast(<CompleteToast message="관심 공연을 변경했어요" />, {
+          toast(<CompleteToast message="소식을 받을 공연이 추가되었어요" />, {
             position: "top-center",
             autoClose: 3000,
             pauseOnFocusLoss: false,
           });
         },
-        onError: (err) => {
-          console.error(err);
+        onError: () => {
+          toast(<ErrorToast message="소식을 받을 공연 추가에 실패했어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
         },
-      }
+      },
     );
   };
 
