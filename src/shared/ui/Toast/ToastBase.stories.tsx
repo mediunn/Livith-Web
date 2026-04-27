@@ -39,7 +39,7 @@ export const DefaultToast: Story = {
         rendererSettings={{ preserveAspectRatio: "xMidYMid meet" }}
       />
     ),
-    message: "관심 공연을 변경했어요",
+    message: "소식을 받을 공연이 추가되었어요",
   },
 };
 

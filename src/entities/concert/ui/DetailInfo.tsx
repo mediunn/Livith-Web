@@ -4,7 +4,7 @@ import EmptyConcertImageIcon from "../../../shared/assets/EmptyConcertImageIcon.
 import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import HotConcertChipIcon from "../../../shared/assets/HotConcertChipIcon.svg";
-import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
+import AlarmIcon from "../../../shared/assets/AlarmIcon.svg";
 import { useState } from "react";
 import ChangeConcertConfirmModal from "../../../features/interest/ui/ChangeConcertConfirmModal";
 import { ConcertStatus } from "../types";
@@ -45,8 +45,8 @@ function DetailInfo({
     <div className="w-full h-337 relative">
       {status !== ConcertStatus.CANCELED && (
         <ConcertMoreBtn
-          label="관심 콘서트 설정하기"
-          icon={ConcertAddIcon}
+          label="소식 받기"
+          icon={AlarmIcon}
           right={16}
           top={0}
           disabled={isToastActive}
