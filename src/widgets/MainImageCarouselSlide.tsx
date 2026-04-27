@@ -19,7 +19,10 @@ function MainImageCarouselSlide({
     }
   };
   return (
-    <div className="relative w-full h-365" onClick={handleOnClick}>
+    <div
+      className="relative w-full h-365 cursor-pointer"
+      onClick={handleOnClick}
+    >
       {/* 배경 */}
       <img src={imageUrl} className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-100"></div>
