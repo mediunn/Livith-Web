@@ -73,6 +73,7 @@ function MainImageCarousel() {
             title={slide.title}
             imageUrl={slide.imgUrl}
             content={slide.content}
+            linkUrl={slide.linkUrl}
           />
         ))}
       </Slider>
