@@ -21,7 +21,7 @@ export const useFilteredConcertList = ({
     queryKey: ["concerts", genre, status, sort],
     queryFn: ({ pageParam }) =>
       getFilteredConcertList({
-        cursor: pageParam ? pageParam : undefined,
+        cursor: pageParam ?? undefined,
         size,
         genre,
         status,
@@ -29,7 +29,7 @@ export const useFilteredConcertList = ({
       }),
     initialPageParam: undefined as number | undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.cursor;
+      return lastPage.data.cursor ?? undefined;
     },
     select: (data) => {
       return {
