@@ -11,8 +11,6 @@ type useFilteredConcertListParams = {
   status?: StatusFilter[];
 };
 
-type Cursor = { id: number | null; value: string | null };
-
 export const useFilteredConcertList = ({
   size,
   genre,
@@ -23,15 +21,13 @@ export const useFilteredConcertList = ({
     queryKey: ["concerts", genre, status, sort],
     queryFn: ({ pageParam }) =>
       getFilteredConcertList({
-        cursor: pageParam
-          ? JSON.stringify({ value: pageParam.value, id: pageParam.id })
-          : undefined,
+        cursor: pageParam ? pageParam : undefined,
         size,
         genre,
         status,
         sort,
       }),
-    initialPageParam: undefined as Cursor | undefined,
+    initialPageParam: undefined as number | undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.data.cursor;
     },

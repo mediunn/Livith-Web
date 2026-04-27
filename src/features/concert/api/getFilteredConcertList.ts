@@ -8,7 +8,7 @@ import axiosInstance from "../../../shared/api/axiosInstance";
 import { ApiResponse } from "../../../shared/types/response";
 
 type GetFilteredConcertListProps = {
-  cursor?: string | null;
+  cursor?: number | null;
   size?: number | null;
   genre?: GenreEnum | null;
   status?: StatusFilter[] | null;
