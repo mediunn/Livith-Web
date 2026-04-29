@@ -5,14 +5,12 @@ export type UserPreference = {
 
 export type User = {
   id: number;
-  interestConcertId: number;
   nickname: string;
   email: string;
   provider: string;
   providerId: string;
   marketingConsent: boolean;
-  preferredGenres: UserPreference[];
-  preferredArtists?: UserPreference[];
+  hasPreferredGenre: boolean;
 };
 
 export type SignupRequest = {
