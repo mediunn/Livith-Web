@@ -1,4 +1,4 @@
-import { genreMap } from "../../concert/constants/filterMaps";
+import { genreMap } from "../constants/filterMaps";
 import { Genre } from "../types";
 import { StateWithSetter } from "../../../shared/types/props";
 import PreferenceCard from "../../../features/preference/ui/PreferenceCard";

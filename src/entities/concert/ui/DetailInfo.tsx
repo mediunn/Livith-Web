@@ -43,24 +43,25 @@ function DetailInfo({
 
   return (
     <div className="w-full h-337 relative">
-      {status !== ConcertStatus.CANCELED && (
-        <ConcertMoreBtn
-          label="소식 받기"
-          icon={AlarmIcon}
-          right={16}
-          top={0}
-          disabled={isToastActive}
-          iconPosition="left"
-          onClick={() => {
-            window.amplitude.track("click_interest_concert_detail");
-            if (user) {
-              setIsModalOpen(true);
-            } else {
-              setIsLoginModalOpen(true);
-            }
-          }}
-        />
-      )}
+      {status !== ConcertStatus.CANCELED &&
+        status !== ConcertStatus.COMPLETED && (
+          <ConcertMoreBtn
+            label="소식 받기"
+            icon={AlarmIcon}
+            right={16}
+            top={0}
+            disabled={isToastActive}
+            iconPosition="left"
+            onClick={() => {
+              window.amplitude.track("click_interest_concert_detail");
+              if (user) {
+                setIsModalOpen(true);
+              } else {
+                setIsLoginModalOpen(true);
+              }
+            }}
+          />
+        )}
 
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {imageUrl ? (

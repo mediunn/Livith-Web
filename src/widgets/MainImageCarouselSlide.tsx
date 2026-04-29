@@ -3,6 +3,7 @@ type MainImageCarouselSlideProps = {
   title: string;
   imageUrl: string;
   content: string;
+  linkUrl?: string;
 };
 
 function MainImageCarouselSlide({
@@ -10,9 +11,18 @@ function MainImageCarouselSlide({
   title,
   imageUrl,
   content,
+  linkUrl,
 }: MainImageCarouselSlideProps) {
+  const handleOnClick = () => {
+    if (linkUrl) {
+      window.open(linkUrl, "_blank");
+    }
+  };
   return (
-    <div className="relative w-full h-365">
+    <div
+      className="relative w-full h-365 cursor-pointer"
+      onClick={handleOnClick}
+    >
       {/* 배경 */}
       <img src={imageUrl} className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent opacity-100"></div>

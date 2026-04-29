@@ -3,7 +3,7 @@ import InputSearchBar from "../features/search/ui/InputSearchBar";
 
 import { SortFilter, StatusFilter } from "../entities/concert/types";
 import { GenreEnum } from "../entities/genre/types";
-import FilterBottomSheet from "../features/search/ui/FilterBottomSheet";
+import SearchFilterBottomSheet from "../features/search/ui/SearchFilterBottomSheet";
 import { FilterChips } from "../features/search/ui/FilterChips";
 import FilterSearch from "../features/search/ui/FilterSearch";
 function SearchPage() {
@@ -85,7 +85,7 @@ function SearchPage() {
         sortRef={sortRef}
       />
       {isSheetOpen && (
-        <FilterBottomSheet
+        <SearchFilterBottomSheet
           genreState={{ value: genre, setValue: setGenre }}
           statusState={{ value: status, setValue: setStatus }}
           isSheetOpen={isSheetOpen}

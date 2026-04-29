@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  genreMap,
-  statusMap,
-} from "../../../entities/concert/constants/filterMaps";
+import { statusMap } from "../../../entities/concert/constants/filterMaps";
+import { genreMap } from "../../../entities/genre/constants/filterMaps";
 import { SortFilter, StatusFilter } from "../../../entities/concert/types";
 import CalendarIcon from "../../../shared/assets/CalendarIcon";
 import MicIcon from "../../../shared/assets/MicIcon";
@@ -16,7 +14,7 @@ import { GenreEnum } from "../../../entities/genre/types";
 
 interface FilterChipsProps {
   openSheet: () => void;
-  genreState: StateWithSetter<GenreEnum[]>;
+  genreState?: StateWithSetter<GenreEnum[]> | null;
   statusState: StateWithSetter<StatusFilter[]>;
   sortState: StateWithSetter<SortFilter>;
   isSortClickedState: StateWithSetter<boolean>;
@@ -25,39 +23,44 @@ interface FilterChipsProps {
 
 export function FilterChips({
   openSheet,
-  genreState: { value: genreSelected, setValue: setGenreSelected },
+  genreState,
   statusState: { value: statusSelected, setValue: setStatusSelected },
   sortState: { value: sort, setValue: setSort },
   isSortClickedState: { value: isSortClicked, setValue: setIsSortClicked },
   sortRef,
 }: FilterChipsProps) {
+  const genreSelected = genreState?.value ?? [GenreEnum.ALL];
+  const setGenreSelected = genreState?.setValue;
+  const currentGenre = genreSelected[0] ?? GenreEnum.ALL;
+
   return (
     // {/* 필터 영역 */}
     <div className="flex flex-row m-16 justify-between items-center">
       <div className="flex flex-row space-x-8">
-        {genreSelected[0] === GenreEnum.ALL ? (
-          <Dropdown
-            onClick={openSheet}
-            variant="off"
-            icon={<MicIcon />}
-            label="전체장르"
-          />
-        ) : (
-          <Dropdown
-            onClick={openSheet}
-            variant="on"
-            icon={<MicIcon color="black" />}
-            onRightIconClick={(e) => {
-              e.stopPropagation(); // 부모 div의 onClick 실행 안 되게 막음
-              setGenreSelected([GenreEnum.ALL]);
-            }}
-            label={
-              genreSelected.length > 1
-                ? `${genreMap[genreSelected[0]]}, ...`
-                : genreMap[genreSelected[0]]
-            }
-          />
-        )}
+        {genreState &&
+          (currentGenre === GenreEnum.ALL ? (
+            <Dropdown
+              onClick={openSheet}
+              variant="off"
+              icon={<MicIcon />}
+              label="전체장르"
+            />
+          ) : (
+            <Dropdown
+              onClick={openSheet}
+              variant="on"
+              icon={<MicIcon color="black" />}
+              onRightIconClick={(e) => {
+                e.stopPropagation(); // 부모 div의 onClick 실행 안 되게 막음
+                setGenreSelected?.([GenreEnum.ALL]);
+              }}
+              label={
+                genreSelected.length > 1
+                  ? `${genreMap[currentGenre]}, ...`
+                  : genreMap[currentGenre]
+              }
+            />
+          ))}
         {StatusFilter.ALL === statusSelected[0] ? (
           <Dropdown
             onClick={openSheet}
