@@ -7,9 +7,9 @@ import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
 
 type SearchResultProps = {
   keyword: string;
-  selectedConcertState?: StateWithSetter<string | null>;
+  selectedConcertsState?: StateWithSetter<string | null>;
 };
-function SearchResult({ keyword, selectedConcertState }: SearchResultProps) {
+function SearchResult({ keyword, selectedConcertsState }: SearchResultProps) {
   const size = 12; // 페이지당 항목 수
   const {
     data,
@@ -36,7 +36,7 @@ function SearchResult({ keyword, selectedConcertState }: SearchResultProps) {
         <div className="h-[calc(100vh-200px)] flex items-center justify-center">
           <EmptySearchResult />
         </div>
-      ) : selectedConcertState ? (
+      ) : selectedConcertsState ? (
         <SelectableInfiniteConcertList
           concerts={data?.pages}
           fetchNextPage={fetchNextPage}
@@ -44,7 +44,7 @@ function SearchResult({ keyword, selectedConcertState }: SearchResultProps) {
           isFetchingNextPage={isFetchingNextPage}
           isLoading={isLoading}
           isError={isError}
-          selectedConcertState={selectedConcertState}
+          selectedConcertsState={selectedConcertsState}
         />
       ) : (
         <InfiniteConcertList

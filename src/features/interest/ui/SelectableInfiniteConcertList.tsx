@@ -17,7 +17,7 @@ type SelectableInfiniteConcertListProps = {
   isFetchingNextPage?: boolean;
   isLoading?: boolean;
   isError?: boolean;
-  selectedConcertState: StateWithSetter<string | null>;
+  selectedConcertsState: StateWithSetter<string | null>;
 };
 
 export function SelectableInfiniteConcertList({
@@ -27,9 +27,9 @@ export function SelectableInfiniteConcertList({
   isFetchingNextPage,
   isLoading,
   isError,
-  selectedConcertState: {
-    value: selectedConcert,
-    setValue: setSelectedConcert,
+  selectedConcertsState: {
+    value: selectedConcerts,
+    setValue: setSelectedConcerts,
   },
 }: SelectableInfiniteConcertListProps) {
   const navigate = useNavigate();
@@ -55,14 +55,20 @@ export function SelectableInfiniteConcertList({
   return (
     <div className="grid grid-cols-3 gap-x-10 gap-y-24 px-16">
       {concerts?.map((concert) => {
-        const isSelected = selectedConcert === concert.id;
+        const isSelected = selectedConcerts
+          ?.split(",")
+          .includes(String(concert.id));
         return (
           <motion.div
             key={concert.id}
             onClick={() =>
-              setSelectedConcert(
-                selectedConcert === concert.id ? null : concert.id
-              )
+              setSelectedConcerts((prev) => {
+                const prevIds = prev?.split(",") || [];
+                const newIds = prevIds.includes(String(concert.id))
+                  ? prevIds.filter((id) => id !== String(concert.id))
+                  : [...prevIds, String(concert.id)];
+                return newIds.join(",");
+              })
             }
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 type SetInterestConcertButtonProps = {
-  selectedConcertState: StateWithSetter<string | null>;
+  selectedConcertsState: StateWithSetter<string | null>;
 };
 
 export const SetInterestConcertButton = ({
-  selectedConcertState: { value: selectedConcert },
+  selectedConcertsState: { value: selectedConcerts },
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
   const mutation = useSetInterestConcert();
@@ -16,11 +16,11 @@ export const SetInterestConcertButton = ({
   const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleSetInterestConcert = async () => {
-    if (!selectedConcert) return;
+    if (!selectedConcerts) return;
 
     mutation.mutate(
       {
-        concertId: Number(selectedConcert),
+        concertIds: selectedConcerts.split(",").map(Number),
         accessToken,
       },
       {
@@ -43,7 +43,7 @@ export const SetInterestConcertButton = ({
 
   return (
     <AnimatePresence>
-      {selectedConcert && (
+      {selectedConcerts && (
         <motion.button
           onClick={handleSetInterestConcert}
           initial={{ opacity: 0 }}
@@ -55,7 +55,7 @@ export const SetInterestConcertButton = ({
           설정하기
         </motion.button>
       )}
-      {!selectedConcert && (
+      {!selectedConcerts && (
         <button
           disabled
           className="w-full py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR text-grayScaleBlack30 bg-grayScaleBlack50 cursor-not-allowed"

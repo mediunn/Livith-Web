@@ -13,18 +13,18 @@ function SetInterestConcertPage() {
   const [showAll, setShowAll] = useState<boolean>(true);
   // 검색 결과를 보여줄지 여부
   const [showResults, setShowResults] = useState(false);
-  const [selectedConcert, setSelectedConcert] = useState<string | null>(null);
+  const [selectedConcerts, setSelectedConcerts] = useState<string | null>(null);
 
   const { data: interestList } = useInterestConcerts({});
 
   useEffect(() => {
     const firstId = interestList?.[0]?.id;
-    if (firstId) setSelectedConcert(String(firstId));
+    if (firstId) setSelectedConcerts(String(firstId));
   }, [interestList]);
 
   useEffect(() => {
     if (!showAll && !showResults) {
-      setSelectedConcert(null);
+      setSelectedConcerts(null);
     }
   }, [showAll, showResults]);
 
@@ -57,16 +57,16 @@ function SetInterestConcertPage() {
         {showResults && input ? (
           <SearchResult
             keyword={input}
-            selectedConcertState={{
-              value: selectedConcert,
-              setValue: setSelectedConcert,
+            selectedConcertsState={{
+              value: selectedConcerts,
+              setValue: setSelectedConcerts,
             }}
           />
         ) : !input && showAll ? (
           <SelectableConcertList
-            selectedConcertState={{
-              value: selectedConcert,
-              setValue: setSelectedConcert,
+            selectedConcertsState={{
+              value: selectedConcerts,
+              setValue: setSelectedConcerts,
             }}
           />
         ) : (
@@ -84,9 +84,9 @@ function SetInterestConcertPage() {
       {/* 버튼: 항상 화면 맨 아래 */}
       <div className="sticky bottom-0 bg-grayScaleBlack100 pt-24 pb-60 z-50 px-16">
         <SetInterestConcertButton
-          selectedConcertState={{
-            value: selectedConcert,
-            setValue: setSelectedConcert,
+          selectedConcertsState={{
+            value: selectedConcerts,
+            setValue: setSelectedConcerts,
           }}
         />
       </div>
