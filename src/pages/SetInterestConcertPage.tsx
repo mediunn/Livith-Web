@@ -3,10 +3,10 @@ import ListHeader from "../shared/ui/ListHeader";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
 import SearchResultCount from "../features/search/ui/SearchResultCount";
 import SearchResult from "../features/search/ui/SearchResult";
-import RecommendSearch from "../features/search/ui/RecommendSearch";
 import SelectableConcertList from "../features/interest/ui/SelectableConcertList";
 import { SetInterestConcertButton } from "../features/interest/ui/SetInterestConcertButton";
 import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
+import { ConcertScheduleType } from "../entities/concert/types";
 
 function SetInterestConcertPage() {
   const [input, setInput] = useState<string>("");
@@ -15,7 +15,14 @@ function SetInterestConcertPage() {
   const [showResults, setShowResults] = useState(false);
   const [selectedConcerts, setSelectedConcerts] = useState<string | null>(null);
 
-  const { data: interestList } = useInterestConcerts({});
+  const { data: interestList } = useInterestConcerts({
+    sort: ConcertScheduleType.CONCERT,
+  });
+
+  const title =
+    interestList && interestList.length > 0 ? "공연 변경" : "공연 설정";
+  const buttonLabel =
+    interestList && interestList.length > 0 ? "변경하기" : "설정하기";
 
   useEffect(() => {
     const firstId = interestList?.[0]?.id;
@@ -32,7 +39,7 @@ function SetInterestConcertPage() {
     <div className="flex flex-col min-h-screen">
       {/* 상단 헤더 */}
       <div className="sticky top-0 z-50">
-        <ListHeader title="공연 설정하기" />
+        <ListHeader title={title} />
         <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
           <InputSearchBar
             inputState={{ value: input, setValue: setInput }}
@@ -44,11 +51,12 @@ function SetInterestConcertPage() {
             placeholder="찾고 있는 콘서트나 가수를 검색하세요"
           />
 
-          {showResults && input && (
+          {/* 검색 결과 개수 표시 */}
+          {/* {showResults && input && (
             <div className="px-16 py-24 sticky top-[72px] bg-grayScaleBlack100 z-40">
               <SearchResultCount keyword={input} />
             </div>
-          )}
+          )} */}
         </div>
       </div>
 
@@ -69,17 +77,7 @@ function SetInterestConcertPage() {
               setValue: setSelectedConcerts,
             }}
           />
-        ) : (
-          input.trim() && (
-            <RecommendSearch
-              inputState={{ value: input, setValue: setInput }}
-              showResultsState={{
-                value: showResults,
-                setValue: setShowResults,
-              }}
-            />
-          )
-        )}
+        ) : null}
       </div>
       {/* 버튼: 항상 화면 맨 아래 */}
       <div className="sticky bottom-0 bg-grayScaleBlack100 pt-24 pb-60 z-50 px-16">
@@ -88,6 +86,7 @@ function SetInterestConcertPage() {
             value: selectedConcerts,
             setValue: setSelectedConcerts,
           }}
+          label={buttonLabel}
         />
       </div>
     </div>

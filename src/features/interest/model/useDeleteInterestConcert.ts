@@ -8,7 +8,7 @@ export const useDeleteInterestConcert = () => {
     mutationFn: () => deleteInterestConcert(),
     onSuccess: () => {
       // 삭제 성공 시 목록 invalidate
-      queryClient.invalidateQueries({ queryKey: ["interest-concert"] });
+      queryClient.invalidateQueries({ queryKey: ["interest-concerts"] });
     },
   });
 };
