@@ -5,7 +5,7 @@ import { useSchedule } from "../entities/concert/model/useSchedule";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
 import ConcertSetting from "../features/concert/ui/ConcertSetting";
 import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
-import { useInterestConcert } from "../features/interest/model/useInterestConcert";
+import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
 import TabBar from "../shared/ui/TabBar";
 import TopBar from "../shared/ui/TopBar";
 import GuidedBanner from "../shared/ui/GuidedBanner";
@@ -14,8 +14,10 @@ import { userState } from "../shared/lib/recoil/atoms/userState";
 import { authReadyState } from "../shared/lib/recoil/atoms/authReadyState";
 
 function HomePage() {
-  const { data: interest, isLoading: isInterestLoading } = useInterestConcert();
-  const concertId = interest?.id ?? null;
+  const { data: interest, isLoading: isInterestLoading } =
+    useInterestConcerts();
+  const concertIdStr = interest?.[0]?.id ?? null;
+  const concertId = concertIdStr ? Number(concertIdStr) : null;
 
   const { data: concert, isLoading: isConcertLoading } =
     useConcertInsideInfo(concertId);
@@ -37,7 +39,7 @@ function HomePage() {
   const user = useRecoilValue(userState);
   const isAuthReady = useRecoilValue(authReadyState);
   const isLoggedIn = !!user;
-  const hasPrefer = (user?.preferredGenres?.length ?? 0) > 0;
+  const hasPrefer = user?.hasPreferredGenre ?? false;
 
   useEffect(() => {
     if (showSignupComplete) {
@@ -53,7 +55,7 @@ function HomePage() {
         <>
           <TopBar bgColor="bg-grayScaleBlack100" />
           <ConcertSetting
-            concertId={concertId}
+            concertId={concertId!}
             concert={concert}
             schedules={schedules}
           />

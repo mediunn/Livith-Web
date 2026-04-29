@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ListHeader from "../shared/ui/ListHeader";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
 import SearchResultCount from "../features/search/ui/SearchResultCount";
@@ -6,6 +6,7 @@ import SearchResult from "../features/search/ui/SearchResult";
 import RecommendSearch from "../features/search/ui/RecommendSearch";
 import SelectableConcertList from "../features/interest/ui/SelectableConcertList";
 import { SetInterestConcertButton } from "../features/interest/ui/SetInterestConcertButton";
+import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
 
 function SetInterestConcertPage() {
   const [input, setInput] = useState<string>("");
@@ -13,6 +14,13 @@ function SetInterestConcertPage() {
   // 검색 결과를 보여줄지 여부
   const [showResults, setShowResults] = useState(false);
   const [selectedConcert, setSelectedConcert] = useState<string | null>(null);
+
+  const { data: interestList } = useInterestConcerts({});
+
+  useEffect(() => {
+    const firstId = interestList?.[0]?.id;
+    if (firstId) setSelectedConcert(String(firstId));
+  }, [interestList]);
 
   useEffect(() => {
     if (!showAll && !showResults) {
