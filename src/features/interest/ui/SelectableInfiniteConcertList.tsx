@@ -1,14 +1,14 @@
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import {
-  Concert,
-  ConcertFilter,
-  ConcertStatus,
-} from "../../../entities/concert/types";
-import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
+import { Concert } from "../../../entities/concert/types";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
+import {
+  getConcertDisplayDate,
+  getConcertDisplayStatus,
+  getConcertDisplayTitle,
+} from "../../../shared/utils/concertDisplay";
 
 type SelectedConcert = {
   id: string;
@@ -37,7 +37,6 @@ export function SelectableInfiniteConcertList({
     setValue: setSelectedConcerts,
   },
 }: SelectableInfiniteConcertListProps) {
-  const navigate = useNavigate();
   const { ref } = useInView({
     triggerOnce: false,
     onChange: (inView) => {
@@ -49,26 +48,18 @@ export function SelectableInfiniteConcertList({
   if (isLoading) return null;
   if (isError) return null;
 
-  const formatDate = (startDate: string, endDate: string) => {
-    const end = endDate.split(".");
-    if (startDate === endDate) {
-      return `${startDate}`;
-    }
-    return `${startDate}~${end[1]}.${end[2]}`;
-  };
-
   return (
     <div className="grid grid-cols-3 gap-x-10 gap-y-24 px-16">
       {concerts?.map((concert) => {
-        const isSelected = selectedConcerts.some(c => c.id === concert.id);
+        const isSelected = selectedConcerts.some((c) => c.id === concert.id);
         return (
           <motion.div
             key={concert.id}
             onClick={() =>
               setSelectedConcerts((prev) => {
-                const exists = prev.some(c => c.id === concert.id);
+                const exists = prev.some((c) => c.id === concert.id);
                 return exists
-                  ? prev.filter(c => c.id !== concert.id)
+                  ? prev.filter((c) => c.id !== concert.id)
                   : [...prev, { id: concert.id, title: concert.title }];
               })
             }
@@ -94,19 +85,16 @@ export function SelectableInfiniteConcertList({
                 )}
 
                 <ChipState
-                  label={setConcertStatus({
-                    status: concert.status,
-                    daysLeft: concert.daysLeft,
-                  })}
+                  label={getConcertDisplayStatus(concert)}
                   variant={isSelected ? "selected" : "default"}
                   className="absolute top-10 left-10"
                 />
               </div>
               <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2 break-words">
-                {concert.title}
+                {getConcertDisplayTitle(concert)}
               </p>
               <p className="text-grayScaleBlack50 text-Caption1-sm font-semibold font-NotoSansKR mt-10 line-clamp-1">
-                {formatDate(concert.startDate, concert.endDate)}
+                {getConcertDisplayDate(concert)}
               </p>
               {concert.artist && (
                 <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR mt-4 mb-2 line-clamp-1">
