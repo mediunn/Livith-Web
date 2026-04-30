@@ -41,7 +41,13 @@ function InterestConcert() {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="absolute top-full right-0"
                 >
-                  <InterestHomeSortMenu sort={sort} setSort={setSort} />
+                  <InterestHomeSortMenu
+                    sort={sort}
+                    setSort={(newSort) => {
+                      setSort(newSort);
+                      setIsSortClicked(false);
+                    }}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -65,7 +71,7 @@ function InterestConcert() {
           onClick={() => navigate("/interest-concert")}
         />
       </div>
-      <InterestConcertCarousel />
+      <InterestConcertCarousel sort={sort} />
     </div>
   );
 }
