@@ -7,7 +7,6 @@ import "swiper/css/free-mode";
 import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
 import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
 import { RecommendConcert } from "../types";
-import { formatDateRange } from "../../../shared/utils/formatDateRange";
 import ConcertCard from "../../../entities/concert/ui/ConcertCard";
 
 type RecommedConcertSlideProps = {
@@ -105,7 +104,8 @@ function RecommedConcertSlide({ concerts }: RecommedConcertSlideProps) {
               imageUrl={concert.poster}
               title={concert.title}
               artist={concert.artist}
-              date={formatDateRange(concert.startDate, concert.endDate)}
+              startDate={concert.startDate}
+              endDate={concert.endDate}
               status={concert.status}
               daysLeft={concert.daysLeft}
               onClick={() => {

@@ -3,12 +3,17 @@ import { SelectableInfiniteConcertList } from "./SelectableInfiniteConcertList";
 import { StateWithSetter } from "../../../shared/types/props";
 import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
 
+type SelectedConcert = {
+  id: string;
+  title: string;
+};
+
 type SelectableConcertListProps = {
-  selectedConcertState: StateWithSetter<string | null>;
+  selectedConcertsState: StateWithSetter<SelectedConcert[]>;
 };
 
 export function SelectableConcertList({
-  selectedConcertState,
+  selectedConcertsState,
 }: SelectableConcertListProps) {
   const size = 15; // 페이지당 항목 수
   const {
@@ -35,7 +40,7 @@ export function SelectableConcertList({
       isFetchingNextPage={isFetchingNextPage}
       isLoading={isLoading}
       isError={isError}
-      selectedConcertState={selectedConcertState}
+      selectedConcertsState={selectedConcertsState}
     />
   );
 }

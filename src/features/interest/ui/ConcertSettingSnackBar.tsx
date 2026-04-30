@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
+import { useInterestConcerts } from "../model/useInterestConcerts";
+import { ConcertScheduleType } from "../../../entities/concert/types";
 
 interface ConcertSettingSnackBarProps {
   id: string | number;
@@ -12,11 +14,20 @@ interface ConcertSettingSnackBarProps {
 
 function ConcertSettingSnackBar({ id, onClose }: ConcertSettingSnackBarProps) {
   const mutation = useSetInterestConcert();
+  const { data: interestConcerts } = useInterestConcerts({
+    sort: ConcertScheduleType.CONCERT,
+  });
   const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleChange = () => {
+    const targetId = Number(id);
+    const existingIds = (interestConcerts ?? [])
+      .map((concert) => Number(concert.id))
+      .filter((concertId) => Number.isFinite(concertId) && concertId > 0);
+    const mergedConcertIds = Array.from(new Set([...existingIds, targetId]));
+
     mutation.mutate(
-      { concertId: Number(id), accessToken },
+      { concertIds: mergedConcertIds, accessToken },
       {
         onSuccess: () => {
           toast(<CompleteToast message="소식을 받을 공연이 추가되었어요" />, {

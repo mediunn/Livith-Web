@@ -34,14 +34,6 @@ export function InfiniteConcertList({
   if (isLoading) return null;
   if (isError) return null;
 
-  const formatDate = (startDate: string, endDate: string) => {
-    const end = endDate.split(".");
-    if (startDate === endDate) {
-      return `${startDate}`;
-    }
-    return `${startDate}~${end[1]}.${end[2]}`;
-  };
-
   return (
     <div className="py-18 mx-16 grid grid-cols-3 gap-x-10 gap-y-24">
       {concerts?.map((concert) => (
@@ -49,7 +41,8 @@ export function InfiniteConcertList({
           <ConcertCard
             imageUrl={concert.poster}
             title={concert.title}
-            date={formatDate(concert.startDate, concert.endDate)}
+            startDate={concert.startDate}
+            endDate={concert.endDate}
             status={concert.status}
             onClick={() => {
               navigate(`/concert/${concert.id}`, {

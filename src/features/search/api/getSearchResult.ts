@@ -9,7 +9,7 @@ import { ApiResponse } from "../../../shared/types/response";
 
 type GetSearchResultProps = {
   keyword: string;
-  cursor?: string | null;
+  cursor?: number | null;
   size?: number | null;
   genre?: GenreEnum[] | null;
   status?: StatusFilter[] | null;
@@ -37,9 +37,9 @@ export async function getSearchResult({
       const searchParams = new URLSearchParams();
       Object.entries(params).forEach(([key, value]) => {
         if (Array.isArray(value)) {
-          value.forEach((v) => searchParams.append(key, v as string));
+          value.forEach((v) => searchParams.append(key, String(v)));
         } else if (value !== undefined) {
-          searchParams.append(key, value as string);
+          searchParams.append(key, String(value));
         }
       });
       return searchParams.toString();

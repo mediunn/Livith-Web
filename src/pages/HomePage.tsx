@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { useSchedule } from "../entities/concert/model/useSchedule";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
 import ConcertSetting from "../features/concert/ui/ConcertSetting";
 import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
-import { useInterestConcert } from "../features/interest/model/useInterestConcert";
+import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
 import TabBar from "../shared/ui/TabBar";
 import TopBar from "../shared/ui/TopBar";
 import GuidedBanner from "../shared/ui/GuidedBanner";
@@ -14,10 +14,16 @@ import { userState } from "../shared/lib/recoil/atoms/userState";
 import { authReadyState } from "../shared/lib/recoil/atoms/authReadyState";
 import InterestConcert from "../widgets/InterestConcert";
 import RecommedConcertListSection from "../widgets/RecommedConcertListSection";
+import { toast } from "react-toastify";
+import CompleteToast from "../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../shared/ui/Toast/ErrorToast";
+
 
 function HomePage() {
-  const { data: interest, isLoading: isInterestLoading } = useInterestConcert();
-  const concertId = interest?.id ?? null;
+  const { data: interest, isLoading: isInterestLoading } =
+    useInterestConcerts();
+  const concertIdStr = interest?.[0]?.id ?? null;
+  const concertId = concertIdStr ? Number(concertIdStr) : null;
 
   const { data: concert, isLoading: isConcertLoading } =
     useConcertInsideInfo(concertId);
@@ -27,35 +33,71 @@ function HomePage() {
   const isLoading = isInterestLoading || isConcertLoading || isScheduleLoading;
 
   const location = useLocation();
-  const state = location.state as {
-    showSignupComplete?: boolean;
-    nickname?: string;
-  } | null;
-  const showSignupComplete = state?.showSignupComplete;
-  const nickname = state?.nickname;
+  const navigate = useNavigate();
+  const {
+    showSignupComplete,
+    nickname,
+    showSetConcertSuccessToast,
+    showSetConcertErrorToast,
+    toastLabel: toastLabel,
+  } = location.state || {};
+  const hasShownSetConcertToastRef = useRef(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const user = useRecoilValue(userState);
   const isAuthReady = useRecoilValue(authReadyState);
   const isLoggedIn = !!user;
-  const hasPrefer = (user?.preferredGenres?.length ?? 0) > 0;
+  const hasPrefer = user?.hasPreferredGenre ?? false;
 
   useEffect(() => {
     if (showSignupComplete) {
       setIsModalOpen(true);
       // 한 번만 띄우도록 URL 상태 초기화
-      window.history.replaceState({}, document.title);
+      navigate(".", { replace: true, state: null });
     }
-  }, [showSignupComplete]);
+  }, [showSignupComplete, navigate]);
+
+  useEffect(() => {
+    if (hasShownSetConcertToastRef.current) return;
+
+    if (showSetConcertSuccessToast) {
+      hasShownSetConcertToastRef.current = true;
+      toast(
+        <CompleteToast message={`소식을 받을 공연이 ${toastLabel}되었어요`} />,
+        {
+          position: "top-center",
+          autoClose: 3000,
+        },
+      );
+      navigate(".", { replace: true, state: null });
+      return;
+    } else if (showSetConcertErrorToast) {
+      hasShownSetConcertToastRef.current = true;
+      toast(
+        <ErrorToast message={`소식을 받을 공연 ${toastLabel}에 실패했어요`} />,
+        {
+          position: "top-center",
+          autoClose: 3000,
+        },
+      );
+      navigate(".", { replace: true, state: null });
+    }
+  }, [
+    showSetConcertSuccessToast,
+    showSetConcertErrorToast,
+    toastLabel,
+    navigate,
+  ]);
 
   return (
     <div className="pb-90">
       {concertId && concert && !isLoading ? (
         <>
           <TopBar bgColor="bg-grayScaleBlack100" />
-          {/* <ConcertSetting
-            concertId={concertId}
+
+          <ConcertSetting
+            concertId={concertId!}
             concert={concert}
             schedules={schedules}
           /> */}

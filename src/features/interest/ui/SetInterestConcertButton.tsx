@@ -4,11 +4,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 type SetInterestConcertButtonProps = {
-  selectedConcertState: StateWithSetter<string | null>;
+  selectedConcertsState: StateWithSetter<string | null>;
+  isFirst?: boolean;
+  disabled?: boolean;
 };
 
 export const SetInterestConcertButton = ({
-  selectedConcertState: { value: selectedConcert },
+  selectedConcertsState: { value: selectedConcerts },
+  isFirst = false,
+  disabled = false,
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
   const mutation = useSetInterestConcert();
@@ -16,53 +20,60 @@ export const SetInterestConcertButton = ({
   const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleSetInterestConcert = async () => {
-    if (!selectedConcert) return;
+    const concertIds =
+      selectedConcerts && selectedConcerts.trim()
+        ? selectedConcerts
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean)
+            .map(Number)
+        : [];
 
     mutation.mutate(
       {
-        concertId: Number(selectedConcert),
+        concertIds,
         accessToken,
       },
       {
-        onSuccess: (data) => {
-          const concertData = {
-            id: data.id,
-            poster: data.poster,
-            artist: data.artist,
-          };
-
-          navigate("/complete-set", {
+        onSuccess: () => {
+          navigate("/", {
             replace: true,
-            state: { concert: concertData },
+            state: {
+              showSetConcertSuccessToast: true,
+              toastLabel: isFirst ? "설정" : "변경",
+            },
           });
         },
-        onError: (err) => console.error(err),
+        onError: () => {
+          navigate("/", {
+            replace: true,
+            state: {
+              showSetConcertErrorToast: true,
+              toastLabel: isFirst ? "설정" : "변경",
+            },
+          });
+        },
       },
     );
   };
 
   return (
     <AnimatePresence>
-      {selectedConcert && (
-        <motion.button
-          onClick={handleSetInterestConcert}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25, ease: "easeIn" }}
-          className="w-full py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR cursor-pointer text-grayScaleBlack100 bg-mainYellow30"
-        >
-          설정하기
-        </motion.button>
-      )}
-      {!selectedConcert && (
-        <button
+      <motion.button
+        onClick={handleSetInterestConcert}
+        disabled={disabled}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25, ease: "easeIn" }}
+        className={`w-full py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR transition-colors ${
           disabled
-          className="w-full py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR text-grayScaleBlack30 bg-grayScaleBlack50 cursor-not-allowed"
-        >
-          설정하기
-        </button>
-      )}
+            ? "cursor-not-allowed bg-grayScaleBlack50 text-grayScaleBlack30"
+            : "cursor-pointer bg-mainYellow30 text-grayScaleBlack100"
+        } `}
+      >
+        {isFirst ? "설정하기" : "변경하기"}
+      </motion.button>
     </AnimatePresence>
   );
 };

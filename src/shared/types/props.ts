@@ -1,4 +1,6 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type StateWithSetter<T> = {
   value: T;
-  setValue: (value: T) => void;
+  setValue: Dispatch<SetStateAction<T>>;
 };

@@ -35,7 +35,7 @@ function SearchInputField({
 
   const handleClear = () => {
     onChange("");
-    inputRef.current?.focus();
+    setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   return (

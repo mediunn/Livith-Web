@@ -1,17 +1,17 @@
 import axiosInstance from "../../../shared/api/axiosInstance";
 
 export interface SetInterestConcertProps {
-  concertId: number;
+  concertIds: number[];
   accessToken: string;
 }
 
 export const setInterestConcert = async ({
-  concertId,
+  concertIds,
   accessToken,
 }: SetInterestConcertProps) => {
-  const response = await axiosInstance.post(
-    `/users/interest-concert`,
-    { concertId },
+  const response = await axiosInstance.put(
+    `/users/interest-concerts`,
+    { concertIds },
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,

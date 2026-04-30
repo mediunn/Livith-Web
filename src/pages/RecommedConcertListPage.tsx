@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import ListHeader from "../shared/ui/ListHeader";
 import { useRecommendConcertListSection } from "../features/concert/model/useRecommendConcertListSection";
 import ConcertCard from "../entities/concert/ui/ConcertCard";
-import { formatDateRange } from "../shared/utils/formatDateRange";
 
 function RecommedConcertListPage() {
   // 페이지 진입 시 스크롤 맨 위로 이동
@@ -26,7 +25,8 @@ function RecommedConcertListPage() {
               imageUrl={concert.poster}
               title={concert.title}
               artist={concert.artist}
-              date={formatDateRange(concert.startDate, concert.endDate)}
+              startDate={concert.startDate}
+              endDate={concert.endDate}
               status={concert.status}
               daysLeft={concert.daysLeft}
               onClick={() => navigate(`/concert/${concert.id}`)}
