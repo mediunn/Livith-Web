@@ -18,7 +18,6 @@ import { toast } from "react-toastify";
 import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
-
 function HomePage() {
   const { data: interest, isLoading: isInterestLoading } =
     useInterestConcerts();
@@ -100,7 +99,7 @@ function HomePage() {
             concertId={concertId!}
             concert={concert}
             schedules={schedules}
-          /> */}
+          />
           <InterestConcert />
           {hasPrefer && user && (
             <RecommedConcertListSection nickname={user.nickname} />

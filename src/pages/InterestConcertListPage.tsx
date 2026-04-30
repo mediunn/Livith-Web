@@ -59,7 +59,8 @@ function InterestConcertListPage() {
               imageUrl={concert.poster}
               title={concert.title}
               artist={concert.artist}
-              date={formatDateRange(concert.startDate, concert.endDate)}
+              startDate={concert.startDate}
+              endDate={concert.endDate}
               status={concert.status}
               daysLeft={concert.daysLeft}
               onClick={() => navigate(`/concert/${concert.id}`)}
