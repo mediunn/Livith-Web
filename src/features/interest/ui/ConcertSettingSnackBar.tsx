@@ -5,7 +5,7 @@ import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
 import { useInterestConcerts } from "../model/useInterestConcerts";
-import { ConcertScheduleType } from "../../../entities/concert/types";
+import { InterestSortFilter } from "../../../entities/concert/types";
 
 interface ConcertSettingSnackBarProps {
   id: string | number;
@@ -15,7 +15,7 @@ interface ConcertSettingSnackBarProps {
 function ConcertSettingSnackBar({ id, onClose }: ConcertSettingSnackBarProps) {
   const mutation = useSetInterestConcert();
   const { data: interestConcerts } = useInterestConcerts({
-    sort: ConcertScheduleType.CONCERT,
+    sort: InterestSortFilter.CONCERT,
   });
   const accessToken = localStorage.getItem("accessToken") ?? "";
 

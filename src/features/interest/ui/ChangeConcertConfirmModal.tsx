@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
 import { useInterestConcerts } from "../model/useInterestConcerts";
-import { ConcertScheduleType } from "../../../entities/concert/types";
+import { InterestSortFilter } from "../../../entities/concert/types";
 import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 
 interface ChangeConcertConfirmModalProps {
@@ -22,7 +22,7 @@ function ChangeConcertConfirmModal({
 }: ChangeConcertConfirmModalProps) {
   const mutation = useSetInterestConcert();
   const { data: interestConcerts } = useInterestConcerts({
-    sort: ConcertScheduleType.CONCERT,
+    sort: InterestSortFilter.CONCERT,
   });
   const accessToken = localStorage.getItem("accessToken") ?? "";
 

@@ -14,7 +14,7 @@ import { ChipBadge } from "../../../shared/ui/ChipBadge/ChipBadge";
 import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
 import { useSetInterestConcert } from "../../../features/interest/model/useSetInterestConcert";
 import { useInterestConcerts } from "../../../features/interest/model/useInterestConcerts";
-import { ConcertScheduleType } from "../../../entities/concert/types";
+import { InterestSortFilter } from "../../../entities/concert/types";
 
 interface DetailInfoProps {
   id: string;
@@ -40,7 +40,7 @@ function DetailInfo({
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const mutation = useSetInterestConcert();
   const { data: interestConcerts } = useInterestConcerts({
-    sort: ConcertScheduleType.CONCERT,
+    sort: InterestSortFilter.CONCERT,
   });
 
   const [user] = useRecoilState(userState);

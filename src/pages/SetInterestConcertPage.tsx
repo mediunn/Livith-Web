@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ConcertScheduleType } from "../entities/concert/types";
+import { InterestSortFilter } from "../entities/concert/types";
 import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
 import SelectableConcertList from "../features/interest/ui/SelectableConcertList";
 import SelectedSection from "../features/interest/ui/SelectedSection";
@@ -35,7 +35,7 @@ function SetInterestConcertPage() {
 
   const { data: interestList, isFetching: isInterestFetching } =
     useInterestConcerts({
-      sort: ConcertScheduleType.CONCERT,
+      sort: InterestSortFilter.CONCERT,
     });
   const isFirst = !interestList || interestList.length === 0;
   const savedSelectedIds = toSelectedIds(
