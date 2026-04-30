@@ -55,7 +55,7 @@ function DetailInfo({
 
   const isInterested = interestExistsData?.data?.isInterested ?? false;
 
-  const handleReceiveConcertAlert = async () => {
+  const handleToggleInterest = async () => {
     window.amplitude.track("confirm_change_interest");
 
     if (!Number.isFinite(targetId) || targetId <= 0) {
@@ -76,7 +76,9 @@ function DetailInfo({
       .map((concert) => Number(concert.id))
       .filter((concertId) => Number.isFinite(concertId) && concertId > 0);
 
-    const mergedConcertIds = Array.from(new Set([...existingIds, targetId]));
+    const mergedConcertIds = isInterested
+      ? existingIds.filter((concertId) => concertId !== targetId) // 해제
+      : Array.from(new Set([...existingIds, targetId])); // 추가
 
     mutation.mutate(
       {
@@ -88,18 +90,36 @@ function DetailInfo({
           queryClient.invalidateQueries({
             queryKey: ["interestConcertExists", targetId],
           });
-          toast(<CompleteToast message="소식을 받을 공연이 추가되었어요" />, {
-            position: "top-center",
-            autoClose: 3000,
-            pauseOnFocusLoss: false,
-          });
+          toast(
+            <CompleteToast
+              message={
+                isInterested
+                  ? "소식을 받을 공연이 해제되었어요"
+                  : "소식을 받을 공연이 추가되었어요"
+              }
+            />,
+            {
+              position: "top-center",
+              autoClose: 3000,
+              pauseOnFocusLoss: false,
+            },
+          );
         },
         onError: () => {
-          toast(<ErrorToast message="소식을 받을 공연 추가에 실패했어요" />, {
-            position: "top-center",
-            autoClose: 3000,
-            pauseOnFocusLoss: false,
-          });
+          toast(
+            <ErrorToast
+              message={
+                isInterested
+                  ? "소식을 받을 공연 해제에 실패했어요"
+                  : "소식을 받을 공연 추가에 실패했어요"
+              }
+            />,
+            {
+              position: "top-center",
+              autoClose: 3000,
+              pauseOnFocusLoss: false,
+            },
+          );
         },
       },
     );
@@ -119,7 +139,7 @@ function DetailInfo({
             onClick={async () => {
               window.amplitude.track("click_interest_concert_detail");
               if (user) {
-                await handleReceiveConcertAlert();
+                await handleToggleInterest();
               } else {
                 setIsLoginModalOpen(true);
               }
