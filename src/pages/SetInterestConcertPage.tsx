@@ -15,6 +15,7 @@ export type SelectedConcert = {
 
 function SetInterestConcertPage() {
   const [input, setInput] = useState<string>("");
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const [showAll, setShowAll] = useState<boolean>(true);
   const [showResults, setShowResults] = useState(false);
   const [selectedConcerts, setSelectedConcerts] = useState<SelectedConcert[]>(
@@ -51,6 +52,18 @@ function SetInterestConcertPage() {
       <div className="sticky top-0 z-50">
         <ListHeader title={title} />
         <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
+          {!isInputFocused && (
+            <div className="flex py-20">
+              <div className="text-Body1-sm text-grayScaleWhite font-semibold font-NotoSansKR mb-8">
+                소식을 받을 콘서트를 <br /> 선택해 주세요
+              </div>
+              <div className="flex flex-1 justify-end">
+                <span className="text-Body4-md text-grayScaleBlack50 font-medium font-NotoSansKR">
+                  {selectedConcerts.length}개 선택
+                </span>
+              </div>
+            </div>
+          )}
           <InputSearchBar
             inputState={{ value: input, setValue: setInput }}
             showAllState={{ value: showAll, setValue: setShowAll }}
@@ -59,17 +72,11 @@ function SetInterestConcertPage() {
               setValue: setShowResults,
             }}
             placeholder="찾고 있는 콘서트나 가수를 검색하세요"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
-
-          {/* 검색 결과 개수 표시 */}
-          {/* {showResults && input && (
-            <div className="px-16 py-24 sticky top-[72px] bg-grayScaleBlack100 z-40">
-              <SearchResultCount keyword={input} />
-            </div>
-          )} */}
         </div>
       </div>
-
       {/* 리스트 영역: 스크롤 가능 */}
       <div className="flex-1 overflow-auto mt-12">
         {showResults && input ? (

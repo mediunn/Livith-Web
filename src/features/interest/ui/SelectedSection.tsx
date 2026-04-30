@@ -16,6 +16,7 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const updateArrows = () => {
     const el = containerRef.current;
@@ -47,8 +48,12 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
     label.length > 20 ? `${label.slice(0, 20)}...` : label;
 
   return (
-    <div className="relative my-20">
-      {showLeft && (
+    <div
+      className="relative my-20"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {showLeft && isHovered && (
         <button
           aria-label="scroll-left"
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10"
@@ -76,7 +81,7 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
         ))}
       </div>
 
-      {showRight && (
+      {showRight && isHovered && (
         <button
           aria-label="scroll-right"
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10"
