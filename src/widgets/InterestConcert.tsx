@@ -57,7 +57,10 @@ function InterestConcert() {
             이 가까운
           </p>
         </div>
-        <button className="p-8 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR cursor-pointer">
+        <button
+          className="p-8 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR cursor-pointer"
+          onClick={() => navigate("/set-concert")}
+        >
           변경하기
         </button>
       </div>

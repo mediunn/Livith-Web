@@ -8,12 +8,15 @@ import PrevArrow from "../../../shared/assets/PrevArrow.svg";
 import NextArrow from "../../../shared/assets/NextArrow.svg";
 import { useInterestConcerts } from "../model/useInterestConcerts";
 import { InterestSortFilter } from "../../../entities/concert/types";
+import { useNavigate } from "react-router-dom";
 
 interface InterestConcertCarouselProps {
   sort: InterestSortFilter;
 }
 
 function InterestConcertCarousel({ sort }: InterestConcertCarouselProps) {
+  const navigate = useNavigate();
+
   const [isHovered, setIsHovered] = useState(false);
   const { data: concerts = [], isLoading } = useInterestConcerts({
     size: 5,
@@ -72,7 +75,11 @@ function InterestConcertCarousel({ sort }: InterestConcertCarouselProps) {
     >
       <Slider {...settings}>
         {concerts.slice(0, 5).map((concert) => (
-          <InterestConcertCarouselSlide key={concert.id} concert={concert} />
+          <InterestConcertCarouselSlide
+            key={concert.id}
+            concert={concert}
+            onClick={() => navigate(`/concert/${concert.id}`)}
+          />
         ))}
       </Slider>
     </div>

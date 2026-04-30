@@ -14,10 +14,12 @@ import {
 
 interface InterestConcertCarouselSlideProps {
   concert: InterestConcertResponse;
+  onClick: () => void;
 }
 
 function InterestConcertCarouselSlide({
   concert,
+  onClick,
 }: InterestConcertCarouselSlideProps) {
   const {
     daysLeft,
@@ -43,7 +45,7 @@ function InterestConcertCarouselSlide({
 
   return (
     <div className="w-full mb-40 flex items-center">
-      <div className="w-full cursor-pointer relative">
+      <div className="w-full cursor-pointer relative" onClick={onClick}>
         <img src={cardMask} className="w-full h-full object-contain" />
 
         <div className="absolute inset-0 p-16 flex flex-col gap-16">
