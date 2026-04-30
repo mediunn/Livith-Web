@@ -73,13 +73,17 @@ export function SelectableInfiniteConcertList({
                   <img
                     src={concert.poster}
                     className={`w-full h-full rounded-6 object-cover ${
-                      isSelected ? "border-2 border-mainYellow30" : ""
+                      isSelected
+                        ? "border-2 border-mainYellow30"
+                        : "border-2 border-transparent"
                     }`}
                   />
                 ) : (
                   <div
                     className={`w-full bg-grayScaleBlack80 rounded-6 ${
-                      isSelected ? "border-2 border-mainYellow30" : ""
+                      isSelected
+                        ? "border-2 border-mainYellow30"
+                        : "border-2 border-transparent"
                     }`}
                   />
                 )}
