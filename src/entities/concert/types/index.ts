@@ -85,6 +85,11 @@ export enum SortFilter {
   ALPHABETICAL = "ALPHABETICAL",
 }
 
+export enum InterestSortFilter {
+  TICKET_DATE = "TICKET_DATE", // 예매일
+  PERFORMANCE_DATE = "PERFORMANCE_DATE", // 공연 일정
+}
+
 export enum ConcertScheduleType {
   PRE_TICKETING = "PRE_TICKETING",
   GENERAL_TICKETING = "GENERAL_TICKETING",

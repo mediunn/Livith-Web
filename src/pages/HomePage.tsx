@@ -12,6 +12,8 @@ import GuidedBanner from "../shared/ui/GuidedBanner";
 import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
 import { authReadyState } from "../shared/lib/recoil/atoms/authReadyState";
+import InterestConcert from "../widgets/InterestConcert";
+import RecommedConcertListSection from "../widgets/RecommedConcertListSection";
 import { toast } from "react-toastify";
 import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
@@ -92,11 +94,16 @@ function HomePage() {
       {concertId && concert && !isLoading ? (
         <>
           <TopBar bgColor="bg-grayScaleBlack100" />
+
           <ConcertSetting
             concertId={concertId!}
             concert={concert}
             schedules={schedules}
           />
+          <InterestConcert />
+          {hasPrefer && user && (
+            <RecommedConcertListSection nickname={user.nickname} />
+          )}
         </>
       ) : (
         <>

@@ -31,6 +31,7 @@ import AlarmListPage from "../pages/AlarmListPage";
 import UpdatePreferGenrePage from "../pages/UpdatePreferGenrePage";
 import UpdatePreferArtistPage from "../pages/UpdatePreferArtistPage";
 import RecommedConcertListPage from "../pages/RecommedConcertListPage";
+import InterestConcertListPage from "../pages/InterestConcertListPage";
 
 const queryClient = new QueryClient();
 
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
       {
         path: "set-concert",
         element: <SetInterestConcertPage />,
+      },
+      {
+        path: "interest-concert",
+        element: <InterestConcertListPage />,
       },
       {
         path: "md/:concertId",
