@@ -19,8 +19,10 @@ import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
 function HomePage() {
-  const { data: interest, isLoading: isInterestLoading } =
-    useInterestConcerts();
+  const user = useRecoilValue(userState);
+  const { data: interest, isLoading: isInterestLoading } = useInterestConcerts({
+    userId: user?.id,
+  });
   const concertIdStr = interest?.[0]?.id ?? null;
   const concertId = concertIdStr ? Number(concertIdStr) : null;
 
@@ -44,7 +46,6 @@ function HomePage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const user = useRecoilValue(userState);
   const isAuthReady = useRecoilValue(authReadyState);
   const isLoggedIn = !!user;
   const hasPrefer = user?.hasPreferredGenre ?? false;
@@ -92,19 +93,13 @@ function HomePage() {
   return (
     <div className="pb-90">
       {concertId && concert && !isLoading ? (
-        <>
+        <div className="pb-20">
           <TopBar bgColor="bg-grayScaleBlack100" />
-
-          <ConcertSetting
-            concertId={concertId!}
-            concert={concert}
-            schedules={schedules}
-          />
           <InterestConcert />
           {hasPrefer && user && (
             <RecommedConcertListSection nickname={user.nickname} />
           )}
-        </>
+        </div>
       ) : (
         <>
           <TopBar bgColor="bg-grayScaleBlack90" />

@@ -9,6 +9,8 @@ import NextArrow from "../../../shared/assets/NextArrow.svg";
 import { useInterestConcerts } from "../model/useInterestConcerts";
 import { InterestSortFilter } from "../../../entities/concert/types";
 import { useNavigate } from "react-router-dom";
+import { userState } from "../../../shared/lib/recoil/atoms/userState";
+import { useRecoilValue } from "recoil";
 
 interface InterestConcertCarouselProps {
   sort: InterestSortFilter;
@@ -16,9 +18,11 @@ interface InterestConcertCarouselProps {
 
 function InterestConcertCarousel({ sort }: InterestConcertCarouselProps) {
   const navigate = useNavigate();
+  const user = useRecoilValue(userState);
 
   const [isHovered, setIsHovered] = useState(false);
   const { data: concerts = [], isLoading } = useInterestConcerts({
+    userId: user?.id,
     size: 5,
     sort,
   });
@@ -69,7 +73,7 @@ function InterestConcertCarousel({ sort }: InterestConcertCarouselProps) {
 
   return (
     <div
-      className="relative w-full h-365 mb-6"
+      className="relative w-full h-full mb-6"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
