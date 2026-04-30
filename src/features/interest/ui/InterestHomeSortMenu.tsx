@@ -1,12 +1,12 @@
 // features/interest/ui/InterestSortMenu.tsx
 import { InterestSortFilter } from "../../../entities/concert/types";
 
-interface InterestSortMenuProps {
+interface InterestHomeSortMenuProps {
   sort: InterestSortFilter;
   setSort: (sort: InterestSortFilter) => void;
 }
 
-function InterestSortMenu({ sort, setSort }: InterestSortMenuProps) {
+function InterestHomeSortMenu({ sort, setSort }: InterestHomeSortMenuProps) {
   const baseClass = "py-3 text-center rounded-8 font-NotoSansKR cursor-pointer";
   const activeClass =
     "bg-mainYellow30 text-Body4-sm font-semibold text-grayScaleBlack100";
@@ -44,4 +44,4 @@ function InterestSortMenu({ sort, setSort }: InterestSortMenuProps) {
   );
 }
 
-export default InterestSortMenu;
+export default InterestHomeSortMenu;

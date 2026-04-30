@@ -67,14 +67,7 @@ function InterestConcertCarousel() {
     >
       <Slider {...settings}>
         {banners.slice(0, 5).map((slide) => (
-          <InterestConcertCarouselSlide
-            key={slide.id}
-            category={slide.category}
-            title={slide.title}
-            imageUrl={slide.imgUrl}
-            content={slide.content}
-            linkUrl={slide.linkUrl}
-          />
+          <InterestConcertCarouselSlide key={slide.id} />
         ))}
       </Slider>
     </div>

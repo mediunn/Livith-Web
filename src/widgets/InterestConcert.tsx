@@ -5,10 +5,12 @@ import ConcertListSectionArrowIcon from "../shared/assets/ConcertListSectionArro
 import InterestSortDownIcon from "../shared/assets/InterestSortDownIcon.svg";
 import InterestSortUpIcon from "../shared/assets/InterestSortUpIcon.svg";
 import Filter from "../features/search/ui/Filter/Filter";
-import InterestSortMenu from "../features/interest/ui/InterestSortMenu";
+import InterestHomeSortMenu from "../features/interest/ui/InterestHomeSortMenu";
 import { InterestSortFilter } from "../entities/concert/types";
+import { useNavigate } from "react-router-dom";
 
 function InterestConcert() {
+  const navigate = useNavigate();
   const [sort, setSort] = useState<InterestSortFilter>(
     InterestSortFilter.TICKET_DATE,
   );
@@ -39,7 +41,7 @@ function InterestConcert() {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="absolute top-full right-0"
                 >
-                  <InterestSortMenu sort={sort} setSort={setSort} />
+                  <InterestHomeSortMenu sort={sort} setSort={setSort} />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -60,6 +62,7 @@ function InterestConcert() {
         <img
           src={ConcertListSectionArrowIcon}
           className="w-24 h-24 cursor-pointer"
+          onClick={() => navigate("/interest-concert")}
         />
       </div>
       <InterestConcertCarousel />
