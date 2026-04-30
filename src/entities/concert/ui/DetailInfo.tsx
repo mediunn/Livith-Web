@@ -6,13 +6,15 @@ import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import HotConcertChipIcon from "../../../shared/assets/HotConcertChipIcon.svg";
 import AlarmIcon from "../../../shared/assets/AlarmIcon.svg";
 import { useState } from "react";
-import ChangeConcertConfirmModal from "../../../features/interest/ui/ChangeConcertConfirmModal";
 import { ConcertStatus } from "../types";
 import { useRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { ChipBadge } from "../../../shared/ui/ChipBadge/ChipBadge";
 import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
+import { useSetInterestConcert } from "../../../features/interest/model/useSetInterestConcert";
+import { useInterestConcerts } from "../../../features/interest/model/useInterestConcerts";
+import { ConcertScheduleType } from "../../../entities/concert/types";
 
 interface DetailInfoProps {
   id: string;
@@ -35,11 +37,37 @@ function DetailInfo({
   label,
   status,
 }: DetailInfoProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isToastActive, setIsToastActive] = useState(false);
+  const mutation = useSetInterestConcert();
+  const { data: interestConcerts } = useInterestConcerts({
+    sort: ConcertScheduleType.CONCERT,
+  });
 
   const [user] = useRecoilState(userState);
+
+  const handleReceiveConcertAlert = () => {
+    window.amplitude.track("confirm_change_interest");
+
+    const targetId = Number(id);
+    if (!Number.isFinite(targetId) || targetId <= 0) {
+      return;
+    }
+
+    const existingIds = (interestConcerts ?? [])
+      .map((concert) => Number(concert.id))
+      .filter((concertId) => Number.isFinite(concertId) && concertId > 0);
+    const mergedConcertIds = Array.from(new Set([...existingIds, targetId]));
+
+    const accessToken = localStorage.getItem("accessToken") ?? "";
+
+    mutation.mutate(
+      {
+        concertIds: mergedConcertIds,
+        accessToken,
+      },
+      {},
+    );
+  };
 
   return (
     <div className="w-full h-337 relative">
@@ -50,12 +78,12 @@ function DetailInfo({
             icon={AlarmIcon}
             right={16}
             top={0}
-            disabled={isToastActive}
+            disabled={mutation.isPending}
             iconPosition="left"
             onClick={() => {
               window.amplitude.track("click_interest_concert_detail");
               if (user) {
-                setIsModalOpen(true);
+                handleReceiveConcertAlert();
               } else {
                 setIsLoginModalOpen(true);
               }
@@ -101,12 +129,6 @@ function DetailInfo({
           </p>
         </div>
       </div>
-      <ChangeConcertConfirmModal
-        id={id}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        setIsToastActive={setIsToastActive}
-      />
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}

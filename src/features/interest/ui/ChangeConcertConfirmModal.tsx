@@ -2,8 +2,10 @@ import { toast } from "react-toastify";
 import WarningIcon from "../../../shared/assets/WarningIcon.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
-import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 import { useSetInterestConcert } from "../model/useSetInterestConcert";
+import { useInterestConcerts } from "../model/useInterestConcerts";
+import { ConcertScheduleType } from "../../../entities/concert/types";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 
 interface ChangeConcertConfirmModalProps {
   id: string;
@@ -19,14 +21,28 @@ function ChangeConcertConfirmModal({
   setIsToastActive,
 }: ChangeConcertConfirmModalProps) {
   const mutation = useSetInterestConcert();
+  const { data: interestConcerts } = useInterestConcerts({
+    sort: ConcertScheduleType.CONCERT,
+  });
   const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleChange = async () => {
     window.amplitude.track("confirm_change_interest");
 
+    const targetId = Number(id);
+    if (!Number.isFinite(targetId) || targetId <= 0) {
+      return;
+    }
+
+    const existingIds = (interestConcerts ?? [])
+      .map((concert) => Number(concert.id))
+      .filter((concertId) => Number.isFinite(concertId) && concertId > 0);
+
+    const mergedConcertIds = Array.from(new Set([...existingIds, targetId]));
+
     mutation.mutate(
       {
-        concertId: Number(id),
+        concertIds: mergedConcertIds,
         accessToken,
       },
       {
