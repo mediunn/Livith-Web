@@ -5,6 +5,7 @@ import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import HotConcertChipIcon from "../../../shared/assets/HotConcertChipIcon.svg";
 import AlarmIcon from "../../../shared/assets/AlarmIcon.svg";
+import AlarmFillIcon from "../../../shared/assets/AlarmFillIcon.svg";
 import { useState } from "react";
 import { ConcertStatus } from "../types";
 import { useRecoilState } from "recoil";
@@ -15,6 +16,7 @@ import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButt
 import { useSetInterestConcert } from "../../../features/interest/model/useSetInterestConcert";
 import { useInterestConcerts } from "../../../features/interest/model/useInterestConcerts";
 import { InterestSortFilter } from "../../../entities/concert/types";
+import { useInterestConcertExists } from "../../../features/interest/model/useInterestConcertExists";
 
 interface DetailInfoProps {
   id: string;
@@ -45,10 +47,18 @@ function DetailInfo({
 
   const [user] = useRecoilState(userState);
 
+  const targetId = Number(id);
+
+  const { data: interestExistsData } = useInterestConcertExists(
+    targetId,
+    !!user,
+  );
+
+  const isInterested = interestExistsData?.data?.isInterested ?? false;
+
   const handleReceiveConcertAlert = () => {
     window.amplitude.track("confirm_change_interest");
 
-    const targetId = Number(id);
     if (!Number.isFinite(targetId) || targetId <= 0) {
       return;
     }
@@ -74,8 +84,8 @@ function DetailInfo({
       {status !== ConcertStatus.CANCELED &&
         status !== ConcertStatus.COMPLETED && (
           <ConcertMoreBtn
-            label="소식 받기"
-            icon={AlarmIcon}
+            label={isInterested ? "소식 받는 중" : "소식 받기"}
+            icon={isInterested ? AlarmFillIcon : AlarmIcon}
             right={16}
             top={0}
             disabled={mutation.isPending}
