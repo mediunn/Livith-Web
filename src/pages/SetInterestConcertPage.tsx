@@ -5,7 +5,7 @@ import SelectableConcertList from "../features/interest/ui/SelectableConcertList
 import SelectedSection from "../features/interest/ui/SelectedSection";
 import { SetInterestConcertButton } from "../features/interest/ui/SetInterestConcertButton";
 import InputSearchBar from "../features/search/ui/InputSearchBar";
-import SearchResult from "../features/search/ui/SearchResult";
+import SearchResult from "../features/interest/ui/SearchResult";
 import ListHeader from "../shared/ui/ListHeader";
 
 export type SelectedConcert = {
@@ -80,6 +80,7 @@ function SetInterestConcertPage() {
       {/* 리스트 영역: 스크롤 가능 */}
       <div className="flex-1 overflow-auto mt-12">
         {showResults && input ? (
+          // 검색 결과 보여주기
           <SearchResult
             keyword={input}
             selectedConcertsState={{
@@ -88,6 +89,7 @@ function SetInterestConcertPage() {
             }}
           />
         ) : !input && showAll ? (
+          // 전체 리스트 보여주기
           <SelectableConcertList
             selectedConcertsState={{
               value: selectedConcerts,

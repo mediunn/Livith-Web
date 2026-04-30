@@ -1,9 +1,10 @@
-import { useSearchResult } from "../model/useSearchResult";
+import { useSearchResult } from "../../search/model/useSearchResult";
 import { InfiniteConcertList } from "../../../widgets/InfiniteConcertList";
-import EmptySearchResult from "./EmptySearchResult";
+import EmptySearchResult from "../../search/ui/EmptySearchResult";
 import { StateWithSetter } from "../../../shared/types/props";
-import { SelectableInfiniteConcertList } from "../../../features/interest/ui/SelectableInfiniteConcertList";
+import { SelectableInfiniteConcertList } from "./SelectableInfiniteConcertList";
 import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
+import { StatusFilter } from "../../../entities/concert/types";
 
 type SelectedConcert = {
   id: string;
@@ -23,7 +24,11 @@ function SearchResult({ keyword, selectedConcertsState }: SearchResultProps) {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useSearchResult({ keyword, size });
+  } = useSearchResult({
+    keyword,
+    size,
+    status: [StatusFilter.ONGOING, StatusFilter.UPCOMING],
+  });
 
   window.amplitude.track("click_search_complete");
 
