@@ -112,12 +112,12 @@ function ConcertSetting({
           <div>
             <button
               onClick={() => {
-                openSheet();
+                navigate("/set-concert");
                 window.amplitude.track("click_change_concert_main");
               }}
               className="mr-24 text-grayScaleBlack50 bg-grayScaleBlack100 hover:bg-grayScaleBlack80 rounded-30 p-8 text-Body4-re font-regular font-NotoSansKR border-none cursor-pointer"
             >
-              수정하기
+              변경하기
             </button>
             <EditInterestConcertBottomSheet
               isSheetOpen={isSheetOpen}
