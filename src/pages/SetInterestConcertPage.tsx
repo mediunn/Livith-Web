@@ -13,6 +13,13 @@ export type SelectedConcert = {
   title: string;
 };
 
+const toSelectedIds = (concerts: SelectedConcert[]) =>
+  concerts
+    .map((concert) => concert.id)
+    .filter(Boolean)
+    .sort()
+    .join(",");
+
 function SetInterestConcertPage() {
   const [input, setInput] = useState<string>("");
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -27,6 +34,14 @@ function SetInterestConcertPage() {
       sort: ConcertScheduleType.CONCERT,
     });
   const isFirst = !interestList || interestList.length === 0;
+  const savedSelectedIds = toSelectedIds(
+    interestList?.map((concert) => ({
+      id: concert.id,
+      title: concert.title,
+    })) ?? [],
+  );
+  const currentSelectedIds = toSelectedIds(selectedConcerts);
+  const isSelectionChanged = currentSelectedIds !== savedSelectedIds;
 
   const title = isFirst ? "공연 설정" : "공연 변경";
 
@@ -110,11 +125,11 @@ function SetInterestConcertPage() {
         {/* 버튼 */}
         <SetInterestConcertButton
           selectedConcertsState={{
-            value: selectedConcerts.map((c) => c.id).join(",") || null,
+            value: currentSelectedIds || null,
             setValue: (action) => {
               const idString =
                 typeof action === "function"
-                  ? action(selectedConcerts.map((c) => c.id).join(",") || null)
+                  ? action(currentSelectedIds || null)
                   : action;
 
               if (!idString) {
@@ -136,6 +151,7 @@ function SetInterestConcertPage() {
             },
           }}
           isFirst={isFirst}
+          disabled={!isSelectionChanged}
         />
       </div>
     </div>

@@ -6,11 +6,13 @@ import { useSetInterestConcert } from "../model/useSetInterestConcert";
 type SetInterestConcertButtonProps = {
   selectedConcertsState: StateWithSetter<string | null>;
   isFirst?: boolean;
+  disabled?: boolean;
 };
 
 export const SetInterestConcertButton = ({
   selectedConcertsState: { value: selectedConcerts },
   isFirst = false,
+  disabled = false,
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
   const mutation = useSetInterestConcert();
@@ -59,11 +61,16 @@ export const SetInterestConcertButton = ({
     <AnimatePresence>
       <motion.button
         onClick={handleSetInterestConcert}
+        disabled={disabled}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.25, ease: "easeIn" }}
-        className="w-full py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR cursor-pointer text-grayScaleBlack100 bg-mainYellow30"
+        className={`w-full py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR transition-colors ${
+          disabled
+            ? "cursor-not-allowed bg-grayScaleBlack50 text-grayScaleBlack30"
+            : "cursor-pointer bg-mainYellow30 text-grayScaleBlack100"
+        } `}
       >
         {isFirst ? "설정하기" : "변경하기"}
       </motion.button>
