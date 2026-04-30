@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { useSchedule } from "../entities/concert/model/useSchedule";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
@@ -12,6 +12,9 @@ import GuidedBanner from "../shared/ui/GuidedBanner";
 import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
 import { authReadyState } from "../shared/lib/recoil/atoms/authReadyState";
+import { toast } from "react-toastify";
+import CompleteToast from "../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
 function HomePage() {
   const { data: interest, isLoading: isInterestLoading } =
@@ -27,12 +30,15 @@ function HomePage() {
   const isLoading = isInterestLoading || isConcertLoading || isScheduleLoading;
 
   const location = useLocation();
-  const state = location.state as {
-    showSignupComplete?: boolean;
-    nickname?: string;
-  } | null;
-  const showSignupComplete = state?.showSignupComplete;
-  const nickname = state?.nickname;
+  const navigate = useNavigate();
+  const {
+    showSignupComplete,
+    nickname,
+    showSetConcertSuccessToast,
+    showSetConcertErrorToast,
+    toastLabel: toastLabel,
+  } = location.state || {};
+  const hasShownSetConcertToastRef = useRef(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,9 +51,41 @@ function HomePage() {
     if (showSignupComplete) {
       setIsModalOpen(true);
       // 한 번만 띄우도록 URL 상태 초기화
-      window.history.replaceState({}, document.title);
+      navigate(".", { replace: true, state: null });
     }
-  }, [showSignupComplete]);
+  }, [showSignupComplete, navigate]);
+
+  useEffect(() => {
+    if (hasShownSetConcertToastRef.current) return;
+
+    if (showSetConcertSuccessToast) {
+      hasShownSetConcertToastRef.current = true;
+      toast(
+        <CompleteToast message={`소식을 받을 공연이 ${toastLabel}되었어요`} />,
+        {
+          position: "top-center",
+          autoClose: 3000,
+        },
+      );
+      navigate(".", { replace: true, state: null });
+      return;
+    } else if (showSetConcertErrorToast) {
+      hasShownSetConcertToastRef.current = true;
+      toast(
+        <ErrorToast message={`소식을 받을 공연 ${toastLabel}에 실패했어요`} />,
+        {
+          position: "top-center",
+          autoClose: 3000,
+        },
+      );
+      navigate(".", { replace: true, state: null });
+    }
+  }, [
+    showSetConcertSuccessToast,
+    showSetConcertErrorToast,
+    toastLabel,
+    navigate,
+  ]);
 
   return (
     <div className="pb-90">

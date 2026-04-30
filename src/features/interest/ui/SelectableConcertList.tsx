@@ -3,8 +3,13 @@ import { SelectableInfiniteConcertList } from "./SelectableInfiniteConcertList";
 import { StateWithSetter } from "../../../shared/types/props";
 import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
 
+type SelectedConcert = {
+  id: string;
+  title: string;
+};
+
 type SelectableConcertListProps = {
-  selectedConcertsState: StateWithSetter<string | null>;
+  selectedConcertsState: StateWithSetter<SelectedConcert[]>;
 };
 
 export function SelectableConcertList({

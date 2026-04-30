@@ -1,37 +1,47 @@
 import { useEffect, useState } from "react";
-import ListHeader from "../shared/ui/ListHeader";
-import InputSearchBar from "../features/search/ui/InputSearchBar";
-import SearchResultCount from "../features/search/ui/SearchResultCount";
-import SearchResult from "../features/search/ui/SearchResult";
-import SelectableConcertList from "../features/interest/ui/SelectableConcertList";
-import { SetInterestConcertButton } from "../features/interest/ui/SetInterestConcertButton";
-import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
 import { ConcertScheduleType } from "../entities/concert/types";
+import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
+import SelectableConcertList from "../features/interest/ui/SelectableConcertList";
+import SelectedSection from "../features/interest/ui/SelectedSection";
+import { SetInterestConcertButton } from "../features/interest/ui/SetInterestConcertButton";
+import InputSearchBar from "../features/search/ui/InputSearchBar";
+import SearchResult from "../features/search/ui/SearchResult";
+import ListHeader from "../shared/ui/ListHeader";
+
+export type SelectedConcert = {
+  id: string;
+  title: string;
+};
 
 function SetInterestConcertPage() {
   const [input, setInput] = useState<string>("");
   const [showAll, setShowAll] = useState<boolean>(true);
-  // 검색 결과를 보여줄지 여부
   const [showResults, setShowResults] = useState(false);
-  const [selectedConcerts, setSelectedConcerts] = useState<string | null>(null);
+  const [selectedConcerts, setSelectedConcerts] = useState<SelectedConcert[]>(
+    [],
+  );
 
-  const { data: interestList } = useInterestConcerts({
-    sort: ConcertScheduleType.CONCERT,
-  });
+  const { data: interestList, isFetching: isInterestFetching } =
+    useInterestConcerts({
+      sort: ConcertScheduleType.CONCERT,
+    });
+  const isFirst = !interestList || interestList.length === 0;
 
-  const title =
-    interestList && interestList.length > 0 ? "공연 변경" : "공연 설정";
-  const buttonLabel =
-    interestList && interestList.length > 0 ? "변경하기" : "설정하기";
+  const title = isFirst ? "공연 설정" : "공연 변경";
 
   useEffect(() => {
-    const firstId = interestList?.[0]?.id;
-    if (firstId) setSelectedConcerts(String(firstId));
-  }, [interestList]);
+    if (isInterestFetching) return;
+
+    if (interestList && interestList.length > 0) {
+      setSelectedConcerts(
+        interestList.map((it) => ({ id: it.id, title: it.title })),
+      );
+    }
+  }, [interestList, isInterestFetching]);
 
   useEffect(() => {
     if (!showAll && !showResults) {
-      setSelectedConcerts(null);
+      setSelectedConcerts([]);
     }
   }, [showAll, showResults]);
 
@@ -80,13 +90,43 @@ function SetInterestConcertPage() {
         ) : null}
       </div>
       {/* 버튼: 항상 화면 맨 아래 */}
-      <div className="sticky bottom-0 bg-grayScaleBlack100 pt-24 pb-60 z-50 px-16">
-        <SetInterestConcertButton
-          selectedConcertsState={{
+      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pt-24 pb-60 z-50 px-16">
+        {/* 선택된 공연 칩 */}
+        <SelectedSection
+          selectedState={{
             value: selectedConcerts,
             setValue: setSelectedConcerts,
           }}
-          label={buttonLabel}
+        />
+        {/* 버튼 */}
+        <SetInterestConcertButton
+          selectedConcertsState={{
+            value: selectedConcerts.map((c) => c.id).join(",") || null,
+            setValue: (action) => {
+              const idString =
+                typeof action === "function"
+                  ? action(selectedConcerts.map((c) => c.id).join(",") || null)
+                  : action;
+
+              if (!idString) {
+                setSelectedConcerts([]);
+                return;
+              }
+
+              const ids = idString
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean);
+              setSelectedConcerts((prev) => {
+                const updated = ids.map((id) => {
+                  const existing = prev.find((c) => c.id === id);
+                  return existing || { id, title: "" };
+                });
+                return updated;
+              });
+            },
+          }}
+          isFirst={isFirst}
         />
       </div>
     </div>

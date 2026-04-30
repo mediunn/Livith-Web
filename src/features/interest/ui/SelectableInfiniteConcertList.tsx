@@ -10,6 +10,11 @@ import { setConcertStatus } from "../../../features/search/utils/setConcertStatu
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
 
+type SelectedConcert = {
+  id: string;
+  title: string;
+};
+
 type SelectableInfiniteConcertListProps = {
   concerts: Concert[] | undefined;
   fetchNextPage?: () => void;
@@ -17,7 +22,7 @@ type SelectableInfiniteConcertListProps = {
   isFetchingNextPage?: boolean;
   isLoading?: boolean;
   isError?: boolean;
-  selectedConcertsState: StateWithSetter<string | null>;
+  selectedConcertsState: StateWithSetter<SelectedConcert[]>;
 };
 
 export function SelectableInfiniteConcertList({
@@ -55,19 +60,16 @@ export function SelectableInfiniteConcertList({
   return (
     <div className="grid grid-cols-3 gap-x-10 gap-y-24 px-16">
       {concerts?.map((concert) => {
-        const isSelected = selectedConcerts
-          ?.split(",")
-          .includes(String(concert.id));
+        const isSelected = selectedConcerts.some(c => c.id === concert.id);
         return (
           <motion.div
             key={concert.id}
             onClick={() =>
               setSelectedConcerts((prev) => {
-                const prevIds = prev?.split(",") || [];
-                const newIds = prevIds.includes(String(concert.id))
-                  ? prevIds.filter((id) => id !== String(concert.id))
-                  : [...prevIds, String(concert.id)];
-                return newIds.join(",");
+                const exists = prev.some(c => c.id === concert.id);
+                return exists
+                  ? prev.filter(c => c.id !== concert.id)
+                  : [...prev, { id: concert.id, title: concert.title }];
               })
             }
             initial={{ opacity: 0 }}

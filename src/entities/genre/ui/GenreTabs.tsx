@@ -1,7 +1,7 @@
 import TabContext from "@mui/lab/TabContext";
 import { motion } from "framer-motion";
 import { genreMap } from "../constants/filterMaps";
-import styles from "./GenreTabs.module.css";
+import styles from "../../../shared/styles/scrollbar.module.css";
 import { StateWithSetter } from "../../../shared/types/props";
 import { GenreEnum } from "../types";
 
@@ -17,7 +17,7 @@ function GenreTabs({
   return (
     //좌우 스크롤 가능한 탭
     <div
-      className={`w-full border-grayScale30 overflow-x-auto ${styles.scrollContainer}`}
+      className={`w-full border-grayScale30 overflow-x-auto ${styles.hiddenScrollbar}`}
     >
       <TabContext value={selectedTab}>
         <div className="flex">

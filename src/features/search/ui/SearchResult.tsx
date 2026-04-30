@@ -5,9 +5,14 @@ import { StateWithSetter } from "../../../shared/types/props";
 import { SelectableInfiniteConcertList } from "../../../features/interest/ui/SelectableInfiniteConcertList";
 import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
 
+type SelectedConcert = {
+  id: string;
+  title: string;
+};
+
 type SearchResultProps = {
   keyword: string;
-  selectedConcertsState?: StateWithSetter<string | null>;
+  selectedConcertsState?: StateWithSetter<SelectedConcert[]>;
 };
 function SearchResult({ keyword, selectedConcertsState }: SearchResultProps) {
   const size = 12; // 페이지당 항목 수

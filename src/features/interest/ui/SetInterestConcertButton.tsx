@@ -5,12 +5,12 @@ import { useSetInterestConcert } from "../model/useSetInterestConcert";
 
 type SetInterestConcertButtonProps = {
   selectedConcertsState: StateWithSetter<string | null>;
-  label?: string;
+  isFirst?: boolean;
 };
 
 export const SetInterestConcertButton = ({
   selectedConcertsState: { value: selectedConcerts },
-  label = "설정하기",
+  isFirst = false,
 }: SetInterestConcertButtonProps) => {
   const navigate = useNavigate();
   const mutation = useSetInterestConcert();
@@ -33,19 +33,24 @@ export const SetInterestConcertButton = ({
         accessToken,
       },
       {
-        onSuccess: (data) => {
-          const concertData = {
-            id: data.id,
-            poster: data.poster,
-            artist: data.artist,
-          };
-
-          navigate("/complete-set", {
+        onSuccess: () => {
+          navigate("/", {
             replace: true,
-            state: { concert: concertData },
+            state: {
+              showSetConcertSuccessToast: true,
+              toastLabel: isFirst ? "설정" : "변경",
+            },
           });
         },
-        onError: (err) => console.error(err),
+        onError: () => {
+          navigate("/", {
+            replace: true,
+            state: {
+              showSetConcertErrorToast: true,
+              toastLabel: isFirst ? "설정" : "변경",
+            },
+          });
+        },
       },
     );
   };
@@ -60,7 +65,7 @@ export const SetInterestConcertButton = ({
         transition={{ duration: 0.25, ease: "easeIn" }}
         className="w-full py-15 rounded-6 text-Body2-sm font-semibold font-NotoSansKR cursor-pointer text-grayScaleBlack100 bg-mainYellow30"
       >
-        {label}
+        {isFirst ? "설정하기" : "변경하기"}
       </motion.button>
     </AnimatePresence>
   );
