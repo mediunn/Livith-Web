@@ -26,6 +26,7 @@ export const useInterestConcerts = ({
     InterestConcertResponse[] | null
   >({
     queryKey: ["interest-concerts", size, cursorDate, cursorId, sort],
+    refetchOnMount: "always",
     queryFn: ({ pageParam }) =>
       getInterestConcerts({
         size,

@@ -7,6 +7,8 @@ import { SetInterestConcertButton } from "../features/interest/ui/SetInterestCon
 import InputSearchBar from "../features/search/ui/InputSearchBar";
 import SearchResult from "../features/interest/ui/SearchResult";
 import ListHeader from "../shared/ui/ListHeader";
+import DangerModal from "../shared/ui/DangerModal/DangerModal";
+import { useNavigate } from "react-router-dom";
 
 export type SelectedConcert = {
   id: string;
@@ -21,6 +23,7 @@ const toSelectedIds = (concerts: SelectedConcert[]) =>
     .join(",");
 
 function SetInterestConcertPage() {
+  const navigate = useNavigate();
   const [input, setInput] = useState<string>("");
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [showAll, setShowAll] = useState<boolean>(true);
@@ -28,6 +31,7 @@ function SetInterestConcertPage() {
   const [selectedConcerts, setSelectedConcerts] = useState<SelectedConcert[]>(
     [],
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data: interestList, isFetching: isInterestFetching } =
     useInterestConcerts({
@@ -65,7 +69,16 @@ function SetInterestConcertPage() {
     <div className="flex flex-col min-h-screen">
       {/* 상단 헤더 */}
       <div className="sticky top-0 z-50">
-        <ListHeader title={title} />
+        <ListHeader
+          title={title}
+          onBackClick={() => {
+            if (isSelectionChanged && !isFirst) {
+              setIsModalOpen(true);
+            } else {
+              navigate(-1);
+            }
+          }}
+        />
         <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
           {!isInputFocused && (
             <div className="flex py-20">
@@ -154,6 +167,19 @@ function SetInterestConcertPage() {
           disabled={!isSelectionChanged}
         />
       </div>
+      <DangerModal
+        isOpen={isModalOpen}
+        primaryLabel="뒤로 갈게요"
+        secondaryLabel="잘못 눌렀어요"
+        title={
+          "선택한 콘서트가 해제돼요.\n이전 페이지로 돌아가시나요?" as string
+        }
+        onPrimary={() => {
+          navigate(-1);
+        }}
+        onSecondary={() => setIsModalOpen(false)}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

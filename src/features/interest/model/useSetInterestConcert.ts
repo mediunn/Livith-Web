@@ -10,9 +10,9 @@ export const useSetInterestConcert = () => {
   return useMutation({
     mutationFn: (variables: SetInterestConcertProps) =>
       setInterestConcert(variables),
-    onSuccess: () => {
+    onSuccess: async () => {
       // 무효화 키는 useInterestConcerts에서 사용하는 키와 일치시킴
-      queryClient.invalidateQueries({ queryKey: ["interest-concerts"] });
+      await queryClient.invalidateQueries({ queryKey: ["interest-concerts"] });
     },
   });
 };
