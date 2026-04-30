@@ -1,5 +1,3 @@
-import WebSiteEarthIcon from "../../shared/assets/WebSiteEarthIcon.svg";
-import WebSiteArrowIcon from "../../shared/assets/WebSiteArrowIcon.svg";
 import EmptyConcertImageIcon from "../../../shared/assets/EmptyConcertImageIcon.svg";
 import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
@@ -14,9 +12,12 @@ import LoginModal from "../../../features/auth/ui/LoginModal";
 import { ChipBadge } from "../../../shared/ui/ChipBadge/ChipBadge";
 import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
 import { useSetInterestConcert } from "../../../features/interest/model/useSetInterestConcert";
-import { useInterestConcerts } from "../../../features/interest/model/useInterestConcerts";
-import { InterestSortFilter } from "../../../entities/concert/types";
 import { useInterestConcertExists } from "../../../features/interest/model/useInterestConcertExists";
+import { useQueryClient } from "@tanstack/react-query";
+import axiosInstance from "../../../shared/api/axiosInstance";
+import { toast } from "react-toastify";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 
 interface DetailInfoProps {
   id: string;
@@ -41,9 +42,7 @@ function DetailInfo({
 }: DetailInfoProps) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const mutation = useSetInterestConcert();
-  const { data: interestConcerts } = useInterestConcerts({
-    sort: InterestSortFilter.CONCERT,
-  });
+  const queryClient = useQueryClient();
 
   const [user] = useRecoilState(userState);
 
@@ -56,26 +55,53 @@ function DetailInfo({
 
   const isInterested = interestExistsData?.data?.isInterested ?? false;
 
-  const handleReceiveConcertAlert = () => {
+  const handleReceiveConcertAlert = async () => {
     window.amplitude.track("confirm_change_interest");
 
     if (!Number.isFinite(targetId) || targetId <= 0) {
       return;
     }
 
-    const existingIds = (interestConcerts ?? [])
+    const accessToken = localStorage.getItem("accessToken") ?? "";
+
+    const response = await axiosInstance.get(`/users/interest-concerts`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const currentConcerts: { id: number }[] = response.data?.data?.data ?? [];
+
+    const existingIds = currentConcerts
       .map((concert) => Number(concert.id))
       .filter((concertId) => Number.isFinite(concertId) && concertId > 0);
-    const mergedConcertIds = Array.from(new Set([...existingIds, targetId]));
 
-    const accessToken = localStorage.getItem("accessToken") ?? "";
+    const mergedConcertIds = Array.from(new Set([...existingIds, targetId]));
 
     mutation.mutate(
       {
         concertIds: mergedConcertIds,
         accessToken,
       },
-      {},
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["interestConcertExists", targetId],
+          });
+          toast(<CompleteToast message="소식을 받을 공연이 추가되었어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
+        },
+        onError: () => {
+          toast(<ErrorToast message="소식을 받을 공연 추가에 실패했어요" />, {
+            position: "top-center",
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+          });
+        },
+      },
     );
   };
 
@@ -90,10 +116,10 @@ function DetailInfo({
             top={0}
             disabled={mutation.isPending}
             iconPosition="left"
-            onClick={() => {
+            onClick={async () => {
               window.amplitude.track("click_interest_concert_detail");
               if (user) {
-                handleReceiveConcertAlert();
+                await handleReceiveConcertAlert();
               } else {
                 setIsLoginModalOpen(true);
               }
