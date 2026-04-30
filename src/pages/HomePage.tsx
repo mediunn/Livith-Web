@@ -12,6 +12,8 @@ import GuidedBanner from "../shared/ui/GuidedBanner";
 import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
 import { authReadyState } from "../shared/lib/recoil/atoms/authReadyState";
+import InterestConcert from "../widgets/InterestConcert";
+import RecommedConcertListSection from "../widgets/RecommedConcertListSection";
 
 function HomePage() {
   const { data: interest, isLoading: isInterestLoading } = useInterestConcert();
@@ -49,7 +51,12 @@ function HomePage() {
 
   return (
     <div className="pb-90">
-      {concertId && concert && !isLoading ? (
+      <TopBar bgColor="bg-grayScaleBlack100" />
+      <InterestConcert />
+      {hasPrefer && user && (
+        <RecommedConcertListSection nickname={user.nickname} />
+      )}
+      {/* {concertId && concert && !isLoading ? (
         <>
           <TopBar bgColor="bg-grayScaleBlack100" />
           <ConcertSetting
@@ -79,7 +86,7 @@ function HomePage() {
           )}
           <ConcertSettingEmpty hasPrefer={hasPrefer} />
         </>
-      )}
+      )} */}
 
       <TabBar />
       <SignupCompleteModal
