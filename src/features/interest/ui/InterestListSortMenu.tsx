@@ -15,19 +15,17 @@ function InterestListSortMenu({ sort, setSort }: Props) {
     <div className="absolute right-3 top-10 w-98 flex flex-col border border-grayScaleBlack80 bg-grayScaleBlack90 rounded-tl-16 rounded-bl-16 rounded-br-16 px-14 py-16 gap-6 z-10">
       <button
         className={`${baseClass} ${
-          sort === InterestSortFilter.TICKET_DATE ? activeClass : inactiveClass
+          sort === InterestSortFilter.TICKETING ? activeClass : inactiveClass
         }`}
-        onClick={() => setSort(InterestSortFilter.TICKET_DATE)}
+        onClick={() => setSort(InterestSortFilter.TICKETING)}
       >
         예매일
       </button>
       <button
         className={`${baseClass} ${
-          sort === InterestSortFilter.PERFORMANCE_DATE
-            ? activeClass
-            : inactiveClass
+          sort === InterestSortFilter.CONCERT ? activeClass : inactiveClass
         }`}
-        onClick={() => setSort(InterestSortFilter.PERFORMANCE_DATE)}
+        onClick={() => setSort(InterestSortFilter.CONCERT)}
       >
         공연 일정
       </button>

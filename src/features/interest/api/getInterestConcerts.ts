@@ -1,24 +1,28 @@
-import { ConcertScheduleType } from "../../../entities/concert/types";
+import { InterestSortFilter } from "../../../entities/concert/types";
 import { Concert } from "../../../entities/concert/types";
 import axiosInstance from "../../../shared/api/axiosInstance";
 import { ApiResponse } from "../../../shared/types/response";
 
 export type InterestConcertResponse = Concert & {
   preSaleDate: string;
-  ticketingDate: string;
+  generalSaleDate: string | null;
+};
+
+export type CursorInfo = {
+  date: string;
+  id: number;
 };
 
 interface GetInterestConcertsProps {
   size?: number;
   cursorDate?: string;
   cursorId?: number;
-  sort?: ConcertScheduleType;
+  sort?: InterestSortFilter;
 }
 
 export type InterestConcertListResponse = {
   data: InterestConcertResponse[];
-  cursor: number | null;
-  totalCount?: number;
+  cursor: CursorInfo | null;
 };
 
 export const getInterestConcerts = async ({
@@ -26,7 +30,9 @@ export const getInterestConcerts = async ({
   cursorDate,
   cursorId,
   sort,
-}: GetInterestConcertsProps): Promise<ApiResponse<InterestConcertListResponse>> => {
+}: GetInterestConcertsProps): Promise<
+  ApiResponse<InterestConcertListResponse>
+> => {
   const token = localStorage.getItem("accessToken");
 
   const response = await axiosInstance.get(`/users/interest-concerts`, {
@@ -35,8 +41,8 @@ export const getInterestConcerts = async ({
     },
     params: {
       size,
-      cursorDate,
-      cursorId,
+      ...(cursorDate && { cursorDate }),
+      ...(cursorId && { cursorId }),
       sort,
     },
   });

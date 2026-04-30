@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 function InterestConcert() {
   const navigate = useNavigate();
   const [sort, setSort] = useState<InterestSortFilter>(
-    InterestSortFilter.TICKET_DATE,
+    InterestSortFilter.TICKETING,
   );
   const [isSortClicked, setIsSortClicked] = useState(false);
   const sortRef = useRef<HTMLDivElement | null>(null);
@@ -24,7 +24,7 @@ function InterestConcert() {
           <div ref={sortRef} className="relative flex">
             <Filter
               label={
-                sort === InterestSortFilter.TICKET_DATE ? "예매일" : "공연 일정"
+                sort === InterestSortFilter.TICKETING ? "예매일" : "공연 일정"
               }
               icon={isSortClicked ? InterestSortUpIcon : InterestSortDownIcon}
               onClick={() => setIsSortClicked(!isSortClicked)}
