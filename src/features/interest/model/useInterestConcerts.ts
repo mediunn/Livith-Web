@@ -14,18 +14,17 @@ type UseInterestConcertsParams = {
 };
 
 export const useInterestConcerts = ({
-  userId,
   size = 20,
   sort,
-}: UseInterestConcertsParams & { userId?: number }) => {
+}: UseInterestConcertsParams = {}) => {
   return useInfiniteQuery<
     ApiResponse<InterestConcertListResponse>,
     Error,
     InterestConcertResponse[],
-    [string, number | undefined, number, InterestSortFilter | undefined],
+    [string, number, InterestSortFilter | undefined],
     CursorInfo | undefined
   >({
-    queryKey: ["interest-concerts", userId, size, sort],
+    queryKey: ["interest-concerts", size, sort],
     refetchOnMount: "always",
     queryFn: ({ pageParam }) =>
       getInterestConcerts({
@@ -37,7 +36,5 @@ export const useInterestConcerts = ({
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.data.cursor ?? undefined,
     select: (data) => data.pages.flatMap((page) => page.data.data),
-
-    enabled: !!userId,
   });
 };
