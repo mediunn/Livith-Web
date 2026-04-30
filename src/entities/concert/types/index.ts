@@ -84,3 +84,9 @@ export enum SortFilter {
   LATEST = "LATEST",
   ALPHABETICAL = "ALPHABETICAL",
 }
+
+export enum ConcertScheduleType {
+  PRE_TICKETING = "PRE_TICKETING",
+  GENERAL_TICKETING = "GENERAL_TICKETING",
+  CONCERT = "CONCERT",
+}

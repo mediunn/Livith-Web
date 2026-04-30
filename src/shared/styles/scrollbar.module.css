@@ -1,8 +1,8 @@
-.scrollContainer {
+.hiddenScrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.scrollContainer::-webkit-scrollbar {
+.hiddenScrollbar::-webkit-scrollbar {
   display: none;
 }

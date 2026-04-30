@@ -31,7 +31,7 @@ export default function Dropdown({
   return (
     <div
       onClick={onClick}
-      className={`flex flex-row items-center border ${borderColor} ${backgroundColor} rounded-24 px-8 py-5 cursor-pointer w-fit`}
+      className={`flex flex-row shrink-0 items-center border ${borderColor} ${backgroundColor} rounded-24 px-8 py-5 cursor-pointer w-fit`}
     >
       {icon}
       <div
