@@ -51,19 +51,18 @@ function HomePage() {
 
   return (
     <div className="pb-90">
-      <TopBar bgColor="bg-grayScaleBlack100" />
-      <InterestConcert />
-      {hasPrefer && user && (
-        <RecommedConcertListSection nickname={user.nickname} />
-      )}
-      {/* {concertId && concert && !isLoading ? (
+      {concertId && concert && !isLoading ? (
         <>
           <TopBar bgColor="bg-grayScaleBlack100" />
-          <ConcertSetting
+          {/* <ConcertSetting
             concertId={concertId}
             concert={concert}
             schedules={schedules}
-          />
+          /> */}
+          <InterestConcert />
+          {hasPrefer && user && (
+            <RecommedConcertListSection nickname={user.nickname} />
+          )}
         </>
       ) : (
         <>
@@ -86,7 +85,7 @@ function HomePage() {
           )}
           <ConcertSettingEmpty hasPrefer={hasPrefer} />
         </>
-      )} */}
+      )}
 
       <TabBar />
       <SignupCompleteModal
