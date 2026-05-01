@@ -78,7 +78,7 @@ function UpdatePreferGenrePage() {
           </div>
         </div>
       </div>
-      <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
+      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent mx-16 pb-60">
         <div className="pb-10">
           <PreferredSection
             preferredState={{

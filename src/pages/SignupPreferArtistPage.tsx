@@ -132,44 +132,24 @@ function SignupPreferArtistPage() {
           </div>
         </div>
       </div>
-      {/* 키보드가 올라오면 PreferredSection을 fixed 하단에, 아니면 기존 위치에 */}
-      {isKeyboardOpen ? (
-        <div
-          className=" max-w-md w-full mx-auto"
-          style={{
-            position: "fixed",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 50,
-            padding: "16px",
+      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent mx-16 pb-60">
+        <div className="pb-10">
+          <PreferredSection
+            preferredState={{
+              value: preferred,
+              setValue: setPreferred,
+            }}
+          />
+        </div>
+        <CommonButton
+          isActive={preferred.length >= 1}
+          onClick={() => {
+            handleSignup({ skip: false });
           }}
-        >
-          <PreferredSection
-            preferredState={{
-              value: preferred,
-              setValue: setPreferred,
-            }}
-          />
-        </div>
-      ) : (
-        <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
-          <PreferredSection
-            preferredState={{
-              value: preferred,
-              setValue: setPreferred,
-            }}
-          />
-          <CommonButton
-            isActive={preferred.length >= 1}
-            onClick={() => {
-              handleSignup({ skip: false });
-            }}
-            title="가입 완료"
-            variant="primary"
-          />
-        </div>
-      )}
+          title="가입 완료"
+          variant="primary"
+        />
+      </div>
       <AuthErrorModal
         isOpen={isErrorModalOpen}
         onClose={() => {
