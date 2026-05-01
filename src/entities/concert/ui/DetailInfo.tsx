@@ -14,7 +14,10 @@ import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButt
 import { useSetInterestConcert } from "../../../features/interest/model/useSetInterestConcert";
 import { useInterestConcertExists } from "../../../features/interest/model/useInterestConcertExists";
 import { useQueryClient } from "@tanstack/react-query";
-import axiosInstance from "../../../shared/api/axiosInstance";
+import {
+  getInterestConcerts,
+  InterestConcertResponse,
+} from "../../../features/interest/api/getInterestConcerts";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
@@ -64,13 +67,14 @@ function DetailInfo({
 
     const accessToken = localStorage.getItem("accessToken") ?? "";
 
-    const response = await axiosInstance.get(`/users/interest-concerts`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+    const response = await queryClient.fetchQuery({
+      queryKey: ["interest-concerts", 9999, undefined],
+      queryFn: () => getInterestConcerts({ size: 9999 }),
+      staleTime: 0,
     });
 
-    const currentConcerts: { id: number }[] = response.data?.data?.data ?? [];
+    const currentConcerts: InterestConcertResponse[] =
+      response?.data?.data ?? [];
 
     const existingIds = currentConcerts
       .map((concert) => Number(concert.id))
@@ -89,6 +93,10 @@ function DetailInfo({
         onSuccess: () => {
           queryClient.invalidateQueries({
             queryKey: ["interestConcertExists", targetId],
+          });
+
+          queryClient.invalidateQueries({
+            queryKey: ["interest-concerts"],
           });
           toast(
             <CompleteToast

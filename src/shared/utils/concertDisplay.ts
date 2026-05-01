@@ -67,7 +67,6 @@ export const getTicketingText = (
   startDate: string,
 ) => {
   const now = new Date();
-
   const concertStart = new Date(startDate.replace(/\./g, "-"));
 
   if (now >= concertStart) {
@@ -77,31 +76,13 @@ export const getTicketingText = (
   const pre = preSaleDate ? new Date(preSaleDate) : null;
   const general = generalSaleDate ? new Date(generalSaleDate) : null;
 
-  if (!pre && !general) {
-    return "예매 오픈 예정";
+  if (pre && now < pre) {
+    return `선예매 오픈 · ${formatSaleDate(preSaleDate!)}`;
   }
 
-  if (!pre && general) {
-    return now < general
-      ? `일반 예매 오픈 · ${formatSaleDate(generalSaleDate!)}`
-      : "콘서트 진행중";
+  if (general && now < general) {
+    return `일반 예매 오픈 · ${formatSaleDate(generalSaleDate!)}`;
   }
 
-  if (pre && general) {
-    if (now < pre) {
-      return `선예매 오픈 · ${formatSaleDate(preSaleDate!)}`;
-    }
-    if (now >= pre && now < general) {
-      return `일반 예매 오픈 · ${formatSaleDate(generalSaleDate!)}`;
-    }
-    return "콘서트 진행중";
-  }
-
-  if (pre) {
-    return now < pre
-      ? `선예매 오픈 · ${formatSaleDate(preSaleDate!)}`
-      : "콘서트 진행중";
-  }
-
-  return "";
+  return "예매 오픈 예정";
 };
