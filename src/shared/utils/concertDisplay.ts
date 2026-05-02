@@ -4,7 +4,7 @@ import { setConcertStatus } from "../../features/search/utils/setConcertStatus";
 
 export type ConcertDisplaySource = Pick<
   Concert,
-  "title" | "artist" | "startDate" | "endDate" | "status" | "daysLeft"
+  "title" | "artist" | "startDate" | "endDate" | "status" | "daysLeft" | "venue"
 >;
 
 const hasValidDate = (startDate?: string, endDate?: string) => {
@@ -34,4 +34,55 @@ export const getConcertDisplayDate = (concert: ConcertDisplaySource) => {
   }
 
   return formatDateRange(concert.startDate, concert.endDate);
+};
+
+export const getConcertDisplayVenue = (concert: ConcertDisplaySource) => {
+  if (concert.venue?.trim()) return concert.venue;
+  return "장소 공개 예정";
+};
+
+export const formatSaleDate = (dateString: string) => {
+  const date = new Date(dateString);
+
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+  const dayOfWeek = dayNames[date.getDay()];
+
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+
+  return `${month}/${day}(${dayOfWeek}) ${hours}:${minutes
+    .toString()
+    .padStart(2, "0")}${ampm}`;
+};
+
+export const getTicketingText = (
+  preSaleDate: string | null,
+  generalSaleDate: string | null,
+  startDate: string,
+) => {
+  const now = new Date();
+  const concertStart = new Date(startDate.replace(/\./g, "-"));
+
+  if (now >= concertStart) {
+    return "콘서트 진행중";
+  }
+
+  const pre = preSaleDate ? new Date(preSaleDate) : null;
+  const general = generalSaleDate ? new Date(generalSaleDate) : null;
+
+  if (pre && now < pre) {
+    return `선예매 오픈 · ${formatSaleDate(preSaleDate!)}`;
+  }
+
+  if (general && now < general) {
+    return `일반 예매 오픈 · ${formatSaleDate(generalSaleDate!)}`;
+  }
+
+  return "예매 오픈 예정";
 };

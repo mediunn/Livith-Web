@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -6,16 +6,24 @@ import InterestConcertCarouselSlide from "./InterestConcertCarouselSlide";
 import "../../../shared/styles/slick-theme.css";
 import PrevArrow from "../../../shared/assets/PrevArrow.svg";
 import NextArrow from "../../../shared/assets/NextArrow.svg";
-import { useBanner } from "../../../features/concert/model/useBanner";
+import { useInterestConcerts } from "../model/useInterestConcerts";
+import { InterestSortFilter } from "../../../entities/concert/types";
+import { useNavigate } from "react-router-dom";
 
-function InterestConcertCarousel() {
-  // pc일 경우 마우스 hover시 캐러셀 전환 버튼 나타나도록
+interface InterestConcertCarouselProps {
+  sort: InterestSortFilter;
+}
+
+function InterestConcertCarousel({ sort }: InterestConcertCarouselProps) {
+  const navigate = useNavigate();
+
   const [isHovered, setIsHovered] = useState(false);
-  const { data: banners = [], isLoading } = useBanner();
+  const { data: concerts = [], isLoading } = useInterestConcerts({
+    size: 5,
+    sort,
+  });
 
-  if (isLoading) {
-    return null;
-  }
+  if (isLoading) return null;
 
   const CustomPrevArrow = (props: any) => {
     const { onClick, style } = props;
@@ -46,28 +54,32 @@ function InterestConcertCarousel() {
   };
 
   const settings = {
-    dots: true /* 인덱스 */,
-    arrows: true /* 버튼 전환 허용 */,
+    dots: true,
+    arrows: true,
     fade: true,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     waitForAnimate: false,
-    swipe: true /* 스와이프 전환 허용 */,
-    draggable: true /* 드래그 전환 허용 */,
+    swipe: true,
+    draggable: true,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
   };
 
   return (
     <div
-      className="relative w-full h-365 mb-6"
+      className="relative w-full h-full mb-6"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Slider {...settings}>
-        {banners.slice(0, 5).map((slide) => (
-          <InterestConcertCarouselSlide key={slide.id} />
+        {concerts.slice(0, 5).map((concert) => (
+          <InterestConcertCarouselSlide
+            key={concert.id}
+            concert={concert}
+            onClick={() => navigate(`/concert/${concert.id}`)}
+          />
         ))}
       </Slider>
     </div>

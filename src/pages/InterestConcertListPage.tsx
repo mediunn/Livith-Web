@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef, useCallback } from "react";
+import { useState } from "react";
 import InterestConcertListBar from "../features/interest/ui/InterestConcertListBar";
 import InterestListSortMenu from "../features/interest/ui/InterestListSortMenu";
 import { InterestSortFilter } from "../entities/concert/types";
@@ -6,21 +7,41 @@ import { AnimatePresence, motion } from "framer-motion";
 import SortDownIcon from "../shared/assets/SortDown.svg";
 import SortUpIcon from "../shared/assets/SortUp.svg";
 import Filter from "../features/search/ui/Filter/Filter";
-import { useRecommendConcertListSection } from "../features/concert/model/useRecommendConcertListSection";
 import ConcertCard from "../entities/concert/ui/ConcertCard";
-import { formatDateRange } from "../shared/utils/formatDateRange";
 import { useNavigate } from "react-router-dom";
+import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
 
 function InterestConcertListPage() {
   const [sort, setSort] = useState<InterestSortFilter>(
-    InterestSortFilter.TICKET_DATE,
+    InterestSortFilter.TICKETING,
   );
   const [isSortClicked, setIsSortClicked] = useState(false);
   const sortRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   const navigate = useNavigate();
-  const { data: concerts = [] } = useRecommendConcertListSection(true); //추후 관심 콘서트로 변경 예정
+  const {
+    data: concerts,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInterestConcerts({ sort });
 
+  const bottomRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (observerRef.current) observerRef.current.disconnect();
+      if (!node) return;
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      });
+      observerRef.current.observe(node);
+    },
+    [fetchNextPage, hasNextPage, isFetchingNextPage],
+  );
+
+  // 이하 동일
   return (
     <div>
       <InterestConcertListBar />
@@ -29,7 +50,7 @@ function InterestConcertListPage() {
         <div ref={sortRef} className="relative flex">
           <Filter
             label={
-              sort === InterestSortFilter.TICKET_DATE ? "예매일" : "공연 일정"
+              sort === InterestSortFilter.TICKETING ? "예매일" : "공연 일정"
             }
             icon={isSortClicked ? SortUpIcon : SortDownIcon}
             onClick={() => setIsSortClicked(!isSortClicked)}
@@ -45,7 +66,13 @@ function InterestConcertListPage() {
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className="absolute top-full right-0"
               >
-                <InterestListSortMenu sort={sort} setSort={setSort} />
+                <InterestListSortMenu
+                  sort={sort}
+                  setSort={(newSort) => {
+                    setSort(newSort);
+                    setIsSortClicked(false);
+                  }}
+                />
               </motion.div>
             )}
           </AnimatePresence>
@@ -68,6 +95,14 @@ function InterestConcertListPage() {
           </div>
         ))}
       </div>
+
+      {/* 무한스크롤 sentinel */}
+      <div ref={bottomRef} className="h-1" />
+      {isFetchingNextPage && (
+        <div className="flex justify-center py-16">
+          <span className="text-gray-400 text-sm">불러오는 중...</span>
+        </div>
+      )}
     </div>
   );
 }

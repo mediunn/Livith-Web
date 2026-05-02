@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 function InterestConcert() {
   const navigate = useNavigate();
   const [sort, setSort] = useState<InterestSortFilter>(
-    InterestSortFilter.TICKET_DATE,
+    InterestSortFilter.TICKETING,
   );
   const [isSortClicked, setIsSortClicked] = useState(false);
   const sortRef = useRef<HTMLDivElement | null>(null);
@@ -24,7 +24,7 @@ function InterestConcert() {
           <div ref={sortRef} className="relative flex">
             <Filter
               label={
-                sort === InterestSortFilter.TICKET_DATE ? "예매일" : "공연 일정"
+                sort === InterestSortFilter.TICKETING ? "예매일" : "공연 일정"
               }
               icon={isSortClicked ? InterestSortUpIcon : InterestSortDownIcon}
               onClick={() => setIsSortClicked(!isSortClicked)}
@@ -41,7 +41,13 @@ function InterestConcert() {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="absolute top-full right-0"
                 >
-                  <InterestHomeSortMenu sort={sort} setSort={setSort} />
+                  <InterestHomeSortMenu
+                    sort={sort}
+                    setSort={(newSort) => {
+                      setSort(newSort);
+                      setIsSortClicked(false);
+                    }}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -51,7 +57,10 @@ function InterestConcert() {
             이 가까운
           </p>
         </div>
-        <button className="p-8 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR cursor-pointer">
+        <button
+          className="p-8 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR cursor-pointer"
+          onClick={() => navigate("/set-concert")}
+        >
           변경하기
         </button>
       </div>
@@ -65,7 +74,7 @@ function InterestConcert() {
           onClick={() => navigate("/interest-concert")}
         />
       </div>
-      <InterestConcertCarousel />
+      <InterestConcertCarousel sort={sort} />
     </div>
   );
 }

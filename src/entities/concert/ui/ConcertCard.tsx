@@ -36,6 +36,7 @@ function ConcertCard({
     endDate,
     status,
     daysLeft,
+    venue: "",
   };
 
   return (

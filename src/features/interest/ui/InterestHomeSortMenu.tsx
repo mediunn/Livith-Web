@@ -1,4 +1,3 @@
-// features/interest/ui/InterestSortMenu.tsx
 import { InterestSortFilter } from "../../../entities/concert/types";
 
 interface InterestHomeSortMenuProps {
@@ -15,7 +14,7 @@ function InterestHomeSortMenu({ sort, setSort }: InterestHomeSortMenuProps) {
   return (
     <div
       className={`absolute right-0 ${
-        sort === InterestSortFilter.TICKET_DATE
+        sort === InterestSortFilter.TICKETING
           ? "translate-x-[36%]"
           : "translate-x-[16%]"
       } top-10 w-110 flex flex-col border border-grayScaleBlack80 bg-grayScaleBlack90 rounded-tr-16 rounded-bl-16 rounded-br-16 px-14 py-16 gap-6 z-10`}
@@ -23,20 +22,18 @@ function InterestHomeSortMenu({ sort, setSort }: InterestHomeSortMenuProps) {
       <button
         type="button"
         className={`${baseClass} ${
-          sort === InterestSortFilter.TICKET_DATE ? activeClass : inactiveClass
+          sort === InterestSortFilter.TICKETING ? activeClass : inactiveClass
         }`}
-        onClick={() => setSort(InterestSortFilter.TICKET_DATE)}
+        onClick={() => setSort(InterestSortFilter.TICKETING)}
       >
         예매일
       </button>
       <button
         type="button"
         className={`${baseClass} ${
-          sort === InterestSortFilter.PERFORMANCE_DATE
-            ? activeClass
-            : inactiveClass
+          sort === InterestSortFilter.CONCERT ? activeClass : inactiveClass
         }`}
-        onClick={() => setSort(InterestSortFilter.PERFORMANCE_DATE)}
+        onClick={() => setSort(InterestSortFilter.CONCERT)}
       >
         공연 일정
       </button>

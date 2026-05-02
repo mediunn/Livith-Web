@@ -1,10 +1,9 @@
-import WebSiteEarthIcon from "../../shared/assets/WebSiteEarthIcon.svg";
-import WebSiteArrowIcon from "../../shared/assets/WebSiteArrowIcon.svg";
 import EmptyConcertImageIcon from "../../../shared/assets/EmptyConcertImageIcon.svg";
 import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import HotConcertChipIcon from "../../../shared/assets/HotConcertChipIcon.svg";
 import AlarmIcon from "../../../shared/assets/AlarmIcon.svg";
+import AlarmFillIcon from "../../../shared/assets/AlarmFillIcon.svg";
 import { useState } from "react";
 import { ConcertStatus } from "../types";
 import { useRecoilState } from "recoil";
@@ -13,8 +12,15 @@ import LoginModal from "../../../features/auth/ui/LoginModal";
 import { ChipBadge } from "../../../shared/ui/ChipBadge/ChipBadge";
 import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
 import { useSetInterestConcert } from "../../../features/interest/model/useSetInterestConcert";
-import { useInterestConcerts } from "../../../features/interest/model/useInterestConcerts";
-import { ConcertScheduleType } from "../../../entities/concert/types";
+import { useInterestConcertExists } from "../../../features/interest/model/useInterestConcertExists";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  getInterestConcerts,
+  InterestConcertResponse,
+} from "../../../features/interest/api/getInterestConcerts";
+import { toast } from "react-toastify";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 
 interface DetailInfoProps {
   id: string;
@@ -39,33 +45,91 @@ function DetailInfo({
 }: DetailInfoProps) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const mutation = useSetInterestConcert();
-  const { data: interestConcerts } = useInterestConcerts({
-    sort: ConcertScheduleType.CONCERT,
-  });
+  const queryClient = useQueryClient();
 
   const [user] = useRecoilState(userState);
 
-  const handleReceiveConcertAlert = () => {
+  const targetId = Number(id);
+
+  const { data: interestExistsData } = useInterestConcertExists(
+    targetId,
+    !!user,
+  );
+
+  const isInterested = interestExistsData?.data?.isInterested ?? false;
+
+  const handleToggleInterest = async () => {
     window.amplitude.track("confirm_change_interest");
 
-    const targetId = Number(id);
     if (!Number.isFinite(targetId) || targetId <= 0) {
       return;
     }
 
-    const existingIds = (interestConcerts ?? [])
+    const accessToken = localStorage.getItem("accessToken") ?? "";
+
+    const response = await queryClient.fetchQuery({
+      queryKey: ["interest-concerts", 9999, undefined],
+      queryFn: () => getInterestConcerts({ size: 9999 }),
+      staleTime: 0,
+    });
+
+    const currentConcerts: InterestConcertResponse[] =
+      response?.data?.data ?? [];
+
+    const existingIds = currentConcerts
       .map((concert) => Number(concert.id))
       .filter((concertId) => Number.isFinite(concertId) && concertId > 0);
-    const mergedConcertIds = Array.from(new Set([...existingIds, targetId]));
 
-    const accessToken = localStorage.getItem("accessToken") ?? "";
+    const mergedConcertIds = isInterested
+      ? existingIds.filter((concertId) => concertId !== targetId) // 해제
+      : Array.from(new Set([...existingIds, targetId])); // 추가
 
     mutation.mutate(
       {
         concertIds: mergedConcertIds,
         accessToken,
       },
-      {},
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["interestConcertExists", targetId],
+          });
+
+          queryClient.invalidateQueries({
+            queryKey: ["interest-concerts"],
+          });
+          toast(
+            <CompleteToast
+              message={
+                isInterested
+                  ? "소식을 받을 공연이 해제되었어요"
+                  : "소식을 받을 공연이 추가되었어요"
+              }
+            />,
+            {
+              position: "top-center",
+              autoClose: 3000,
+              pauseOnFocusLoss: false,
+            },
+          );
+        },
+        onError: () => {
+          toast(
+            <ErrorToast
+              message={
+                isInterested
+                  ? "소식을 받을 공연 해제에 실패했어요"
+                  : "소식을 받을 공연 추가에 실패했어요"
+              }
+            />,
+            {
+              position: "top-center",
+              autoClose: 3000,
+              pauseOnFocusLoss: false,
+            },
+          );
+        },
+      },
     );
   };
 
@@ -74,16 +138,16 @@ function DetailInfo({
       {status !== ConcertStatus.CANCELED &&
         status !== ConcertStatus.COMPLETED && (
           <ConcertMoreBtn
-            label="소식 받기"
-            icon={AlarmIcon}
+            label={isInterested ? "소식 받는 중" : "소식 받기"}
+            icon={isInterested ? AlarmFillIcon : AlarmIcon}
             right={16}
             top={0}
             disabled={mutation.isPending}
             iconPosition="left"
-            onClick={() => {
+            onClick={async () => {
               window.amplitude.track("click_interest_concert_detail");
               if (user) {
-                handleReceiveConcertAlert();
+                await handleToggleInterest();
               } else {
                 setIsLoginModalOpen(true);
               }
