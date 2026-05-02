@@ -5,6 +5,15 @@ import styles from "../../../shared/styles/scrollbar.module.css";
 import { StateWithSetter } from "../../../shared/types/props";
 import { GenreEnum } from "../types";
 
+const genreAmplitudeEventMap: Record<GenreEnum, string> = {
+  [GenreEnum.ALL]: "click_genre_all",
+  [GenreEnum.JPOP]: "click_genre_jpop",
+  [GenreEnum.ROCK_METAL]: "click_genre_rock_metal",
+  [GenreEnum.RAP_HIPHOP]: "click_genre_rap_hiphop",
+  [GenreEnum.POP]: "click_genre_pop",
+  [GenreEnum.INDIE]: "click_genre_indie",
+};
+
 function GenreTabs({
   value: selectedTab,
   setValue: setSelectedTab,
@@ -13,6 +22,11 @@ function GenreTabs({
     label,
     value: value as GenreEnum,
   }));
+
+  const handleTabClick = (tabValue: GenreEnum) => {
+    setSelectedTab(tabValue);
+    window.amplitude.track(genreAmplitudeEventMap[tabValue]);
+  };
 
   return (
     //좌우 스크롤 가능한 탭
@@ -24,7 +38,7 @@ function GenreTabs({
           {tabs.map((tab) => (
             <div
               key={tab.value}
-              onClick={() => setSelectedTab(tab.value)}
+              onClick={() => handleTabClick(tab.value)}
               className={`relative inline-flex shrink-0 whitespace-nowrap px-12 py-16 text-Body2-sm font-semibold font-NotoSansKR cursor-pointer ${
                 tab.value === selectedTab
                   ? "text-grayScaleWhite"
