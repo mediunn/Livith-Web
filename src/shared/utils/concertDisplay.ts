@@ -64,10 +64,10 @@ export const formatSaleDate = (dateString: string) => {
 export const getTicketingText = (
   preSaleDate: string | null,
   generalSaleDate: string | null,
-  startDate: string,
+  startDate: string | null,
 ) => {
   const now = new Date();
-  const concertStart = new Date(startDate.replace(/\./g, "-"));
+  const concertStart = new Date(startDate?.replace(/\./g, "-") || "");
 
   if (now >= concertStart) {
     return "콘서트 진행중";
