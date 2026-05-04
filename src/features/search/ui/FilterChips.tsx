@@ -67,6 +67,7 @@ export function FilterChips({
             variant="off"
             icon={<CalendarIcon />}
             label="전체기간"
+            offsetIcon={true}
           />
         ) : (
           <Dropdown
@@ -82,6 +83,7 @@ export function FilterChips({
                 ? `${statusMap[statusSelected[0]]}, ...`
                 : statusMap[statusSelected[0]]
             }
+            offsetIcon={true}
           />
         )}
       </div>
