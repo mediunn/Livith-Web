@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Concert } from "../../../entities/concert/types";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
+import EmptyConcertCard from "../../../shared/assets/EmptyConcertCardIcon.svg";
 import {
   getConcertDisplayDate,
   getConcertDisplayStatus,
@@ -79,8 +80,9 @@ export function SelectableInfiniteConcertList({
                     }`}
                   />
                 ) : (
-                  <div
-                    className={`w-full bg-grayScaleBlack80 rounded-6 ${
+                  <img
+                    src={EmptyConcertCard}
+                    className={`h-full w-full bg-grayScaleBlack80 rounded-6 ${
                       isSelected
                         ? "border-2 border-mainYellow30"
                         : "border-2 border-transparent"
