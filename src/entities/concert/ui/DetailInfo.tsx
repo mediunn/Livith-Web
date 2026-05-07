@@ -181,14 +181,14 @@ function DetailInfo({
 
         <div className="pt-10 flex items-center">
           <img src={ConcertDateIcon} className="w-24 h-24" />
-          <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+          <p className="pl-4 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
             {date}
           </p>
         </div>
 
         <div className="pt-4 flex items-center">
           <img src={ConcertVenueIcon} className="w-24 h-24" />
-          <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+          <p className="pl-4 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
             {venue}
           </p>
         </div>
