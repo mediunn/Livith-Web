@@ -9,6 +9,15 @@ export function useInitializeAuth() {
   const setAuthReady = useSetRecoilState(authReadyState);
 
   const initialize = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    // 토큰 없으면 비로그인 확정 → 회원가입 배너 렌더링
+    if (!accessToken) {
+      setUser(null);
+      setAuthReady(true);
+      return;
+    }
+
     try {
       const res = await getUserInfo();
       setUser(res.data);
