@@ -78,6 +78,7 @@ function DetailInfo({
           queryClient.invalidateQueries({
             queryKey: ["interest-concerts"],
           });
+          toast.dismiss();
           toast(
             <CompleteToast
               message={
