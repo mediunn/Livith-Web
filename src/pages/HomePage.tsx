@@ -18,8 +18,15 @@ import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
 function HomePage() {
-  const { data: interest, isLoading: isInterestLoading } =
-    useInterestConcerts();
+  const user = useRecoilValue(userState);
+  const isAuthReady = useRecoilValue(authReadyState);
+  const isLoggedIn = !!user;
+  const hasPrefer = user?.hasPreferredGenre ?? false;
+
+  const { data: interest, isLoading: isInterestLoading } = useInterestConcerts({
+    enabled: isLoggedIn,
+    isLoggedIn,
+  });
   const concertIdStr = interest?.[0]?.id ?? null;
   const concertId = concertIdStr ? Number(concertIdStr) : null;
 
@@ -42,11 +49,6 @@ function HomePage() {
   const hasShownSetConcertToastRef = useRef(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const user = useRecoilValue(userState);
-  const isAuthReady = useRecoilValue(authReadyState);
-  const isLoggedIn = !!user;
-  const hasPrefer = user?.hasPreferredGenre ?? false;
 
   useEffect(() => {
     if (showSignupComplete) {
