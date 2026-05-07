@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import InterestConcertCarouselSlide from "./InterestConcertCarouselSlide";
 import "../../../shared/styles/slick-theme.css";
-import PrevArrow from "../../../shared/assets/PrevArrow.svg";
-import NextArrow from "../../../shared/assets/NextArrow.svg";
+import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.svg";
+import ConcertSlideNextArrow from "../../../shared/assets/ConcertSlideNextArrow.svg";
 import { useInterestConcerts } from "../model/useInterestConcerts";
 import { InterestSortFilter } from "../../../entities/concert/types";
 import { useNavigate } from "react-router-dom";
@@ -31,10 +31,10 @@ function InterestConcertCarousel({ sort }: InterestConcertCarouselProps) {
       <button
         onClick={onClick}
         style={style}
-        className={`absolute left-16 top-111 w-38 h-38 z-10 bg-transparent border-none p-0 cursor-pointer
+        className={`absolute left-10 top-[20%] w-48 h-48 z-10 bg-transparent border-none p-0 cursor-pointer
           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <img src={PrevArrow} className="w-10 h-19 ml-14" />
+        <img src={ConcertSlidePrevArrow} className="w-full h-full" />
       </button>
     );
   };
@@ -45,10 +45,10 @@ function InterestConcertCarousel({ sort }: InterestConcertCarouselProps) {
       <button
         onClick={onClick}
         style={style}
-        className={`absolute right-16 top-111 w-38 h-38 z-10 bg-transparent border-none p-0 cursor-pointer
+        className={`absolute right-10 top-[20%] w-48 h-48 z-10 bg-transparent border-none p-0 cursor-pointer
           ${isHovered ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <img src={NextArrow} className="w-10 h-19 ml-14" />
+        <img src={ConcertSlideNextArrow} className="w-full h-full" />
       </button>
     );
   };
