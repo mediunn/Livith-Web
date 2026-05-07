@@ -10,6 +10,8 @@ export const usePostInterestConcert = () => {
   return useMutation({
     mutationFn: (variables: PostInterestConcertProps) =>
       postInterestConcert(variables),
+    retry: false,
+    networkMode: "always",
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["interest-concerts"] });
     },

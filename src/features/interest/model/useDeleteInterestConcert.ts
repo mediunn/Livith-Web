@@ -10,6 +10,8 @@ export const useDeleteInterestConcert = () => {
   return useMutation({
     mutationFn: (variables: DeleteInterestConcertProps) =>
       deleteInterestConcert(variables),
+    retry: false,
+    networkMode: "always",
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["interest-concerts"] });
     },
