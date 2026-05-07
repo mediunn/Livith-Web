@@ -1,16 +1,17 @@
 import axiosInstance from "../../../shared/api/axiosInstance";
 
-export interface DeleteInterestConcertProps {
+export interface PostInterestConcertProps {
   concertId: number;
   accessToken: string;
 }
 
-export const deleteInterestConcert = async ({
+export const postInterestConcert = async ({
   concertId,
   accessToken,
-}: DeleteInterestConcertProps) => {
-  const response = await axiosInstance.delete(
+}: PostInterestConcertProps) => {
+  const response = await axiosInstance.post(
     `/users/interest-concert/${concertId}`,
+    {},
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -18,5 +19,5 @@ export const deleteInterestConcert = async ({
     },
   );
 
-  return response.data;
+  return response.data.data;
 };

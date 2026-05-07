@@ -11,13 +11,10 @@ import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { ChipBadge } from "../../../shared/ui/ChipBadge/ChipBadge";
 import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
-import { useSetInterestConcert } from "../../../features/interest/model/useSetInterestConcert";
+import { usePostInterestConcert } from "../../../features/interest/model/usePostInterestConcert";
+import { useDeleteInterestConcert } from "../../../features/interest/model/useDeleteInterestConcert";
 import { useInterestConcertExists } from "../../../features/interest/model/useInterestConcertExists";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  getInterestConcerts,
-  InterestConcertResponse,
-} from "../../../features/interest/api/getInterestConcerts";
 import { toast } from "react-toastify";
 import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
@@ -44,7 +41,8 @@ function DetailInfo({
   status,
 }: DetailInfoProps) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const mutation = useSetInterestConcert();
+  const postMutation = usePostInterestConcert();
+  const deleteMutation = useDeleteInterestConcert();
   const queryClient = useQueryClient();
 
   const [user] = useRecoilState(userState);
@@ -57,6 +55,7 @@ function DetailInfo({
   );
 
   const isInterested = interestExistsData?.data?.isInterested ?? false;
+  const isPending = postMutation.isPending || deleteMutation.isPending;
 
   const handleToggleInterest = async () => {
     window.amplitude.track("confirm_change_interest");
@@ -67,34 +66,15 @@ function DetailInfo({
 
     const accessToken = localStorage.getItem("accessToken") ?? "";
 
-    const response = await queryClient.fetchQuery({
-      queryKey: ["interest-concerts", 9999, undefined],
-      queryFn: () => getInterestConcerts({ size: 9999 }),
-      staleTime: 0,
-    });
-
-    const currentConcerts: InterestConcertResponse[] =
-      response?.data?.data ?? [];
-
-    const existingIds = currentConcerts
-      .map((concert) => Number(concert.id))
-      .filter((concertId) => Number.isFinite(concertId) && concertId > 0);
-
-    const mergedConcertIds = isInterested
-      ? existingIds.filter((concertId) => concertId !== targetId) // 해제
-      : Array.from(new Set([...existingIds, targetId])); // 추가
+    const mutation = isInterested ? deleteMutation : postMutation;
 
     mutation.mutate(
-      {
-        concertIds: mergedConcertIds,
-        accessToken,
-      },
+      { concertId: targetId, accessToken },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
             queryKey: ["interestConcertExists", targetId],
           });
-
           queryClient.invalidateQueries({
             queryKey: ["interest-concerts"],
           });
@@ -142,7 +122,7 @@ function DetailInfo({
             icon={isInterested ? AlarmFillIcon : AlarmIcon}
             right={16}
             top={0}
-            disabled={mutation.isPending}
+            disabled={isPending}
             iconPosition="left"
             onClick={async () => {
               window.amplitude.track("click_interest_concert_detail");
