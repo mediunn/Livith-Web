@@ -13,7 +13,7 @@ export const useDeleteInterestConcert = () => {
     retry: false,
     networkMode: "always",
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["interest-concerts"] });
+      return queryClient.invalidateQueries({ queryKey: ["interest-concerts"] });
     },
   });
 };

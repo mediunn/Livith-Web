@@ -18,5 +18,5 @@ export const deleteInterestConcert = async ({
     },
   );
 
-  return response.data;
+  return response.data.data;
 };
