@@ -67,20 +67,29 @@ export const getTicketingText = (
   startDate: string | null,
 ) => {
   const now = new Date();
-  const concertStart = new Date(startDate?.replace(/\./g, "-") || "");
+  const concertStart = startDate
+    ? new Date(startDate.replace(/\./g, "-"))
+    : null;
 
-  if (now >= concertStart) {
+  if (concertStart && now >= concertStart) {
     return "콘서트 진행중";
   }
 
   const pre = preSaleDate ? new Date(preSaleDate) : null;
   const general = generalSaleDate ? new Date(generalSaleDate) : null;
 
-  if (pre && now < pre) {
+  if (pre && general) {
+    if (now < pre) {
+      return `선예매 오픈 · ${formatSaleDate(preSaleDate!)}`;
+    }
+    return `일반 예매 오픈 · ${formatSaleDate(generalSaleDate!)}`;
+  }
+
+  if (pre && !general) {
     return `선예매 오픈 · ${formatSaleDate(preSaleDate!)}`;
   }
 
-  if (general && now < general) {
+  if (!pre && general) {
     return `일반 예매 오픈 · ${formatSaleDate(generalSaleDate!)}`;
   }
 

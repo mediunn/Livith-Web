@@ -28,7 +28,7 @@ function ConcertMoreButton({
         {icon && iconPosition === "left" && (
           <img src={icon} className="w-24 h-24" />
         )}
-        <p className="pl-4 pr-4 text-grayScaleWhite text-Caption1-sm font-semibold font-NotoSansKR">
+        <p className="pl-4 pr-4 text-grayScaleBlack50 text-Caption1-sm font-semibold font-NotoSansKR">
           {label}
         </p>
         {icon && iconPosition === "right" && (

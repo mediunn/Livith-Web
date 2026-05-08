@@ -11,21 +11,26 @@ import { InterestSortFilter } from "../../../entities/concert/types";
 type UseInterestConcertsParams = {
   size?: number;
   sort?: InterestSortFilter;
+  enabled?: boolean;
+  isLoggedIn?: boolean;
 };
 
 export const useInterestConcerts = ({
-  size = 20,
+  size,
   sort,
+  enabled = true,
+  isLoggedIn = false,
 }: UseInterestConcertsParams = {}) => {
   return useInfiniteQuery<
     ApiResponse<InterestConcertListResponse>,
     Error,
     InterestConcertResponse[],
-    [string, number, InterestSortFilter | undefined],
+    [string, boolean, number | undefined, InterestSortFilter | undefined],
     CursorInfo | undefined
   >({
-    queryKey: ["interest-concerts", size, sort],
+    queryKey: ["interest-concerts", isLoggedIn, size, sort],
     refetchOnMount: "always",
+    enabled,
     queryFn: ({ pageParam }) =>
       getInterestConcerts({
         size,

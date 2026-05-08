@@ -16,7 +16,7 @@ export default function Filter({
       onClick={onClick}
       className={`
         flex items-center cursor-pointer
-        text-grayScaleWhite text-Caption1-Bold font-bold font-NotoSansKR
+        text-grayScaleWhite text-Body4-md font-medium font-NotoSansKR
         ${className ?? ""}
       `}
     >
