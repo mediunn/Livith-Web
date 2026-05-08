@@ -8,9 +8,10 @@ import ConcertSlidePrevArrow from "../../../shared/assets/ConcertSlidePrevArrow.
 
 interface SelectedSectionProps {
   selectedState: StateWithSetter<SelectedConcert[]>;
+  idToArtist?: Record<string, string>;
 }
 
-function SelectedSection({ selectedState }: SelectedSectionProps) {
+function SelectedSection({ selectedState, idToArtist }: SelectedSectionProps) {
   const { value: selected, setValue: setSelected } = selectedState;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -68,17 +69,30 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
         onMouseDown={(e) => e.preventDefault()}
         className={`flex flex-nowrap gap-8 overflow-x-auto overflow-y-hidden px-12 ${styles.hiddenScrollbar}`}
       >
-        {selected.map((item) => (
-          <Dropdown
-            key={item.id}
-            variant="on"
-            label={formatLabel(item.title)}
-            onRightIconClick={setSelected.bind(
-              null,
-              selected.filter((p) => p.id !== item.id),
-            )}
-          />
-        ))}
+        {selected.map((item) => {
+          const idKey = String(item.id).trim();
+          const artistName =
+            idToArtist && idToArtist[idKey] ? idToArtist[idKey] : "";
+
+          const displayLabel =
+            item.title && item.title.trim()
+              ? item.title.trim()
+              : artistName
+                ? `${artistName} 내한 예정`
+                : "아티스트 내한 예정";
+
+          return (
+            <Dropdown
+              key={item.id}
+              variant="on"
+              label={formatLabel(displayLabel)}
+              onRightIconClick={setSelected.bind(
+                null,
+                selected.filter((p) => p.id !== item.id),
+              )}
+            />
+          );
+        })}
       </div>
 
       {showRight && isHovered && (

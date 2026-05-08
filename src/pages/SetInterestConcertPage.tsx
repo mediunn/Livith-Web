@@ -37,6 +37,13 @@ function SetInterestConcertPage() {
     useInterestConcerts({
       sort: InterestSortFilter.CONCERT,
     });
+  const idToArtist: Record<string, string> = (interestList ?? []).reduce(
+    (acc, cur) => {
+      if (cur && cur.id) acc[String(cur.id).trim()] = (cur.artist ?? "").trim();
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
   const isFirst = !interestList || interestList.length === 0;
   const savedSelectedIds = toSelectedIds(
     interestList?.map((concert) => ({
@@ -134,6 +141,7 @@ function SetInterestConcertPage() {
             value: selectedConcerts,
             setValue: setSelectedConcerts,
           }}
+          idToArtist={idToArtist}
         />
         {/* 버튼 */}
         <SetInterestConcertButton
