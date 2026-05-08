@@ -14,17 +14,17 @@ type UseInterestConcertsParams = {
 };
 
 export const useInterestConcerts = ({
-  size = 20,
+  size,
   sort,
 }: UseInterestConcertsParams = {}) => {
   return useInfiniteQuery<
     ApiResponse<InterestConcertListResponse>,
     Error,
     InterestConcertResponse[],
-    [string, number, InterestSortFilter | undefined],
+    [string, InterestSortFilter | undefined],
     CursorInfo | undefined
   >({
-    queryKey: ["interest-concerts", size, sort],
+    queryKey: ["interest-concerts", sort],
     refetchOnMount: "always",
     queryFn: ({ pageParam }) =>
       getInterestConcerts({
