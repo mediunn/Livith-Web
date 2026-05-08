@@ -40,7 +40,7 @@ export const getInterestConcerts = async ({
       Authorization: `Bearer ${token}`,
     },
     params: {
-      size,
+      ...(size !== undefined && { size }),
       ...(cursorDate && { cursorDate }),
       ...(cursorId && { cursorId }),
       sort,

@@ -64,11 +64,9 @@ function AlarmListPage() {
           ) : null
         }
       />
-
       <p className="py-10 px-16 text-grayScaleBlack30 text-Body4-sm font-semibold font-NotoSansKR">
         알림은 90일 이후 순차적으로 삭제돼요.
       </p>
-
       <div className="flex-1 relative">
         {isLoggedIn ? (
           !isLoading &&
@@ -87,35 +85,35 @@ function AlarmListPage() {
             }
           />
         )}
+
+        {!isLoading && alarms.length > 0 && (
+          <div className="flex flex-col px-4 gap-12">
+            {alarms.map((alarm) => (
+              <AlarmItem
+                key={alarm.id}
+                id={alarm.id}
+                type={alarm.type}
+                title={alarm.title}
+                content={alarm.content}
+                targetId={alarm.targetId}
+                isRead={alarm.isRead}
+                createdAt={alarm.createdAt}
+                updateRead={handleUpdateRead}
+              />
+            ))}
+
+            {hasNextPage && !isError && (
+              <div ref={observerRef} className="py-20 text-center">
+                {isFetchingNextPage && (
+                  <p className="text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
+                    더 불러오는 중...
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
-
-      {!isLoading && alarms.length > 0 && (
-        <div className="flex flex-col px-4 gap-12">
-          {alarms.map((alarm) => (
-            <AlarmItem
-              key={alarm.id}
-              id={alarm.id}
-              type={alarm.type}
-              title={alarm.title}
-              content={alarm.content}
-              targetId={alarm.targetId}
-              isRead={alarm.isRead}
-              createdAt={alarm.createdAt}
-              updateRead={handleUpdateRead}
-            />
-          ))}
-
-          {hasNextPage && !isError && (
-            <div ref={observerRef} className="py-20 text-center">
-              {isFetchingNextPage && (
-                <p className="text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
-                  더 불러오는 중...
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }
