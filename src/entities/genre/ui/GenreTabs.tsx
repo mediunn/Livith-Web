@@ -77,7 +77,7 @@ function GenreTabs({
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10"
           onClick={() => scrollBy(-200)}
         >
-          <img src={ConcertSlidePrevArrow} className="w-50 h-50" />
+          <img src={ConcertSlidePrevArrow} className="w-[50px] h-[50px]" />
         </button>
       )}
 
@@ -118,7 +118,7 @@ function GenreTabs({
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10"
           onClick={() => scrollBy(200)}
         >
-          <img src={ConcertSlideNextArrow} className="w-50 h-50" />
+          <img src={ConcertSlideNextArrow} className="w-[50px] h-[50px]" />
         </button>
       )}
     </div>

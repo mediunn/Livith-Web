@@ -25,10 +25,10 @@ export const useInterestConcerts = ({
     ApiResponse<InterestConcertListResponse>,
     Error,
     InterestConcertResponse[],
-    [string, boolean, InterestSortFilter | undefined],
+    [string, boolean, number | undefined, InterestSortFilter | undefined],
     CursorInfo | undefined
   >({
-    queryKey: ["interest-concerts", isLoggedIn, sort],
+    queryKey: ["interest-concerts", isLoggedIn, size, sort],
     refetchOnMount: "always",
     enabled,
     queryFn: ({ pageParam }) =>

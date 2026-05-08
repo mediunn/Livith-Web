@@ -10,11 +10,7 @@ import {
   getConcertDisplayStatus,
   getConcertDisplayTitle,
 } from "../../../shared/utils/concertDisplay";
-
-type SelectedConcert = {
-  id: string;
-  title: string;
-};
+import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
 
 type SelectableInfiniteConcertListProps = {
   concerts: Concert[] | undefined;
@@ -61,7 +57,14 @@ export function SelectableInfiniteConcertList({
                 const exists = prev.some((c) => c.id === concert.id);
                 return exists
                   ? prev.filter((c) => c.id !== concert.id)
-                  : [...prev, { id: concert.id, title: concert.title }];
+                  : [
+                      ...prev,
+                      {
+                        id: concert.id,
+                        title: concert.title,
+                        artist: concert.artist ?? "",
+                      },
+                    ];
               })
             }
             initial={{ opacity: 0 }}

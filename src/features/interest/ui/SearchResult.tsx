@@ -5,11 +5,7 @@ import { StateWithSetter } from "../../../shared/types/props";
 import { SelectableInfiniteConcertList } from "./SelectableInfiniteConcertList";
 import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
 import { StatusFilter } from "../../../entities/concert/types";
-
-type SelectedConcert = {
-  id: string;
-  title: string;
-};
+import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
 
 type SearchResultProps = {
   keyword: string;
