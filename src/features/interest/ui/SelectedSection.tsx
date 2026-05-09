@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { SelectedConcert } from "../../../pages/SetInterestConcertPage";
+import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
 import { StateWithSetter } from "../../../shared/types/props";
 import Dropdown from "../../search/ui/Dropdown/Dropdown";
 import styles from "../../../shared/styles/scrollbar.module.css";
@@ -68,17 +68,26 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
         onMouseDown={(e) => e.preventDefault()}
         className={`flex flex-nowrap gap-8 overflow-x-auto overflow-y-hidden px-12 ${styles.hiddenScrollbar}`}
       >
-        {selected.map((item) => (
-          <Dropdown
-            key={item.id}
-            variant="on"
-            label={formatLabel(item.title)}
-            onRightIconClick={setSelected.bind(
-              null,
-              selected.filter((p) => p.id !== item.id),
-            )}
-          />
-        ))}
+        {selected.map((item) => {
+          const displayLabel =
+            item.title && item.title.trim()
+              ? item.title.trim()
+              : item.artist && item.artist.trim()
+                ? `${item.artist.trim()} 내한 예정`
+                : "아티스트 내한 예정";
+
+          return (
+            <Dropdown
+              key={item.id}
+              variant="on"
+              label={formatLabel(displayLabel)}
+              onRightIconClick={setSelected.bind(
+                null,
+                selected.filter((p) => p.id !== item.id),
+              )}
+            />
+          );
+        })}
       </div>
 
       {showRight && isHovered && (

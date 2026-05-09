@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 export type SelectedConcert = {
   id: string;
   title: string;
+  artist: string;
 };
 
 const toSelectedIds = (concerts: SelectedConcert[]) =>
@@ -42,6 +43,7 @@ function SetInterestConcertPage() {
     interestList?.map((concert) => ({
       id: concert.id,
       title: concert.title,
+      artist: concert.artist,
     })) ?? [],
   );
   const currentSelectedIds = toSelectedIds(selectedConcerts);
@@ -54,7 +56,11 @@ function SetInterestConcertPage() {
 
     if (interestList && interestList.length > 0) {
       setSelectedConcerts(
-        interestList.map((it) => ({ id: it.id, title: it.title })),
+        interestList.map((it) => ({
+          id: it.id,
+          title: it.title,
+          artist: it.artist,
+        })),
       );
     }
   }, [interestList, isInterestFetching]);
@@ -157,7 +163,7 @@ function SetInterestConcertPage() {
               setSelectedConcerts((prev) => {
                 const updated = ids.map((id) => {
                   const existing = prev.find((c) => c.id === id);
-                  return existing || { id, title: "" };
+                  return existing || { id, title: "", artist: "" };
                 });
                 return updated;
               });

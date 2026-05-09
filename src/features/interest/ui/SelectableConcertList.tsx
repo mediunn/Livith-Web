@@ -2,11 +2,7 @@ import { useConcertList } from "../../../features/concert/model/useConcertList";
 import { SelectableInfiniteConcertList } from "./SelectableInfiniteConcertList";
 import { StateWithSetter } from "../../../shared/types/props";
 import CardListSkeleton from "../../../shared/ui/CardSkeleton/CardListSkeleton";
-
-type SelectedConcert = {
-  id: string;
-  title: string;
-};
+import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
 
 type SelectableConcertListProps = {
   selectedConcertsState: StateWithSetter<SelectedConcert[]>;

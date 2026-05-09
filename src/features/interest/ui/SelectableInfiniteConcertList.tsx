@@ -4,16 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Concert } from "../../../entities/concert/types";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
+import EmptyConcertCard from "../../../shared/assets/EmptyConcertCardIcon.svg";
 import {
   getConcertDisplayDate,
   getConcertDisplayStatus,
   getConcertDisplayTitle,
 } from "../../../shared/utils/concertDisplay";
-
-type SelectedConcert = {
-  id: string;
-  title: string;
-};
+import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
 
 type SelectableInfiniteConcertListProps = {
   concerts: Concert[] | undefined;
@@ -60,7 +57,14 @@ export function SelectableInfiniteConcertList({
                 const exists = prev.some((c) => c.id === concert.id);
                 return exists
                   ? prev.filter((c) => c.id !== concert.id)
-                  : [...prev, { id: concert.id, title: concert.title }];
+                  : [
+                      ...prev,
+                      {
+                        id: concert.id,
+                        title: concert.title,
+                        artist: concert.artist ?? "",
+                      },
+                    ];
               })
             }
             initial={{ opacity: 0 }}
@@ -79,8 +83,9 @@ export function SelectableInfiniteConcertList({
                     }`}
                   />
                 ) : (
-                  <div
-                    className={`w-full bg-grayScaleBlack80 rounded-6 ${
+                  <img
+                    src={EmptyConcertCard}
+                    className={`h-full w-full bg-grayScaleBlack80 rounded-6 ${
                       isSelected
                         ? "border-2 border-mainYellow30"
                         : "border-2 border-transparent"
