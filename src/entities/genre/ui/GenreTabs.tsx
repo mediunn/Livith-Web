@@ -25,6 +25,14 @@ function GenreTabs({
   const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const isTouchDevice = () =>
+    typeof navigator !== "undefined" &&
+    ((navigator.maxTouchPoints ?? 0) > 0 ||
+      (typeof window !== "undefined" && "ontouchstart" in window));
+
+  const [isMobile, setIsMobile] = useState<boolean>(() =>
+    typeof window !== "undefined" ? isTouchDevice() : false,
+  );
 
   const tabs = Object.entries(genreMap).map(([value, label]) => ({
     label,
@@ -42,8 +50,12 @@ function GenreTabs({
     updateArrows();
     const el = containerRef.current;
     if (!el) return;
+    const onResize = () => {
+      updateArrows();
+      setIsMobile(isTouchDevice());
+    };
 
-    const onResize = () => updateArrows();
+    setIsMobile(isTouchDevice());
     window.addEventListener("resize", onResize);
     el.addEventListener("scroll", updateArrows);
 
@@ -68,10 +80,10 @@ function GenreTabs({
     //좌우 스크롤 가능한 탭
     <div
       className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
     >
-      {showLeft && isHovered && (
+      {showLeft && isHovered && !isMobile && (
         <button
           aria-label="genre-scroll-left"
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10"
@@ -112,7 +124,7 @@ function GenreTabs({
         </div>
       </TabContext>
 
-      {showRight && isHovered && (
+      {showRight && isHovered && !isMobile && (
         <button
           aria-label="genre-scroll-right"
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10"

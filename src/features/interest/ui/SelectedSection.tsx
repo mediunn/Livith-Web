@@ -17,6 +17,14 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
   const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const isTouchDevice = () =>
+    typeof navigator !== "undefined" &&
+    ((navigator.maxTouchPoints ?? 0) > 0 ||
+      (typeof window !== "undefined" && "ontouchstart" in window));
+
+  const [isMobile, setIsMobile] = useState<boolean>(() =>
+    typeof window !== "undefined" ? isTouchDevice() : false,
+  );
 
   const updateArrows = () => {
     const el = containerRef.current;
@@ -29,7 +37,12 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
     updateArrows();
     const el = containerRef.current;
     if (!el) return;
-    const onResize = () => updateArrows();
+    const onResize = () => {
+      updateArrows();
+      setIsMobile(isTouchDevice());
+    };
+
+    setIsMobile(isTouchDevice());
     window.addEventListener("resize", onResize);
     el.addEventListener("scroll", updateArrows);
     return () => {
@@ -53,7 +66,7 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {showLeft && isHovered && (
+      {showLeft && isHovered && !isMobile && (
         <button
           aria-label="scroll-left"
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10"
@@ -90,7 +103,7 @@ function SelectedSection({ selectedState }: SelectedSectionProps) {
         })}
       </div>
 
-      {showRight && isHovered && (
+      {showRight && isHovered && !isMobile && (
         <button
           aria-label="scroll-right"
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10"
