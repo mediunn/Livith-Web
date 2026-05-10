@@ -91,9 +91,9 @@ function AlarmItem({
         break;
 
       case "PRE_TICKETING_1D":
-      case "PRE_TICKETING_30M":
+      case "PRE_TICKETING_30MIN":
       case "GENERAL_TICKETING_1D":
-      case "GENERAL_TICKETING_30M":
+      case "GENERAL_TICKETING_30MIN":
         focusTarget = "concertDetail";
         break;
 

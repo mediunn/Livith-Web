@@ -3,14 +3,14 @@ import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import ConcertPosterEmptyIcon from "../../../shared/assets/ConcertPosterEmptyIcon.svg";
 import { InterestConcertResponse } from "../api/getInterestConcerts";
-import { formatDateRange } from "../../../shared/utils/formatDateRange";
 import { getImageSrc } from "../../../shared/utils/getImageSrc";
+
 import {
   getConcertDisplayDate,
-  getConcertDisplayStatus,
   getConcertDisplayTitle,
   getConcertDisplayVenue,
   getTicketingText,
+  getInterestConcertCarouseltDisplayStatus,
 } from "../../../shared/utils/concertDisplay";
 
 interface InterestConcertCarouselSlideProps {
@@ -40,7 +40,7 @@ function InterestConcertCarouselSlide({
   );
 
   const displayTitle = getConcertDisplayTitle(concert);
-  const displayStatus = getConcertDisplayStatus(concert);
+  const displayStatus = getInterestConcertCarouseltDisplayStatus(concert);
   const displayDate = getConcertDisplayDate(concert);
   const displayVenue = getConcertDisplayVenue(concert);
 
