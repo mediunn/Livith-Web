@@ -3,6 +3,8 @@ import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import ConcertPosterEmptyIcon from "../../../shared/assets/ConcertPosterEmptyIcon.svg";
 import { InterestConcertResponse } from "../api/getInterestConcerts";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
+
 import {
   getConcertDisplayDate,
   getConcertDisplayTitle,
@@ -50,7 +52,7 @@ function InterestConcertCarouselSlide({
         <div className="absolute inset-0 p-16 flex flex-col gap-16">
           <div className="flex gap-10">
             <img
-              src={poster ?? ConcertPosterEmptyIcon}
+              src={poster ? getImageSrc(poster) : ConcertPosterEmptyIcon}
               className="w-84 h-112 rounded-4 object-cover flex-shrink-0"
             />
             <div>

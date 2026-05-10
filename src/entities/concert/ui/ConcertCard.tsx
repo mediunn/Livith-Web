@@ -6,6 +6,7 @@ import {
   getConcertDisplayStatus,
   getConcertDisplayTitle,
 } from "../../../shared/utils/concertDisplay";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
 import type { ConcertDisplaySource } from "../../../shared/utils/concertDisplay";
 
 type ConcertCardProps = {
@@ -44,7 +45,7 @@ function ConcertCard({
       <div className="w-full aspect-[108/158] relative">
         {imageUrl ? (
           <img
-            src={imageUrl}
+            src={getImageSrc(imageUrl)}
             className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
             onError={(e) => {
               e.currentTarget.src = EmptyConcertCardIcon;

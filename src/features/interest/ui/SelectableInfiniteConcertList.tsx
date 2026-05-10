@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useNavigate } from "react-router-dom";
 import { Concert } from "../../../entities/concert/types";
+import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
+import EmptyConcertCard from "../../../shared/assets/EmptyConcertCardIcon.svg";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
-import EmptyConcertCard from "../../../shared/assets/EmptyConcertCardIcon.svg";
 import {
   getConcertDisplayDate,
   getConcertDisplayStatus,
   getConcertDisplayTitle,
 } from "../../../shared/utils/concertDisplay";
-import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
 
 type SelectableInfiniteConcertListProps = {
   concerts: Concert[] | undefined;
@@ -75,7 +75,7 @@ export function SelectableInfiniteConcertList({
               <div className="w-full aspect-[108/158] relative">
                 {concert.poster ? (
                   <img
-                    src={concert.poster}
+                    src={getImageSrc(concert.poster)}
                     className={`w-full h-full rounded-6 object-cover ${
                       isSelected
                         ? "border-2 border-mainYellow30"
