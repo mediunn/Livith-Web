@@ -28,6 +28,19 @@ export const getConcertDisplayStatus = (concert: ConcertDisplaySource) => {
   });
 };
 
+export const getConcertCarouselDisplayStatus = (
+  concert: ConcertDisplaySource,
+) => {
+  if (!hasValidDate(concert.startDate, concert.endDate)) {
+    return "공연 예정";
+  }
+
+  return `공연 ${setConcertStatus({
+    status: concert.status,
+    daysLeft: concert.daysLeft,
+  })}`;
+};
+
 export const getConcertDisplayDate = (concert: ConcertDisplaySource) => {
   if (!hasValidDate(concert.startDate, concert.endDate)) {
     return "추후 발표";
