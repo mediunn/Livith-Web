@@ -3,6 +3,7 @@ import { ApiResponse } from "../../../shared/types/response";
 
 export interface InterestConcertToastData {
   needsToShow: boolean;
+  type?: "COMPLETED" | "CANCELED" | "BOTH";
 }
 
 export const getInterestConcertToast = async (): Promise<

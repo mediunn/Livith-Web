@@ -89,7 +89,7 @@ function DetailInfo({
             />,
             {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 100,
               pauseOnFocusLoss: false,
             },
           );
@@ -105,7 +105,7 @@ function DetailInfo({
             />,
             {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 100,
               pauseOnFocusLoss: false,
             },
           );

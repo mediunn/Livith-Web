@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getInterestConcertToast,
   patchInterestConcertToast,
@@ -10,12 +10,15 @@ export const useGetInterestConcertToast = (enabled: boolean) => {
     queryFn: getInterestConcertToast,
     enabled,
     staleTime: 0,
-    gcTime: 0,
   });
 };
 
 export const usePatchInterestConcertToast = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: patchInterestConcertToast,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["interestConcertToast"] });
+    },
   });
 };
