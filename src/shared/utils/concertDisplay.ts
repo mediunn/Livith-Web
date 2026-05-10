@@ -1,6 +1,9 @@
 import { Concert } from "../../entities/concert/types";
 import { formatDateRange } from "./formatDateRange";
-import { setConcertStatus } from "../../features/search/utils/setConcertStatus";
+import {
+  setConcertStatus,
+  setInterestConcertCarouselStatus,
+} from "../../features/search/utils/setConcertStatus";
 
 export type ConcertDisplaySource = Pick<
   Concert,
@@ -27,18 +30,17 @@ export const getConcertDisplayStatus = (concert: ConcertDisplaySource) => {
     daysLeft: concert.daysLeft,
   });
 };
-
-export const getConcertCarouselDisplayStatus = (
+export const getInterestConcertCarouseltDisplayStatus = (
   concert: ConcertDisplaySource,
 ) => {
   if (!hasValidDate(concert.startDate, concert.endDate)) {
     return "공연 예정";
   }
 
-  return `공연 ${setConcertStatus({
+  return setInterestConcertCarouselStatus({
     status: concert.status,
     daysLeft: concert.daysLeft,
-  })}`;
+  });
 };
 
 export const getConcertDisplayDate = (concert: ConcertDisplaySource) => {

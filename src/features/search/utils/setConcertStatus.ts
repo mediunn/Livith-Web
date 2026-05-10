@@ -19,3 +19,23 @@ export const setConcertStatus = ({
     return `D-${daysLeft}`;
   }
 };
+
+export const setInterestConcertCarouselStatus = ({
+  status,
+  daysLeft,
+}: {
+  status: ConcertStatus;
+  daysLeft: number;
+}) => {
+  if (status === ConcertStatus.ONGOING) {
+    return "진행중";
+  } else if (status === ConcertStatus.CANCELED) {
+    return "공연취소";
+  } else if (status === ConcertStatus.COMPLETED || daysLeft < 0) {
+    return "종료";
+  } else if (daysLeft === 0) {
+    return "공연 D-Day";
+  } else {
+    return `공연 D-${daysLeft}`;
+  }
+};

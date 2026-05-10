@@ -105,10 +105,12 @@ function HomePage() {
         position: "top-center",
         autoClose: 3000,
       });
-      toast(<CompleteToast message="취소된 공연이 자동 정리됐어요" />, {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      setTimeout(() => {
+        toast(<CompleteToast message="취소된 공연이 자동 정리됐어요" />, {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      }, 300);
     } else {
       const message =
         type === "CANCELED"

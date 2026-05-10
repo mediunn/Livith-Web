@@ -4,11 +4,11 @@ import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import ConcertPosterEmptyIcon from "../../../shared/assets/ConcertPosterEmptyIcon.svg";
 import { InterestConcertResponse } from "../api/getInterestConcerts";
 import {
-  getConcertCarouselDisplayStatus,
   getConcertDisplayDate,
   getConcertDisplayTitle,
   getConcertDisplayVenue,
   getTicketingText,
+  getInterestConcertCarouseltDisplayStatus,
 } from "../../../shared/utils/concertDisplay";
 
 interface InterestConcertCarouselSlideProps {
@@ -38,7 +38,7 @@ function InterestConcertCarouselSlide({
   );
 
   const displayTitle = getConcertDisplayTitle(concert);
-  const displayStatus = getConcertCarouselDisplayStatus(concert);
+  const displayStatus = getInterestConcertCarouseltDisplayStatus(concert);
   const displayDate = getConcertDisplayDate(concert);
   const displayVenue = getConcertDisplayVenue(concert);
 
