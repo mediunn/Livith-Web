@@ -98,10 +98,28 @@ function HomePage() {
 
     hasShownAutoCleanToastRef.current = true;
 
-    toast(<CompleteToast message="종료된 공연이 자동 정리됐어요" />, {
-      position: "top-center",
-      autoClose: 3000,
-    });
+    const type = concertToastData.data.type;
+
+    if (type === "BOTH") {
+      toast(<CompleteToast message="종료된 공연이 자동 정리됐어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      toast(<CompleteToast message="취소된 공연이 자동 정리됐어요" />, {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    } else {
+      const message =
+        type === "CANCELED"
+          ? "취소된 공연이 자동 정리됐어요"
+          : "종료된 공연이 자동 정리됐어요";
+
+      toast(<CompleteToast message={message} />, {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
 
     patchConcertToast();
   }, [concertToastData, patchConcertToast]);
