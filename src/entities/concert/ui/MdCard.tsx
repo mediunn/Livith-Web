@@ -22,6 +22,9 @@ function MdCard({ name, price, imgUrl, ticketUrl }: MdCardProps) {
           <img
             src={getImageSrc(imgUrl)}
             className="w-full h-full rounded-6 object-cover"
+            onError={(e) => {
+              e.currentTarget.src = EmptyConcertCardIcon;
+            }}
           />
         ) : (
           <img

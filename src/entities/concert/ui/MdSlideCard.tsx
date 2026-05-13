@@ -15,6 +15,9 @@ function MdSlideCard({ name, price, imageUrl }: MdSlideCardProps) {
           <img
             src={getImageSrc(imageUrl)}
             className="w-full h-full rounded-6 object-cover"
+            onError={(e) => {
+              e.currentTarget.src = EmptyConcertCardIcon;
+            }}
           />
         ) : (
           <img
