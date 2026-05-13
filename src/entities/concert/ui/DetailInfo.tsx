@@ -4,6 +4,7 @@ import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import HotConcertChipIcon from "../../../shared/assets/HotConcertChipIcon.svg";
 import AlarmIcon from "../../../shared/assets/AlarmIcon.svg";
 import AlarmFillIcon from "../../../shared/assets/AlarmFillIcon.svg";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
 import { useState } from "react";
 import { ConcertStatus } from "../types";
 import { useRecoilState } from "recoil";
@@ -139,7 +140,7 @@ function DetailInfo({
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {imageUrl ? (
         <img
-          src={imageUrl}
+          src={getImageSrc(imageUrl)}
           className="w-full h-full object-cover"
           onError={(e) => {
             e.currentTarget.src = EmptyConcertImageIcon;
