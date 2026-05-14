@@ -54,6 +54,9 @@ function InterestConcertCarouselSlide({
             <img
               src={poster ? getImageSrc(poster) : ConcertPosterEmptyIcon}
               className="w-84 h-112 rounded-4 object-cover flex-shrink-0"
+              onError={(e) => {
+                e.currentTarget.src = ConcertPosterEmptyIcon;
+              }}
             />
             <div>
               <div className="inline-flex items-center justify-center px-10 py-4 rounded-24 bg-mainYellow30">

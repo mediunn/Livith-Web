@@ -1,15 +1,17 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { Concert } from "../../../entities/concert/types";
-import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
-import EmptyConcertCard from "../../../shared/assets/EmptyConcertCardIcon.svg";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
+import EmptyConcertCard from "../../../shared/assets/EmptyConcertCardIcon.svg";
 import {
   getConcertDisplayDate,
   getConcertDisplayStatus,
   getConcertDisplayTitle,
 } from "../../../shared/utils/concertDisplay";
+import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
 import { getImageSrc } from "../../../shared/utils/getImageSrc";
 
 type SelectableInfiniteConcertListProps = {
@@ -34,6 +36,27 @@ export function SelectableInfiniteConcertList({
     setValue: setSelectedConcerts,
   },
 }: SelectableInfiniteConcertListProps) {
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+  const [loadingImages, setLoadingImages] = useState<Set<string>>(
+    new Set(concerts?.map((c) => c.id) ?? []),
+  );
+
+  const handleImageError = (concertId: string) => {
+    setFailedImages((prev) => new Set(prev).add(concertId));
+    setLoadingImages((prev) => {
+      const next = new Set(prev);
+      next.delete(concertId);
+      return next;
+    });
+  };
+
+  const handleImageLoad = (concertId: string) => {
+    setLoadingImages((prev) => {
+      const next = new Set(prev);
+      next.delete(concertId);
+      return next;
+    });
+  };
   const { ref } = useInView({
     triggerOnce: false,
     onChange: (inView) => {
@@ -73,15 +96,26 @@ export function SelectableInfiniteConcertList({
           >
             <div className="cursor-pointer">
               <div className="w-full aspect-[108/158] relative">
-                {concert.poster ? (
-                  <img
-                    src={getImageSrc(concert.poster)}
-                    className={`w-full h-full rounded-6 object-cover ${
-                      isSelected
-                        ? "border-2 border-mainYellow30"
-                        : "border-2 border-transparent"
-                    }`}
-                  />
+                {concert.poster && !failedImages.has(concert.id) ? (
+                  <>
+                    {loadingImages.has(concert.id) && (
+                      <div className="absolute inset-0 bg-grayScaleBlack80 rounded-6 animate-pulse" />
+                    )}
+                    <img
+                      src={getImageSrc(concert.poster)}
+                      onLoad={() => handleImageLoad(concert.id)}
+                      onError={() => handleImageError(concert.id)}
+                      className={`w-full h-full rounded-6 object-cover transition-opacity duration-300 ${
+                        loadingImages.has(concert.id)
+                          ? "opacity-0"
+                          : "opacity-100"
+                      } ${
+                        isSelected
+                          ? "border-2 border-mainYellow30"
+                          : "border-2 border-transparent"
+                      }`}
+                    />
+                  </>
                 ) : (
                   <img
                     src={EmptyConcertCard}
