@@ -76,8 +76,10 @@ function AlarmListPage() {
               isLoggedIn={isLoggedIn}
               text={" 아직 공연 소식이 없어요 : ("}
             />
-          )
-        ) : (
+          </div>
+        )
+      ) : (
+        <div className="flex-1 relative">
           <EmptyAlarm
             isLoggedIn={isLoggedIn}
             text={
