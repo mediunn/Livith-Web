@@ -1,50 +1,37 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Sheet, SheetRef } from "react-modal-sheet";
-import {
-  genreMap,
-  statusMap,
-} from "../../../entities/concert/constants/filterMaps";
-import {
-  genreOrder,
-  statusOrder,
-} from "../../../entities/concert/constants/filterOrders";
+import { statusMap } from "../../../entities/concert/constants/filterMaps";
+import { statusOrder } from "../../../entities/concert/constants/filterOrders";
 import { StatusFilter } from "../../../entities/concert/types";
-import { sortFilter } from "../../../features/concert/utils/sortFilter";
+import { sortFilter } from "../../concert/utils/sortFilter";
 import { useBodyScrollLock } from "../../../shared/model/useBodyScrollLock";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipFilter from "./ChipFilter/ChipFilter";
-import { GenreEnum } from "../../../entities/genre/types";
 
 interface FilterBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
-  genreState: StateWithSetter<GenreEnum[]>;
   statusState: StateWithSetter<StatusFilter[]>;
 }
 
 function FilterBottomSheet({
   isSheetOpen,
   onSheetClose,
-  genreState: { value: genreSelected, setValue: setGenreSelected },
   statusState: { value: statusSelected, setValue: setStatusSelected },
 }: FilterBottomSheetProps) {
   const ref = useRef<SheetRef>(null);
 
-  const genres: GenreEnum[] = Object.values(GenreEnum);
   const statuses: StatusFilter[] = Object.values(StatusFilter);
 
-  const [localGenres, setLocalGenres] = useState<GenreEnum[]>(genreSelected);
   const [localStatuses, setLocalStatuses] =
     useState<StatusFilter[]>(statusSelected);
 
   // 필터 변경 여부 체크
   const isModified =
-    localGenres.sort().join() !== [genreSelected].sort().join() ||
     localStatuses.sort().join() !== [statusSelected].sort().join();
   // 초기화 버튼 활성화 여부 (선택된 항목이 없으면 비활성)
-  const isResetDisabled =
-    localGenres[0] === GenreEnum.ALL && localStatuses[0] === StatusFilter.ALL;
+  const isResetDisabled = localStatuses[0] === StatusFilter.ALL;
 
   const [resetAnimating, setResetAnimating] = useState(false);
   const [applyAnimating, setApplyAnimating] = useState(false);
@@ -52,10 +39,9 @@ function FilterBottomSheet({
   // 시트 열릴 때 초기값 동기화
   useEffect(() => {
     if (isSheetOpen) {
-      setLocalGenres(genreSelected);
       setLocalStatuses(statusSelected);
     }
-  }, [isSheetOpen, genreSelected, statusSelected]);
+  }, [isSheetOpen, statusSelected]);
 
   useBodyScrollLock(isSheetOpen);
 
@@ -88,17 +74,11 @@ function FilterBottomSheet({
 
   // 초기화
   const handleReset = () => {
-    setLocalGenres([GenreEnum.ALL]);
     setLocalStatuses([StatusFilter.ALL]);
   };
 
   // 적용
   const handleApply = () => {
-    setGenreSelected(
-      localGenres.length === 0 || localGenres.includes(GenreEnum.ALL)
-        ? [GenreEnum.ALL]
-        : sortFilter(localGenres, genreOrder),
-    );
     setStatusSelected(
       localStatuses.length === 0 || localStatuses.includes(StatusFilter.ALL)
         ? [StatusFilter.ALL]
@@ -114,39 +94,10 @@ function FilterBottomSheet({
         style={{ left: "0", right: "0" }}
       >
         <Sheet.Header className="cursor-pointer" />
-        <Sheet.Content className="!px-16 space-y-11 pt-8 pb-24">
+        <Sheet.Content className="!px-16 pb-24">
           <div className="flex flex-col">
-            {/* 장르 */}
-            <div className="text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
-              장르
-            </div>
-            <div className="pt-20 pb-30">
-              <div className="flex flex-wrap gap-8">
-                {genres.map((genre, index) => {
-                  const isSelected = localGenres.includes(genre);
-                  return (
-                    <ChipFilter
-                      key={genre}
-                      label={genreMap[genre]}
-                      variant={isSelected ? "on" : "off"}
-                      onClick={() =>
-                        toggleOption<GenreEnum>(
-                          localGenres,
-                          genre,
-                          GenreEnum.ALL,
-                          setLocalGenres,
-                        )
-                      }
-                    />
-                  );
-                })}
-              </div>
-            </div>
-
-            <hr className="border-t border-grayScaleBlack80" />
-
             {/* 기간 */}
-            <div className="pt-30 pb-20 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
+            <div className="pb-20 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
               기간
             </div>
             <div className="flex flex-wrap gap-8 mb-24">
@@ -221,11 +172,6 @@ function FilterBottomSheet({
                             setTimeout(() => {
                               handleApply();
                               window.amplitude.track("click_apply_filter");
-                              localGenres.forEach((genre) => {
-                                window.amplitude.track(
-                                  `set_filter_${genre.toLowerCase()}`,
-                                );
-                              });
                               localStatuses.forEach((status) => {
                                 window.amplitude.track(
                                   `set_filter_${status.toLowerCase()}`,

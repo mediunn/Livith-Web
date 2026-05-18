@@ -8,13 +8,14 @@ export type Artist = {
   category: string;
   detail: string;
   instagramUrl: string;
+  twitterUrl: string;
   keywords: string[];
   imgUrl: string;
 };
 
 export async function getArtistInfo(id: number): Promise<Artist> {
   const response = await axiosInstance.get<ApiResponse<Artist>>(
-    `/concerts/${id}/artist`
+    `/concerts/${id}/artist`,
   );
   return response.data.data;
 }

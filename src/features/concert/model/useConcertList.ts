@@ -21,9 +21,8 @@ export const useConcertList = ({ size }: UseConcertListParams) => {
       cursor: undefined,
     } as ConcertListPageParam,
     getNextPageParam: (lastPage) => {
-      return {
-        cursor: lastPage.data.cursor ?? undefined,
-      } as ConcertListPageParam;
+      const cursor = lastPage.data.cursor;
+      return cursor == null ? undefined : { cursor };
     },
     select: (data) => {
       return {

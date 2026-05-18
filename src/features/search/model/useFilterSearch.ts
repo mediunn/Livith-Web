@@ -12,7 +12,7 @@ type UseFilterSearchParams = {
   status?: StatusFilter[];
 };
 
-type Cursor = { id: number | null; value: string | null };
+type Cursor = number;
 
 export const useFilterSearch = ({
   keyword,
@@ -26,9 +26,7 @@ export const useFilterSearch = ({
     queryFn: ({ pageParam }) =>
       getSearchResult({
         keyword,
-        cursor: pageParam
-          ? JSON.stringify({ value: pageParam.value, id: pageParam.id })
-          : undefined,
+        cursor: pageParam ?? undefined,
         size,
         genre,
         status,
@@ -36,7 +34,7 @@ export const useFilterSearch = ({
       }),
     initialPageParam: undefined as Cursor | undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.cursor;
+      return lastPage.data.cursor ?? undefined;
     },
     select: (data) => {
       return {

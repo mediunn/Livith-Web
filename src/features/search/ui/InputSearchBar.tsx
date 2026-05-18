@@ -43,7 +43,7 @@ function InputSearchBar({
 
   const handleFocus = () => {
     setShowResults(false);
-    setShowAll?.(false);
+    setShowAll?.(true); // 포커스 시 전체 콘서트 목록 표시
     onFocus?.();
   };
 
@@ -54,7 +54,12 @@ function InputSearchBar({
 
   const handleChange = (value: string) => {
     setInput(value);
-    setShowResults(false); // 입력값이 바뀌면 검색결과 숨김
+    // 입력값이 있으면 검색 결과 표시, 없으면 숨김
+    if (value.trim()) {
+      setShowResults(true);
+    } else {
+      setShowResults(false);
+    }
   };
 
   return (

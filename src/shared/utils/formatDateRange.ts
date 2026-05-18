@@ -1,4 +1,11 @@
-export const formatDateRange = (startDate: string, endDate: string): string => {
+export const formatDateRange = (
+  startDate?: string | null,
+  endDate?: string | null,
+): string => {
+  if (!startDate?.trim() || !endDate?.trim()) {
+    return "추후 발표";
+  }
+
   const [startY, startM, startD] = startDate.split(".");
   const [endY, endM, endD] = endDate.split(".");
 

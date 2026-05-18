@@ -1,4 +1,5 @@
 import InstagramIcon from "../../../shared/assets/InstagramIcon.svg";
+import TwitterIcon from "../../../shared/assets/TwitterIcon.svg";
 import { formatDebutDate } from "../utils/formatDebutDate";
 import EmptyArtistImageIcon from "../../../shared/assets/EmptyArtistImageIcon.svg";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
@@ -12,6 +13,7 @@ interface ArtistInfoProps {
   category: string;
   detail: string;
   instagramUrl: string;
+  twitterUrl: string;
   keywords: string[];
   imgUrl: string;
 }
@@ -22,6 +24,7 @@ function ArtistInfo({
   category,
   detail,
   instagramUrl,
+  twitterUrl,
   keywords,
   imgUrl,
 }: ArtistInfoProps) {
@@ -66,18 +69,32 @@ function ArtistInfo({
                 {category && (
                   <ChipInfo label={category} textStyle="caption1Bold" />
                 )}
-                <p className="pt-8 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
-                  {artist}
-                </p>
-                {instagramUrl && (
-                  <a
-                    href={instagramUrl}
-                    target="_blank"
-                    className="absolute right-0 bottom-0 border-none cursor-pointer"
-                  >
-                    <img src={InstagramIcon} className="w-30 h-30" />
-                  </a>
-                )}
+                <div className="flex justify-between items-end gap-10">
+                  <p className="pt-8 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
+                    {artist}
+                  </p>
+                  <div className="flex shrink-0">
+                    {instagramUrl && (
+                      <a
+                        href={instagramUrl}
+                        target="_blank"
+                        className="border-none cursor-pointer"
+                      >
+                        <img src={InstagramIcon} className="w-30 h-30" />
+                      </a>
+                    )}
+
+                    {twitterUrl && (
+                      <a
+                        href={twitterUrl}
+                        target="_blank"
+                        className="ml-10 border-none cursor-pointer"
+                      >
+                        <img src={TwitterIcon} className="w-30 h-30" />
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
 
               <div className="pt-12 w-full border-b border-dashed border-grayScaleBlack50" />
@@ -111,8 +128,7 @@ function ArtistInfo({
                   variant="keyword"
                   className="mr-4 mb-6"
                 />
-              )
-
+              ),
           )}
         </div>
       </div>

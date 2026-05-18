@@ -1,18 +1,24 @@
-import WebSiteEarthIcon from "../../shared/assets/WebSiteEarthIcon.svg";
-import WebSiteArrowIcon from "../../shared/assets/WebSiteArrowIcon.svg";
 import EmptyConcertImageIcon from "../../../shared/assets/EmptyConcertImageIcon.svg";
 import ConcertDateIcon from "../../../shared/assets/ConcertDateIcon.svg";
 import ConcertVenueIcon from "../../../shared/assets/ConcertVenueIcon.svg";
 import HotConcertChipIcon from "../../../shared/assets/HotConcertChipIcon.svg";
-import ConcertAddIcon from "../../../shared/assets/ConcertAddIcon.svg";
+import AlarmIcon from "../../../shared/assets/AlarmIcon.svg";
+import AlarmFillIcon from "../../../shared/assets/AlarmFillIcon.svg";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
 import { useState } from "react";
-import ChangeConcertConfirmModal from "../../../features/interest/ui/ChangeConcertConfirmModal";
 import { ConcertStatus } from "../types";
 import { useRecoilState } from "recoil";
 import { userState } from "../../../shared/lib/recoil/atoms/userState";
 import LoginModal from "../../../features/auth/ui/LoginModal";
 import { ChipBadge } from "../../../shared/ui/ChipBadge/ChipBadge";
 import ConcertMoreBtn from "../../../shared/ui/ConcertMoreButton/ConcertMoreButton";
+import { usePostInterestConcert } from "../../../features/interest/model/usePostInterestConcert";
+import { useDeleteInterestConcert } from "../../../features/interest/model/useDeleteInterestConcert";
+import { useInterestConcertExists } from "../../../features/interest/model/useInterestConcertExists";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import CompleteToast from "../../../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../../../shared/ui/Toast/ErrorToast";
 
 interface DetailInfoProps {
   id: string;
@@ -35,37 +41,106 @@ function DetailInfo({
   label,
   status,
 }: DetailInfoProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isToastActive, setIsToastActive] = useState(false);
+  const postMutation = usePostInterestConcert();
+  const deleteMutation = useDeleteInterestConcert();
+  const queryClient = useQueryClient();
 
   const [user] = useRecoilState(userState);
 
+  const targetId = Number(id);
+
+  const { data: interestExistsData } = useInterestConcertExists(
+    targetId,
+    !!user,
+  );
+
+  const isInterested = interestExistsData?.data?.isInterested ?? false;
+  const isPending = postMutation.isPending || deleteMutation.isPending;
+
+  const handleToggleInterest = async () => {
+    window.amplitude.track("confirm_change_interest");
+
+    if (!Number.isFinite(targetId) || targetId <= 0) {
+      return;
+    }
+
+    const accessToken = localStorage.getItem("accessToken") ?? "";
+
+    const mutation = isInterested ? deleteMutation : postMutation;
+
+    mutation.mutate(
+      { concertId: targetId, accessToken },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["interestConcertExists", targetId],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["interest-concerts"],
+          });
+          toast.dismiss();
+          toast(
+            <CompleteToast
+              message={
+                isInterested
+                  ? "소식을 받을 공연이 해제되었어요"
+                  : "소식을 받을 공연이 추가되었어요"
+              }
+            />,
+            {
+              position: "top-center",
+              autoClose: 100,
+              pauseOnFocusLoss: false,
+            },
+          );
+        },
+        onError: () => {
+          toast(
+            <ErrorToast
+              message={
+                isInterested
+                  ? "소식을 받을 공연 해제에 실패했어요"
+                  : "소식을 받을 공연 추가에 실패했어요"
+              }
+            />,
+            {
+              position: "top-center",
+              autoClose: 100,
+              pauseOnFocusLoss: false,
+            },
+          );
+        },
+      },
+    );
+  };
+
   return (
     <div className="w-full h-337 relative">
-      {status !== ConcertStatus.CANCELED && (
-        <ConcertMoreBtn
-          label="관심 콘서트 설정하기"
-          icon={ConcertAddIcon}
-          right={16}
-          top={0}
-          disabled={isToastActive}
-          iconPosition="left"
-          onClick={() => {
-            window.amplitude.track("click_interest_concert_detail");
-            if (user) {
-              setIsModalOpen(true);
-            } else {
-              setIsLoginModalOpen(true);
-            }
-          }}
-        />
-      )}
+      {status !== ConcertStatus.CANCELED &&
+        status !== ConcertStatus.COMPLETED && (
+          <ConcertMoreBtn
+            label={isInterested ? "소식 받는 중" : "소식 받기"}
+            icon={isInterested ? AlarmFillIcon : AlarmIcon}
+            right={16}
+            top={0}
+            disabled={isPending}
+            iconPosition="left"
+            onClick={async () => {
+              window.amplitude.track("click_interest_concert_detail");
+              if (user) {
+                await handleToggleInterest();
+              } else {
+                setIsLoginModalOpen(true);
+              }
+            }}
+          />
+        )}
 
       <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
       {imageUrl ? (
         <img
-          src={imageUrl}
+          src={getImageSrc(imageUrl)}
           className="w-full h-full object-cover"
           onError={(e) => {
             e.currentTarget.src = EmptyConcertImageIcon;
@@ -88,24 +163,18 @@ function DetailInfo({
 
         <div className="pt-10 flex items-center">
           <img src={ConcertDateIcon} className="w-24 h-24" />
-          <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+          <p className="pl-4 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
             {date}
           </p>
         </div>
 
         <div className="pt-4 flex items-center">
           <img src={ConcertVenueIcon} className="w-24 h-24" />
-          <p className="pl-4 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+          <p className="pl-4 text-grayScaleBlack50 text-Body4-re font-regular font-NotoSansKR">
             {venue}
           </p>
         </div>
       </div>
-      <ChangeConcertConfirmModal
-        id={id}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        setIsToastActive={setIsToastActive}
-      />
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}

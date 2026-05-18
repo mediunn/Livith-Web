@@ -1,6 +1,10 @@
 import { Concert } from "../types";
 import DetailInfo from "./DetailInfo";
 import { formatDateRange } from "../../../shared/utils/formatDateRange";
+import {
+  getConcertDisplayTitle,
+  getConcertDisplayVenue,
+} from "../../../shared/utils/concertDisplay";
 
 interface ConcertInsideInfoProps {
   concert: Concert;
@@ -12,9 +16,9 @@ function ConcertInsideInfo({ concert }: ConcertInsideInfoProps) {
       id={concert.id}
       imageUrl={concert.poster}
       artist={concert.artist}
-      title={concert.title}
+      title={getConcertDisplayTitle(concert)}
       date={formatDateRange(concert.startDate, concert.endDate)}
-      venue={concert.venue}
+      venue={getConcertDisplayVenue(concert)}
       label={concert.label}
       status={concert.status}
     />

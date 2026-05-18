@@ -13,7 +13,7 @@ import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import ListHeader from "../shared/ui/ListHeader";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import { preferredIdsEqual } from "../features/preference/utils/preferredIdsEqual";
-import { genreMap } from "../entities/concert/constants/filterMaps";
+import { genreMap } from "../entities/genre/constants/filterMaps";
 import { GenreEnum } from "../entities/genre/types";
 
 function UpdatePreferGenrePage() {
@@ -78,7 +78,7 @@ function UpdatePreferGenrePage() {
           </div>
         </div>
       </div>
-      <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
+      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent mx-16 pb-60">
         <div className="pb-10">
           <PreferredSection
             preferredState={{

@@ -1,6 +1,6 @@
-import CardListSkeleton from "../shared/ui/CardSkeleton/CardListSkeleton";
 import SectionConcertSlide from "../entities/concert/ui/SectionConcertSlide";
 import { SearchSection } from "../features/concert/api/getSearchConcertListSection";
+import CardListSkeleton from "../shared/ui/CardSkeleton/CardListSkeleton";
 
 type SearchConcertListSectionProps = {
   section: SearchSection;

@@ -1,14 +1,18 @@
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import {
-  Concert,
-  ConcertFilter,
-  ConcertStatus,
-} from "../../../entities/concert/types";
-import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
+import { useState } from "react";
+import { Concert } from "../../../entities/concert/types";
 import { StateWithSetter } from "../../../shared/types/props";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
+import EmptyConcertCard from "../../../shared/assets/EmptyConcertCardIcon.svg";
+import {
+  getConcertDisplayDate,
+  getConcertDisplayStatus,
+  getConcertDisplayTitle,
+} from "../../../shared/utils/concertDisplay";
+import type { SelectedConcert } from "../../../pages/SetInterestConcertPage";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
 
 type SelectableInfiniteConcertListProps = {
   concerts: Concert[] | undefined;
@@ -17,7 +21,7 @@ type SelectableInfiniteConcertListProps = {
   isFetchingNextPage?: boolean;
   isLoading?: boolean;
   isError?: boolean;
-  selectedConcertState: StateWithSetter<string | null>;
+  selectedConcertsState: StateWithSetter<SelectedConcert[]>;
 };
 
 export function SelectableInfiniteConcertList({
@@ -27,12 +31,32 @@ export function SelectableInfiniteConcertList({
   isFetchingNextPage,
   isLoading,
   isError,
-  selectedConcertState: {
-    value: selectedConcert,
-    setValue: setSelectedConcert,
+  selectedConcertsState: {
+    value: selectedConcerts,
+    setValue: setSelectedConcerts,
   },
 }: SelectableInfiniteConcertListProps) {
-  const navigate = useNavigate();
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+  const [loadingImages, setLoadingImages] = useState<Set<string>>(
+    new Set(concerts?.map((c) => c.id) ?? []),
+  );
+
+  const handleImageError = (concertId: string) => {
+    setFailedImages((prev) => new Set(prev).add(concertId));
+    setLoadingImages((prev) => {
+      const next = new Set(prev);
+      next.delete(concertId);
+      return next;
+    });
+  };
+
+  const handleImageLoad = (concertId: string) => {
+    setLoadingImages((prev) => {
+      const next = new Set(prev);
+      next.delete(concertId);
+      return next;
+    });
+  };
   const { ref } = useInView({
     triggerOnce: false,
     onChange: (inView) => {
@@ -44,25 +68,27 @@ export function SelectableInfiniteConcertList({
   if (isLoading) return null;
   if (isError) return null;
 
-  const formatDate = (startDate: string, endDate: string) => {
-    const end = endDate.split(".");
-    if (startDate === endDate) {
-      return `${startDate}`;
-    }
-    return `${startDate}~${end[1]}.${end[2]}`;
-  };
-
   return (
     <div className="grid grid-cols-3 gap-x-10 gap-y-24 px-16">
       {concerts?.map((concert) => {
-        const isSelected = selectedConcert === concert.id;
+        const isSelected = selectedConcerts.some((c) => c.id === concert.id);
         return (
           <motion.div
             key={concert.id}
             onClick={() =>
-              setSelectedConcert(
-                selectedConcert === concert.id ? null : concert.id
-              )
+              setSelectedConcerts((prev) => {
+                const exists = prev.some((c) => c.id === concert.id);
+                return exists
+                  ? prev.filter((c) => c.id !== concert.id)
+                  : [
+                      ...prev,
+                      {
+                        id: concert.id,
+                        title: concert.title,
+                        artist: concert.artist ?? "",
+                      },
+                    ];
+              })
             }
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -70,35 +96,48 @@ export function SelectableInfiniteConcertList({
           >
             <div className="cursor-pointer">
               <div className="w-full aspect-[108/158] relative">
-                {concert.poster ? (
-                  <img
-                    src={concert.poster}
-                    className={`w-full h-full rounded-6 object-cover ${
-                      isSelected ? "border-2 border-mainYellow30" : ""
-                    }`}
-                  />
+                {concert.poster && !failedImages.has(concert.id) ? (
+                  <>
+                    {loadingImages.has(concert.id) && (
+                      <div className="absolute inset-0 bg-grayScaleBlack80 rounded-6 animate-pulse" />
+                    )}
+                    <img
+                      src={getImageSrc(concert.poster)}
+                      onLoad={() => handleImageLoad(concert.id)}
+                      onError={() => handleImageError(concert.id)}
+                      className={`w-full h-full rounded-6 object-cover transition-opacity duration-300 ${
+                        loadingImages.has(concert.id)
+                          ? "opacity-0"
+                          : "opacity-100"
+                      } ${
+                        isSelected
+                          ? "border-2 border-mainYellow30"
+                          : "border-2 border-transparent"
+                      }`}
+                    />
+                  </>
                 ) : (
-                  <div
-                    className={`w-full bg-grayScaleBlack80 rounded-6 ${
-                      isSelected ? "border-2 border-mainYellow30" : ""
+                  <img
+                    src={EmptyConcertCard}
+                    className={`h-full w-full bg-grayScaleBlack80 rounded-6 ${
+                      isSelected
+                        ? "border-2 border-mainYellow30"
+                        : "border-2 border-transparent"
                     }`}
                   />
                 )}
 
                 <ChipState
-                  label={setConcertStatus({
-                    status: concert.status,
-                    daysLeft: concert.daysLeft,
-                  })}
+                  label={getConcertDisplayStatus(concert)}
                   variant={isSelected ? "selected" : "default"}
                   className="absolute top-10 left-10"
                 />
               </div>
               <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2 break-words">
-                {concert.title}
+                {getConcertDisplayTitle(concert)}
               </p>
               <p className="text-grayScaleBlack50 text-Caption1-sm font-semibold font-NotoSansKR mt-10 line-clamp-1">
-                {formatDate(concert.startDate, concert.endDate)}
+                {getConcertDisplayDate(concert)}
               </p>
               {concert.artist && (
                 <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR mt-4 mb-2 line-clamp-1">

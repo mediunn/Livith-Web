@@ -153,6 +153,7 @@ function ConcertInfoTab({
                 category={artist?.category || ""}
                 detail={artist?.detail || ""}
                 instagramUrl={artist?.instagramUrl || ""}
+                twitterUrl={artist?.twitterUrl || ""}
                 keywords={artist?.keywords || []}
                 imgUrl={artist?.imgUrl || ""}
                 concertCulture={concertCulture}

@@ -1,11 +1,18 @@
-import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
 import { ConcertStatus } from "../types";
 import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
+import {
+  getConcertDisplayDate,
+  getConcertDisplayStatus,
+  getConcertDisplayTitle,
+} from "../../../shared/utils/concertDisplay";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
+import type { ConcertDisplaySource } from "../../../shared/utils/concertDisplay";
 
 type ConcertCardProps = {
   title: string;
-  date: string;
+  startDate: string;
+  endDate: string;
   status: ConcertStatus;
   onClick?: () => void;
   artist?: string;
@@ -15,19 +22,30 @@ type ConcertCardProps = {
 
 function ConcertCard({
   title,
-  date,
+  startDate,
+  endDate,
   status,
   onClick,
   artist,
   imageUrl,
   daysLeft,
 }: ConcertCardProps) {
+  const displayConcert: ConcertDisplaySource = {
+    title,
+    artist: artist ?? "",
+    startDate,
+    endDate,
+    status,
+    daysLeft,
+    venue: "",
+  };
+
   return (
     <div onClick={onClick} className="cursor-pointer">
       <div className="w-full aspect-[108/158] relative">
         {imageUrl ? (
           <img
-            src={imageUrl}
+            src={getImageSrc(imageUrl)}
             className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
             onError={(e) => {
               e.currentTarget.src = EmptyConcertCardIcon;
@@ -41,15 +59,15 @@ function ConcertCard({
         )}
 
         <ChipState
-          label={setConcertStatus({ status, daysLeft })}
+          label={getConcertDisplayStatus(displayConcert)}
           className="absolute top-10 left-10"
         />
       </div>
       <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2 break-words">
-        {title}
+        {getConcertDisplayTitle(displayConcert)}
       </p>
       <p className="text-grayScaleBlack50 text-Caption1-sm font-semibold font-NotoSansKR mt-10 line-clamp-1">
-        {date}
+        {getConcertDisplayDate(displayConcert)}
       </p>
       {artist && (
         <p className="text-grayScaleBlack50 text-Caption1-re font-regular font-NotoSansKR mt-4 mb-2 line-clamp-1">

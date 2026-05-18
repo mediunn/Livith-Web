@@ -1,4 +1,4 @@
-import { genreMap } from "../../entities/concert/constants/filterMaps";
+import { genreMap } from "../../entities/genre/constants/filterMaps";
 import { UserFeaturedArtist } from "../../entities/featured-artist/types";
 import { GenreEnum, UserGenre } from "../../entities/genre/types";
 import PreferenceCard from "../../features/preference/ui/PreferenceCard";

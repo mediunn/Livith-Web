@@ -13,7 +13,6 @@ interface SocialLoginButtonProps {
   textColor: string;
   label: string;
   recentLoginLabel: string;
-  group?: "A" | "B" | "C";
   onClickLogin?: () => void;
 }
 
@@ -24,7 +23,6 @@ const SocialLoginButton = ({
   textColor,
   label,
   recentLoginLabel,
-  group,
   onClickLogin,
 }: SocialLoginButtonProps) => {
   const navigate = useNavigate();
@@ -66,11 +64,6 @@ const SocialLoginButton = ({
       }
 
       if (payload.isNewUser) {
-        if (group) {
-          window.amplitude.track(`${group}_signUp`);
-          localStorage.setItem("signedUpViaHomePage", "true");
-        }
-
         sessionStorage.setItem("isAdChecked", "false");
         sessionStorage.setItem("isUseChecked", "false");
         sessionStorage.setItem("isPersonalChecked", "false");

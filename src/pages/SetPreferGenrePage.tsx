@@ -9,7 +9,7 @@ import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
 import ListHeader from "../shared/ui/ListHeader";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import { GenreEnum } from "../entities/genre/types";
-import { genreMap } from "../entities/concert/constants/filterMaps";
+import { genreMap } from "../entities/genre/constants/filterMaps";
 
 function SetPreferGenrePage() {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ function SetPreferGenrePage() {
           </div>
         </div>
       </div>
-      <div className="sticky bottom-0 bg-grayScaleBlack100 mx-16 pb-60">
+      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent mx-16 pb-60">
         <div className="pb-10">
           <PreferredSection
             preferredState={{

@@ -1,33 +1,32 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getSearchResult } from "../api/getSearchResult";
-import { ConcertStatus, StatusFilter } from "../../../entities/concert/types";
+import { StatusFilter } from "../../../entities/concert/types";
 
 type UseSearchResultParams = {
   keyword: string;
   size?: number;
+  status?: StatusFilter[];
 };
 
-type Cursor = { id: number | null; value: string | null };
+type Cursor = number;
 
-export const useSearchResult = ({ keyword, size }: UseSearchResultParams) => {
+export const useSearchResult = ({
+  keyword,
+  size,
+  status,
+}: UseSearchResultParams) => {
   return useInfiniteQuery({
     queryKey: ["concerts", keyword],
     queryFn: ({ pageParam }) =>
       getSearchResult({
         keyword,
-        cursor: pageParam
-          ? JSON.stringify({ value: pageParam.value, id: pageParam.id })
-          : undefined,
+        cursor: pageParam ?? undefined,
         size,
-        status: [
-          StatusFilter.ONGOING,
-          StatusFilter.COMPLETED,
-          StatusFilter.UPCOMING,
-        ],
+        status,
       }),
     initialPageParam: undefined as Cursor | undefined,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.cursor;
+      return lastPage.data.cursor ?? undefined;
     },
     select: (data) => {
       return {

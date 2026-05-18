@@ -8,6 +8,7 @@ interface DropdownProps {
   onRightIconClick?: (
     e: React.MouseEvent<HTMLImageElement, MouseEvent>,
   ) => void;
+  offsetIcon?: boolean;
 }
 
 export default function Dropdown({
@@ -16,6 +17,7 @@ export default function Dropdown({
   icon,
   label,
   onRightIconClick,
+  offsetIcon = false,
 }: DropdownProps) {
   const backgroundColor = variant === "on" ? "bg-mainYellow30" : "transparent";
   const borderColor =
@@ -31,9 +33,9 @@ export default function Dropdown({
   return (
     <div
       onClick={onClick}
-      className={`flex flex-row items-center border ${borderColor} ${backgroundColor} rounded-24 px-8 py-5 cursor-pointer w-fit`}
+      className={`flex flex-row shrink-0 items-center border ${borderColor} ${backgroundColor} rounded-24 px-8 py-5 cursor-pointer w-fit`}
     >
-      {icon}
+      <div className={offsetIcon ? "-translate-y-1" : ""}>{icon}</div>
       <div
         className={`text-Body4-sm font-semibold ${textColor} font-NotoSansKR ml-4`}
       >

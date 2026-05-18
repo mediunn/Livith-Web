@@ -1,4 +1,5 @@
 import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
 
 type MdCardProps = {
   name: string;
@@ -18,7 +19,13 @@ function MdCard({ name, price, imgUrl, ticketUrl }: MdCardProps) {
     <div onClick={handleClick} className="cursor-pointer">
       <div className="w-full aspect-[108/158] relative">
         {imgUrl ? (
-          <img src={imgUrl} className="w-full h-full rounded-6 object-cover" />
+          <img
+            src={getImageSrc(imgUrl)}
+            className="w-full h-full rounded-6 object-cover"
+            onError={(e) => {
+              e.currentTarget.src = EmptyConcertCardIcon;
+            }}
+          />
         ) : (
           <img
             src={EmptyConcertCardIcon}

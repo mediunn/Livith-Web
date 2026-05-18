@@ -2,6 +2,7 @@ import { ConcertStatus } from "../types";
 import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
 import { setConcertStatus } from "../../../features/search/utils/setConcertStatus";
 import ChipState from "../../../shared/ui/ChipState/ChipState";
+import { getImageSrc } from "../../../shared/utils/getImageSrc";
 
 type ConcertSlideCardProps = {
   imageUrl?: string;
@@ -27,8 +28,11 @@ function SectionConcertSlideCard({
       <div className="w-108 h-158 relative">
         {imageUrl ? (
           <img
-            src={imageUrl}
+            src={getImageSrc(imageUrl)}
             className="w-full h-full rounded-6 object-cover"
+            onError={(e) => {
+              e.currentTarget.src = EmptyConcertCardIcon;
+            }}
           />
         ) : (
           <img
