@@ -6,10 +6,12 @@ type Banner = {
   title: string;
   category: string;
   imgUrl: string;
+  content: string;
+  linkUrl?: string;
 };
 
 export async function getBanner(): Promise<Banner[]> {
   const response =
-    await axiosInstance.get<ApiResponse<Banner[]>>("/home/banners");
+    await axiosInstance.get<ApiResponse<Banner[]>>("/search/banners");
   return response.data.data;
 }

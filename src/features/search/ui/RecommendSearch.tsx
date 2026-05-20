@@ -2,18 +2,21 @@ import { useState } from "react";
 import { StateWithSetter } from "../../../shared/types/props";
 import useRecommendSearch from "../model/useRecommendSearch";
 import RecommendSearchItem from "./RecommendSearchItem";
-import useDebounce from "../model/useDebounce";
+import useDebounce from "../../../shared/hooks/useDebounce";
 
 type RecentSearchProps = {
   inputState: StateWithSetter<string>;
-  recentState: StateWithSetter<string[]>;
+  recentState?: StateWithSetter<string[]>;
   showResultsState: StateWithSetter<boolean>;
 };
 function RecommendSearch({
   inputState: { value: input, setValue: setInput },
-  recentState: { value: recent, setValue: setRecent },
+  recentState,
   showResultsState: { value: showResults, setValue: setShowResults },
 }: RecentSearchProps) {
+  const recent = recentState?.value;
+  const setRecent = recentState?.setValue;
+
   //debounce 적용
   const [isDebouncing, setIsDebouncing] = useState(false);
   const debounceValue = useDebounce({
@@ -53,7 +56,9 @@ function RecommendSearch({
           key={index}
           word={word}
           inputState={{ value: input, setValue: setInput }}
-          recentState={{ value: recent, setValue: setRecent }}
+          recentState={
+            recentState ? { value: recent!, setValue: setRecent! } : undefined
+          }
           showResultsState={{
             value: showResults,
             setValue: setShowResults,

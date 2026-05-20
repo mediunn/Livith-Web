@@ -1,7 +1,14 @@
+export enum ConcertFilter {
+  NEW = "NEW",
+  UPCOMING = "UPCOMING",
+  ALL = "ALL",
+}
+
 export enum ConcertStatus {
   ONGOING = "ONGOING",
   UPCOMING = "UPCOMING",
   COMPLETED = "COMPLETED",
+  CANCELED = "CANCELED",
 }
 
 export type Concert = {
@@ -10,11 +17,15 @@ export type Concert = {
   title: string;
   startDate: string;
   endDate: string;
-  poster: string;
-  daysLeft: number;
-  sortedIndex: number;
-  artist: string;
   status: ConcertStatus;
+  poster: string;
+  artist: string;
+  daysLeft: number;
+  ticketSite: string;
+  ticketUrl: string;
+  venue: string;
+  introduction: string;
+  label: string;
 };
 
 export type ConcertListResponse = {
@@ -22,3 +33,65 @@ export type ConcertListResponse = {
   cursor: null | undefined;
   totalCount?: number;
 };
+
+export type SectionConcert = {
+  id: string;
+  code: string;
+  title: string;
+  startDate: string;
+  endDate: string;
+  status: ConcertStatus;
+  poster: string;
+  artist: string;
+  daysLeft: number;
+  createdAt: string;
+  updatedAt: string;
+  artistId: number;
+  ticketSite: string;
+  ticketUrl: string;
+  venue: string;
+  introduction: string;
+  label: string;
+  sortedIndex: number;
+};
+
+export type RecommendConcert = {
+  id: number;
+  code?: string;
+  title: string;
+  startDate: string;
+  endDate: string;
+  status: ConcertStatus;
+  poster: string;
+  artist: string;
+  daysLeft: number;
+  ticketSite?: string;
+  ticketUrl?: string;
+  venue: string;
+  introduction: string;
+  label?: string;
+};
+
+export enum StatusFilter {
+  ALL = "ALL",
+  ONGOING = "ONGOING",
+  UPCOMING = "UPCOMING",
+  COMPLETED = "COMPLETED",
+  CANCELED = "CANCELED",
+}
+
+export enum SortFilter {
+  LATEST = "LATEST",
+  ALPHABETICAL = "ALPHABETICAL",
+}
+
+export enum InterestSortFilter {
+  TICKETING = "TICKETING",
+  CONCERT = "CONCERT",
+}
+
+export enum ConcertScheduleType {
+  PRE_TICKETING = "PRE_TICKETING",
+  GENERAL_TICKETING = "GENERAL_TICKETING",
+  CONCERT = "CONCERT",
+}

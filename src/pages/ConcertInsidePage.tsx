@@ -1,33 +1,91 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import ListHeader from "../shared/ui/ListHeader";
-import ConcertInsideInfo from "../features/concert/ui/ConcertInsideInfo";
-import ConcertCulture from "../widgets/ConcertCulture";
-import PastSetList from "../shared/ui/PastSetList";
-import ExpectationSetList from "../shared/ui/ExpectationSetList";
-import { ConcertStatus } from "../entities/concert/types";
-import OngoingSetList from "../shared/ui/OngoingSetList";
+import ConcertInsideInfo from "../entities/concert/ui/ConcertInsideInfo";
+import ConcertInfoTab from "../entities/concert/ui/ConcertInfoTab";
+import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
+import { toast } from "react-toastify";
+import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
+import LoginModal from "../features/auth/ui/LoginModal";
+import { useRecoilState } from "recoil";
+import { userState } from "../shared/lib/recoil/atoms/userState";
 
 function ConcertInsidePage() {
   const { concertId } = useParams<{ concertId: string }>();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [user] = useRecoilState(userState);
+  const effectRan = useRef(false); // 실행 여부 추적
+
+  // 세션 스토리지에서 열람한 콘서트 ID 배열 가져오기
+  const [viewedConcerts, setViewedConcerts] = useState<string[]>(() => {
+    const stored = sessionStorage.getItem("viewedConcerts");
+    return stored ? JSON.parse(stored) : [];
+  });
+
   const location = useLocation();
-  const status = location.state?.status;
+  const focusTarget = location.state?.focusTarget;
+
+  // 페이지 진입 시 스크롤 맨 위로 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const { data: concert } = useConcertInsideInfo(Number(concertId));
+  // 페이지 진입 시 열람 기록 업데이트
+  useEffect(() => {
+    if (effectRan.current) return; // 이미 실행됐으면 중단
+    effectRan.current = true;
+    if (!concertId) return;
+
+    // 로그인 유저는 기록 저장 안 함
+    if (user) return;
+
+    // 이미 로그인 유도 토스트 띄운 경우 중단
+    if (sessionStorage.getItem("loginToastShown") === "true") return;
+
+    // 이미 3개 이상 본 경우 추가 중단
+    if (viewedConcerts.length >= 3) return;
+
+    // 이미 본 콘서트인지 체크
+    if (!viewedConcerts.includes(concertId)) {
+      const newViewed = [...viewedConcerts, concertId];
+      sessionStorage.setItem("viewedConcerts", JSON.stringify(newViewed));
+
+      // 3개 열람 시 토스트
+      if (newViewed.length === 3) {
+        toast(
+          <LoginSnackbar
+            message="콘서트 정보"
+            onLoginClick={() => {
+              setIsLoginModalOpen(true);
+              toast.dismiss();
+            }}
+          />,
+          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false },
+        );
+        sessionStorage.setItem("loginToastShown", "true");
+      }
+    }
+  }, [concertId]);
+  if (!concert) return null;
 
   return (
-    <>
-      <ListHeader></ListHeader>
-      <ConcertInsideInfo concertId={Number(concertId)}></ConcertInsideInfo>
-      <ConcertCulture></ConcertCulture>
-      {status === ConcertStatus.UPCOMING ? (
-        <>
-          <ExpectationSetList
-            concertId={Number(concertId)}
-          ></ExpectationSetList>
-          <PastSetList concertId={Number(concertId)}></PastSetList>
-        </>
-      ) : (
-        <OngoingSetList concertId={Number(concertId)}></OngoingSetList>
-      )}
-    </>
+    <div className="pb-90">
+      <ListHeader title={concert.title} />
+      <ConcertInsideInfo concert={concert}></ConcertInsideInfo>
+      <ConcertInfoTab
+        introduction={concert.introduction}
+        concertId={Number(concertId)}
+        ticketUrl={concert.ticketUrl}
+        status={concert.status}
+        focusTarget={focusTarget}
+      ></ConcertInfoTab>
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        type="concertInfo"
+      />
+    </div>
   );
 }
 

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      window.onload = function () {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const params = new URLSearchParams(window.location.search);
+        const concert = params.get("concert");
+
+        const iosLink =
+          "https://apps.apple.com/kr/app/%EB%9D%BC%EC%9D%B4%EB%B9%97/id6745769826#productRatings";
+        const centralCeeConcert = "https://www.livith.site/concert/1625";
+        const oneOkRockConcert = "https://www.livith.site/concert/1584";
+
+        if (/iPhone|iPad|iPod/i.test(ua)) {
+          // iOS
+          window.location.href = iosLink;
+        } else if (/Android/i.test(ua)) {
+          // Android
+          if (concert === "centralCee") {
+            window.location.href = centralCeeConcert;
+          } else if (concert === "oneOkRock") {
+            window.location.href = oneOkRockConcert;
+          } else {
+            window.location.href = "https://www.livith.site";
+          }
+        } else {
+          // 기타 기기
+          window.location.href = "https://www.livith.site";
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <p>잠시만 기다려주세요...</p>
+  </body>
+</html>

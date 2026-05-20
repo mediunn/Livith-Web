@@ -3,13 +3,35 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import HomePage from "../pages/HomePage";
 import ConcertInsidePage from "../pages/ConcertInsidePage";
+import CategoryPage from "../pages/CategoryPage";
 import MyPage from "../pages/MyPage";
-import ConcertListPage from "../pages/ConcertListPage";
+import NicknamePage from "../pages/NicknamePage";
+// import ConcertListPage from "../pages/ConcertListPage";
 import RootLayout from "./RootLayout";
 import SearchPage from "../pages/SearchPage";
 import LyricPage from "../pages/LyricPage";
 import SetlistCollectionPage from "../pages/SetlistCollectionPage";
 import SetlistDetailPage from "../pages/SetlistDetailPage";
+import SetInterestConcertPage from "../pages/SetInterestConcertPage";
+import MdPage from "../pages/MdPage";
+import CompleteSetConcertPage from "../pages/CompleteSetConcertPage";
+import WithdrawPage from "../pages/WithdrawPage";
+import SignupAgreementPage from "../pages/SignupAgreementPage";
+import SignupNicknamePage from "../pages/SignupNicknamePage";
+import { InitializeAuthWrapper } from "../shared/components/InitializeAuthWrapper";
+import CustomToastContainer from "../widgets/CustomToastContainer";
+import { useEffect } from "react";
+import SettingPage from "../pages/SettingPage";
+import AlarmSettingPage from "../pages/AlarmSettingPage";
+import SignupPreferGenrePage from "../pages/SignupPreferGenrePage";
+import SignupPreferArtistPage from "../pages/SignupPreferArtistPage";
+import SetPreferGenrePage from "../pages/SetPreferGenrePage";
+import SetPreferArtistPage from "../pages/SetPreferArtistPage";
+import AlarmListPage from "../pages/AlarmListPage";
+import UpdatePreferGenrePage from "../pages/UpdatePreferGenrePage";
+import UpdatePreferArtistPage from "../pages/UpdatePreferArtistPage";
+import RecommedConcertListPage from "../pages/RecommedConcertListPage";
+import InterestConcertListPage from "../pages/InterestConcertListPage";
 
 const queryClient = new QueryClient();
 
@@ -27,12 +49,41 @@ const router = createBrowserRouter([
         element: <ConcertInsidePage />,
       },
       {
+        path: "category",
+        element: <CategoryPage />,
+      },
+      {
         path: "my",
         element: <MyPage />,
       },
       {
-        path: "concerts/:status",
-        element: <ConcertListPage />,
+        path: "setting",
+        element: <SettingPage />,
+      },
+      {
+        path: "alarm-setting",
+        element: <AlarmSettingPage />,
+      },
+
+      {
+        path: "alarm-list",
+        element: <AlarmListPage />,
+      },
+      {
+        path: "nickname",
+        element: <NicknamePage />,
+      },
+      {
+        path: "withdraw",
+        element: <WithdrawPage />,
+      },
+      // {
+      //   path: "concerts/:status",
+      //   element: <ConcertListPage />,
+      // },
+      {
+        path: "concerts/recommed",
+        element: <RecommedConcertListPage />,
       },
       {
         path: "search",
@@ -47,19 +98,83 @@ const router = createBrowserRouter([
         element: <SetlistCollectionPage />,
       },
       {
-        path: "setlist/:setlistId/:concertId",
+        path: "setlist/:setlistId/:concertId/:setlistTitle",
         element: <SetlistDetailPage />,
+      },
+      {
+        path: "set-concert",
+        element: <SetInterestConcertPage />,
+      },
+      {
+        path: "interest-concert",
+        element: <InterestConcertListPage />,
+      },
+      {
+        path: "md/:concertId",
+        element: <MdPage />,
+      },
+      {
+        path: "complete-set",
+        element: <CompleteSetConcertPage />,
+      },
+      {
+        path: "signup/agreement",
+        element: <SignupAgreementPage />,
+      },
+      {
+        path: "signup/nickname",
+        element: <SignupNicknamePage />,
+      },
+      {
+        path: "signup/prefer-genre",
+        element: <SignupPreferGenrePage />,
+      },
+      {
+        path: "signup/prefer-artist",
+        element: <SignupPreferArtistPage />,
+      },
+      {
+        path: "set-prefer-genre",
+        element: <SetPreferGenrePage />,
+      },
+      {
+        path: "set-prefer-artist",
+        element: <SetPreferArtistPage />,
+      },
+      {
+        path: "update-prefer-genre",
+        element: <UpdatePreferGenrePage />,
+      },
+      {
+        path: "update-prefer-artist",
+        element: <UpdatePreferArtistPage />,
       },
     ],
   },
 ]);
 
 function App() {
+  useEffect(() => {
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        // bfcache로 복귀한 경우
+        window.location.reload();
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
+
   return (
     <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <InitializeAuthWrapper>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <CustomToastContainer />
+        </QueryClientProvider>
+      </InitializeAuthWrapper>
     </RecoilRoot>
   );
 }

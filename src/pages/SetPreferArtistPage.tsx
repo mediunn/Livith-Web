@@ -1,0 +1,202 @@
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import InfiniteFeaturedArtistList from "../entities/featured-artist/ui/InfiniteFeaturedArtistList";
+import AuthErrorModal from "../features/auth/ui/AuthErrorModal";
+import PreferenceSelectHeader from "../features/preference/ui/PreferenceSelectHeader";
+import PreferredSection from "../features/preference/ui/PreferredSection";
+import InputSearchBar from "../features/search/ui/InputSearchBar";
+import CommonButton from "../shared/ui/CommonButton/CommonButton";
+import DangerModal from "../shared/ui/DangerModal/DangerModal";
+import ListHeader from "../shared/ui/ListHeader";
+import ProgressBar from "../shared/ui/ProgressBar/ProgressBar";
+import useSetPreferredGenres from "../features/preference/model/useSetUserPreferredGenres";
+import useSetPreferredArtists from "../features/preference/model/useSetUserPreferredArtists";
+import { toast } from "react-toastify";
+import CompleteToast from "../shared/ui/Toast/CompleteToast";
+import { useInitializeAuth } from "../shared/hooks/useInitializeAuth";
+
+function SetPreferArtistPage() {
+  // 키보드 오픈 상태 관리
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { preferredGenreIds } = location.state || {};
+  const [input, setInput] = useState<string>("");
+  const [showAll, setShowAll] = useState<boolean>(true);
+  // 검색 결과를 보여줄지 여부
+  const [showResults, setShowResults] = useState(false);
+
+  const [preferred, setPreferred] = useState<{ id: number; label: string }[]>(
+    [],
+  );
+
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [isBackModalOpen, setIsBackModalOpen] = useState(false);
+
+  const { mutate: setPreferredGenresMutate, isPending } =
+    useSetPreferredGenres();
+  const { mutate: setPreferredArtistsMutate } = useSetPreferredArtists();
+
+  const { initialize } = useInitializeAuth();
+
+  const onSuccess = async () => {
+    await initialize();
+    navigate("/");
+    toast(<CompleteToast message="선호하는 음악 취향을 반영했어요" />, {
+      position: "top-center",
+      autoClose: 3000,
+      pauseOnFocusLoss: false,
+    });
+  };
+
+  const handleSetPreference = ({ skip = false }) => {
+    sessionStorage.removeItem("preferredGenres");
+    if (!preferredGenreIds) {
+      setIsErrorModalOpen(true);
+      return;
+    }
+
+    setPreferredGenresMutate(preferredGenreIds, {
+      onSuccess: () => {
+        setPreferredArtistsMutate(
+          skip ? [] : preferred.map((item) => item.id),
+          {
+            onSuccess: async () => {
+              try {
+                await onSuccess();
+              } catch (error) {
+                setIsErrorModalOpen(true);
+              }
+            },
+            onError: () => {
+              setIsErrorModalOpen(true);
+            },
+          },
+        );
+      },
+      onError: () => {
+        setIsErrorModalOpen(true);
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (showResults && input.trim().length > 0) {
+      window.amplitude.track("click_search_complete_artist_preference");
+    }
+  }, [showResults]);
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-1 overflow-y-auto">
+        <div className="flex">
+          <ListHeader
+            title="취향 설정"
+            onBackClick={() => {
+              window.amplitude.track("click_back_preference");
+              if (preferred.length > 0) {
+                setIsBackModalOpen(true);
+              } else {
+                navigate(-1);
+              }
+            }}
+            rightElement={
+              <span
+                onClick={() => {
+                  window.amplitude.track("click_skip_artist_preference");
+                  handleSetPreference({ skip: true });
+                }}
+                className="text-Body4-re font-regular text-grayScaleBlack50 justify-end m-8 cursor-pointer"
+              >
+                건너뛰기
+              </span>
+            }
+          />
+        </div>
+        <div className="flex flex-col mx-16 ">
+          <div className="mt-10 mb-10">
+            <ProgressBar total={2} current={2} />
+          </div>
+          {showAll && (
+            <div className="py-20">
+              <PreferenceSelectHeader
+                type="아티스트"
+                count={preferred.length}
+              />
+            </div>
+          )}
+          <InputSearchBar
+            inputState={{ value: input, setValue: setInput }}
+            showAllState={{ value: showAll, setValue: setShowAll }}
+            showResultsState={{
+              value: showResults,
+              setValue: setShowResults,
+            }}
+            placeholder="아티스트를 검색하세요"
+            onFocus={() => {
+              window.amplitude.track("click_search_bar_artist_preference");
+              setIsKeyboardOpen(true);
+            }}
+            onBlur={() => setIsKeyboardOpen(false)}
+          />
+          <div className="flex justify-center">
+            <InfiniteFeaturedArtistList
+              preferredState={{
+                value: preferred,
+                setValue: setPreferred,
+              }}
+              keyword={input ? input : ""}
+              isFocused={isKeyboardOpen}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent mx-16 pb-60">
+        <div className="pb-10">
+          <PreferredSection
+            preferredState={{
+              value: preferred,
+              setValue: setPreferred,
+            }}
+          />
+        </div>
+        <CommonButton
+          isActive={preferred.length >= 1}
+          onClick={() => {
+            window.amplitude.track("confirm_artist_preference");
+            handleSetPreference({ skip: false });
+          }}
+          title="취향 선택 완료"
+          variant="primary"
+        />
+      </div>
+      <AuthErrorModal
+        isOpen={isErrorModalOpen}
+        onClose={() => {
+          navigate("/");
+          setIsErrorModalOpen(false);
+        }}
+        title="오류가 발생했어요!"
+        description="홈에서 다시 시도해주세요"
+      />
+      <DangerModal
+        isOpen={isBackModalOpen}
+        onClose={() => setIsBackModalOpen(false)}
+        title={
+          "선택된 아티스트나 장르가 해제돼요.\n이전 페이지로 돌아가시나요?" as string
+        }
+        primaryLabel="뒤로 갈게요"
+        secondaryLabel="잘못 눌렀어요"
+        onPrimary={() => {
+          window.amplitude.track("confirm_back_preference");
+          navigate(-1);
+        }}
+        onSecondary={() => {
+          window.amplitude.track("click_cancel_preference");
+          setIsBackModalOpen(false);
+        }}
+      />
+    </div>
+  );
+}
+export default SetPreferArtistPage;

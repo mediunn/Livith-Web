@@ -1,0 +1,60 @@
+import { SetlistDetailProps } from "../types";
+import useSetlistDetail from "../../../features/setlist/model/useSetlistDetail";
+import EmptySetlistImageIcon from "../../../shared/assets/EmptyConcertImageIcon.svg";
+import { formatDateRange } from "../../../shared/utils/formatDateRange";
+import { useEffect } from "react";
+function SetlistDetail({
+  concertId,
+  setlistId,
+  setSetlistType,
+}: SetlistDetailProps) {
+  const {
+    data: setlist,
+    error,
+    isLoading,
+  } = useSetlistDetail({ concertId, setlistId });
+
+  // 렌더 후 setSetlistType 호출
+  useEffect(() => {
+    if (setlist?.type) {
+      setSetlistType?.(setlist.type);
+    }
+  }, [setlist?.type, setSetlistType]);
+
+  if (isLoading) return null;
+  if (error) return null;
+  return (
+    <div className="w-full h-337 relative ">
+      <div className="h-337 absolute inset-0 bg-grayScaleBlack100 opacity-70"></div>
+      {setlist?.imgUrl ? (
+        <img src={setlist?.imgUrl} className="w-full h-full object-cover" />
+      ) : (
+        <img
+          src={EmptySetlistImageIcon}
+          className="w-full h-full object-cover"
+        />
+      )}
+      <div className="absolute bottom-36 pl-16 w-full pr-36">
+        {setlist?.status && (
+          <div className="bg-grayScaleBlack90 rounded-24 px-13 py-7 w-fit">
+            <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR">
+              {setlist?.status}
+            </p>
+          </div>
+        )}
+        <p className="pt-6 text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR break-words whitespace-normal max-w-[90%]">
+          {setlist?.title}
+        </p>
+
+        <p className="pt-6 text-grayScaleBlack30 text-Body4-re font-regular font-NotoSansKR">
+          {formatDateRange(setlist?.startDate, setlist?.endDate)}
+        </p>
+        <p className="mt-2 text-grayScaleWhite text-Caption1-re font-regular font-NotoSansKR break-words whitespace-normal max-w-[57%]">
+          {setlist?.artist}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default SetlistDetail;

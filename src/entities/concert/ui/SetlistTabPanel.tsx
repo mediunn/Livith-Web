@@ -1,0 +1,82 @@
+import { useNavigate } from "react-router-dom";
+import { Setlist } from "../api/getSetlistInfo";
+import SetListCard from "../../../entities/setlist/ui/SetListCard";
+import formatDate from "../../setlist/utils/formatDate";
+import EmptyConcertCardIcon from "../../../shared/assets/EmptyConcertCardIcon.svg";
+import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
+interface SetlistTabPanelProps {
+  setlist: Setlist[] | null;
+  concertId: number;
+}
+
+function SetlistTabPanel({ setlist, concertId }: SetlistTabPanelProps) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    window.amplitude.track("click_report_setlist_section");
+    window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
+  };
+  return (
+    <div className="mx-16 pb-54">
+      <div className="pt-24 pb-20 flex flex-row justify-between items-end">
+        <p className="text-grayScaleWhite text-Body1-sm font-semibold font-NotoSansKR">
+          셋리스트를
+          <br />
+          확인해 보세요
+        </p>
+        <SmallReportBtn
+          onClick={handleClick}
+          className="border border-solid border-grayScaleBlack80"
+          label="정보 제보"
+        />
+      </div>
+
+      <div className="grid grid-cols-3 gap-x-10 gap-y-24">
+        {setlist &&
+          setlist.map((setlistItem) => (
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                window.amplitude.track("click_setlist_cell");
+                navigate(
+                  `/setlist/${setlistItem.id}/${concertId}/${setlistItem.title}`
+                );
+              }}
+            >
+              <div className="w-full aspect-[108/158] relative">
+                {setlistItem.imgUrl ? (
+                  <img
+                    src={setlistItem.imgUrl}
+                    className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+                    onError={(e) => {
+                      e.currentTarget.src = EmptyConcertCardIcon;
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={EmptyConcertCardIcon}
+                    className="w-full h-full rounded-6 object-cover bg-grayScaleBlack80"
+                  />
+                )}
+                {setlistItem.status && (
+                  <div className="absolute top-10 left-10 inline-flex items-center justify-center h-30 bg-grayScaleBlack90 rounded-24 px-13 ">
+                    <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR">
+                      {setlistItem.status}
+                    </p>
+                  </div>
+                )}
+
+                <p className="text-grayScaleWhite text-Body2-md font-medium font-NotoSansKR mt-8 line-clamp-2 break-words">
+                  {setlistItem.title}
+                </p>
+                <p className="text-grayScaleBlack30 text-Caption1-sm font-semibold font-NotoSansKR mt-10 line-clamp-1">
+                  {formatDate(setlistItem.startDate)}
+                </p>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+export default SetlistTabPanel;

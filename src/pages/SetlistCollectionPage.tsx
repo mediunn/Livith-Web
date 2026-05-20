@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { SetlistType } from "../entities/setlist/types";
 import ListHeader from "../shared/ui/ListHeader";
-import SetlistCollection from "../features/setlist/ui/SetlistCollection";
+import SetlistCollection from "../entities/setlist/ui/SetlistCollection";
 
 function SetlistCollectionPage() {
   const { type, concertId } = useParams();

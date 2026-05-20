@@ -39,15 +39,14 @@ function RecentSearchItem({
 
   return (
     <div
-      className="w-fit border-1 border-solid border-grayScaleBlack30 rounded-26 flex items-center px-10 py-3 cursor-pointer"
+      className="w-fit border border-grayScaleBlack30 rounded-26 flex items-center px-10 py-3 cursor-pointer"
       onClick={() => handleAddRecent()}
     >
-      <p className="text-grayScaleBlack30 text-body-sm font-regular font-NotoSansKR mr-4 ">
+      <p className="text-grayScaleBlack30 text-Body4-sm font-regular font-NotoSansKR mr-4 ">
         {word}
       </p>
       <img
         src={CloseIcon}
-        alt="삭제 아이콘"
         onClick={(e) => {
           e.stopPropagation(); // 부모 onClick 실행 막기
           handleDeleteRecent();
