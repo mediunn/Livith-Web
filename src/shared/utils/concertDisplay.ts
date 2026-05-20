@@ -56,22 +56,82 @@ export const getConcertDisplayVenue = (concert: ConcertDisplaySource) => {
   return "장소 공개 예정";
 };
 
-export const formatSaleDate = (dateString: string) => {
-  const date = new Date(dateString);
+type DateParts = {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+};
 
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
+const parseKoreanDateString = (dateString: string): DateParts | null => {
+  const match = dateString
+    .trim()
+    .match(
+      /^(\d{4})[-./](\d{1,2})[-./](\d{1,2})(?:[ T](\d{1,2}):(\d{2})(?::(\d{2}))?(?:\.\d{1,6})?)?(?:Z|[+-]\d{2}:?\d{2})?$/,
+    );
+
+  if (!match) return null;
+
+  return {
+    year: Number(match[1]),
+    month: Number(match[2]),
+    day: Number(match[3]),
+    hour: Number(match[4] ?? 0),
+    minute: Number(match[5] ?? 0),
+    second: Number(match[6] ?? 0),
+  };
+};
+
+const toComparableValue = (parts: DateParts) =>
+  Number(
+    `${parts.year}${String(parts.month).padStart(2, "0")}${String(
+      parts.day,
+    ).padStart(2, "0")}${String(parts.hour).padStart(2, "0")}${String(
+      parts.minute,
+    ).padStart(2, "0")}${String(parts.second).padStart(2, "0")}`,
+  );
+
+const getNowInKoreaComparableValue = () => {
+  const formatter = new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+
+  const parts = formatter
+    .formatToParts(new Date())
+    .reduce<Record<string, string>>((acc, part) => {
+      if (part.type !== "literal") acc[part.type] = part.value;
+      return acc;
+    }, {});
+
+  return Number(
+    `${parts.year}${parts.month}${parts.day}${parts.hour}${parts.minute}${parts.second}`,
+  );
+};
+
+export const formatSaleDate = (dateString: string) => {
+  const parsed = parseKoreanDateString(dateString);
+  if (!parsed) return dateString;
+
+  const { year, month, day, hour, minute } = parsed;
 
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-  const dayOfWeek = dayNames[date.getDay()];
+  const dayOfWeek = dayNames[new Date(year, month - 1, day).getDay()];
 
-  let hours = date.getHours();
-  const minutes = date.getMinutes();
+  let hours = hour;
 
   const ampm = hours >= 12 ? "PM" : "AM";
   hours = hours % 12 || 12;
 
-  return `${month}/${day}(${dayOfWeek}) ${hours}:${minutes
+  return `${month}/${day}(${dayOfWeek}) ${hours}:${minute
     .toString()
     .padStart(2, "0")}${ampm}`;
 };
@@ -81,20 +141,20 @@ export const getTicketingText = (
   generalSaleDate: string | null,
   startDate: string | null,
 ) => {
-  const now = new Date();
-  const concertStart = startDate
-    ? new Date(startDate.replace(/\./g, "-"))
-    : null;
+  const now = getNowInKoreaComparableValue();
+  const concertStart = startDate ? parseKoreanDateString(startDate) : null;
 
-  if (concertStart && now >= concertStart) {
+  if (concertStart && now >= toComparableValue(concertStart)) {
     return "콘서트 진행중";
   }
 
-  const pre = preSaleDate ? new Date(preSaleDate) : null;
-  const general = generalSaleDate ? new Date(generalSaleDate) : null;
+  const pre = preSaleDate ? parseKoreanDateString(preSaleDate) : null;
+  const general = generalSaleDate
+    ? parseKoreanDateString(generalSaleDate)
+    : null;
 
   if (pre && general) {
-    if (now < pre) {
+    if (now < toComparableValue(pre)) {
       return `선예매 오픈 · ${formatSaleDate(preSaleDate!)}`;
     }
     return `일반 예매 오픈 · ${formatSaleDate(generalSaleDate!)}`;
