@@ -20,6 +20,8 @@ import RecommedConcertListSection from "../widgets/RecommedConcertListSection";
 import { toast } from "react-toastify";
 import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
+import HomeConcertListSection from "../widgets/HomeConcertListSection";
+import { useHomeConcertListSection } from "../features/concert/model/useHomeConcertListSection";
 
 function HomePage() {
   const user = useRecoilValue(userState);
@@ -39,7 +41,14 @@ function HomePage() {
   const { data: schedules = [], isLoading: isScheduleLoading } =
     useSchedule(concertId);
 
-  const isLoading = isInterestLoading || isConcertLoading || isScheduleLoading;
+  const { data: sections, isLoading: isHomeSectionLoading } =
+    useHomeConcertListSection();
+
+  const isLoading =
+    isInterestLoading ||
+    isConcertLoading ||
+    isScheduleLoading ||
+    isHomeSectionLoading;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -135,6 +144,14 @@ function HomePage() {
           {hasPrefer && user && (
             <RecommedConcertListSection nickname={user.nickname} />
           )}
+
+          {sections?.map((section) => (
+            <HomeConcertListSection
+              key={section.id}
+              section={section}
+              isLoading={isLoading}
+            />
+          ))}
         </div>
       ) : (
         <>
