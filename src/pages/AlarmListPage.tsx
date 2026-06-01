@@ -64,9 +64,14 @@ function AlarmListPage() {
           ) : null
         }
       />
-      <p className="py-10 px-16 text-grayScaleBlack30 text-Body4-sm font-semibold font-NotoSansKR">
-        알림은 90일 이후 순차적으로 삭제돼요.
-      </p>
+      <div className="flex relative items-center justify-between">
+        <p className="py-10 px-16 text-grayScaleBlack30 text-Body4-sm font-semibold font-NotoSansKR">
+          알림은 90일 이후 순차적으로 삭제돼요.
+        </p>
+        <button className="mr-16 text-grayScaleBlack50 bg-grayScaleBlack100 border border-solid border-grayScaleBlack90 rounded-30 px-11 py-3 text-Caption1-Bold font-bold font-NotoSansKR cursor-pointer">
+          전체 읽기
+        </button>
+      </div>
       <div className="flex-1 relative">
         {isLoggedIn ? (
           !isLoading &&
