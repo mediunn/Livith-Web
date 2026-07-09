@@ -32,6 +32,7 @@ import UpdatePreferGenrePage from "../pages/UpdatePreferGenrePage";
 import UpdatePreferArtistPage from "../pages/UpdatePreferArtistPage";
 import RecommedConcertListPage from "../pages/RecommedConcertListPage";
 import InterestConcertListPage from "../pages/InterestConcertListPage";
+import RequestInfoPage from "../pages/RequestInfoPage";
 
 const queryClient = new QueryClient();
 
@@ -148,6 +149,10 @@ const router = createBrowserRouter([
       {
         path: "update-prefer-artist",
         element: <UpdatePreferArtistPage />,
+      },
+      {
+        path: "request-information",
+        element: <RequestInfoPage />,
       },
     ],
   },
