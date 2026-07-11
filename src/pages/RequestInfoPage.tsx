@@ -1,11 +1,14 @@
 import { useState } from "react";
 import ListHeader from "../shared/ui/ListHeader";
+import CommonButton from "../shared/ui/CommonButton/CommonButton";
 
 function RequestInfoPage() {
   const [concertName, setConcertName] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   const isButtonEnabled = concertName.trim().length > 0;
+
+  function handleRequest(): void {}
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -83,16 +86,12 @@ function RequestInfoPage() {
           </div>
         </div>
         <div className="mt-auto pb-50">
-          <button
-            disabled={!isButtonEnabled}
-            className={`h-52 w-full rounded-6 text-Body3-sm font-semibold font-NotoSansKR transition-colors ${
-              isButtonEnabled
-                ? "bg-mainYellow30 text-grayScaleBlack100"
-                : "bg-grayScaleBlack50 text-grayScaleBlack30"
-            }`}
-          >
-            요청하기
-          </button>
+          <CommonButton
+            variant="primary"
+            isActive={isButtonEnabled}
+            title="요청하기"
+            onClick={handleRequest}
+          />
         </div>
       </div>
     </div>
