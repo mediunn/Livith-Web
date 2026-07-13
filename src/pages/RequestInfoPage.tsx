@@ -3,6 +3,7 @@ import ListHeader from "../shared/ui/ListHeader";
 import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import { useNavigate } from "react-router-dom";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
+import AutoRegisterBottomSheet from "../features/interest/ui/AutoRegisterBottomSheet";
 
 function RequestInfoPage() {
   const [concertName, setConcertName] = useState("");
@@ -22,6 +23,13 @@ function RequestInfoPage() {
 
   const navigate = useNavigate();
 
+  const [isAutoRegisterSheetOpen, setIsAutoRegisterSheetOpen] = useState(false);
+
+  function handleRequest(): void {
+    if (!isButtonEnabled) return;
+
+    setIsAutoRegisterSheetOpen(true);
+  }
   function handleBack() {
     if (hasInput) {
       setIsDangerModalOpen(true);
@@ -35,8 +43,6 @@ function RequestInfoPage() {
     setIsDangerModalOpen(false);
     navigate(-1);
   }
-
-  function handleRequest(): void {}
 
   return (
     <>
@@ -136,6 +142,10 @@ function RequestInfoPage() {
         secondaryLabel="잘못 눌렀어요"
         onPrimary={handleLeavePage}
         onSecondary={() => setIsDangerModalOpen(false)}
+      />
+      <AutoRegisterBottomSheet
+        isSheetOpen={isAutoRegisterSheetOpen}
+        onSheetClose={() => setIsAutoRegisterSheetOpen(false)}
       />
     </>
   );
