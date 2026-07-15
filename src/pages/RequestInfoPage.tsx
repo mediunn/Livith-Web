@@ -4,6 +4,9 @@ import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import { useNavigate } from "react-router-dom";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import AutoRegisterBottomSheet from "../features/interest/ui/AutoRegisterBottomSheet";
+import { toast } from "react-toastify";
+import CompleteToast from "../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
 function RequestInfoPage() {
   const [concertName, setConcertName] = useState("");
@@ -24,6 +27,24 @@ function RequestInfoPage() {
   const navigate = useNavigate();
 
   const [isAutoRegisterSheetOpen, setIsAutoRegisterSheetOpen] = useState(false);
+
+  function handleAutoRegister() {
+    setIsAutoRegisterSheetOpen(false);
+
+    toast(<CompleteToast message="정보가 요청되었어요" />, {
+      position: "top-center",
+      autoClose: 3000,
+      pauseOnFocusLoss: false,
+    });
+    toast(
+      <ErrorToast message={`요청 중 오류가 발생했어요\n다시 시도해 주세요`} />,
+      {
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      },
+    );
+  }
 
   function handleRequest(): void {
     if (!isButtonEnabled) return;
@@ -146,6 +167,7 @@ function RequestInfoPage() {
       <AutoRegisterBottomSheet
         isSheetOpen={isAutoRegisterSheetOpen}
         onSheetClose={() => setIsAutoRegisterSheetOpen(false)}
+        onRegister={handleAutoRegister}
       />
     </>
   );
