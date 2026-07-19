@@ -20,6 +20,7 @@ import RecommedConcertListSection from "../widgets/RecommedConcertListSection";
 import { toast } from "react-toastify";
 import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
+import ScheduleInfoModal from "../features/calender/ui/ScheduleInfoModal";
 
 function HomePage() {
   const user = useRecoilValue(userState);
@@ -54,7 +55,8 @@ function HomePage() {
   const hasShownSetConcertToastRef = useRef(false);
   const hasShownAutoCleanToastRef = useRef(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //캘린더 일정 팝업 테스트 용 true 나중에 false로 다시 바꾸기
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const { data: concertToastData } = useGetInterestConcertToast(isLoggedIn);
   const { mutate: patchConcertToast } = usePatchInterestConcertToast();
@@ -158,12 +160,16 @@ function HomePage() {
           <ConcertSettingEmpty hasPrefer={hasPrefer} />
         </>
       )}
-
       <TabBar />
       <SignupCompleteModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         nickname={nickname ?? ""}
+      />
+
+      <ScheduleInfoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </div>
   );
