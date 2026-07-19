@@ -55,8 +55,9 @@ function HomePage() {
   const hasShownSetConcertToastRef = useRef(false);
   const hasShownAutoCleanToastRef = useRef(false);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   //캘린더 일정 팝업 테스트 용 true 나중에 false로 다시 바꾸기
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(true);
 
   const { data: concertToastData } = useGetInterestConcertToast(isLoggedIn);
   const { mutate: patchConcertToast } = usePatchInterestConcertToast();
@@ -168,8 +169,8 @@ function HomePage() {
       />
 
       <ScheduleInfoModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isScheduleModalOpen}
+        onClose={() => setIsScheduleModalOpen(false)}
       />
     </div>
   );
