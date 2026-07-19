@@ -6,6 +6,7 @@ interface ScheduleInfoItemProps {
   badgeText: string;
   title: string;
   description: string;
+  isCanceled?: boolean;
 }
 
 function ScheduleInfoItem({
@@ -14,6 +15,7 @@ function ScheduleInfoItem({
   badgeText,
   title,
   description,
+  isCanceled = false,
 }: ScheduleInfoItemProps) {
   return (
     <div className="flex flex-col pt-16">
@@ -24,7 +26,9 @@ function ScheduleInfoItem({
         </p>
       </div>
 
-      <div className="flex items-center justify-between bg-grayScaleBlack80 hover:bg-grayScaleBlack100 rounded-8 mt-10 px-12 py-12 cursor-pointer">
+      <div
+        className={`flex items-center justify-between bg-grayScaleBlack80 hover:bg-grayScaleBlack100 rounded-8 mt-10 px-12 py-12 cursor-pointer ${isCanceled ? "opacity-30" : ""}`}
+      >
         <div>
           <div className="inline-flex items-center justify-center rounded-24 bg-grayScaleBlack90">
             <p className="px-10 py-4 text-grayScaleBlack50 text-Caption1-sm font-semibold font-NotoSansKR line-clamp-1">

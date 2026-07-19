@@ -59,7 +59,7 @@ function ScheduleInfoModal({ isOpen, onClose }: CommonModalProps) {
                 </button>
               </div>
 
-              <div className="my-160 flex flex-col items-center justify-center">
+              {/* <div className="my-160 flex flex-col items-center justify-center">
                 <div className="flex flex-col items-center justify-center">
                   <img src={EmptyScheduleInfoIcon} />
                   <p className="mt-16 text-grayScaleBlack50 text-Body2-md font-medium font-NotoSansKR">
@@ -74,9 +74,9 @@ function ScheduleInfoModal({ isOpen, onClose }: CommonModalProps) {
                     관심 콘서트 설정하기
                   </p>
                 </button>
-              </div>
+              </div> */}
 
-              {/* <ScheduleInfoItem
+              <ScheduleInfoItem
                 indicatorColor="bg-lyricsTranslation"
                 time="18:00"
                 badgeText="예매일"
@@ -106,7 +106,8 @@ function ScheduleInfoModal({ isOpen, onClose }: CommonModalProps) {
                 badgeText="예매일"
                 title="아도 내한공연 2026"
                 description="잠실 실내체육관"
-              /> */}
+                isCanceled={true}
+              />
             </div>
           </motion.div>
         </>
