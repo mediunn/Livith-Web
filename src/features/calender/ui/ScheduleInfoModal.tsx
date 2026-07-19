@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import GuidedBannerCloseIcon from "../../../shared/assets/GuidedBannerCloseIcon.svg";
 import CalenderInfoArrowIcon from "../../../shared/assets/CalenderInfoArrowIcon.svg";
 import ScheduleInfoItem from "../../../shared/ui/ScheduleInfoItem";
+import EmptyScheduleInfoIcon from "../../../shared/assets/EmptyScheduleInfoIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 interface CommonModalProps {
   isOpen: boolean;
@@ -9,6 +11,7 @@ interface CommonModalProps {
 }
 
 function ScheduleInfoModal({ isOpen, onClose }: CommonModalProps) {
+  const navigate = useNavigate();
   return (
     <AnimatePresence>
       {isOpen && (
@@ -55,7 +58,25 @@ function ScheduleInfoModal({ isOpen, onClose }: CommonModalProps) {
                   <img src={GuidedBannerCloseIcon} className="w-full h-full" />
                 </button>
               </div>
-              <ScheduleInfoItem
+
+              <div className="my-160 flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center">
+                  <img src={EmptyScheduleInfoIcon} />
+                  <p className="mt-16 text-grayScaleBlack50 text-Body2-md font-medium font-NotoSansKR">
+                    공연 일정이 없어요
+                  </p>
+                </div>
+                <button
+                  onClick={() => navigate("/set-concert")}
+                  className="mt-20 flex items-center justify-center w-fit bg-grayScaleBlack90 rounded-8 border border-grayScaleBlack50 cursor-pointer"
+                >
+                  <p className="px-12 py-10 text-grayScaleBlack30 text-Body4-md font-medium font-NotoSansKR">
+                    관심 콘서트 설정하기
+                  </p>
+                </button>
+              </div>
+
+              {/* <ScheduleInfoItem
                 indicatorColor="bg-lyricsTranslation"
                 time="18:00"
                 badgeText="예매일"
@@ -85,7 +106,7 @@ function ScheduleInfoModal({ isOpen, onClose }: CommonModalProps) {
                 badgeText="예매일"
                 title="아도 내한공연 2026"
                 description="잠실 실내체육관"
-              />
+              /> */}
             </div>
           </motion.div>
         </>
