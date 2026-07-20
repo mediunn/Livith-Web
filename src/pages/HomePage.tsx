@@ -3,7 +3,7 @@ import TopBar from "../shared/ui/TopBar";
 import InterestConcertTab from "../widgets/InterestConcertTab";
 import TabBar from "../shared/ui/TabBar";
 import { HomeTab } from "../widgets/HomeTab";
-import { CalendarTab } from "../widgets/CalendarTab";
+import CalendarTab from "../widgets/CalendarTab";
 
 function HomePage() {
   const [tab, setTab] = useState<"interest" | "calendar">("interest");

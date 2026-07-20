@@ -9,8 +9,17 @@ import { CalendarDayButton } from "./CalendarDayButton";
 import { CalendarMonthCaption } from "./CalendarMonthCaption";
 import { CalendarWeekday } from "./CalendarWeekday";
 import { CalendarWeekdays } from "./CalendarWeekdays";
+import { ConcertType, ScheduleType } from "../model/types";
 
-export function MonthlyCalendar() {
+type MonthlyCalendarProps = {
+  scheduleTypes: ScheduleType[];
+  concertType: ConcertType;
+};
+
+export function MonthlyCalendar({
+  scheduleTypes,
+  concertType,
+}: MonthlyCalendarProps) {
   const [selected, setSelected] = useState<Date>();
 
   return (
@@ -28,7 +37,14 @@ export function MonthlyCalendar() {
       }}
       components={{
         Day: CalendarDay,
-        DayButton: CalendarDayButton,
+        // 필터 타입 props로 넘겨주기
+        DayButton: (props) => (
+          <CalendarDayButton
+            {...props}
+            scheduleTypes={scheduleTypes}
+            concertType={concertType}
+          />
+        ),
         Weekday: CalendarWeekday,
         Weekdays: CalendarWeekdays, // 요일 행 + 날짜 그리드 사이 간격을 위한 spacer row.
         MonthCaption: CalendarMonthCaption,

@@ -24,7 +24,7 @@ export function CalendarMonthCaption({
   ...divProps
 }: MonthCaptionProps) {
   const { goToMonth, previousMonth, nextMonth } = useDayPicker();
-
+  const today = new Date();
   return (
     <div
       {...divProps}
@@ -45,22 +45,30 @@ export function CalendarMonthCaption({
       </div>
 
       <div className="flex items-center gap-8">
+        {/* 오늘 버튼 */}
+        <button
+          type="button"
+          onClick={() => goToMonth(today)}
+          className="px-12 py-4 text-grayScaleBlack5 text-Caption1-Bold font-bold rounded-24 border border-grayScaleBlack80"
+        >
+          오늘
+        </button>
+        {/* 이전/다음 달 버튼 */}
         <button
           type="button"
           disabled={!previousMonth}
           aria-label="이전 달"
           onClick={() => previousMonth && goToMonth(previousMonth)}
-          className="flex h-24 w-24 rounded-full bg-grayScaleBlack90 items-center justify-center disabled:opacity-30"
+          className="flex h-24 w-24 rounded-full bg-grayScaleBlack90 items-center justify-center disabled:opacity-30  hover:bg-grayScaleBlack100"
         >
           <img src={PrevArrow} alt="" className="h-8 w-auto" />
         </button>
-
         <button
           type="button"
           disabled={!nextMonth}
           aria-label="다음 달"
           onClick={() => nextMonth && goToMonth(nextMonth)}
-          className="flex h-24 w-24 rounded-full bg-grayScaleBlack90 items-center justify-center disabled:opacity-30"
+          className="flex h-24 w-24 rounded-full bg-grayScaleBlack90 items-center justify-center disabled:opacity-30 hover:bg-grayScaleBlack100"
         >
           <img src={NextArrow} alt="" className="h-8 w-auto" />
         </button>
