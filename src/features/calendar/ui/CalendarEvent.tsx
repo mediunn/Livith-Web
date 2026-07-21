@@ -1,6 +1,6 @@
 const styles = {
-  CONCERT: "bg-lyricsTranslation text-grayScaleBlack100",
-  TICKETING: "bg-lyricsOriginal text-grayScaleBlack100",
+  TICKETING: "bg-lyricsTranslation text-grayScaleBlack100",
+  CONCERT: "bg-lyricsOriginal text-grayScaleBlack100",
   MORE: "bg-grayScaleBlack80 text-grayScaleWhite",
 };
 

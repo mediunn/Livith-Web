@@ -2,6 +2,13 @@ import type { DayButtonProps } from "react-day-picker";
 import { CalendarEvent, CalendarEventType } from "./CalendarEvent";
 import { ConcertType, ScheduleType } from "../model/types";
 
+export type CalendarEvent = {
+  id: number;
+  artist: string;
+  date: string;
+  type: ScheduleType;
+};
+
 /** 날짜 버튼 내용(숫자 + 선택 보더 + 공연 목록 자리). */
 export function CalendarDayButton({
   day,
@@ -10,26 +17,18 @@ export function CalendarDayButton({
   style,
   scheduleTypes,
   concertType,
+  events,
   ...buttonProps
 }: DayButtonProps & {
   scheduleTypes: ScheduleType[];
   concertType: ConcertType;
+  events: CalendarEvent[];
 }) {
   const date = day.date;
   const isToday = Boolean(modifiers.today);
   const isSelected = Boolean(modifiers.selected);
   const isOutside = Boolean(modifiers.outside);
   const isWeekend = Boolean(modifiers.weekend);
-
-  const mockEvents: {
-    type: CalendarEventType;
-    text: string;
-  }[] = [
-    { type: "CONCERT", text: "콘서트1" },
-    { type: "TICKETING", text: "티켓팅1" },
-    { type: "CONCERT", text: "콘서트2" },
-    { type: "TICKETING", text: "티켓팅2" },
-  ];
 
   return (
     <button
@@ -70,10 +69,10 @@ export function CalendarDayButton({
 
         {/* 공연 목록 자리 */}
         <div className="w-full px-1 gap-4 flex flex-col mt-4">
-          {mockEvents.slice(0, 2).map((event, index) => (
-            <CalendarEvent key={index} type={event.type} text={event.text} />
+          {events.slice(0, 2).map((event, index) => (
+            <CalendarEvent key={index} type={event.type} text={event.artist} />
           ))}
-          {mockEvents.length > 2 && <CalendarEvent type="MORE" text="..." />}
+          {events.length > 2 && <CalendarEvent type="MORE" text="..." />}
         </div>
       </div>
     </button>

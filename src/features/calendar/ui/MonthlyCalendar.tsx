@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import { DayPicker } from "react-day-picker";
 import { ko } from "date-fns/locale";
@@ -10,6 +10,8 @@ import { CalendarMonthCaption } from "./CalendarMonthCaption";
 import { CalendarWeekday } from "./CalendarWeekday";
 import { CalendarWeekdays } from "./CalendarWeekdays";
 import { ConcertType, ScheduleType } from "../model/types";
+import { useMonthlyCalendar } from "../model/useMonthlyCalendar";
+import { EmptyView } from "../../../shared/ui/EmptyView";
 
 type MonthlyCalendarProps = {
   scheduleTypes: ScheduleType[];
@@ -21,6 +23,36 @@ export function MonthlyCalendar({
   concertType,
 }: MonthlyCalendarProps) {
   const [selected, setSelected] = useState<Date>();
+  const today = new Date();
+
+  const { data, isLoading, error } = useMonthlyCalendar({
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+    scheduleTypes,
+    concertType,
+  });
+
+  const eventMap = useMemo(() => {
+    if (!data) return new Map();
+
+    return new Map(data.days.map((day) => [day.date, day.events]));
+  }, [data]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[600px] items-center justify-center">
+        <div className="w-24 h-24 border-4 border-grayScaleBlack80 border-t-grayScaleBlack5 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-[600px] items-center justify-center">
+        <EmptyView text={"캘린더를\n 불러오지 못했어요"} />
+      </div>
+    );
+  }
 
   return (
     <DayPicker
@@ -38,13 +70,18 @@ export function MonthlyCalendar({
       components={{
         Day: CalendarDay,
         // 필터 타입 props로 넘겨주기
-        DayButton: (props) => (
-          <CalendarDayButton
-            {...props}
-            scheduleTypes={scheduleTypes}
-            concertType={concertType}
-          />
-        ),
+        DayButton: (props) => {
+          const dateString = props.day.date.toISOString().split("T")[0];
+
+          return (
+            <CalendarDayButton
+              {...props}
+              events={eventMap.get(dateString) ?? []}
+              scheduleTypes={scheduleTypes}
+              concertType={concertType}
+            />
+          );
+        },
         Weekday: CalendarWeekday,
         Weekdays: CalendarWeekdays, // 요일 행 + 날짜 그리드 사이 간격을 위한 spacer row.
         MonthCaption: CalendarMonthCaption,
