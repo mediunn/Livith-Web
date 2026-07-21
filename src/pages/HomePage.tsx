@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import ScheduleInfoModal from "../features/calender/ui/ScheduleInfoModal";
+import InterestConcertAlarmBottomSheet from "../features/interest/ui/InterestConcertAlarmBottomSheet";
 
 function HomePage() {
   const user = useRecoilValue(userState);
@@ -57,10 +58,13 @@ function HomePage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   //캘린더 일정 팝업 테스트 용 true 나중에 false로 다시 바꾸기
-  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(true);
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
 
   const { data: concertToastData } = useGetInterestConcertToast(isLoggedIn);
   const { mutate: patchConcertToast } = usePatchInterestConcertToast();
+
+  const [isInterestConcertAlarmSheetOpen, setIsInterestConcertAlarmSheetOpen] =
+    useState(true);
 
   useEffect(() => {
     if (showSignupComplete) {
@@ -130,49 +134,56 @@ function HomePage() {
   }, [concertToastData, patchConcertToast]);
 
   return (
-    <div className="pb-90">
-      {concertId && concert && !isLoading ? (
-        <div className="pb-20">
-          <TopBar bgColor="bg-grayScaleBlack100" />
-          <InterestConcert />
-          {hasPrefer && user && (
-            <RecommedConcertListSection nickname={user.nickname} />
-          )}
-        </div>
-      ) : (
-        <>
-          <TopBar bgColor="bg-grayScaleBlack90" />
-          {isAuthReady && !isLoggedIn && (
-            <GuidedBanner
-              content="회원가입하러 가기"
-              compactTitle="나의 취향이 담긴 콘서트 추천받기"
-              compactContent="회원가입하고 콘서트 정보를 빠르게 확인해요"
-              isLoggedIn={isLoggedIn}
-            />
-          )}
-          {isAuthReady && isLoggedIn && !hasPrefer && (
-            <GuidedBanner
-              content="취향 선택하러 가기"
-              compactTitle="취향 선택하러 가기"
-              compactContent="나의 취향이 담긴 콘서트를 추천받을 수 있어요"
-              isLoggedIn={isLoggedIn}
-            />
-          )}
-          <ConcertSettingEmpty hasPrefer={hasPrefer} />
-        </>
-      )}
-      <TabBar />
-      <SignupCompleteModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        nickname={nickname ?? ""}
-      />
+    <>
+      <div className="pb-90">
+        {concertId && concert && !isLoading ? (
+          <div className="pb-20">
+            <TopBar bgColor="bg-grayScaleBlack100" />
+            <InterestConcert />
+            {hasPrefer && user && (
+              <RecommedConcertListSection nickname={user.nickname} />
+            )}
+          </div>
+        ) : (
+          <>
+            <TopBar bgColor="bg-grayScaleBlack90" />
+            {isAuthReady && !isLoggedIn && (
+              <GuidedBanner
+                content="회원가입하러 가기"
+                compactTitle="나의 취향이 담긴 콘서트 추천받기"
+                compactContent="회원가입하고 콘서트 정보를 빠르게 확인해요"
+                isLoggedIn={isLoggedIn}
+              />
+            )}
+            {isAuthReady && isLoggedIn && !hasPrefer && (
+              <GuidedBanner
+                content="취향 선택하러 가기"
+                compactTitle="취향 선택하러 가기"
+                compactContent="나의 취향이 담긴 콘서트를 추천받을 수 있어요"
+                isLoggedIn={isLoggedIn}
+              />
+            )}
+            <ConcertSettingEmpty hasPrefer={hasPrefer} />
+          </>
+        )}
+        <TabBar />
+        <SignupCompleteModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          nickname={nickname ?? ""}
+        />
 
-      <ScheduleInfoModal
-        isOpen={isScheduleModalOpen}
-        onClose={() => setIsScheduleModalOpen(false)}
+        <ScheduleInfoModal
+          isOpen={isScheduleModalOpen}
+          onClose={() => setIsScheduleModalOpen(false)}
+        />
+      </div>
+
+      <InterestConcertAlarmBottomSheet
+        isSheetOpen={isInterestConcertAlarmSheetOpen}
+        onSheetClose={() => setIsInterestConcertAlarmSheetOpen(false)}
       />
-    </div>
+    </>
   );
 }
 
