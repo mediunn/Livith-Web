@@ -5,7 +5,6 @@ import { ConcertType, ScheduleType } from "../model/types";
 export type CalendarEvent = {
   id: number;
   artist: string;
-  date: string;
   type: ScheduleType;
 };
 

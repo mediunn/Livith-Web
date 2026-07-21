@@ -4,7 +4,7 @@ type HomeTabProps = {
 };
 export function HomeTab({ value, onChange }: HomeTabProps) {
   return (
-    <div className="flex h-56  border-grayScaleBlack80">
+    <div className="sticky top-60 z-40 flex h-56 border-grayScaleBlack80 bg-grayScaleBlack100">
       <button
         className={`flex-1 border-b-[3px] font-semibold text-Body2-sm transition-colors ${
           value === "interest"
