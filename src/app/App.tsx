@@ -33,6 +33,7 @@ import UpdatePreferArtistPage from "../pages/UpdatePreferArtistPage";
 import RecommedConcertListPage from "../pages/RecommedConcertListPage";
 import InterestConcertListPage from "../pages/InterestConcertListPage";
 import RequestInfoPage from "../pages/RequestInfoPage";
+import AuthProvider from "./providers/AuthProvider";
 
 const queryClient = new QueryClient();
 
@@ -174,12 +175,14 @@ function App() {
 
   return (
     <RecoilRoot>
-      <InitializeAuthWrapper>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <CustomToastContainer />
-        </QueryClientProvider>
-      </InitializeAuthWrapper>
+      <AuthProvider>
+        <InitializeAuthWrapper>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+            <CustomToastContainer />
+          </QueryClientProvider>
+        </InitializeAuthWrapper>
+      </AuthProvider>
     </RecoilRoot>
   );
 }
