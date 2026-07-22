@@ -9,6 +9,7 @@ import { userState } from "../shared/lib/recoil/atoms/userState";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
+import ScheduleInfoModal from "../features/calender/ui/ScheduleInfoModal";
 
 export default function CalendarTab() {
   const [scheduleTypes, setScheduleTypes] = useState<ScheduleType[]>([
@@ -19,6 +20,9 @@ export default function CalendarTab() {
   const [concertType, setConcertType] = useState<ConcertType>(ConcertType.ALL);
   const user = useRecoilValue(userState);
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  //캘린더 일정 팝업 테스트 용 true 나중에 false로 다시 바꾸기
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(true);
+
   const handleConcertTypeChange = (value: ConcertType) => {
     if (value === ConcertType.INTEREST && !user) {
       setOpenLoginModal(true);
@@ -62,6 +66,10 @@ export default function CalendarTab() {
         isOpen={openLoginModal}
         onClose={() => setOpenLoginModal(false)}
         type="interestConcert"
+      />
+      <ScheduleInfoModal
+        isOpen={isScheduleModalOpen}
+        onClose={() => setIsScheduleModalOpen(false)}
       />
     </>
   );
