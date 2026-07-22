@@ -2,14 +2,19 @@ import { useRef } from "react";
 import { Sheet, SheetRef } from "react-modal-sheet";
 import AutoRemovedConcert from "../../../shared/ui/AutoRemovedConcert";
 import RegisteredConcert from "../../../shared/ui/RegisteredConcert";
+import { EntryAlertItem } from "../api/notifications";
 interface InterestConcertAlarmBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
+  autoRemovedAlerts: EntryAlertItem[];
+  requestAlerts: EntryAlertItem[];
 }
 
 function InterestConcertAlarmBottomSheet({
   isSheetOpen,
   onSheetClose,
+  autoRemovedAlerts,
+  requestAlerts,
 }: InterestConcertAlarmBottomSheetProps) {
   const ref = useRef<SheetRef>(null);
   return (
@@ -35,8 +40,9 @@ function InterestConcertAlarmBottomSheet({
 
           {/* 스크롤 영역 */}
           <div className="flex-1 overflow-y-auto min-h-0 pb-16">
-            <AutoRemovedConcert />
-            <RegisteredConcert />
+            <AutoRemovedConcert alerts={autoRemovedAlerts} />
+
+            <RegisteredConcert alerts={requestAlerts} />
           </div>
 
           {/* 하단 버튼 */}
@@ -44,7 +50,10 @@ function InterestConcertAlarmBottomSheet({
             <div className="absolute -top-16 left-0 w-full h-31 bg-gradient-to-t from-grayScaleBlack90 to-transparent pointer-events-none" />
 
             <div className="flex gap-10 mt-16 mb-24">
-              <button className="flex-1 py-15 rounded-6 bg-mainYellow30 text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR">
+              <button
+                onClick={onSheetClose}
+                className="flex-1 py-15 rounded-6 bg-mainYellow30 text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR"
+              >
                 확인
               </button>
             </div>

@@ -2,10 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { useSchedule } from "../entities/concert/model/useSchedule";
-import {
-  useGetInterestConcertToast,
-  usePatchInterestConcertToast,
-} from "../features/interest/model/useInterestConcertToast";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
 import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
 import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
@@ -22,6 +18,7 @@ import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import ScheduleInfoModal from "../features/calender/ui/ScheduleInfoModal";
 import InterestConcertAlarmBottomSheet from "../features/interest/ui/InterestConcertAlarmBottomSheet";
+import { useEntryAlerts } from "../features/interest/model/useNotificationsEntryAlerts";
 
 function HomePage() {
   const user = useRecoilValue(userState);
@@ -54,17 +51,34 @@ function HomePage() {
   } = location.state || {};
 
   const hasShownSetConcertToastRef = useRef(false);
-  const hasShownAutoCleanToastRef = useRef(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   //캘린더 일정 팝업 테스트 용 true 나중에 false로 다시 바꾸기
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
 
-  const { data: concertToastData } = useGetInterestConcertToast(isLoggedIn);
-  const { mutate: patchConcertToast } = usePatchInterestConcertToast();
-
   const [isInterestConcertAlarmSheetOpen, setIsInterestConcertAlarmSheetOpen] =
     useState(true);
+
+  const { data: entryAlerts } = useEntryAlerts(isLoggedIn);
+
+  const alerts = entryAlerts?.data.items ?? [];
+
+  const autoRemovedAlerts = alerts.filter(
+    (item) =>
+      item.kind === "AUTO_REMOVED_COMPLETED" ||
+      item.kind === "AUTO_REMOVED_CANCELED",
+  );
+
+  const requestAlerts = alerts.filter(
+    (item) =>
+      item.kind === "REQUEST_REGISTERED" || item.kind === "REQUEST_FAILED",
+  );
+
+  useEffect(() => {
+    if (alerts.length > 0) {
+      setIsInterestConcertAlarmSheetOpen(true);
+    }
+  }, [alerts.length]);
 
   useEffect(() => {
     if (showSignupComplete) {
@@ -97,41 +111,6 @@ function HomePage() {
     toastLabel,
     navigate,
   ]);
-
-  // 관심 콘서트 자동 정리 토스트
-  useEffect(() => {
-    if (hasShownAutoCleanToastRef.current) return;
-    if (!concertToastData?.data?.needsToShow) return;
-
-    hasShownAutoCleanToastRef.current = true;
-
-    const type = concertToastData.data.type;
-
-    if (type === "BOTH") {
-      toast(<CompleteToast message="종료된 공연이 자동 정리됐어요" />, {
-        position: "top-center",
-        autoClose: 3000,
-      });
-      setTimeout(() => {
-        toast(<CompleteToast message="취소된 공연이 자동 정리됐어요" />, {
-          position: "top-center",
-          autoClose: 3000,
-        });
-      }, 300);
-    } else {
-      const message =
-        type === "CANCELED"
-          ? "취소된 공연이 자동 정리됐어요"
-          : "종료된 공연이 자동 정리됐어요";
-
-      toast(<CompleteToast message={message} />, {
-        position: "top-center",
-        autoClose: 3000,
-      });
-    }
-
-    patchConcertToast();
-  }, [concertToastData, patchConcertToast]);
 
   return (
     <>
@@ -180,8 +159,10 @@ function HomePage() {
       </div>
 
       <InterestConcertAlarmBottomSheet
-        isSheetOpen={isInterestConcertAlarmSheetOpen}
+        isSheetOpen={isInterestConcertAlarmSheetOpen && alerts.length > 0}
         onSheetClose={() => setIsInterestConcertAlarmSheetOpen(false)}
+        autoRemovedAlerts={autoRemovedAlerts}
+        requestAlerts={requestAlerts}
       />
     </>
   );
