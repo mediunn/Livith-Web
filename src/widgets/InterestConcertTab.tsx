@@ -2,15 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
 import { useSchedule } from "../entities/concert/model/useSchedule";
-import {
-  useGetInterestConcertToast,
-  usePatchInterestConcertToast,
-} from "../features/interest/model/useInterestConcertToast";
 import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
 import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
 import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
-import TabBar from "../shared/ui/TabBar";
-import TopBar from "../shared/ui/TopBar";
 import GuidedBanner from "../shared/ui/GuidedBanner";
 import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
@@ -56,9 +50,6 @@ function InterestConcertTab() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: concertToastData } = useGetInterestConcertToast(isLoggedIn);
-  const { mutate: patchConcertToast } = usePatchInterestConcertToast();
-
   useEffect(() => {
     if (showSignupComplete) {
       setIsModalOpen(true);
@@ -90,41 +81,6 @@ function InterestConcertTab() {
     toastLabel,
     navigate,
   ]);
-
-  // 관심 콘서트 자동 정리 토스트
-  useEffect(() => {
-    if (hasShownAutoCleanToastRef.current) return;
-    if (!concertToastData?.data?.needsToShow) return;
-
-    hasShownAutoCleanToastRef.current = true;
-
-    const type = concertToastData.data.type;
-
-    if (type === "BOTH") {
-      toast(<CompleteToast message="종료된 공연이 자동 정리됐어요" />, {
-        position: "top-center",
-        autoClose: 3000,
-      });
-      setTimeout(() => {
-        toast(<CompleteToast message="취소된 공연이 자동 정리됐어요" />, {
-          position: "top-center",
-          autoClose: 3000,
-        });
-      }, 300);
-    } else {
-      const message =
-        type === "CANCELED"
-          ? "취소된 공연이 자동 정리됐어요"
-          : "종료된 공연이 자동 정리됐어요";
-
-      toast(<CompleteToast message={message} />, {
-        position: "top-center",
-        autoClose: 3000,
-      });
-    }
-
-    patchConcertToast();
-  }, [concertToastData, patchConcertToast]);
 
   return (
     <>

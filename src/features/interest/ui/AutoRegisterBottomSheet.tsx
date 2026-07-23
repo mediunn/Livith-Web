@@ -3,7 +3,7 @@ import { Sheet, SheetRef } from "react-modal-sheet";
 interface AutoRegisterBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
-  onRegister: () => void;
+  onRegister: (autoRegister: boolean) => void;
 }
 
 function AutoRegisterBottomSheet({
@@ -34,11 +34,14 @@ function AutoRegisterBottomSheet({
             콘서트 정보 업데이트 소식을 빠르게 받아볼 수 있어요!
           </p>
           <div className="flex gap-10 mb-24">
-            <button className="flex-1 py-15 rounded-6 bg-grayScaleBlack80 text-grayScaleBlack30 text-Body3-sm font-semibold font-NotoSansKR">
+            <button
+              onClick={() => onRegister(false)}
+              className="flex-1 py-15 rounded-6 bg-grayScaleBlack80 text-grayScaleBlack30 text-Body3-sm font-semibold font-NotoSansKR"
+            >
               괜찮아요
             </button>
             <button
-              onClick={onRegister}
+              onClick={() => onRegister(true)}
               className={`flex-1 py-15 rounded-6 bg-mainYellow30 text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR 
             `}
             >
