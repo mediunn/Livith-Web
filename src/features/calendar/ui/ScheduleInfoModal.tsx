@@ -79,7 +79,7 @@ function ScheduleInfoModal({
                   </p>
                 </button>
               </div> */}
-
+              <p>테스트요테스트^^</p>
               <ScheduleInfoItem
                 indicatorColor="bg-lyricsTranslation"
                 time="18:00"
