@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
-import { sendSelectedDate } from "../../../shared/lib/webview/bridge";
+import { format } from "date-fns";
 import { EmptyView } from "../../../shared/ui/EmptyView";
 import { ConcertType, ScheduleType } from "../model/types";
 import { useCalendarData } from "../model/useCalendarData";
@@ -13,16 +13,17 @@ import { CalendarDayButton } from "./CalendarDayButton";
 import { CalendarMonthCaption } from "./CalendarMonthCaption";
 import { CalendarWeekday } from "./CalendarWeekday";
 import { CalendarWeekdays } from "./CalendarWeekdays";
-import { format } from "date-fns";
 
 type MonthlyCalendarProps = {
   scheduleTypes?: ScheduleType[];
   concertType?: ConcertType;
+  onDateSelect?: (date: string) => void;
 };
 
 export function MonthlyCalendar({
   scheduleTypes = [ScheduleType.CONCERT, ScheduleType.TICKETING],
   concertType = ConcertType.ALL,
+  onDateSelect,
 }: MonthlyCalendarProps) {
   const [selected, setSelected] = useState<Date>();
   const today = new Date();
@@ -65,7 +66,7 @@ export function MonthlyCalendar({
         if (!date) return;
         setSelected(date);
         const dateString = format(date, "yyyy-MM-dd");
-        sendSelectedDate(dateString);
+        onDateSelect?.(dateString);
       }}
       // 기본 Nav(화살표) 숨기고 MonthCaption에서 한 줄로 전부 그림
       hideNavigation
