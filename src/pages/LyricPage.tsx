@@ -65,7 +65,7 @@ function LyricPage() {
               toast.dismiss();
             }}
           />,
-          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false }
+          { position: "top-center", autoClose: 3000, pauseOnFocusLoss: false },
         );
         sessionStorage.setItem("loginToastShown", "true");
       }
@@ -91,13 +91,22 @@ function LyricPage() {
 
   const { data: fanchantData, isLoading: isFanchantLoading } = useFanchant(
     setlistId,
-    songId ? Number(songId) : null
+    songId ? Number(songId) : null,
   );
 
+  const hasValidContent = (lines?: string[]) => {
+    if (!lines || lines.length === 0) return false;
+
+    return lines.some((line) => {
+      const value = line.trim();
+      return value !== "" && value !== "@@";
+    });
+  };
+
   const hasAnyLyric =
-    (songData?.lyrics?.length ?? 0) > 0 ||
-    (songData?.pronunciation?.length ?? 0) > 0 ||
-    (songData?.translation?.length ?? 0) > 0;
+    hasValidContent(songData?.lyrics) ||
+    hasValidContent(songData?.pronunciation) ||
+    hasValidContent(songData?.translation);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
@@ -109,7 +118,7 @@ function LyricPage() {
 
   // 응원법 존재 확인
   const hasFanchant = fanchantData?.fanchant?.some(
-    (line) => line.trim() !== ""
+    (line) => line.trim() !== "",
   );
 
   // 응원법 없을 시 버튼 off
