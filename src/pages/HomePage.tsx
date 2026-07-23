@@ -1,63 +1,68 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TopBar from "../shared/ui/TopBar";
 import InterestConcertTab from "../widgets/InterestConcertTab";
 import TabBar from "../shared/ui/TabBar";
 import { HomeTab } from "../widgets/HomeTab";
 import CalendarTab from "../widgets/CalendarTab";
-import InterestConcertAlarmBottomSheet from "../features/interest/ui/InterestConcertAlarmBottomSheet";
-import { useEntryAlerts } from "../features/interest/model/useNotificationsEntryAlerts";
-import { useRecoilValue } from "recoil";
-import { userState } from "../shared/lib/recoil/atoms/userState";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import CompleteToast from "../shared/ui/Toast/CompleteToast";
+import ErrorToast from "../shared/ui/Toast/ErrorToast";
 
 function HomePage() {
   const [tab, setTab] = useState<"interest" | "calendar">("interest");
 
-  const [isInterestConcertAlarmSheetOpen, setIsInterestConcertAlarmSheetOpen] =
-    useState(true);
-
-  const user = useRecoilValue(userState);
-  const isLoggedIn = !!user;
-
-  const { data: entryAlerts } = useEntryAlerts(isLoggedIn);
-
-  const alerts = entryAlerts?.data.items ?? [];
-
-  const autoRemovedAlerts = alerts.filter(
-    (item) =>
-      item.kind === "AUTO_REMOVED_COMPLETED" ||
-      item.kind === "AUTO_REMOVED_CANCELED",
-  );
-
-  const requestAlerts = alerts.filter(
-    (item) =>
-      item.kind === "REQUEST_REGISTERED" || item.kind === "REQUEST_FAILED",
-  );
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (alerts.length > 0) {
-      setIsInterestConcertAlarmSheetOpen(true);
+    const state = location.state as
+      | {
+          showToast?: boolean;
+          toastType?: "success" | "error";
+          message?: string;
+        }
+      | undefined;
+
+    if (!state?.showToast) return;
+
+    toast.dismiss();
+
+    if (state.toastType === "success") {
+      toast(<CompleteToast message={state.message ?? ""} />, {
+        toastId: "concert-request-success",
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
     }
-  }, [alerts.length]);
+
+    if (state.toastType === "error") {
+      toast(<ErrorToast message={state.message ?? ""} />, {
+        toastId: "concert-request-error",
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
+    }
+
+    navigate(location.pathname, {
+      replace: true,
+      state: null,
+    });
+  }, [location.state]);
 
   return (
-    <>
-      <div className="pb-90">
-        <TopBar bgColor="bg-grayScaleBlack100" />
+    <div className="pb-90">
+      <TopBar bgColor="bg-grayScaleBlack100" />
 
-        <HomeTab value={tab} onChange={setTab} />
+      <HomeTab value={tab} onChange={setTab} />
 
-        {tab === "interest" ? <InterestConcertTab /> : <CalendarTab />}
+      {tab === "interest" ? <InterestConcertTab /> : <CalendarTab />}
 
-        <TabBar />
-      </div>
-
-      <InterestConcertAlarmBottomSheet
-        isSheetOpen={isInterestConcertAlarmSheetOpen && alerts.length > 0}
-        onSheetClose={() => setIsInterestConcertAlarmSheetOpen(false)}
-        autoRemovedAlerts={autoRemovedAlerts}
-        requestAlerts={requestAlerts}
-      />
-    </>
+      <TabBar />
+    </div>
   );
 }
 

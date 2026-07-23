@@ -4,9 +4,7 @@ import CommonButton from "../shared/ui/CommonButton/CommonButton";
 import { useNavigate } from "react-router-dom";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import AutoRegisterBottomSheet from "../features/interest/ui/AutoRegisterBottomSheet";
-import { toast } from "react-toastify";
-import CompleteToast from "../shared/ui/Toast/CompleteToast";
-import ErrorToast from "../shared/ui/Toast/ErrorToast";
+import { usePostConcertRequest } from "../features/interest/model/usePostConcertRequest";
 
 function RequestInfoPage() {
   const [concertName, setConcertName] = useState("");
@@ -28,20 +26,41 @@ function RequestInfoPage() {
 
   const [isAutoRegisterSheetOpen, setIsAutoRegisterSheetOpen] = useState(false);
 
-  function handleAutoRegister() {
-    setIsAutoRegisterSheetOpen(false);
+  const { mutate: postConcertRequest } = usePostConcertRequest();
 
-    toast(<CompleteToast message="정보가 요청되었어요" />, {
-      position: "top-center",
-      autoClose: 3000,
-      pauseOnFocusLoss: false,
-    });
-    toast(
-      <ErrorToast message={`요청 중 오류가 발생했어요\n다시 시도해 주세요`} />,
+  function handleAutoRegister(autoRegister: boolean) {
+    const accessToken = localStorage.getItem("accessToken") ?? "";
+
+    postConcertRequest(
       {
-        position: "top-center",
-        autoClose: 3000,
-        pauseOnFocusLoss: false,
+        title: concertName,
+        url,
+        autoRegister,
+        requestContent: description,
+        accessToken,
+      },
+
+      {
+        onSuccess: () => {
+          setIsAutoRegisterSheetOpen(false);
+
+          navigate("/", {
+            state: {
+              showToast: true,
+              toastType: "success",
+              message: "정보가 요청되었어요",
+            },
+          });
+        },
+        onError: () => {
+          navigate("/", {
+            state: {
+              showToast: true,
+              toastType: "error",
+              message: "요청 중 오류가 발생했어요\n다시 시도해 주세요",
+            },
+          });
+        },
       },
     );
   }
