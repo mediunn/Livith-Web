@@ -78,7 +78,7 @@ export function MonthlyCalendar({
         Day: CalendarDay,
         // 필터 타입 props로 넘겨주기
         DayButton: (props) => {
-          const dateString = props.day.date.toISOString().split("T")[0];
+          const dateString = format(props.day.date, "yyyy-MM-dd");
 
           return (
             <CalendarDayButton
