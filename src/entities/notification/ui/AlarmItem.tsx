@@ -80,12 +80,12 @@ function AlarmItem({
         window.amplitude.track("click_recommended_concert_notification");
         break;
 
-      case "PRE_TICKETING_OPEN":
+      case "PRE_TICKETING_10MIN":
         window.amplitude.track("click_pre_booking_schedule_notification");
         focusTarget = "concertDetail";
         break;
 
-      case "GENERAL_TICKETING_OPEN":
+      case "GENERAL_TICKETING_10MIN":
         window.amplitude.track("click_booking_schedule_notification");
         focusTarget = "concertDetail";
         break;
@@ -94,6 +94,9 @@ function AlarmItem({
       case "PRE_TICKETING_30MIN":
       case "GENERAL_TICKETING_1D":
       case "GENERAL_TICKETING_30MIN":
+      case "ADD_TICKETING_1D":
+      case "ADD_TICKETING_30MIN":
+      case "ADD_TICKETING_10MIN":
         focusTarget = "concertDetail";
         break;
 
