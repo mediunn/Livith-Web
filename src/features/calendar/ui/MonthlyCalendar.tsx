@@ -1,31 +1,34 @@
-import { useMemo, useState } from "react";
-import type { CSSProperties } from "react";
-import { DayPicker } from "react-day-picker";
 import { ko } from "date-fns/locale";
+import type { CSSProperties } from "react";
+import { useMemo, useState } from "react";
+import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
+import { format } from "date-fns";
+import { EmptyView } from "../../../shared/ui/EmptyView";
+import { ConcertType, ScheduleType } from "../model/types";
+import { useCalendarData } from "../model/useCalendarData";
 import CalendarDay from "./CalendarDay";
 import { CalendarDayButton } from "./CalendarDayButton";
 import { CalendarMonthCaption } from "./CalendarMonthCaption";
 import { CalendarWeekday } from "./CalendarWeekday";
 import { CalendarWeekdays } from "./CalendarWeekdays";
-import { ConcertType, ScheduleType } from "../model/types";
-import { useMonthlyCalendar } from "../model/useMonthlyCalendar";
-import { EmptyView } from "../../../shared/ui/EmptyView";
 
 type MonthlyCalendarProps = {
-  scheduleTypes: ScheduleType[];
-  concertType: ConcertType;
+  scheduleTypes?: ScheduleType[];
+  concertType?: ConcertType;
+  onDateSelect?: (date: string) => void;
 };
 
 export function MonthlyCalendar({
-  scheduleTypes,
-  concertType,
+  scheduleTypes = [ScheduleType.CONCERT, ScheduleType.TICKETING],
+  concertType = ConcertType.ALL,
+  onDateSelect,
 }: MonthlyCalendarProps) {
   const [selected, setSelected] = useState<Date>();
   const today = new Date();
 
-  const { data, isLoading, error } = useMonthlyCalendar({
+  const { data, isLoading, error } = useCalendarData({
     year: today.getFullYear(),
     month: today.getMonth() + 1,
     scheduleTypes,
@@ -59,7 +62,12 @@ export function MonthlyCalendar({
       locale={ko}
       mode="single"
       selected={selected}
-      onSelect={setSelected}
+      onSelect={(date) => {
+        if (!date) return;
+        setSelected(date);
+        const dateString = format(date, "yyyy-MM-dd");
+        onDateSelect?.(dateString);
+      }}
       // 기본 Nav(화살표) 숨기고 MonthCaption에서 한 줄로 전부 그림
       hideNavigation
       // 월간 달력에서 이전/다음 달 날짜를 회색으로 표시
@@ -71,7 +79,7 @@ export function MonthlyCalendar({
         Day: CalendarDay,
         // 필터 타입 props로 넘겨주기
         DayButton: (props) => {
-          const dateString = props.day.date.toISOString().split("T")[0];
+          const dateString = format(props.day.date, "yyyy-MM-dd");
 
           return (
             <CalendarDayButton

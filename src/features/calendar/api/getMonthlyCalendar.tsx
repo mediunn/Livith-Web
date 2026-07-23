@@ -1,23 +1,10 @@
 import axiosInstance from "../../../shared/api/axiosInstance";
 import { ApiResponse } from "../../../shared/types/response";
-import { ConcertType, ScheduleType } from "../model/types";
-
-type MonthlyCalendarEvent = {
-  id: number;
-  artist: string;
-  type: ScheduleType;
-};
-
-type CalendarDay = {
-  date: string;
-  events: MonthlyCalendarEvent[];
-};
-
-export type MonthlyCalendarResponse = {
-  year: number;
-  month: number;
-  days: CalendarDay[];
-};
+import {
+  ConcertType,
+  MonthlyCalendarResponse,
+  ScheduleType,
+} from "../model/types";
 
 export async function getMonthlyCalendar({
   year,

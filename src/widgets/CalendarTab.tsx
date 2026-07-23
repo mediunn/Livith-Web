@@ -9,7 +9,9 @@ import { userState } from "../shared/lib/recoil/atoms/userState";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
-import ScheduleInfoModal from "../features/calender/ui/ScheduleInfoModal";
+import ScheduleInfoModal from "../features/calendar/ui/ScheduleInfoModal";
+import { isIOSWebView } from "../shared/lib/webview/isIOSWebView";
+import { sendSelectedDate } from "../shared/lib/webview/bridge";
 
 export default function CalendarTab() {
   const [scheduleTypes, setScheduleTypes] = useState<ScheduleType[]>([
@@ -20,8 +22,9 @@ export default function CalendarTab() {
   const [concertType, setConcertType] = useState<ConcertType>(ConcertType.ALL);
   const user = useRecoilValue(userState);
   const [openLoginModal, setOpenLoginModal] = useState(false);
-  //캘린더 일정 팝업 테스트 용 true 나중에 false로 다시 바꾸기
-  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(true);
+  const [selectedDate, setSelectedDate] = useState<string>();
+
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
 
   const handleConcertTypeChange = (value: ConcertType) => {
     if (value === ConcertType.INTEREST && !user) {
@@ -47,6 +50,15 @@ export default function CalendarTab() {
 
     setScheduleTypes(value);
   };
+
+  const handleDateSelect = (date: string) => {
+    if (isIOSWebView()) {
+      sendSelectedDate(date);
+      return;
+    }
+    setSelectedDate(date);
+    setIsScheduleModalOpen(true);
+  };
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -60,6 +72,7 @@ export default function CalendarTab() {
         <MonthlyCalendar
           scheduleTypes={scheduleTypes}
           concertType={concertType}
+          onDateSelect={handleDateSelect}
         />
       </div>
       <LoginModal
@@ -67,10 +80,13 @@ export default function CalendarTab() {
         onClose={() => setOpenLoginModal(false)}
         type="interestConcert"
       />
-      <ScheduleInfoModal
-        isOpen={isScheduleModalOpen}
-        onClose={() => setIsScheduleModalOpen(false)}
-      />
+      {!isIOSWebView() && (
+        <ScheduleInfoModal
+          isOpen={isScheduleModalOpen}
+          date={selectedDate}
+          onClose={() => setIsScheduleModalOpen(false)}
+        />
+      )}
     </>
   );
 }

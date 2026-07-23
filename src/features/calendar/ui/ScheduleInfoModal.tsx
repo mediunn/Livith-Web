@@ -10,7 +10,11 @@ interface CommonModalProps {
   onClose: () => void;
 }
 
-function ScheduleInfoModal({ isOpen, onClose }: CommonModalProps) {
+function ScheduleInfoModal({
+  isOpen,
+  onClose,
+  date,
+}: CommonModalProps & { date?: string }) {
   const navigate = useNavigate();
   return (
     <AnimatePresence>
@@ -52,7 +56,7 @@ function ScheduleInfoModal({ isOpen, onClose }: CommonModalProps) {
             <div className="w-[335px] max-w-[90%] h-fit fixed flex flex-col px-16 py-16 bg-grayScaleBlack90 rounded-16 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <div className="flex items-center justify-between pb-4">
                 <p className="text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
-                  6월 20일 수요일
+                  {date}
                 </p>
                 <button onClick={onClose} className=" w-24 h-24 cursor-pointer">
                   <img src={GuidedBannerCloseIcon} className="w-full h-full" />

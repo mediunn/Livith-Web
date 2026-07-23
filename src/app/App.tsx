@@ -33,7 +33,7 @@ import UpdatePreferArtistPage from "../pages/UpdatePreferArtistPage";
 import RecommedConcertListPage from "../pages/RecommedConcertListPage";
 import InterestConcertListPage from "../pages/InterestConcertListPage";
 import RequestInfoPage from "../pages/RequestInfoPage";
-import AuthProvider from "./providers/AuthProvider";
+import CalendarWebViewPage from "../pages/CalendarWebViewPage";
 
 const queryClient = new QueryClient();
 
@@ -155,6 +155,10 @@ const router = createBrowserRouter([
         path: "request-information",
         element: <RequestInfoPage />,
       },
+      {
+        path: "/calendar-webview",
+        element: <CalendarWebViewPage />,
+      },
     ],
   },
 ]);
@@ -175,14 +179,12 @@ function App() {
 
   return (
     <RecoilRoot>
-      <AuthProvider>
-        <InitializeAuthWrapper>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-            <CustomToastContainer />
-          </QueryClientProvider>
-        </InitializeAuthWrapper>
-      </AuthProvider>
+      <InitializeAuthWrapper>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <CustomToastContainer />
+        </QueryClientProvider>
+      </InitializeAuthWrapper>
     </RecoilRoot>
   );
 }
