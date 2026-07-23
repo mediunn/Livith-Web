@@ -1,21 +1,25 @@
 import CalenderInfoArrowIcon from "../assets/CalenderInfoArrowIcon.svg";
 
 interface ScheduleInfoItemProps {
+  concertId: number;
   indicatorColor: string;
   time: string;
   badgeText: string;
   title: string;
   description: string;
   isCanceled?: boolean;
+  onClick?: (concertId: number) => void;
 }
 
 function ScheduleInfoItem({
+  concertId,
   indicatorColor,
   time,
   badgeText,
   title,
   description,
   isCanceled = false,
+  onClick,
 }: ScheduleInfoItemProps) {
   return (
     <div className="flex flex-col pt-16">
@@ -27,7 +31,16 @@ function ScheduleInfoItem({
       </div>
 
       <div
-        className={`flex items-center justify-between bg-grayScaleBlack80 hover:bg-grayScaleBlack100 rounded-8 mt-10 px-12 py-12 cursor-pointer ${isCanceled ? "opacity-30" : ""}`}
+        onClick={() => {
+          if (!isCanceled) {
+            onClick?.(concertId);
+          }
+        }}
+        className={`flex items-center justify-between rounded-8 mt-10 px-12 py-12 bg-grayScaleBlack80 ${
+          isCanceled
+            ? "opacity-30"
+            : "hover:bg-grayScaleBlack100 cursor-pointer"
+        }`}
       >
         <div>
           <div className="inline-flex items-center justify-center rounded-24 bg-grayScaleBlack90">
