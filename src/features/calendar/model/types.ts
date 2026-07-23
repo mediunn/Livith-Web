@@ -14,3 +14,20 @@ export type CalendarEventType =
   | "GENERAL_TICKETING"
   | "ADD_TICKETING"
   | "MORE";
+
+export type CalendarDay = {
+  date: string;
+  events: MonthlyCalendarEvent[];
+};
+
+export type MonthlyCalendarEvent = {
+  id: number;
+  artist: string;
+  type: ScheduleType;
+};
+
+export type MonthlyCalendarResponse = {
+  year: number;
+  month: number;
+  days: CalendarDay[];
+};
