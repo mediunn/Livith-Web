@@ -31,3 +31,17 @@ export type MonthlyCalendarResponse = {
   month: number;
   days: CalendarDay[];
 };
+
+export type DailyCalendarEvent = {
+  id: number;
+  title: string | null;
+  type: "GENERAL_TICKETING" | "PRE_TICKETING" | "ADD_TICKETING" | "CONCERT";
+  status: "ONGOING" | "UPCOMING" | "COMPLETED" | "CANCELED";
+  time: string | null;
+  detail: string | null;
+};
+
+export type DailyCalendarResponse = {
+  date: string;
+  events: DailyCalendarEvent[];
+};

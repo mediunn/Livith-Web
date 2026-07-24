@@ -1,8 +1,6 @@
 import { useState } from "react";
-
 import { MonthlyCalendar } from "../features/calendar/ui/MonthlyCalendar";
 import { CalendarFilter } from "../features/calendar/ui/CalendarFilter";
-
 import { ConcertType, ScheduleType } from "../features/calendar/model/types";
 import { useRecoilValue } from "recoil";
 import { userState } from "../shared/lib/recoil/atoms/userState";
@@ -84,6 +82,8 @@ export default function CalendarTab() {
         <ScheduleInfoModal
           isOpen={isScheduleModalOpen}
           date={selectedDate}
+          scheduleTypes={scheduleTypes}
+          concertType={concertType}
           onClose={() => setIsScheduleModalOpen(false)}
         />
       )}
