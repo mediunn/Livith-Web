@@ -13,6 +13,8 @@ import { CalendarDayButton } from "./CalendarDayButton";
 import { CalendarMonthCaption } from "./CalendarMonthCaption";
 import { CalendarWeekday } from "./CalendarWeekday";
 import { CalendarWeekdays } from "./CalendarWeekdays";
+import { isIOSWebView } from "../../../shared/lib/webview/isIOSWebView";
+import { sendMonthChanged } from "../../../shared/lib/webview/bridge";
 
 type MonthlyCalendarProps = {
   scheduleTypes?: ScheduleType[];
@@ -26,11 +28,11 @@ export function MonthlyCalendar({
   onDateSelect,
 }: MonthlyCalendarProps) {
   const [selected, setSelected] = useState<Date>();
-  const today = new Date();
+  const [month, setMonth] = useState(new Date());
 
   const { data, isLoading, error } = useCalendarData({
-    year: today.getFullYear(),
-    month: today.getMonth() + 1,
+    year: month.getFullYear(),
+    month: month.getMonth() + 1,
     scheduleTypes,
     concertType,
   });
@@ -61,6 +63,14 @@ export function MonthlyCalendar({
     <DayPicker
       locale={ko}
       mode="single"
+      month={month}
+      onMonthChange={(newMonth) => {
+        setMonth(newMonth);
+
+        if (isIOSWebView()) {
+          sendMonthChanged(newMonth.getFullYear(), newMonth.getMonth() + 1);
+        }
+      }}
       selected={selected}
       onSelect={(date) => {
         if (!date) return;
