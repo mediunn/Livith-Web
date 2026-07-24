@@ -9,7 +9,7 @@ import SearchResult from "../features/interest/ui/SearchResult";
 import ListHeader from "../shared/ui/ListHeader";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import { useNavigate } from "react-router-dom";
-
+import TooltipArrowIcon from "../shared/assets/TooltipArrowIcon.svg";
 export type SelectedConcert = {
   id: string;
   title: string;
@@ -71,6 +71,21 @@ function SetInterestConcertPage() {
     }
   }, [showAll, showResults]);
 
+  const [showTooltip, setShowTooltip] = useState(true);
+
+  useEffect(() => {
+    const shouldHide =
+      sessionStorage.getItem("hide-interest-tooltip") === "true";
+
+    setShowTooltip(!shouldHide);
+
+    if (shouldHide) {
+      setTimeout(() => {
+        sessionStorage.removeItem("hide-interest-tooltip");
+      }, 0);
+    }
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* 상단 헤더 */}
@@ -84,8 +99,33 @@ function SetInterestConcertPage() {
               navigate(-1);
             }
           }}
+          rightElement={
+            //정보 요청 버튼
+            <div className="relative inline-block">
+              <button
+                className="px-12 py-4 text-Caption1-Bold text-grayScaleBlack50 border border-grayScaleBlack90 rounded-24 font-bold font-NotoSansKR"
+                onClick={() => {
+                  navigate("/request-information");
+                }}
+              >
+                정보 요청
+              </button>
+            </div>
+          }
         />
         <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
+          {/* 툴팁 */}
+          {showTooltip && (
+            <div className="absolute right-16 -top-9 z-[60]">
+              <img src={TooltipArrowIcon} className="absolute right-6 -top-3" />
+
+              <div className="rounded-26 bg-mainYellow30 px-15 py-5 whitespace-nowrap">
+                <p className="text-Caption2-sm font-semibold text-grayScaleBlack80">
+                  찾는 콘서트가 없다면?
+                </p>
+              </div>
+            </div>
+          )}
           {!isInputFocused && (
             <div className="flex py-20">
               <div className="text-Body1-sm text-grayScaleWhite font-semibold font-NotoSansKR mb-8">
