@@ -70,7 +70,10 @@ function RequestInfoPage() {
 
     setIsAutoRegisterSheetOpen(true);
   }
+
   function handleBack() {
+    sessionStorage.setItem("hide-interest-tooltip", "true");
+
     if (hasInput) {
       setIsDangerModalOpen(true);
       return;
@@ -80,6 +83,8 @@ function RequestInfoPage() {
   }
 
   function handleLeavePage() {
+    sessionStorage.setItem("hide-interest-tooltip", "true");
+
     setIsDangerModalOpen(false);
     navigate(-1);
   }
