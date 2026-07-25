@@ -1,3 +1,3 @@
 export function isIOSWebView() {
-  return !!window.webkit?.messageHandlers;
+  return !!window.webkit?.messageHandlers?.calendarDateSelected;
 }
