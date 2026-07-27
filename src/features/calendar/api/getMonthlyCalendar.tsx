@@ -42,6 +42,5 @@ export async function getMonthlyCalendar({
       return searchParams.toString();
     },
   });
-  console.log("getMonthlyCalendar response:", response.data.data);
   return response.data.data;
 }

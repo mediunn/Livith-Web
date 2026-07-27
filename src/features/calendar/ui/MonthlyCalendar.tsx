@@ -1,6 +1,6 @@
 import { ko } from "date-fns/locale";
 import type { CSSProperties } from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
@@ -60,6 +60,14 @@ export function MonthlyCalendar({
     return new Map(data.map((item) => [item.date, item.events]));
   }, [data]);
 
+  const isWebView = isIOSWebView();
+
+  useEffect(() => {
+    if (!isWebView) return;
+
+    sendMonthChanged(startDate, endDate);
+  }, [isWebView, startDate, endDate]);
+
   if (isLoading) {
     return (
       <div className="flex min-h-[600px] items-center justify-center">
@@ -83,10 +91,6 @@ export function MonthlyCalendar({
       month={month}
       onMonthChange={(newMonth) => {
         setMonth(newMonth);
-
-        if (isIOSWebView()) {
-          sendMonthChanged(newMonth.getFullYear(), newMonth.getMonth() + 1);
-        }
       }}
       selected={selected}
       onSelect={(date) => {

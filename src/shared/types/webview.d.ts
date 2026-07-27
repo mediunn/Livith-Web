@@ -12,6 +12,6 @@ declare global {
       };
     };
 
-    setCalendarData?: (data: MonthlyCalendarResponse) => void;
+    setCalendarData?: (data: MonthlyCalendarResponse[]) => void;
   }
 }
