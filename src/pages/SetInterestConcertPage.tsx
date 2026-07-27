@@ -116,11 +116,14 @@ function SetInterestConcertPage() {
         <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
           {/* 툴팁 */}
           {showTooltip && (
-            <div className="absolute right-16 -top-9 z-[60]">
-              <img src={TooltipArrowIcon} className="absolute right-6 -top-3" />
+            <div className="absolute right-16 -top-2 z-[60]">
+              <img
+                src={TooltipArrowIcon}
+                className="absolute right-14 -top-6"
+              />
 
-              <div className="rounded-26 bg-mainYellow30 px-15 py-5 whitespace-nowrap">
-                <p className="text-Caption2-sm font-semibold text-grayScaleBlack80">
+              <div className="rounded-26 bg-mainYellow30 px-15 py-7 whitespace-nowrap">
+                <p className="text-Caption1-Bold font-bold text-grayScaleBlack80">
                   찾는 콘서트가 없다면?
                 </p>
               </div>
