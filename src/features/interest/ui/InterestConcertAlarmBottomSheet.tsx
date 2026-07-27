@@ -40,7 +40,11 @@ function InterestConcertAlarmBottomSheet({
           <div className="absolute top-50 left-0 w-full h-20 bg-gradient-to-t from-transparent to-grayScaleBlack90 pointer-events-none" />
 
           {/* 스크롤 영역 */}
-          <div className="flex-1 overflow-y-auto min-h-0 pb-16">
+          <Sheet.Scroller
+            draggableAt="top"
+            autoPadding
+            className="flex-1 min-h-0"
+          >
             {autoRemovedAlerts.length > 0 && (
               <AutoRemovedConcert alerts={autoRemovedAlerts} />
             )}
@@ -48,7 +52,7 @@ function InterestConcertAlarmBottomSheet({
             {requestAlerts.length > 0 && (
               <RegisteredConcert alerts={requestAlerts} />
             )}
-          </div>
+          </Sheet.Scroller>
 
           {/* 하단 버튼 */}
           <div className="relative shrink-0">
