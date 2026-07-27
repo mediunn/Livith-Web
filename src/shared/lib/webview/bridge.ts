@@ -4,9 +4,9 @@ export function sendSelectedDate(date: string) {
   });
 }
 
-export function sendMonthChanged(year: number, month: number) {
+export function sendMonthChanged(startDate: string, endDate: string) {
   window.webkit?.messageHandlers?.calendarMonthChanged?.postMessage({
-    year,
-    month,
+    startDate,
+    endDate,
   });
 }

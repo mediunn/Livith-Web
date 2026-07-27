@@ -13,7 +13,7 @@ function ConcertSettingTooltip({ isOpen }: ConcertSettingTooltipProps) {
   return (
     <>
       {isOpen && (
-        <div className="absolute top-160 right-23">
+        <div className="absolute top-180 right-23">
           <img
             src={TooltipArrowIcon}
             className="w-13 absolute right-20 -top-4"

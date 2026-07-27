@@ -15,7 +15,7 @@ export type CalendarEventType =
   | "ADD_TICKETING"
   | "MORE";
 
-export type CalendarDay = {
+export type MonthlyCalendarResponse = {
   date: string;
   events: MonthlyCalendarEvent[];
 };
@@ -24,12 +24,6 @@ export type MonthlyCalendarEvent = {
   id: number;
   artist: string;
   type: ScheduleType;
-};
-
-export type MonthlyCalendarResponse = {
-  year: number;
-  month: number;
-  days: CalendarDay[];
 };
 
 export type DailyCalendarEvent = {

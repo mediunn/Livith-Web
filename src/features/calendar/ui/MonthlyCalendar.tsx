@@ -1,10 +1,16 @@
 import { ko } from "date-fns/locale";
 import type { CSSProperties } from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
-import { format } from "date-fns";
+import {
+  endOfMonth,
+  endOfWeek,
+  format,
+  startOfMonth,
+  startOfWeek,
+} from "date-fns";
 import { EmptyView } from "../../../shared/ui/EmptyView";
 import { ConcertType, ScheduleType } from "../model/types";
 import { useCalendarData } from "../model/useCalendarData";
@@ -30,9 +36,20 @@ export function MonthlyCalendar({
   const [selected, setSelected] = useState<Date>();
   const [month, setMonth] = useState(new Date());
 
+  //캘린더의 시작일과 종료일을 계산 (해당 월의 시작일과 종료일을 포함한 주 단위로 계산)
+  const startDate = format(
+    startOfWeek(startOfMonth(month), { weekStartsOn: 0 }),
+    "yyyy-MM-dd",
+  );
+
+  const endDate = format(
+    endOfWeek(endOfMonth(month), { weekStartsOn: 0 }),
+    "yyyy-MM-dd",
+  );
+
   const { data, isLoading, error } = useCalendarData({
-    year: month.getFullYear(),
-    month: month.getMonth() + 1,
+    startDate,
+    endDate,
     scheduleTypes,
     concertType,
   });
@@ -40,8 +57,16 @@ export function MonthlyCalendar({
   const eventMap = useMemo(() => {
     if (!data) return new Map();
 
-    return new Map(data.days.map((day) => [day.date, day.events]));
+    return new Map(data.map((item) => [item.date, item.events]));
   }, [data]);
+
+  const isWebView = isIOSWebView();
+
+  useEffect(() => {
+    if (!isWebView) return;
+
+    sendMonthChanged(startDate, endDate);
+  }, [isWebView, startDate, endDate]);
 
   if (isLoading) {
     return (
@@ -66,18 +91,13 @@ export function MonthlyCalendar({
       month={month}
       onMonthChange={(newMonth) => {
         setMonth(newMonth);
-
-        if (isIOSWebView()) {
-          sendMonthChanged(newMonth.getFullYear(), newMonth.getMonth() + 1);
-        }
       }}
       selected={selected}
-      onSelect={(date) => {
-        if (!date) return;
-        setSelected(date);
-        const dateString = format(date, "yyyy-MM-dd");
-        onDateSelect?.(dateString);
+      onDayClick={(day) => {
+        setSelected(day);
+        onDateSelect?.(format(day, "yyyy-MM-dd"));
       }}
+      required
       // 기본 Nav(화살표) 숨기고 MonthCaption에서 한 줄로 전부 그림
       hideNavigation
       // 월간 달력에서 이전/다음 달 날짜를 회색으로 표시
@@ -109,6 +129,7 @@ export function MonthlyCalendar({
         months: "w-full",
         month: "w-full",
         month_grid: "w-full table-fixed", // 화면 전체 넓이로 테이블 레이아웃
+        day: "h-[100px] align-top",
         day_button: "bg-transparent",
         selected: "bg-transparent text-inherit",
         weekday: "py-10",
