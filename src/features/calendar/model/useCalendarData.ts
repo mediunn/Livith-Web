@@ -3,8 +3,8 @@ import { useCalendarBridge } from "../../../shared/lib/webview/useCalendarBridge
 import { ConcertType, ScheduleType } from "./types";
 import { isIOSWebView } from "../../../shared/lib/webview/isIOSWebView";
 export function useCalendarData(params: {
-  year: number;
-  month: number;
+  startDate: string;
+  endDate: string;
   scheduleTypes: ScheduleType[];
   concertType: ConcertType;
 }) {

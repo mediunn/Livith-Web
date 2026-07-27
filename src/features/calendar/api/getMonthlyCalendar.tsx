@@ -7,22 +7,22 @@ import {
 } from "../model/types";
 
 export async function getMonthlyCalendar({
-  year,
-  month,
+  startDate,
+  endDate,
   scheduleTypes,
   concertType,
 }: {
-  year: number;
-  month: number;
+  startDate: string;
+  endDate: string;
   scheduleTypes: ScheduleType[];
   concertType: ConcertType;
-}): Promise<MonthlyCalendarResponse> {
+}): Promise<MonthlyCalendarResponse[]> {
   const response = await axiosInstance.get<
-    ApiResponse<MonthlyCalendarResponse>
+    ApiResponse<MonthlyCalendarResponse[]>
   >("/calendar", {
     params: {
-      year,
-      month,
+      startDate,
+      endDate,
       scheduleTypes,
       concertType,
     },
@@ -42,5 +42,6 @@ export async function getMonthlyCalendar({
       return searchParams.toString();
     },
   });
+  console.log("getMonthlyCalendar response:", response.data.data);
   return response.data.data;
 }

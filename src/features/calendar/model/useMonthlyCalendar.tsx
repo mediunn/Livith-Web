@@ -3,19 +3,25 @@ import { getMonthlyCalendar } from "../api/getMonthlyCalendar";
 import { ConcertType, ScheduleType } from "./types";
 
 export function useMonthlyCalendar({
-  year,
-  month,
+  startDate,
+  endDate,
   scheduleTypes,
   concertType,
 }: {
-  year: number;
-  month: number;
+  startDate: string;
+  endDate: string;
   scheduleTypes: ScheduleType[];
   concertType: ConcertType;
 }) {
   return useQuery({
-    queryKey: ["monthlyCalendar", year, month, scheduleTypes, concertType],
+    queryKey: [
+      "monthlyCalendar",
+      startDate,
+      endDate,
+      scheduleTypes,
+      concertType,
+    ],
     queryFn: () =>
-      getMonthlyCalendar({ year, month, scheduleTypes, concertType }),
+      getMonthlyCalendar({ startDate, endDate, scheduleTypes, concertType }),
   });
 }

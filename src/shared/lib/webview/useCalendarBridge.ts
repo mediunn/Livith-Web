@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { MonthlyCalendarResponse } from "../../../features/calendar/model/types";
 
 export function useCalendarBridge() {
-  const [data, setData] = useState<MonthlyCalendarResponse | null>(null);
+  const [data, setData] = useState<MonthlyCalendarResponse[] | null>(null);
 
   useEffect(() => {
-    window.setCalendarData = (calendarData: MonthlyCalendarResponse) => {
+    window.setCalendarData = (calendarData: MonthlyCalendarResponse[]) => {
       setData(calendarData);
     };
 
