@@ -116,11 +116,14 @@ function SetInterestConcertPage() {
         <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
           {/* 툴팁 */}
           {showTooltip && (
-            <div className="absolute right-16 -top-9 z-[60]">
-              <img src={TooltipArrowIcon} className="absolute right-6 -top-3" />
+            <div className="absolute right-16 -top-2 z-[60]">
+              <img
+                src={TooltipArrowIcon}
+                className="absolute right-14 -top-6"
+              />
 
-              <div className="rounded-26 bg-mainYellow30 px-15 py-5 whitespace-nowrap">
-                <p className="text-Caption2-sm font-semibold text-grayScaleBlack80">
+              <div className="rounded-26 bg-mainYellow30 px-15 py-7 whitespace-nowrap">
+                <p className="text-Caption1-Bold font-bold text-grayScaleBlack80">
                   찾는 콘서트가 없다면?
                 </p>
               </div>
@@ -173,46 +176,51 @@ function SetInterestConcertPage() {
         ) : null}
       </div>
       {/* 버튼: 항상 화면 맨 아래 */}
-      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pt-24 pb-60 z-50 px-16">
-        {/* 선택된 공연 칩 */}
-        <SelectedSection
-          selectedState={{
-            value: selectedConcerts,
-            setValue: setSelectedConcerts,
-          }}
-        />
-        {/* 버튼 */}
-        <SetInterestConcertButton
-          selectedConcertsState={{
-            value: currentSelectedIds || null,
-            setValue: (action) => {
-              const idString =
-                typeof action === "function"
-                  ? action(currentSelectedIds || null)
-                  : action;
+      <div className="sticky bottom-0 z-50 pointer-events-none">
+        <div className="bg-gradient-to-t from-grayScaleBlack100 to-transparent pt-24 pb-60 px-16">
+          <div className="pointer-events-auto">
+            {/* 선택된 공연 칩 */}
+            <SelectedSection
+              selectedState={{
+                value: selectedConcerts,
+                setValue: setSelectedConcerts,
+              }}
+            />
+            {/* 버튼 */}
+            <SetInterestConcertButton
+              selectedConcertsState={{
+                value: currentSelectedIds || null,
+                setValue: (action) => {
+                  const idString =
+                    typeof action === "function"
+                      ? action(currentSelectedIds || null)
+                      : action;
 
-              if (!idString) {
-                setSelectedConcerts([]);
-                return;
-              }
+                  if (!idString) {
+                    setSelectedConcerts([]);
+                    return;
+                  }
 
-              const ids = idString
-                .split(",")
-                .map((s) => s.trim())
-                .filter(Boolean);
-              setSelectedConcerts((prev) => {
-                const updated = ids.map((id) => {
-                  const existing = prev.find((c) => c.id === id);
-                  return existing || { id, title: "", artist: "" };
-                });
-                return updated;
-              });
-            },
-          }}
-          isFirst={isFirst}
-          disabled={!isSelectionChanged}
-        />
+                  const ids = idString
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean);
+
+                  setSelectedConcerts((prev) =>
+                    ids.map((id) => {
+                      const existing = prev.find((c) => c.id === id);
+                      return existing || { id, title: "", artist: "" };
+                    }),
+                  );
+                },
+              }}
+              isFirst={isFirst}
+              disabled={!isSelectionChanged}
+            />
+          </div>
+        </div>
       </div>
+
       <DangerModal
         isOpen={isModalOpen}
         primaryLabel="뒤로 갈게요"

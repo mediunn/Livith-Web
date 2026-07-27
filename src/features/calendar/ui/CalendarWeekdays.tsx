@@ -14,7 +14,12 @@ export function CalendarWeekdays({
     <thead aria-hidden>
       <tr
         {...trProps}
-        className={[className, "bg-grayScaleBlack90"].filter(Boolean).join(" ")}
+        className={[
+          className,
+          "bg-grayScaleBlack90 border-b border-grayScaleBlack80",
+        ]
+          .filter(Boolean)
+          .join(" ")}
         style={style}
       >
         {children}

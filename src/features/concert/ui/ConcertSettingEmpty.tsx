@@ -35,7 +35,7 @@ function ConcertSettingEmpty({ hasPrefer }: ConcertSettingEmptyProps) {
 
   return (
     <>
-      <div className="flex justify-between items-end bg-grayScaleBlack90 rounded-bl-20 px-16 pt-4 pb-30 relative">
+      <div className="flex justify-between items-end bg-grayScaleBlack90 rounded-bl-20 px-16 py-30 relative">
         <div>
           <p className="text-grayScaleWhite text-Head1-sm font-semibold font-NotoSansKR">
             {user ? (
