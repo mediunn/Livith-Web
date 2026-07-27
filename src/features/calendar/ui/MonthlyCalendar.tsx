@@ -93,12 +93,11 @@ export function MonthlyCalendar({
         setMonth(newMonth);
       }}
       selected={selected}
-      onSelect={(date) => {
-        if (!date) return;
-        setSelected(date);
-        const dateString = format(date, "yyyy-MM-dd");
-        onDateSelect?.(dateString);
+      onDayClick={(day) => {
+        setSelected(day);
+        onDateSelect?.(format(day, "yyyy-MM-dd"));
       }}
+      required
       // 기본 Nav(화살표) 숨기고 MonthCaption에서 한 줄로 전부 그림
       hideNavigation
       // 월간 달력에서 이전/다음 달 날짜를 회색으로 표시
