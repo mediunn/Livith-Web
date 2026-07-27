@@ -173,46 +173,51 @@ function SetInterestConcertPage() {
         ) : null}
       </div>
       {/* 버튼: 항상 화면 맨 아래 */}
-      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pt-24 pb-60 z-50 px-16">
-        {/* 선택된 공연 칩 */}
-        <SelectedSection
-          selectedState={{
-            value: selectedConcerts,
-            setValue: setSelectedConcerts,
-          }}
-        />
-        {/* 버튼 */}
-        <SetInterestConcertButton
-          selectedConcertsState={{
-            value: currentSelectedIds || null,
-            setValue: (action) => {
-              const idString =
-                typeof action === "function"
-                  ? action(currentSelectedIds || null)
-                  : action;
+      <div className="sticky bottom-0 z-50 pointer-events-none">
+        <div className="bg-gradient-to-t from-grayScaleBlack100 to-transparent pt-24 pb-60 px-16">
+          <div className="pointer-events-auto">
+            {/* 선택된 공연 칩 */}
+            <SelectedSection
+              selectedState={{
+                value: selectedConcerts,
+                setValue: setSelectedConcerts,
+              }}
+            />
+            {/* 버튼 */}
+            <SetInterestConcertButton
+              selectedConcertsState={{
+                value: currentSelectedIds || null,
+                setValue: (action) => {
+                  const idString =
+                    typeof action === "function"
+                      ? action(currentSelectedIds || null)
+                      : action;
 
-              if (!idString) {
-                setSelectedConcerts([]);
-                return;
-              }
+                  if (!idString) {
+                    setSelectedConcerts([]);
+                    return;
+                  }
 
-              const ids = idString
-                .split(",")
-                .map((s) => s.trim())
-                .filter(Boolean);
-              setSelectedConcerts((prev) => {
-                const updated = ids.map((id) => {
-                  const existing = prev.find((c) => c.id === id);
-                  return existing || { id, title: "", artist: "" };
-                });
-                return updated;
-              });
-            },
-          }}
-          isFirst={isFirst}
-          disabled={!isSelectionChanged}
-        />
+                  const ids = idString
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean);
+
+                  setSelectedConcerts((prev) =>
+                    ids.map((id) => {
+                      const existing = prev.find((c) => c.id === id);
+                      return existing || { id, title: "", artist: "" };
+                    }),
+                  );
+                },
+              }}
+              isFirst={isFirst}
+              disabled={!isSelectionChanged}
+            />
+          </div>
+        </div>
       </div>
+
       <DangerModal
         isOpen={isModalOpen}
         primaryLabel="뒤로 갈게요"
