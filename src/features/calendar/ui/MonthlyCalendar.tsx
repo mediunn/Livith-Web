@@ -129,6 +129,7 @@ export function MonthlyCalendar({
         months: "w-full",
         month: "w-full",
         month_grid: "w-full table-fixed", // 화면 전체 넓이로 테이블 레이아웃
+        day: "h-[100px] align-top",
         day_button: "bg-transparent",
         selected: "bg-transparent text-inherit",
         weekday: "py-10",
