@@ -73,7 +73,7 @@ function ScheduleInfoModal({
               },
             }}
           >
-            <div className="w-[335px] max-w-[90%] max-h-[540px] fixed flex flex-col px-16 py-16 bg-grayScaleBlack90 rounded-16 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-[335px] max-w-[90%] h-[540px] fixed flex flex-col px-16 py-16 bg-grayScaleBlack90 rounded-16 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <div className="flex items-center justify-between pb-4">
                 <p className="text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR">
                   {formatDate(date)}
