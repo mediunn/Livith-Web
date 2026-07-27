@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Sheet, SheetRef } from "react-modal-sheet";
 import AutoRemovedConcert from "../../../shared/ui/AutoRemovedConcert";
 import RegisteredConcert from "../../../shared/ui/RegisteredConcert";
-import { EntryAlertItem } from "../api/notifications";
+import { EntryAlertItem } from "../api/postNotifications";
 interface InterestConcertAlarmBottomSheetProps {
   isSheetOpen: boolean;
   onSheetClose: () => void;
@@ -17,6 +17,7 @@ function InterestConcertAlarmBottomSheet({
   requestAlerts,
 }: InterestConcertAlarmBottomSheetProps) {
   const ref = useRef<SheetRef>(null);
+
   return (
     <Sheet isOpen={isSheetOpen} onClose={onSheetClose} ref={ref}>
       <Sheet.Container
@@ -40,9 +41,13 @@ function InterestConcertAlarmBottomSheet({
 
           {/* 스크롤 영역 */}
           <div className="flex-1 overflow-y-auto min-h-0 pb-16">
-            <AutoRemovedConcert alerts={autoRemovedAlerts} />
+            {autoRemovedAlerts.length > 0 && (
+              <AutoRemovedConcert alerts={autoRemovedAlerts} />
+            )}
 
-            <RegisteredConcert alerts={requestAlerts} />
+            {requestAlerts.length > 0 && (
+              <RegisteredConcert alerts={requestAlerts} />
+            )}
           </div>
 
           {/* 하단 버튼 */}

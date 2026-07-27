@@ -21,8 +21,16 @@ export interface EntryAlertResponse {
 export const postEntryAlerts = async (): Promise<
   ApiResponse<EntryAlertResponse>
 > => {
+  const accessToken = localStorage.getItem("accessToken");
+
   const response = await axiosInstance.post<ApiResponse<EntryAlertResponse>>(
     "/notifications/entry-alerts",
+    undefined,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
   );
 
   return response.data;

@@ -1,4 +1,4 @@
-import { EntryAlertItem } from "../../features/interest/api/notifications";
+import { EntryAlertItem } from "../../features/interest/api/postNotifications";
 
 interface Props {
   alerts: EntryAlertItem[];
