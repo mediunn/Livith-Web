@@ -83,7 +83,7 @@ function ScheduleInfoModal({
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto">
+              <div className="react-modal-sheet-scroller flex-1 overflow-y-auto">
                 {data?.events.length === 0 ? (
                   <div className="my-160 flex flex-col items-center justify-center">
                     <div className="flex flex-col items-center justify-center">
