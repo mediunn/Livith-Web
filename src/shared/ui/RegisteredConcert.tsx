@@ -29,6 +29,7 @@ function RegisteredConcert({ alerts }: Props) {
               if (isSuccess && item.concertId) {
                 navigate(`/concert/${item.concertId}`);
               } else {
+                window.amplitude.track("click_concert_request_retry");
                 navigate("/request-information");
               }
             }}
