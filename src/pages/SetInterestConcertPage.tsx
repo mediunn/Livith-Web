@@ -105,6 +105,7 @@ function SetInterestConcertPage() {
               <button
                 className="px-12 py-4 text-Caption1-Bold text-grayScaleBlack50 border border-grayScaleBlack90 rounded-24 font-bold font-NotoSansKR"
                 onClick={() => {
+                  window.amplitude.track("click_concert_request");
                   navigate("/request-information");
                 }}
               >
