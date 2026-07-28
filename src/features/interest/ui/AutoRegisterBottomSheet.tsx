@@ -41,7 +41,10 @@ function AutoRegisterBottomSheet({
               괜찮아요
             </button>
             <button
-              onClick={() => onRegister(true)}
+              onClick={() => {
+                onRegister(true);
+                window.amplitude.track("click_concert_request_ added");
+              }}
               className={`flex-1 py-15 rounded-6 bg-mainYellow30 text-grayScaleBlack100 text-Body3-sm font-semibold font-NotoSansKR 
             `}
             >

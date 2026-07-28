@@ -68,6 +68,8 @@ function RequestInfoPage() {
   function handleRequest(): void {
     if (!isButtonEnabled) return;
 
+    window.amplitude.track("click_concert_request_comfirm");
+
     setIsAutoRegisterSheetOpen(true);
   }
 

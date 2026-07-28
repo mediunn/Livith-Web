@@ -42,6 +42,18 @@ function HomePage() {
     [items],
   );
 
+  const handleTabChange = (nextTab: "interest" | "calendar") => {
+    setTab(nextTab);
+
+    if (nextTab === "interest") {
+      window.amplitude.track("click_interest_concert_tab");
+    }
+
+    if (nextTab === "calendar") {
+      window.amplitude.track("click_interest_calendar_tab");
+    }
+  };
+
   useEffect(() => {
     if (items.length > 0) {
       setIsSheetOpen(true);
@@ -91,7 +103,7 @@ function HomePage() {
     <div className="pb-90">
       <TopBar bgColor="bg-grayScaleBlack100" />
 
-      <HomeTab value={tab} onChange={setTab} />
+      <HomeTab value={tab} onChange={handleTabChange} />
 
       {tab === "interest" ? <InterestConcertTab /> : <CalendarTab />}
 
