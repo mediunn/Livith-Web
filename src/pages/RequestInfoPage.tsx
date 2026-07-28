@@ -122,7 +122,7 @@ function RequestInfoPage() {
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
                   className="flex-1 py-15 bg-transparent text-grayScaleWhite placeholder:text-grayScaleBlack50 text-Body3-md font-medium font-NotoSansKR outline-none"
-                  placeholder="공연 명을 입력해 주세요"
+                  placeholder="공연명을 입력해주세요"
                 />
                 {isFocused && (
                   <p className="ml-12 text-Caption1-re text-grayScaleBlack50">
@@ -146,7 +146,7 @@ function RequestInfoPage() {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   className="w-full py-15 bg-transparent text-grayScaleWhite placeholder:text-grayScaleBlack50 text-Body3-md font-medium font-NotoSansKR outline-none"
-                  placeholder="공연 정보를 확인할 수 있는 URL을 추가해 주세요"
+                  placeholder="공연 정보를 확인할 수 있는 URL을 추가해주세요"
                 />
               </div>
             </div>

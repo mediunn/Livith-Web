@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import EntryAlertCard from "./EntryAlertCard";
-import { EntryAlertItem } from "../../features/interest/api/notifications";
+import { EntryAlertItem } from "../../features/interest/api/postNotifications";
 
 interface Props {
   alerts: EntryAlertItem[];
@@ -29,7 +29,7 @@ function RegisteredConcert({ alerts }: Props) {
               if (isSuccess && item.concertId) {
                 navigate(`/concert/${item.concertId}`);
               } else {
-                navigate("/request-info");
+                navigate("/request-information");
               }
             }}
           />

@@ -52,7 +52,7 @@ function AutoRegisterBottomSheet({
       </Sheet.Container>
       <Sheet.Backdrop
         onTap={onSheetClose}
-        className="!max-w-md !mx-auto"
+        className="!max-w-md !mx-auto !bg-grayScaleBlack100 !opacity-80"
         style={{
           left: "0",
           right: "0",

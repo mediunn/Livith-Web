@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MonthlyCalendar } from "../features/calendar/ui/MonthlyCalendar";
 import { CalendarFilter } from "../features/calendar/ui/CalendarFilter";
 import { ConcertType, ScheduleType } from "../features/calendar/model/types";
@@ -54,9 +54,36 @@ export default function CalendarTab() {
       sendSelectedDate(date);
       return;
     }
+
+    window.history.pushState({ scheduleModal: true }, "");
+
     setSelectedDate(date);
     setIsScheduleModalOpen(true);
   };
+
+  const handleCloseModal = () => {
+    if (window.history.state?.scheduleModal) {
+      window.history.back();
+    } else {
+      setIsScheduleModalOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!isScheduleModalOpen) return;
+
+    const handlePopState = () => {
+      setIsScheduleModalOpen(false);
+      setSelectedDate(undefined);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isScheduleModalOpen]);
+
   return (
     <>
       <div className="flex flex-col gap-4 mb-30">
@@ -84,7 +111,7 @@ export default function CalendarTab() {
           date={selectedDate}
           scheduleTypes={scheduleTypes}
           concertType={concertType}
-          onClose={() => setIsScheduleModalOpen(false)}
+          onClose={handleCloseModal}
         />
       )}
     </>

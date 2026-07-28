@@ -49,7 +49,7 @@ function ScheduleInfoItem({
             </p>
           </div>
 
-          <p className="pt-6 text-grayScaleWhite text-Body2-sm font-semibold font-NotoSansKR line-clamp-2">
+          <p className="pt-6 text-grayScaleWhite text-Body3-sm font-semibold font-NotoSansKR line-clamp-2">
             {title}
           </p>
 
