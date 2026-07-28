@@ -48,7 +48,10 @@ export function CalendarMonthCaption({
         {/* 오늘 버튼 */}
         <button
           type="button"
-          onClick={() => goToMonth(today)}
+          onClick={() => {
+            goToMonth(today);
+            window.amplitude.track("click_calendar_today");
+          }}
           className="px-12 py-4 text-grayScaleBlack5 text-Caption1-Bold font-bold rounded-24 border border-grayScaleBlack80"
         >
           오늘
@@ -58,7 +61,10 @@ export function CalendarMonthCaption({
           type="button"
           disabled={!previousMonth}
           aria-label="이전 달"
-          onClick={() => previousMonth && goToMonth(previousMonth)}
+          onClick={() => {
+            previousMonth && goToMonth(previousMonth);
+            window.amplitude.track("click_calendar_month");
+          }}
           className="flex h-24 w-24 rounded-full bg-grayScaleBlack90 items-center justify-center disabled:opacity-30  hover:bg-grayScaleBlack100"
         >
           <img src={PrevArrow} alt="" className="h-8 w-auto" />
@@ -67,7 +73,10 @@ export function CalendarMonthCaption({
           type="button"
           disabled={!nextMonth}
           aria-label="다음 달"
-          onClick={() => nextMonth && goToMonth(nextMonth)}
+          onClick={() => {
+            nextMonth && goToMonth(nextMonth);
+            window.amplitude.track("click_calendar_month");
+          }}
           className="flex h-24 w-24 rounded-full bg-grayScaleBlack90 items-center justify-center disabled:opacity-30 hover:bg-grayScaleBlack100"
         >
           <img src={NextArrow} alt="" className="h-8 w-auto" />

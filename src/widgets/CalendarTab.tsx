@@ -50,6 +50,8 @@ export default function CalendarTab() {
   };
 
   const handleDateSelect = (date: string) => {
+    window.amplitude.track("click_calendar_date");
+
     if (isIOSWebView()) {
       sendSelectedDate(date);
       return;

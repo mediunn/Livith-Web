@@ -46,11 +46,11 @@ function HomePage() {
     setTab(nextTab);
 
     if (nextTab === "interest") {
-      window.amplitude?.track("click_interest_concert_tab");
+      window.amplitude.track("click_interest_concert_tab");
     }
 
     if (nextTab === "calendar") {
-      window.amplitude?.track("click_interest_calendar_tab");
+      window.amplitude.track("click_interest_calendar_tab");
     }
   };
 
