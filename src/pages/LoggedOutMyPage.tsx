@@ -28,7 +28,7 @@ function LoggedOutMyPage() {
       <AppleLoginButton />
       {/* 정보 */}
       <div className="flex justify-center gap-18 text-grayScaleBlack30 text-Body4-re font-NotoSansKR font-regular mt-18 mb-27">
-        <p>3.1.0</p>
+        <p>4.1.0</p>
         <p className="underline cursor-pointer" onClick={handleClickUpdate}>
           업데이트 노트
         </p>
