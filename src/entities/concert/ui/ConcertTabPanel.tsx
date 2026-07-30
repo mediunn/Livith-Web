@@ -92,12 +92,11 @@ function ConcertTabPanel({
           <ScheduleInfo schedules={schedules} showReportButton={true} />
         </div>
       )}
-
-      <div className="mx-16 mt-10">
-
-        <TicketWebsiteBtn ticketUrl={ticketUrl} onClick={handleTicketClick} />
-
-      </div>
+      {ticketUrl && (
+        <div className="mx-16 mt-10">
+          <TicketWebsiteBtn ticketUrl={ticketUrl} onClick={handleTicketClick} />
+        </div>
+      )}
 
       {showSnackBar && (
         <div className="fixed bottom-16 left-[50vw] -translate-x-1/2 w-[88%] max-w-400 z-50">
