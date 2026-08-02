@@ -1,186 +1,119 @@
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useConcertInsideInfo } from "../entities/concert/model/useConcertInsideInfo";
-import { useSchedule } from "../entities/concert/model/useSchedule";
-import {
-  useGetInterestConcertToast,
-  usePatchInterestConcertToast,
-} from "../features/interest/model/useInterestConcertToast";
-import SignupCompleteModal from "../features/auth/ui/SignupCompleteModal";
-import ConcertSettingEmpty from "../features/concert/ui/ConcertSettingEmpty";
-import { useInterestConcerts } from "../features/interest/model/useInterestConcerts";
-import TabBar from "../shared/ui/TabBar";
+import { useMemo, useState } from "react";
 import TopBar from "../shared/ui/TopBar";
-import GuidedBanner from "../shared/ui/GuidedBanner";
-import { useRecoilValue } from "recoil";
-import { userState } from "../shared/lib/recoil/atoms/userState";
-import { authReadyState } from "../shared/lib/recoil/atoms/authReadyState";
-import InterestConcert from "../widgets/InterestConcert";
-import RecommedConcertListSection from "../widgets/RecommedConcertListSection";
+import InterestConcertTab from "../widgets/InterestConcertTab";
+import TabBar from "../shared/ui/TabBar";
+import { HomeTab } from "../widgets/HomeTab";
+import CalendarTab from "../widgets/CalendarTab";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import CompleteToast from "../shared/ui/Toast/CompleteToast";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
-import HomeConcertListSection from "../widgets/HomeConcertListSection";
-import { useHomeConcertListSection } from "../features/concert/model/useHomeConcertListSection";
+import InterestConcertAlarmBottomSheet from "../features/interest/ui/InterestConcertAlarmBottomSheet";
+import { useEntryAlerts } from "../features/interest/model/useNotificationsEntryAlerts";
 
 function HomePage() {
-  const user = useRecoilValue(userState);
-  const isAuthReady = useRecoilValue(authReadyState);
-  const isLoggedIn = !!user;
-  const hasPrefer = user?.hasPreferredGenre ?? false;
-
-  const { data: interest, isLoading: isInterestLoading } = useInterestConcerts({
-    enabled: isLoggedIn,
-    isLoggedIn,
-  });
-  const concertIdStr = interest?.[0]?.id ?? null;
-  const concertId = concertIdStr ? Number(concertIdStr) : null;
-
-  const { data: concert, isLoading: isConcertLoading } =
-    useConcertInsideInfo(concertId);
-  const { data: schedules = [], isLoading: isScheduleLoading } =
-    useSchedule(concertId);
-
-  const { data: sections, isLoading: isHomeSectionLoading } =
-    useHomeConcertListSection();
-
-  const isLoading =
-    isInterestLoading ||
-    isConcertLoading ||
-    isScheduleLoading ||
-    isHomeSectionLoading;
+  const [tab, setTab] = useState<"interest" | "calendar">("interest");
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
-  const {
-    showSignupComplete,
-    nickname,
-    showSetConcertSuccessToast,
-    showSetConcertErrorToast,
-    toastLabel,
-  } = location.state || {};
 
-  const hasShownSetConcertToastRef = useRef(false);
-  const hasShownAutoCleanToastRef = useRef(false);
+  const { data } = useEntryAlerts(true);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const items = data?.data.items ?? [];
 
-  const { data: concertToastData } = useGetInterestConcertToast(isLoggedIn);
-  const { mutate: patchConcertToast } = usePatchInterestConcertToast();
+  const autoRemovedAlerts = useMemo(
+    () =>
+      items.filter(
+        (item) =>
+          item.kind === "AUTO_REMOVED_COMPLETED" ||
+          item.kind === "AUTO_REMOVED_CANCELED",
+      ),
+    [items],
+  );
 
-  useEffect(() => {
-    if (showSignupComplete) {
-      setIsModalOpen(true);
-      navigate(".", { replace: true, state: null });
+  const requestAlerts = useMemo(
+    () =>
+      items.filter(
+        (item) =>
+          item.kind === "REQUEST_REGISTERED" || item.kind === "REQUEST_FAILED",
+      ),
+    [items],
+  );
+
+  const handleTabChange = (nextTab: "interest" | "calendar") => {
+    setTab(nextTab);
+
+    if (nextTab === "interest") {
+      window.amplitude.track("click_interest_concert_tab");
     }
-  }, [showSignupComplete, navigate]);
 
-  useEffect(() => {
-    if (hasShownSetConcertToastRef.current) return;
-
-    if (showSetConcertSuccessToast) {
-      hasShownSetConcertToastRef.current = true;
-      toast(
-        <CompleteToast message={`소식을 받을 공연이 ${toastLabel}되었어요`} />,
-        { position: "top-center", autoClose: 3000 },
-      );
-      navigate(".", { replace: true, state: null });
-    } else if (showSetConcertErrorToast) {
-      hasShownSetConcertToastRef.current = true;
-      toast(
-        <ErrorToast message={`소식을 받을 공연 ${toastLabel}에 실패했어요`} />,
-        { position: "top-center", autoClose: 3000 },
-      );
-      navigate(".", { replace: true, state: null });
+    if (nextTab === "calendar") {
+      window.amplitude.track("click_interest_calendar_tab");
     }
-  }, [
-    showSetConcertSuccessToast,
-    showSetConcertErrorToast,
-    toastLabel,
-    navigate,
-  ]);
+  };
 
-  // 관심 콘서트 자동 정리 토스트
   useEffect(() => {
-    if (hasShownAutoCleanToastRef.current) return;
-    if (!concertToastData?.data?.needsToShow) return;
-
-    hasShownAutoCleanToastRef.current = true;
-
-    const type = concertToastData.data.type;
-
-    if (type === "BOTH") {
-      toast(<CompleteToast message="종료된 공연이 자동 정리됐어요" />, {
-        position: "top-center",
-        autoClose: 3000,
-      });
-      setTimeout(() => {
-        toast(<CompleteToast message="취소된 공연이 자동 정리됐어요" />, {
-          position: "top-center",
-          autoClose: 3000,
-        });
-      }, 300);
+    if (items.length > 0) {
+      setIsSheetOpen(true);
     } else {
-      const message =
-        type === "CANCELED"
-          ? "취소된 공연이 자동 정리됐어요"
-          : "종료된 공연이 자동 정리됐어요";
+      setIsSheetOpen(false);
+    }
+  }, [items]);
 
-      toast(<CompleteToast message={message} />, {
+  useEffect(() => {
+    const state = location.state as
+      | {
+          showToast?: boolean;
+          toastType?: "success" | "error";
+          message?: string;
+        }
+      | undefined;
+
+    if (!state?.showToast) return;
+
+    toast.dismiss();
+
+    if (state.toastType === "success") {
+      toast(<CompleteToast message={state.message ?? ""} />, {
+        toastId: "concert-request-success",
         position: "top-center",
         autoClose: 3000,
+        pauseOnFocusLoss: false,
       });
     }
 
-    patchConcertToast();
-  }, [concertToastData, patchConcertToast]);
+    if (state.toastType === "error") {
+      toast(<ErrorToast message={state.message ?? ""} />, {
+        toastId: "concert-request-error",
+        position: "top-center",
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+      });
+    }
+
+    navigate(location.pathname, {
+      replace: true,
+      state: null,
+    });
+  }, [location.state]);
 
   return (
     <div className="pb-90">
-      {concertId && concert && !isLoading ? (
-        <div className="pb-20">
-          <TopBar bgColor="bg-grayScaleBlack100" />
-          <InterestConcert />
-          {hasPrefer && user && (
-            <RecommedConcertListSection nickname={user.nickname} />
-          )}
+      <TopBar bgColor="bg-grayScaleBlack100" />
 
-          {sections?.map((section) => (
-            <HomeConcertListSection
-              key={section.id}
-              section={section}
-              isLoading={isLoading}
-            />
-          ))}
-        </div>
-      ) : (
-        <>
-          <TopBar bgColor="bg-grayScaleBlack90" />
-          {isAuthReady && !isLoggedIn && (
-            <GuidedBanner
-              content="회원가입하러 가기"
-              compactTitle="나의 취향이 담긴 콘서트 추천받기"
-              compactContent="회원가입하고 콘서트 정보를 빠르게 확인해요"
-              isLoggedIn={isLoggedIn}
-            />
-          )}
-          {isAuthReady && isLoggedIn && !hasPrefer && (
-            <GuidedBanner
-              content="취향 선택하러 가기"
-              compactTitle="취향 선택하러 가기"
-              compactContent="나의 취향이 담긴 콘서트를 추천받을 수 있어요"
-              isLoggedIn={isLoggedIn}
-            />
-          )}
-          <ConcertSettingEmpty hasPrefer={hasPrefer} />
-        </>
-      )}
+      <HomeTab value={tab} onChange={handleTabChange} />
+
+      {tab === "interest" ? <InterestConcertTab /> : <CalendarTab />}
 
       <TabBar />
-      <SignupCompleteModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        nickname={nickname ?? ""}
+
+      <InterestConcertAlarmBottomSheet
+        isSheetOpen={isSheetOpen}
+        onSheetClose={() => setIsSheetOpen(false)}
+        autoRemovedAlerts={autoRemovedAlerts}
+        requestAlerts={requestAlerts}
       />
     </div>
   );

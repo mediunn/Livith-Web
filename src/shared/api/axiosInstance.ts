@@ -26,7 +26,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
   return config;
 });
 
@@ -35,19 +39,19 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // accessToken 만료 && 아직 retry 안 한 경우
     if (
       error.response?.status === 401 &&
+      originalRequest &&
       !originalRequest._retry &&
       !originalRequest.skipAuthRefresh
     ) {
       if (isRefreshing) {
-        // 다른 요청이 이미 refresh 중이라면 기다리기
         return new Promise((resolve, reject) => {
           refreshSubscribers.push((token) => {
             originalRequest.headers.Authorization = `Bearer ${token}`;
             resolve(axiosInstance(originalRequest));
           });
+
           refreshRejecters.push(reject);
         });
       }
@@ -58,17 +62,29 @@ axiosInstance.interceptors.response.use(
       try {
         const res = await refreshTokens();
         const newAccessToken = res.data.accessToken;
+
         localStorage.setItem("accessToken", newAccessToken);
 
-        onRefreshed(newAccessToken);
+        // refresh 종료 상태 먼저 변경
         isRefreshing = false;
 
+        // 대기 요청 재실행
+        onRefreshed(newAccessToken);
+
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         isRefreshing = false;
+
         localStorage.removeItem("accessToken");
-        onRefreshFailed(refreshError); // 대기 중인 요청 모두 reject
+
+        // 추가
+        window.dispatchEvent(new Event("auth:expired"));
+
+        // 대기 중 요청 실패 처리
+        onRefreshFailed(refreshError);
+
         return Promise.reject(refreshError);
       }
     }

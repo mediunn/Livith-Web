@@ -1,2 +1,2 @@
-export const API_VERSION = "v6";
+export const API_VERSION = "v7";
 export const API_BASE_URL = `${import.meta.env.VITE_SERVER_URL}/api/${API_VERSION}`;

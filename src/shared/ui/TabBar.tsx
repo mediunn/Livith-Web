@@ -11,7 +11,7 @@ function TabBar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState<"home" | "category" | "my">(
-    "home"
+    "home",
   );
 
   useEffect(() => {

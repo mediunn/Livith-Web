@@ -9,7 +9,7 @@ import SearchResult from "../features/interest/ui/SearchResult";
 import ListHeader from "../shared/ui/ListHeader";
 import DangerModal from "../shared/ui/DangerModal/DangerModal";
 import { useNavigate } from "react-router-dom";
-
+import TooltipArrowIcon from "../shared/assets/TooltipArrowIcon.svg";
 export type SelectedConcert = {
   id: string;
   title: string;
@@ -71,6 +71,21 @@ function SetInterestConcertPage() {
     }
   }, [showAll, showResults]);
 
+  const [showTooltip, setShowTooltip] = useState(true);
+
+  useEffect(() => {
+    const shouldHide =
+      sessionStorage.getItem("hide-interest-tooltip") === "true";
+
+    setShowTooltip(!shouldHide);
+
+    if (shouldHide) {
+      setTimeout(() => {
+        sessionStorage.removeItem("hide-interest-tooltip");
+      }, 0);
+    }
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* 상단 헤더 */}
@@ -84,8 +99,37 @@ function SetInterestConcertPage() {
               navigate(-1);
             }
           }}
+          rightElement={
+            //정보 요청 버튼
+            <div className="relative inline-block">
+              <button
+                className="px-12 py-4 text-Caption1-Bold text-grayScaleBlack50 border border-grayScaleBlack90 rounded-24 font-bold font-NotoSansKR"
+                onClick={() => {
+                  window.amplitude.track("click_concert_request");
+                  navigate("/request-information");
+                }}
+              >
+                정보 요청
+              </button>
+            </div>
+          }
         />
         <div className="sticky top-0 z-50 bg-grayScaleBlack100 px-16">
+          {/* 툴팁 */}
+          {showTooltip && (
+            <div className="absolute right-16 -top-2 z-[60]">
+              <img
+                src={TooltipArrowIcon}
+                className="absolute right-14 -top-6"
+              />
+
+              <div className="rounded-26 bg-mainYellow30 px-15 py-7 whitespace-nowrap">
+                <p className="text-Caption1-Bold font-bold text-grayScaleBlack80">
+                  찾는 콘서트가 없다면?
+                </p>
+              </div>
+            </div>
+          )}
           {!isInputFocused && (
             <div className="flex py-20">
               <div className="text-Body1-sm text-grayScaleWhite font-semibold font-NotoSansKR mb-8">
@@ -133,46 +177,51 @@ function SetInterestConcertPage() {
         ) : null}
       </div>
       {/* 버튼: 항상 화면 맨 아래 */}
-      <div className="sticky bottom-0 bg-gradient-to-t from-grayScaleBlack100 to-transparent pt-24 pb-60 z-50 px-16">
-        {/* 선택된 공연 칩 */}
-        <SelectedSection
-          selectedState={{
-            value: selectedConcerts,
-            setValue: setSelectedConcerts,
-          }}
-        />
-        {/* 버튼 */}
-        <SetInterestConcertButton
-          selectedConcertsState={{
-            value: currentSelectedIds || null,
-            setValue: (action) => {
-              const idString =
-                typeof action === "function"
-                  ? action(currentSelectedIds || null)
-                  : action;
+      <div className="sticky bottom-0 z-50 pointer-events-none">
+        <div className="bg-gradient-to-t from-grayScaleBlack100 to-transparent pt-24 pb-60 px-16">
+          <div className="pointer-events-auto">
+            {/* 선택된 공연 칩 */}
+            <SelectedSection
+              selectedState={{
+                value: selectedConcerts,
+                setValue: setSelectedConcerts,
+              }}
+            />
+            {/* 버튼 */}
+            <SetInterestConcertButton
+              selectedConcertsState={{
+                value: currentSelectedIds || null,
+                setValue: (action) => {
+                  const idString =
+                    typeof action === "function"
+                      ? action(currentSelectedIds || null)
+                      : action;
 
-              if (!idString) {
-                setSelectedConcerts([]);
-                return;
-              }
+                  if (!idString) {
+                    setSelectedConcerts([]);
+                    return;
+                  }
 
-              const ids = idString
-                .split(",")
-                .map((s) => s.trim())
-                .filter(Boolean);
-              setSelectedConcerts((prev) => {
-                const updated = ids.map((id) => {
-                  const existing = prev.find((c) => c.id === id);
-                  return existing || { id, title: "", artist: "" };
-                });
-                return updated;
-              });
-            },
-          }}
-          isFirst={isFirst}
-          disabled={!isSelectionChanged}
-        />
+                  const ids = idString
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean);
+
+                  setSelectedConcerts((prev) =>
+                    ids.map((id) => {
+                      const existing = prev.find((c) => c.id === id);
+                      return existing || { id, title: "", artist: "" };
+                    }),
+                  );
+                },
+              }}
+              isFirst={isFirst}
+              disabled={!isSelectionChanged}
+            />
+          </div>
+        </div>
       </div>
+
       <DangerModal
         isOpen={isModalOpen}
         primaryLabel="뒤로 갈게요"

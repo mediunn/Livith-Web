@@ -10,7 +10,10 @@ export function ConcertTypeFilter({ value, onChange }: Props) {
     <div className="flex rounded-24 bg-grayScaleBlack90">
       <button
         type="button"
-        onClick={() => onChange(ConcertType.ALL)}
+        onClick={() => {
+          onChange(ConcertType.ALL);
+          window.amplitude.track("click_toggle_all_concert");
+        }}
         className={[
           "rounded-20 px-12 py-6 text-Caption1-Bold font-bold transition-all duration-200",
           value === ConcertType.ALL
@@ -23,7 +26,10 @@ export function ConcertTypeFilter({ value, onChange }: Props) {
 
       <button
         type="button"
-        onClick={() => onChange(ConcertType.INTEREST)}
+        onClick={() => {
+          onChange(ConcertType.INTEREST);
+          window.amplitude.track("click_toggle_my_concerts");
+        }}
         className={[
           "rounded-20 px-12 py-6 text-Caption1-Bold font-bold transition-all duration-200",
           value === ConcertType.INTEREST

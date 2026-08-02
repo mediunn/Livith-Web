@@ -18,7 +18,10 @@ export function ScheduleTypeFilter({ value, onChange }: Props) {
     <div className="flex gap-6">
       <button
         type="button"
-        onClick={() => toggle(ScheduleType.TICKETING)}
+        onClick={() => {
+          toggle(ScheduleType.TICKETING);
+          window.amplitude.track("click_chip_booking_date");
+        }}
         className={[
           "flex items-center rounded-24 border px-13 py-6 text-Caption1-Bold font-bold bg-grayScaleBlack90 ",
           value.includes(ScheduleType.TICKETING)
@@ -32,7 +35,10 @@ export function ScheduleTypeFilter({ value, onChange }: Props) {
 
       <button
         type="button"
-        onClick={() => toggle(ScheduleType.CONCERT)}
+        onClick={() => {
+          toggle(ScheduleType.CONCERT);
+          window.amplitude.track("click_chip_concert_date");
+        }}
         className={[
           "flex items-center rounded-24 border px-13 py-6 text-Caption1-Bold font-bold bg-grayScaleBlack90",
           value.includes(ScheduleType.CONCERT)
