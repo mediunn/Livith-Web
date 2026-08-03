@@ -34,6 +34,7 @@ import RecommedConcertListPage from "../pages/RecommedConcertListPage";
 import InterestConcertListPage from "../pages/InterestConcertListPage";
 import RequestInfoPage from "../pages/RequestInfoPage";
 import CalendarWebViewPage from "../pages/CalendarWebViewPage";
+import { AppStoreRedirectPage } from "../pages/AppStoreRedirectPage";
 
 const queryClient = new QueryClient();
 
@@ -158,6 +159,10 @@ const router = createBrowserRouter([
       {
         path: "/calendar-webview",
         element: <CalendarWebViewPage />,
+      },
+      {
+        path: "/app-store",
+        element: <AppStoreRedirectPage />,
       },
     ],
   },
