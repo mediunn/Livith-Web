@@ -13,7 +13,9 @@ export default function CalendarDay({
     <td
       {...tdProps}
       style={style}
-      className={[className, "p-1 align-top"].filter(Boolean).join(" ")}
+      className={[className, "p-1 [&>button]:block [&>button]:h-full"]
+        .filter(Boolean)
+        .join(" ")}
     >
       {children}
     </td>

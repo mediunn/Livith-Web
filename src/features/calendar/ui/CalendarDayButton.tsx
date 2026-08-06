@@ -37,7 +37,7 @@ export function CalendarDayButton({
       className={[
         // rdp 기본 .rdp-selected .rdp-day_button border가 Tailwind border를 덮어써서,
         // 선택 테두리는 안쪽 wrapper에 그림
-        "h-full w-full bg-transparent p-0",
+        "block h-full w-full bg-transparent p-0",
         typeof className === "string" ? className : "",
       ]
         .filter(Boolean)
@@ -45,7 +45,7 @@ export function CalendarDayButton({
     >
       <div
         className={[
-          "flex h-full w-full flex-col items-center rounded-[4px] border border-1 pt-2",
+          "box-border flex h-full min-h-[calc(var(--rdp-day-height,100px)-0.5rem)] w-full flex-col items-center rounded-[4px] border border-1 pt-2",
           isSelected ? "border-grayScaleBlack50" : "border-transparent",
         ]
           .filter(Boolean)
@@ -67,7 +67,7 @@ export function CalendarDayButton({
         </div>
 
         {/* 공연 목록 자리 */}
-        <div className="w-full px-1 gap-4 flex flex-col mt-4">
+        <div className="mt-4 flex w-full flex-1 flex-col gap-4 px-1">
           {events.slice(0, 2).map((event, index) => (
             <CalendarEvent key={index} type={event.type} text={event.artist} />
           ))}
