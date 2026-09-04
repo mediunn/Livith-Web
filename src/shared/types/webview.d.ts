@@ -12,6 +12,11 @@ declare global {
       };
     };
 
+    Android?: {
+      calendarDateSelected?: (date: string) => void;
+      calendarMonthChanged?: (startDate: string, endDate: string) => void;
+    };
+
     setCalendarData?: (data: MonthlyCalendarResponse[]) => void;
   }
 }

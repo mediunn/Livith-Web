@@ -1,7 +1,7 @@
 import { useMonthlyCalendar } from "./useMonthlyCalendar";
 import { useCalendarBridge } from "../../../shared/lib/webview/useCalendarBridge";
 import { ConcertType, ScheduleType } from "./types";
-import { isIOSWebView } from "../../../shared/lib/webview/isIOSWebView";
+import { isWebView } from "../../../shared/lib/webview/isWebView";
 export function useCalendarData(params: {
   startDate: string;
   endDate: string;
@@ -11,5 +11,5 @@ export function useCalendarData(params: {
   const api = useMonthlyCalendar(params);
   const bridge = useCalendarBridge();
 
-  return isIOSWebView() ? bridge : api;
+  return isWebView() ? bridge : api;
 }

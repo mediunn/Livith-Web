@@ -8,7 +8,7 @@ import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
 import ErrorToast from "../shared/ui/Toast/ErrorToast";
 import ScheduleInfoModal from "../features/calendar/ui/ScheduleInfoModal";
-import { isIOSWebView } from "../shared/lib/webview/isIOSWebView";
+import { isWebView } from "../shared/lib/webview/isWebView";
 import { sendSelectedDate } from "../shared/lib/webview/bridge";
 
 export default function CalendarTab() {
@@ -52,7 +52,7 @@ export default function CalendarTab() {
   const handleDateSelect = (date: string) => {
     window.amplitude.track("click_calendar_date");
 
-    if (isIOSWebView()) {
+    if (isWebView()) {
       sendSelectedDate(date);
       return;
     }
@@ -107,7 +107,7 @@ export default function CalendarTab() {
         onClose={() => setOpenLoginModal(false)}
         type="interestConcert"
       />
-      {!isIOSWebView() && (
+      {!isWebView() && (
         <ScheduleInfoModal
           isOpen={isScheduleModalOpen}
           date={selectedDate}

@@ -19,7 +19,7 @@ import { CalendarDayButton } from "./CalendarDayButton";
 import { CalendarMonthCaption } from "./CalendarMonthCaption";
 import { CalendarWeekday } from "./CalendarWeekday";
 import { CalendarWeekdays } from "./CalendarWeekdays";
-import { isIOSWebView } from "../../../shared/lib/webview/isIOSWebView";
+import { isWebView } from "../../../shared/lib/webview/isWebView";
 import { sendMonthChanged } from "../../../shared/lib/webview/bridge";
 
 type MonthlyCalendarProps = {
@@ -60,13 +60,13 @@ export function MonthlyCalendar({
     return new Map(data.map((item) => [item.date, item.events]));
   }, [data]);
 
-  const isWebView = isIOSWebView();
+  const isWebViewMode = isWebView();
 
   useEffect(() => {
-    if (!isWebView) return;
+    if (!isWebViewMode) return;
 
     sendMonthChanged(startDate, endDate);
-  }, [isWebView, startDate, endDate]);
+  }, [isWebViewMode, startDate, endDate]);
 
   if (isLoading) {
     return (
