@@ -1,12 +1,22 @@
 export function sendSelectedDate(date: string) {
-  window.webkit?.messageHandlers?.calendarDateSelected?.postMessage({
-    date,
-  });
+  if (window.webkit?.messageHandlers?.calendarDateSelected) {
+    window.webkit.messageHandlers.calendarDateSelected.postMessage({
+      date,
+    });
+    return;
+  }
+
+  window.Android?.calendarDateSelected?.(date);
 }
 
 export function sendMonthChanged(startDate: string, endDate: string) {
-  window.webkit?.messageHandlers?.calendarMonthChanged?.postMessage({
-    startDate,
-    endDate,
-  });
+  if (window.webkit?.messageHandlers?.calendarMonthChanged) {
+    window.webkit.messageHandlers.calendarMonthChanged.postMessage({
+      startDate,
+      endDate,
+    });
+    return;
+  }
+
+  window.Android?.calendarMonthChanged?.(startDate, endDate);
 }
