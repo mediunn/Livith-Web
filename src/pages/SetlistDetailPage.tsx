@@ -8,9 +8,16 @@ import { userState } from "../shared/lib/recoil/atoms/userState";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
 import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
+import useSetlistDetail from "../features/setlist/model/useSetlistDetail";
 
 function SetlistDetailPage() {
   const { setlistId, concertId, setlistTitle } = useParams();
+  const location = useLocation();
+  const isAppEntry = location.pathname.startsWith("/app/setlist/");
+  const { data: setlist } = useSetlistDetail({
+    concertId: Number(concertId),
+    setlistId: Number(setlistId),
+  });
   const [setlistType, setSetlistType] = useState<string | null>(null);
   const [user] = useRecoilState(userState);
   const effectRan = useRef(false); // 실행 여부 추적
@@ -64,7 +71,12 @@ function SetlistDetailPage() {
 
   return (
     <div>
-      <ListHeader title={setlistTitle} />
+      <ListHeader
+        title={setlistTitle || setlist?.title}
+        onBackClick={isAppEntry ? () => {
+          window.webkit?.messageHandlers?.setlistWebView?.postMessage("close");
+        } : undefined}
+      />
       <SetlistDetail
         concertId={Number(concertId)}
         setlistId={Number(setlistId)}
