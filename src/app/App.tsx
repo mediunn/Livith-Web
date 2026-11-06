@@ -104,6 +104,10 @@ const router = createBrowserRouter([
         element: <SetlistDetailPage />,
       },
       {
+        path: "app/setlist/:setlistId/:concertId",
+        element: <SetlistDetailPage />,
+      },
+      {
         path: "set-concert",
         element: <SetInterestConcertPage />,
       },

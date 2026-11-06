@@ -6,6 +6,7 @@ import { setlistIdState } from "../../../shared/lib/recoil/atoms/setlistIdState"
 import { useNavigate } from "react-router-dom";
 import { SetlistType } from "../types";
 import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
+import { trackSetlistInteraction } from "../../../shared/lib/webview/setlistBridge";
 
 type SetlistSongListProps = {
   setlistId: number;
@@ -16,7 +17,7 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
   const setSetlistId = useSetRecoilState(setlistIdState);
   const navigate = useNavigate();
   const handleClick = () => {
-    window.amplitude.track("click_report_setlist");
+    trackSetlistInteraction({ type: "onSetlistReportTap" });
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
   const { data: songs, isLoading, isError } = useSetlistSongList({ setlistId });
@@ -36,7 +37,7 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
       {songs?.length === 0 ? (
         <EmptySongList />
       ) : (
-        <div className="mt-24 space-y-10 px-21 py-11 bg-grayScaleBlack90 rounded-10">
+        <div className="mt-24 space-y-10 px-9 py-11 bg-grayScaleBlack90 rounded-10">
           {songs?.map((song) => (
             <SetlistSongItem
               key={song.id}
@@ -47,7 +48,7 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
               setlistId={setlistId}
               onClick={() => {
                 {
-                  window.amplitude.track("click_song_cell");
+                  trackSetlistInteraction({ type: "onSongTap" });
                   setSetlistId(setlistId);
                   navigate(`/songs/${song.id}`);
                 }

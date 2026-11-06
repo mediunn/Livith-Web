@@ -8,9 +8,18 @@ import { userState } from "../shared/lib/recoil/atoms/userState";
 import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
 import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
+import useSetlistDetail from "../features/setlist/model/useSetlistDetail";
+import { isSetlistWebView } from "../shared/lib/webview/setlistBridge";
 
 function SetlistDetailPage() {
   const { setlistId, concertId, setlistTitle } = useParams();
+  const location = useLocation();
+  const isAppEntry = location.pathname.startsWith("/app/setlist/");
+  const isAppWebView = isSetlistWebView();
+  const { data: setlist } = useSetlistDetail({
+    concertId: Number(concertId),
+    setlistId: Number(setlistId),
+  });
   const [setlistType, setSetlistType] = useState<string | null>(null);
   const [user] = useRecoilState(userState);
   const effectRan = useRef(false); // 실행 여부 추적
@@ -32,7 +41,7 @@ function SetlistDetailPage() {
     if (!setlistId) return;
 
     // 로그인 유저는 기록 저장 안 함
-    if (user) return;
+    if (isAppWebView || user) return;
 
     // 이미 로그인 유도 토스트 띄운 경우 중단
     if (sessionStorage.getItem("loginToastShown") === "true") return;
@@ -60,11 +69,20 @@ function SetlistDetailPage() {
         sessionStorage.setItem("loginToastShown", "true");
       }
     }
-  }, [setlistId]);
+  }, [setlistId, isAppWebView]);
 
   return (
     <div>
-      <ListHeader title={setlistTitle} />
+      <ListHeader
+        title={setlistTitle || setlist?.title}
+        onBackClick={
+          isAppEntry && isAppWebView
+            ? () => {
+                window.webkit?.messageHandlers?.setlistWebView?.postMessage("close");
+              }
+            : undefined
+        }
+      />
       <SetlistDetail
         concertId={Number(concertId)}
         setlistId={Number(setlistId)}
@@ -74,11 +92,13 @@ function SetlistDetailPage() {
         setlistId={Number(setlistId)}
         setlistType={setlistType}
       />
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        type="concertInfo"
-      />
+      {!isAppWebView && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+          type="concertInfo"
+        />
+      )}
     </div>
   );
 }
