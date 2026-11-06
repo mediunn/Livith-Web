@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import NavPrev from "../../../shared/assets/NavPrevIcon.svg";
 import { useSong } from "../../../entities/lyric/model/useSong";
 import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
+import { trackSetlistInteraction } from "../../../shared/lib/webview/setlistBridge";
 
 interface MusicTitleBarProps {
   songId: number;
@@ -9,7 +10,7 @@ interface MusicTitleBarProps {
 
 function MusicTitleBar({ songId }: MusicTitleBarProps) {
   const handleClick = () => {
-    window.amplitude.track("click_report_song");
+    trackSetlistInteraction({ type: "onSongReportTap" });
     window.location.href = "https://forms.gle/aMj5C4LhDcMzueWz5";
   };
 
