@@ -18,9 +18,11 @@ import LoginModal from "../features/auth/ui/LoginModal";
 import { userState } from "../shared/lib/recoil/atoms/userState";
 import { toast } from "react-toastify";
 import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
+import { isSetlistWebView } from "../shared/lib/webview/setlistBridge";
 
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
+  const isAppWebView = isSetlistWebView();
   const sheetRef = useRef<SheetRef>(null);
   const [currentSnap, setCurrentSnap] = useState<number | null>(null);
 
@@ -41,7 +43,7 @@ function LyricPage() {
     if (!songId) return;
 
     // 로그인 유저는 기록 저장 안 함
-    if (user) return;
+    if (isAppWebView || user) return;
 
     // 이미 로그인 유도 토스트 띄운 경우 중단
     if (sessionStorage.getItem("loginToastShown") === "true") return;
@@ -70,7 +72,7 @@ function LyricPage() {
         sessionStorage.setItem("loginToastShown", "true");
       }
     }
-  }, [songId]);
+  }, [songId, isAppWebView]);
 
   // 페이지 진입 시 스크롤 맨 위로 이동
   useEffect(() => {
@@ -336,11 +338,13 @@ function LyricPage() {
         </LyricModal>
       )}
 
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        type="concertInfo"
-      />
+      {!isAppWebView && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+          type="concertInfo"
+        />
+      )}
     </div>
   );
 }

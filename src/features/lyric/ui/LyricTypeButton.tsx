@@ -1,3 +1,5 @@
+import { trackSetlistInteraction } from "../../../shared/lib/webview/setlistBridge";
+
 interface LyricTypeButtonProps {
   activeButtons: boolean[];
   onToggle: (index: number) => void;
@@ -34,24 +36,24 @@ function LyricTypeButton({
 
           if (!isActive) {
             if (label === "원어") {
-              window.amplitude.track("toggle_original_on");
+              trackSetlistInteraction({ type: "onOriginalToggle", isOn: true });
             } else if (label === "발음") {
-              window.amplitude.track("toggle_pronunciation_on");
+              trackSetlistInteraction({ type: "onPronunciationToggle", isOn: true });
             } else if (label === "해석") {
-              window.amplitude.track("toggle_translation_on");
+              trackSetlistInteraction({ type: "onTranslationToggle", isOn: true });
             } else if (label === "응원법") {
-              window.amplitude.track("toggle_cheer_on");
+              trackSetlistInteraction({ type: "onCheerToggle", isOn: true });
             }
           }
           if (isActive) {
             if (label === "원어") {
-              window.amplitude.track("toggle_original_off");
+              trackSetlistInteraction({ type: "onOriginalToggle", isOn: false });
             } else if (label === "발음") {
-              window.amplitude.track("toggle_pronunciation_off");
+              trackSetlistInteraction({ type: "onPronunciationToggle", isOn: false });
             } else if (label === "해석") {
-              window.amplitude.track("toggle_translation_off");
+              trackSetlistInteraction({ type: "onTranslationToggle", isOn: false });
             } else if (label === "응원법") {
-              window.amplitude.track("toggle_cheer_off");
+              trackSetlistInteraction({ type: "onCheerToggle", isOn: false });
             }
           }
         };
