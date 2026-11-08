@@ -23,6 +23,7 @@ import { isSetlistWebView } from "../shared/lib/webview/setlistBridge";
 function LyricPage() {
   const { songId } = useParams<{ songId: string }>();
   const isAppWebView = isSetlistWebView();
+  const snapPoints = [-32, -320, window.matchMedia("(max-width: 767px)").matches ? 150 : 42];
   const sheetRef = useRef<SheetRef>(null);
   const [currentSnap, setCurrentSnap] = useState<number | null>(null);
 
@@ -226,7 +227,7 @@ function LyricPage() {
   }
 
   return (
-    <div>
+    <div className="select-none">
       {isFanchantLoading ? (
         <div className="flex justify-center items-center h-60">
           <BeatLoader
@@ -266,15 +267,14 @@ function LyricPage() {
                   sheetRef.current?.snapTo(2);
                 }}
                 ref={sheetRef}
-                snapPoints={[-32, -320, 42]}
+                snapPoints={snapPoints}
                 initialSnap={1} // 중간 위치에서 시작
                 onSnap={(snapIndex) => {
-                  const snapPoints = [-32, -320, 42];
                   setCurrentSnap(snapPoints[snapIndex]);
                 }}
               >
                 <Sheet.Container
-                  className="!mx-auto !max-w-md !bg-grayScaleBlack90 !rounded-t-30"
+                  className="!mx-auto !max-w-md !bg-grayScaleBlack90 !rounded-t-30 select-none"
                   style={{
                     left: "0",
                     right: "0",
