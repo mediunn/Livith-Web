@@ -1,4 +1,5 @@
 import PlayIcon from "../../../../shared/assets/PlayIcon";
+import { isSetlistWebView } from "../../../../shared/lib/webview/setlistBridge";
 
 interface SetlistSongItemProps {
   title: string;
@@ -17,11 +18,12 @@ function SetlistSongItem({
   onClick,
 }: SetlistSongItemProps) {
   const paddedIndex = orderIndex.toString().padStart(2, "0");
+  const isAppWebView = isSetlistWebView();
 
   return (
     <button
       type="button"
-      className={`rounded-6 bg-grayScaleBlack90 flex items-center w-full p-8 min-h-62 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mainYellow30 ${onClick ? "cursor-pointer [@media(hover:hover)_and_(pointer:fine)]:hover:bg-grayScaleBlack80 active:!bg-grayScaleBlack100" : "cursor-default"}`}
+      className={`rounded-6 bg-grayScaleBlack90 flex items-center w-full p-8 min-h-62 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mainYellow30 ${onClick ? "cursor-pointer [@media(hover:hover)_and_(pointer:fine)]:hover:bg-grayScaleBlack80" : "cursor-default"} ${isAppWebView ? "[-webkit-tap-highlight-color:transparent]" : "active:!bg-grayScaleBlack100"}`}
       onClick={onClick}
     >
       {/* <img

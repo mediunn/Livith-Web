@@ -72,7 +72,7 @@ function SetlistDetailPage() {
   }, [setlistId, isAppWebView]);
 
   return (
-    <div>
+    <div className="select-none">
       <ListHeader
         title={setlistTitle || setlist?.title}
         onBackClick={
