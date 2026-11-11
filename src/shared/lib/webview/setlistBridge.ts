@@ -2,6 +2,28 @@ export function isSetlistWebView(): boolean {
   return typeof window.webkit?.messageHandlers?.setlistWebView?.postMessage === "function";
 }
 
+export function sendNativeHeader(title: string): boolean {
+  const handler = window.webkit?.messageHandlers?.setlistNativeHeader;
+  if (!handler) return false;
+  try {
+    handler.postMessage({ title: title.slice(0, 500) });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function sendNativeNavigation(message: { type: "openSong"; songId: number; songTitle: string }): boolean {
+  const handler = window.webkit?.messageHandlers?.setlistNativeNavigation;
+  if (!handler) return false;
+  try {
+    handler.postMessage(message);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export type SetlistInteraction =
   | { type: "onSongTap" | "onSetlistReportTap" | "onSongReportTap" }
   | {
