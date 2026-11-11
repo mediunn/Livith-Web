@@ -6,7 +6,7 @@ import { setlistIdState } from "../../../shared/lib/recoil/atoms/setlistIdState"
 import { useNavigate } from "react-router-dom";
 import { SetlistType } from "../types";
 import SmallReportBtn from "../../../shared/ui/SmallReportButton/SmallReportButton";
-import { trackSetlistInteraction } from "../../../shared/lib/webview/setlistBridge";
+import { sendNativeNavigation, trackSetlistInteraction } from "../../../shared/lib/webview/setlistBridge";
 
 type SetlistSongListProps = {
   setlistId: number;
@@ -50,7 +50,9 @@ function SetlistSongList({ setlistId, setlistType }: SetlistSongListProps) {
                 {
                   trackSetlistInteraction({ type: "onSongTap" });
                   setSetlistId(setlistId);
-                  navigate(`/songs/${song.id}`);
+                  if (!sendNativeNavigation({ type: "openSong", songId: song.id, songTitle: song.title })) {
+                    navigate(`/songs/${song.id}`);
+                  }
                 }
               }}
             />

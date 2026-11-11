@@ -9,7 +9,7 @@ import LoginModal from "../features/auth/ui/LoginModal";
 import { toast } from "react-toastify";
 import LoginSnackbar from "../shared/ui/Snackbar/LoginSnackbar";
 import useSetlistDetail from "../features/setlist/model/useSetlistDetail";
-import { isSetlistWebView } from "../shared/lib/webview/setlistBridge";
+import { isSetlistWebView, sendNativeHeader } from "../shared/lib/webview/setlistBridge";
 
 function SetlistDetailPage() {
   const { setlistId, concertId, setlistTitle } = useParams();
@@ -24,6 +24,11 @@ function SetlistDetailPage() {
   const [user] = useRecoilState(userState);
   const effectRan = useRef(false); // 실행 여부 추적
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [hasNativeHeader, setHasNativeHeader] = useState(false);
+
+  useEffect(() => {
+    setHasNativeHeader(sendNativeHeader(setlistTitle || setlist?.title || ""));
+  }, [setlistTitle, setlist?.title]);
 
   const [viewedSetlists, setViewedSetlists] = useState<string[]>(() => {
     const stored = sessionStorage.getItem("viewedSetlists");
@@ -73,7 +78,7 @@ function SetlistDetailPage() {
 
   return (
     <div className="select-none">
-      <ListHeader
+      {!hasNativeHeader && <ListHeader
         title={setlistTitle || setlist?.title}
         onBackClick={
           isAppEntry && isAppWebView
@@ -82,7 +87,7 @@ function SetlistDetailPage() {
               }
             : undefined
         }
-      />
+      />}
       <SetlistDetail
         concertId={Number(concertId)}
         setlistId={Number(setlistId)}
